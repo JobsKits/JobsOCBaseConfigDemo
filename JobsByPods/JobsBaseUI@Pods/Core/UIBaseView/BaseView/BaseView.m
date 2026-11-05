@@ -6,7 +6,6 @@
 //
 
 #import "BaseView.h"
-
 #import <JobsBaseUI/BaseButton.h>
 #import <JobsBaseUI/NSObject+Extra.h>
 #import <JobsBaseUI/UIView+Extra.h>

@@ -6,7 +6,6 @@
 //
 
 #import "BaseCollectionReusableView.h"
-
 #import <JobsBaseUI/UIView+Extra.h>
 
 @interface BaseCollectionReusableView ()

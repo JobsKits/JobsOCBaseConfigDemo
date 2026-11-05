@@ -22,26 +22,20 @@
         [cgColors addObject:(__bridge id)color.CGColor];
     }
     if (!cgColors.count) return nil;
-    UIGraphicsBeginImageContextWithOptions(targetViewRect.size, opaque, UIScreen.mainScreen.scale);
-    CGContextRef context = UIGraphicsGetCurrentContext();
-    if (!context) {
-        UIGraphicsEndImageContext();
-        return nil;
-    }
-    CGColorSpaceRef colorSpace = CGColorSpaceCreateDeviceRGB();
-    CGGradientRef gradient = CGGradientCreateWithColors(colorSpace, (__bridge CFArrayRef)cgColors, NULL);
-    CGPoint realEndPoint = CGPointEqualToPoint(endPoint, CGPointZero) ? CGPointMake(CGRectGetMaxX(targetViewRect), CGRectGetMaxY(targetViewRect)) : endPoint;
-    if (gradient) {
-        CGContextDrawLinearGradient(context,
-                                    gradient,
-                                    startPoint,
-                                    realEndPoint,
-                                    kCGGradientDrawsBeforeStartLocation | kCGGradientDrawsAfterEndLocation);
-    }
-    UIImage *gradientImage = UIGraphicsGetImageFromCurrentImageContext();
-    if (gradient) CGGradientRelease(gradient);
-    CGColorSpaceRelease(colorSpace);
-    UIGraphicsEndImageContext();
+    UIImage *gradientImage = JobsRenderImage(targetViewRect.size, opaque, jobsScreenScaleForView(nil), ^(CGContextRef context) {
+        CGColorSpaceRef colorSpace = CGColorSpaceCreateDeviceRGB();
+        CGGradientRef gradient = CGGradientCreateWithColors(colorSpace, (__bridge CFArrayRef)cgColors, NULL);
+        CGPoint realEndPoint = CGPointEqualToPoint(endPoint, CGPointZero) ? CGPointMake(CGRectGetMaxX(targetViewRect), CGRectGetMaxY(targetViewRect)) : endPoint;
+        if (gradient) {
+            CGContextDrawLinearGradient(context,
+                                        gradient,
+                                        startPoint,
+                                        realEndPoint,
+                                        kCGGradientDrawsBeforeStartLocation | kCGGradientDrawsAfterEndLocation);
+        }
+        if (gradient) CGGradientRelease(gradient);
+        CGColorSpaceRelease(colorSpace);
+    });
     return gradientImage ? [UIColor colorWithPatternImage:gradientImage] : nil;
 }
 /// 十六进制字符串 => UIColor *

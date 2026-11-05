@@ -6,6 +6,7 @@
 //
 
 #import "JobsAppDoorForgotCodeContentView.h"
+#import "../../../测试支持/JobsAppDoorCoverageProbe/JobsAppDoorCoverageProbe.h"
 
 @interface JobsAppDoorForgotCodeContentView ()
 
@@ -82,6 +83,11 @@ Prop_strong()BaseButton *contactCustomerServiceBtn;         // 联系客服按�
             .byEnabled(enabled)
             .byUserInteractionEnabled(enabled)
             .byAlpha(enabled ? 1 : 0.45f);
+#if DEBUG
+        if ([NSProcessInfo.processInfo.arguments containsObject:@"--jobs-coverage-route"]) {
+            self.confirmBtn.accessibilityValue = enabled ? @"ready" : @"blocked";
+        }
+#endif
     };
 }
 
@@ -144,6 +150,7 @@ Prop_strong()BaseButton *contactCustomerServiceBtn;         // 联系客服按�
                 [self endEditing:YES];
                 if (self.objBlock) self.objBlock(x);
             }).onLongPressGestureBy(^(id data){
+                JobsAppDoorCoverageLongPress(data);
                 JobsLog(@"");
             })
             .addOn(self)
@@ -151,7 +158,11 @@ Prop_strong()BaseButton *contactCustomerServiceBtn;         // 联系客服按�
                 make.top.left.bottom.equalTo(self);
                 make.width.mas_equalTo(RegisterBtnWidth);
             });
-    };return _backToLoginBtn;
+    }
+#if DEBUG
+    _backToLoginBtn.accessibilityIdentifier = @"jobs.coverage.auth.forgot.login";
+#endif
+    return _backToLoginBtn;
 }
 
 -(UILabel *)titleLab{
@@ -185,6 +196,12 @@ Prop_strong()BaseButton *contactCustomerServiceBtn;         // 联系客服按�
                 JobsAppDoorInputViewBaseStyle_3 *inputView = (JobsAppDoorInputViewBaseStyle_3 *)view;
                 /// 初始渲染可能同步触发文本信号，必须先于外部回调绑定完成
                 inputView.jobsRichViewByModel(self.jobs_passwordInputModelWithPlaceholder(@"密码".jobsTr()));
+#if DEBUG
+                if ([NSProcessInfo.processInfo.arguments containsObject:@"--jobs-coverage-route"]) {
+                    JobsAppDoorCoverageUniqueTextField(inputView).accessibilityIdentifier = @"jobs.coverage.auth.forgot.input.0";
+                    JobsAppDoorCoverageBindInput(inputView, JobsAppDoorCoverageUniqueTextField(inputView).accessibilityIdentifier);
+                }
+#endif
                 @jobs_weakify(self)
                 inputView.actionObjBlock(^(id data) {
                     @jobs_strongify(self)
@@ -215,6 +232,12 @@ Prop_strong()BaseButton *contactCustomerServiceBtn;         // 联系客服按�
                 JobsAppDoorInputViewBaseStyle_3 *inputView = (JobsAppDoorInputViewBaseStyle_3 *)view;
                 /// 初始渲染可能同步触发文本信号，必须先于外部回调绑定完成
                 inputView.jobsRichViewByModel(self.jobs_passwordInputModelWithPlaceholder(@"确认密码".jobsTr()));
+#if DEBUG
+                if ([NSProcessInfo.processInfo.arguments containsObject:@"--jobs-coverage-route"]) {
+                    JobsAppDoorCoverageUniqueTextField(inputView).accessibilityIdentifier = @"jobs.coverage.auth.forgot.input.1";
+                    JobsAppDoorCoverageBindInput(inputView, JobsAppDoorCoverageUniqueTextField(inputView).accessibilityIdentifier);
+                }
+#endif
                 @jobs_weakify(self)
                 inputView.actionObjBlock(^(id data) {
                     @jobs_strongify(self)
@@ -250,8 +273,16 @@ Prop_strong()BaseButton *contactCustomerServiceBtn;         // 联系客服按�
                     toastBy(@"两次密码输入不一致".jobsTr());
                     return;
                 }
-                if (self.objBlock) self.objBlock(x);
+                if (self.objBlock) {
+                    self.objBlock(x);
+#if DEBUG
+                    if ([NSProcessInfo.processInfo.arguments containsObject:@"--jobs-coverage-route"]) {
+                        x.accessibilityValue = @"submitted";
+                    }
+#endif
+                }
             }).onLongPressGestureBy(^(id data){
+                JobsAppDoorCoverageLongPress(data);
                 JobsLog(@"");
             })
             .addOn(self)
@@ -261,7 +292,11 @@ Prop_strong()BaseButton *contactCustomerServiceBtn;         // 联系客服按�
                 make.top.equalTo(self.confirmPasswordInputView.mas_bottom).offset(JobsWidth(24));
             });
         self.jobs_updateConfirmBtnState();
-    };return _confirmBtn;
+    }
+#if DEBUG
+    _confirmBtn.accessibilityIdentifier = @"jobs.coverage.auth.forgot.confirm";
+#endif
+    return _confirmBtn;
 }
 
 -(BaseButton *)backHomeBtn{
@@ -277,6 +312,7 @@ Prop_strong()BaseButton *contactCustomerServiceBtn;         // 联系客服按�
                 [self endEditing:YES];
                 if (self.objBlock) self.objBlock(x);
             }).onLongPressGestureBy(^(id data){
+                JobsAppDoorCoverageLongPress(data);
                 JobsLog(@"");
             })
             .addOn(self)
@@ -286,7 +322,11 @@ Prop_strong()BaseButton *contactCustomerServiceBtn;         // 联系客服按�
                 make.top.equalTo(self.confirmBtn.mas_bottom).offset(JobsWidth(12));
                 make.size.mas_equalTo(CGSizeMake(JobsWidth(150), JobsWidth(30)));
             });
-    };return _backHomeBtn;
+    }
+#if DEBUG
+    _backHomeBtn.accessibilityIdentifier = @"jobs.coverage.auth.forgot.home";
+#endif
+    return _backHomeBtn;
 }
 
 -(BaseButton *)contactCustomerServiceBtn{
@@ -311,6 +351,7 @@ Prop_strong()BaseButton *contactCustomerServiceBtn;         // 联系客服按�
                 [self endEditing:YES];
                 if (self.objBlock) self.objBlock(x);
             }).onLongPressGestureBy(^(id data){
+                JobsAppDoorCoverageLongPress(data);
                 JobsLog(@"");
             })
             .addOn(self)
@@ -330,7 +371,9 @@ Prop_strong()BaseButton *contactCustomerServiceBtn;         // 联系客服按�
                     .byAdjustsFontSizeToFitWidth(NO)
                     .byLineBreakMode(NSLineBreakByWordWrapping);
             });
-    };return _contactCustomerServiceBtn;
+    }
+    JobsAppDoorCoverageName(_contactCustomerServiceBtn, @"jobs.coverage.auth.lp.JobsAppDoorForgotCodeContentView.contactCustomerServiceBtn");
+    return _contactCustomerServiceBtn;
 }
 
 @end

@@ -6,7 +6,6 @@
 //
 
 #import "JobsBtnsStyleTBVCell.h"
-
 #import <JobsBaseUI/BaseButton.h>
 #import <JobsBaseUI/UIButton+Extra.h>
 #import <JobsBaseUI/UIButton+UI.h>

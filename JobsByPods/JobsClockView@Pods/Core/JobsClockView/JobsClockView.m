@@ -41,6 +41,8 @@ Prop_strong() JobsTimer *timer;
 @end
 // JOBS_PROPERTY_DSL_SETTER_DECLARATION_AUTOGEN_END JobsClockView
 
+JobsKey(JobsJobsClockViewModernTraitsRegistrationKey)
+
 @implementation JobsClockView
 
 -(JobsRetIDByIDBlock _Nonnull)byTimer{
@@ -72,7 +74,30 @@ Prop_strong() JobsTimer *timer;
     @jobs_weakify(self)
     return ^{
         @jobs_strongify(self)
-        if (!self) return;
+        if (!self) {
+            return;
+        }
+        if (@available(iOS 17.0, tvOS 17.0, *)) {
+            if (!Jobs_getAssociatedObjectByTarget(self, JobsJobsClockViewModernTraitsRegistrationKey)) {
+                Jobs_setAssociatedRETAIN_NONATOMICByTarget(self, JobsJobsClockViewModernTraitsRegistrationKey, @YES)
+                NSArray<UITrait> *traits = [UITraitCollection.systemTraitsAffectingColorAppearance arrayByAddingObjectsFromArray:@[
+                    UITraitDisplayScale.class,
+                    UITraitPreferredContentSizeCategory.class,
+                    UITraitHorizontalSizeClass.class,
+                    UITraitVerticalSizeClass.class,
+                    UITraitLayoutDirection.class
+                ]];
+                [self registerForTraitChanges:traits
+                                 withHandler:^(__kindof id<UITraitEnvironment> environment,
+                                               UITraitCollection *previousTraitCollection) {
+                    JobsClockView *target = (JobsClockView *)environment;
+                    jobsByUITraitCollectionBlock action = ((jobsByUITraitCollectionBlock (*)(__typeof__(target), SEL))JobsBlockInstanceMethodIMP(JobsClockView.class, @selector(jobsTraitCollectionDidChange)))(target, @selector(jobsTraitCollectionDidChange));
+                    if (action) {
+                        action(previousTraitCollection);
+                    }
+                }];
+            }
+        }
         self.byDialLayer([CAShapeLayer layer]);
         self.dialLayer.byFillColor(UIColor.clearColor.CGColor);
         self.dialLayer.byStrokeColor(JobsLabelColor.CGColor);
@@ -150,6 +175,9 @@ Prop_strong() JobsTimer *timer;
 }
 
 -(void)traitCollectionDidChange:(UITraitCollection *)previousTraitCollection{
+    if (@available(iOS 17.0, tvOS 17.0, *)) {
+        return;
+    }
     jobsByUITraitCollectionBlock action = ((jobsByUITraitCollectionBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(JobsClockView.class, @selector(jobsTraitCollectionDidChange)))(self, @selector(jobsTraitCollectionDidChange));
     if (action) action(previousTraitCollection);
 }
@@ -159,7 +187,11 @@ Prop_strong() JobsTimer *timer;
     return ^(UITraitCollection * previousTraitCollection){
         @jobs_strongify(self)
         if (!self) return;
-        [super traitCollectionDidChange:previousTraitCollection];
+        if (@available(iOS 17.0, tvOS 17.0, *)) {
+            // 现代注册回调只执行业务刷新，旧系统保留父类通知。
+        } else {
+            SuppressWdeprecatedDeclarationsWarning([super traitCollectionDidChange:previousTraitCollection];);
+        }
         if (@available(iOS 13.0, *)) {
             if (![self.traitCollection hasDifferentColorAppearanceComparedToTraitCollection:previousTraitCollection]) return;
         }

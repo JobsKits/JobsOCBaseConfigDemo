@@ -12,6 +12,9 @@
 #include <stdlib.h>
 #include <stdio.h>
 
+// 用途：独立 C 回归程序，在子进程验证致命信号日志写入、原信号处理器保留及 SIGPIPE 不被改写。
+// 运行：通过本 Pod Tests/run_regression.rb 编译并执行；仅测试子进程崩溃，不进入主 App 或 XCTest。
+
 static void JobsExistingSignalHandler(int signalNumber) {
     (void)signalNumber;
     _exit(42);

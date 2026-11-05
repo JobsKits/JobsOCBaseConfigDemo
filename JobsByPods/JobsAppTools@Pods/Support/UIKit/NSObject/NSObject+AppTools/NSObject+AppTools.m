@@ -6,7 +6,6 @@
 //
 
 #import "NSObject+AppTools.h"
-
 #import <JobsAppTools/NSObject+Image.h>
 #import <JobsAppTools/UIColor+Extra.h>
 

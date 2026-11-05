@@ -6,7 +6,6 @@
 //
 
 #import "JobsBaseCollectionViewCell.h"
-
 #import <JobsBaseUI/CALayer+Extra.h>
 #import <JobsBaseUI/UICollectionViewCell+ShakeAnimation.h>
 #import <JobsBaseUI/UICollectionView+JobsRegisterClass.h>

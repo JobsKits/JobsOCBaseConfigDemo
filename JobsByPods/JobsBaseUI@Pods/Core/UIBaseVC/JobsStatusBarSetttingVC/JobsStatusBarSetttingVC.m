@@ -6,7 +6,6 @@
 //
 
 #import "JobsStatusBarSetttingVC.h"
-
 #import <JobsBaseUI/NSArray+Extra.h>
 #import <JobsBaseUI/NSObject+Extra.h>
 

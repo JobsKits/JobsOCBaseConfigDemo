@@ -78,6 +78,7 @@
 
 - 常用 UI 创建统一优先走本 Pod 当前真实导出的 `jobsMakeView`、`jobsMakeLabel`、`jobsMakeImageView`、`jobsMakeTextView`、`jobsMakeTextField`、`jobsMakeCollectionView`、`jobsMakeScrollView`、`jobsMakeSlider`、`jobsMakeSwitch`、`jobsMakeStackView`、`jobsMakeProgressView`、`jobsMakeSegmentedControl`、`jobsMakeContextualAction`、`jobsMakeSwipeActionsConfiguration`、`jobsMakeNavigationBarAppearance`、`jobsMakeTabBarAppearance` 等工厂。
 - 菜单与系统条目创建分别使用 `jobsMakeAction`、`jobsMakeMenu` / `jobsMakeMenuByConfiguration`、`jobsMakeContextMenuConfiguration`、`jobsMakeNib`、`jobsMakeBarButtonItemByTitle`、`jobsMakeBarButtonItemByImage`、`jobsMakeBarButtonItemBySystemItem`；空图片走 `jobsMakeImage(config Block)`。
+- `JobsMakes.h` 的 `jobsMakeVolumeView(jobsByViewBlock _Nullable block)` 返回 `__kindof MPVolumeView *`，复用 UIView 配置 Block，默认隐藏音频路由按钮；调用方可继续使用 UIView DSL 装配，系统音量由 [**MPVolumeView**](https://developer.apple.com/documentation/mediaplayer/mpvolumeview) 自身处理，不查询或改写其私有滑条。该系统控件不能在模拟器调整系统音量。
 - 空贝塞尔路径统一使用 `jobsMakeBezierPath(nil)`；该工厂的配置 Block 允许为空，不再另增与它同义的空路径入口。
 - `UIBarButtonItem.initBy(view)` 已承接 customView 创建，`UINavigationController.initBy(viewController)` 已承接 root controller 创建，本 Pod 不重复铺设同义工厂。
 - `jobsMakeButton` 与 `jobsMakeTableViewByPlain/Grouped/InsetGrouped` 当前归属 `JobsByOCPods`，不属于 `JobsMakes`；调用方应按真实聚合头和 Pod 依赖使用，不能只因同为 `jobsMake` 命名就误判归属。
@@ -113,6 +114,8 @@
   ```
 
 ## <span id="jobs-toc-heading-5" data-jobs-toc="v2">四、目录结构 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a></span><!-- jobs-toc:heading-end -->
+
+- `Support/UIKit/UIColor/UIColor+Extra` 中的头文件与实现以完整基名目录成对管理；公开头文件名不变，`Tests` / `Example` 继续沿用原有编译与排除边界。
 
 ```text
 JobsMakes@Pods/

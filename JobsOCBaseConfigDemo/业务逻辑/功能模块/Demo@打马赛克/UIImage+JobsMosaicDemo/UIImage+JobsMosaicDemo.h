@@ -6,7 +6,6 @@
 //
 
 #import <UIKit/UIKit.h>
-
 #import <CoreImage/CoreImage.h>
 
 #if __has_include(<JobsBlock/JobsBlock.h>)

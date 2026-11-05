@@ -6,6 +6,7 @@
 //
 
 #import "JobsRightBtnsView.h"
+#import "../../../../Common/App工具类/测试支持/JobsOCCoverageGestureProbe/JobsOCCoverageGestureProbe.h"
 
 @interface JobsRightBtnsView ()
 
@@ -177,12 +178,14 @@ static dispatch_once_t static_rightBtnsViewOnceToken;
                     if (self.objBlock) self.objBlock(x);
                 });
             }).onLongPressGestureBy(^(id data){
+                JobsOCCoverageLongPressDelivered(data);
                 JobsLog(@"");
             });
         _loveBtn.addOn(self);
         self.byLayoutIfNeeded();
     }
     _loveBtn.jobsResetBtnImage(_loveBtn.selected ? @"视频未点赞".img : @"视频未点赞".img);
+    JobsOCCoveragePrepareIndexedLongPressButton(_loveBtn, @"jobs.coverage.longPress.JobsRightBtnsView.loveBtn");
     return _loveBtn;
 }
 
@@ -221,11 +224,17 @@ static dispatch_once_t static_rightBtnsViewOnceToken;
                     });
                 });
             }).onLongPressGestureBy(^(id data){
+                JobsOCCoverageLongPressDelivered(data);
                 JobsLog(@"");
             })
             .addOn(self);
         self.byLayoutIfNeeded();
-    };return _commentBtn;
+    }
+#if DEBUG
+    _commentBtn.accessibilityIdentifier = @"jobs.coverage.open.JobsCommentCoreVC";
+#endif
+    JobsOCCoveragePrepareLongPressButton(_commentBtn, @"jobs.coverage.open.JobsCommentCoreVC");
+    return _commentBtn;
 }
 
 -(BaseButton *)shareBtn{
@@ -250,11 +259,14 @@ static dispatch_once_t static_rightBtnsViewOnceToken;
                     if (self.objBlock) self.objBlock(x);
                 });
             }).onLongPressGestureBy(^(id data){
+                JobsOCCoverageLongPressDelivered(data);
                 JobsLog(@"");
             })
             .addOn(self);
         [self layoutIfNeeded];
-    };return _shareBtn;
+    }
+    JobsOCCoveragePrepareIndexedLongPressButton(_shareBtn, @"jobs.coverage.longPress.JobsRightBtnsView.shareBtn");
+    return _shareBtn;
 }
 
 -(NSMutableArray<__kindof UIButton *> *)masonryViewArr{

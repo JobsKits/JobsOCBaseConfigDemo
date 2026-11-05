@@ -6,7 +6,6 @@
 //
 
 #import "NSObject+UUID.h"
-
 #import <JobsDeviceInfo/NSString+Replace.h>
 
 @implementation NSObject (UUID)

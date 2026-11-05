@@ -92,9 +92,21 @@ typedef void(^JobsIconfontLoadCompletion)(JobsIconfontLoadResult *result);
 -(UIImage *)iconImageForGlyph:(JobsIconfontGlyph)glyph
                         size:(CGSize)size
                        color:(UIColor *)color
+             traitCollection:(UITraitCollection *)traitCollection;
+-(UIImage *)iconImageForGlyph:(JobsIconfontGlyph)glyph
+                        size:(CGSize)size
+                       color:(UIColor *)color
              backgroundColor:(UIColor *)backgroundColor;
+-(UIImage *)iconImageForGlyph:(JobsIconfontGlyph)glyph
+                        size:(CGSize)size
+                       color:(UIColor *)color
+             backgroundColor:(UIColor *)backgroundColor
+             traitCollection:(UITraitCollection *)traitCollection;
 -(UIImage *)placeholderImageForAsset:(JobsIconfontRemoteAsset)asset
                                 size:(CGSize)size;
+-(UIImage *)placeholderImageForAsset:(JobsIconfontRemoteAsset)asset
+                                size:(CGSize)size
+                     traitCollection:(UITraitCollection *)traitCollection;
 
 -(JobsIconfontLoadToken *)loadAsset:(JobsIconfontRemoteAsset)asset
                       intoImageView:(UIImageView *)imageView

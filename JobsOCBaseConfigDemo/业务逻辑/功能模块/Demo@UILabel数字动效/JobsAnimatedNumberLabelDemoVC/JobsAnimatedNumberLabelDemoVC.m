@@ -6,7 +6,6 @@
 //
 
 #import "JobsAnimatedNumberLabelDemoVC.h"
-
 #import <math.h>
 
 @interface JobsAnimatedNumberLabelDemoVC ()

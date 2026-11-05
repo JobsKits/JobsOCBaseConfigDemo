@@ -6,6 +6,7 @@
 //
 
 #import "MSMineView2.h"
+#import "../../../Common/App工具类/测试支持/JobsOCCoverageGestureProbe/JobsOCCoverageGestureProbe.h"
 
 @interface MSMineView2 ()
 
@@ -131,6 +132,7 @@ static dispatch_once_t static_mineView2OnceToken;
                 @jobs_strongify(self)
                 if (self.objBlock) self.objBlock(x);
             }).onLongPressGestureBy(^(id data){
+                JobsOCCoverageLongPressDelivered(data);
                 JobsLog(@"");
             })
             .addOn(self)
@@ -139,7 +141,9 @@ static dispatch_once_t static_mineView2OnceToken;
                 make.centerY.equalTo(self);
                 make.left.equalTo(self).offset(JobsWidth(6));
             });
-    };return _btn1;
+    }
+    JobsOCCoveragePrepareLongPressButton(_btn1, @"jobs.coverage.longPress.MSMineView2.btn1");
+    return _btn1;
 }
 
 -(UIButton *)btn2{
@@ -154,6 +158,7 @@ static dispatch_once_t static_mineView2OnceToken;
                 @jobs_strongify(self)
                 if (self.objBlock) self.objBlock(x);
             }).onLongPressGestureBy(^(id data){
+                JobsOCCoverageLongPressDelivered(data);
                 JobsLog(@"");
             })
             .addOn(self)
@@ -162,7 +167,9 @@ static dispatch_once_t static_mineView2OnceToken;
                 make.centerY.equalTo(self);
                 make.right.equalTo(self).offset(JobsWidth(-5));
             });
-    };return _btn2;
+    }
+    JobsOCCoveragePrepareLongPressButton(_btn2, @"jobs.coverage.longPress.MSMineView2.btn2");
+    return _btn2;
 }
 
 @end

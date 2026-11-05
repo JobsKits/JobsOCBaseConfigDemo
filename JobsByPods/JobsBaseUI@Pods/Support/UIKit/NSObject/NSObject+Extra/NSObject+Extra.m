@@ -6,7 +6,6 @@
 //
 
 #import "NSObject+Extra.h"
-
 #import <JobsBaseUI/BaseButton.h>
 
 @implementation NSObject (JobsBaseUIExtra)
@@ -122,7 +121,7 @@
             if (comma.location == NSNotFound) { return nil; }
             NSString *b64 = [dataURL substringFromIndex:comma.location + 1];
             NSData *data = [NSData.alloc initWithBase64EncodedString:b64 options:NSDataBase64DecodingIgnoreUnknownCharacters];
-            if (!data) { return nil; };return [UIImage imageWithData:data scale:UIScreen.mainScreen.scale];
+            if (!data) { return nil; };return [UIImage imageWithData:data scale:jobsScreenScaleForView(nil)];
         }else return nil;
     };
 }
@@ -320,7 +319,11 @@
         for (UIScene *scene in UIApplication.sharedApplication.connectedScenes) {
             if (![scene isKindOfClass:UIWindowScene.class]) continue;
             UIWindowScene *windowScene = (UIWindowScene *)scene;
-            orientation = windowScene.interfaceOrientation;
+            if (@available(iOS 16.0, *)) {
+                orientation = windowScene.effectiveGeometry.interfaceOrientation;
+            } else {
+                SuppressWdeprecatedDeclarationsWarning(orientation = windowScene.interfaceOrientation;);
+            }
             if (orientation != UIInterfaceOrientationUnknown) break;
         }
         switch (orientation) {

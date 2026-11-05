@@ -27,33 +27,24 @@
                                        options:NSStringDrawingUsesLineFragmentOrigin | NSStringDrawingTruncatesLastVisibleLine
                                     attributes:attributeDic
                                        context:nil].size;
-    if ([UIScreen.mainScreen respondsToSelector:@selector(scale)]){
-        if (UIScreen.mainScreen.scale == 2.0){
-            UIGraphicsBeginImageContextWithOptions(size, NO, 1.0);
-        } else{
-            UIGraphicsBeginImageContext(size);
-        }
-    }else{
-        UIGraphicsBeginImageContext(size);
-    }
-    CGContextRef context = UIGraphicsGetCurrentContext();
-    [backGroundColor set];
-    CGRect rect = CGRectMake(0,
-                             0,
-                             size.width + 1,
-                             size.height + 1);
-    CGContextFillRect(context, rect);
-    NSMutableParagraphStyle *paragraph = NSMutableParagraphStyle.new;
-    paragraph.byAlignment(textAlignment);
-    NSDictionary *attributes = @ {
-        NSForegroundColorAttributeName:textColor,
-        NSFontAttributeName:font,
-        NSParagraphStyleAttributeName:paragraph
-    };
-    [string drawInRect:rect
-        withAttributes:attributes];
-    UIImage *image = UIGraphicsGetImageFromCurrentImageContext();
-    UIGraphicsEndImageContext();
+    UIImage *image = JobsRenderImage(size, NO, 1.0, ^(CGContextRef jobsDrawingContext) {
+        CGContextRef context = jobsDrawingContext;
+        [backGroundColor set];
+        CGRect rect = CGRectMake(0,
+                                 0,
+                                 size.width + 1,
+                                 size.height + 1);
+        CGContextFillRect(context, rect);
+        NSMutableParagraphStyle *paragraph = NSMutableParagraphStyle.new;
+        paragraph.byAlignment(textAlignment);
+        NSDictionary *attributes = @ {
+            NSForegroundColorAttributeName:textColor,
+            NSFontAttributeName:font,
+            NSParagraphStyleAttributeName:paragraph
+        };
+        [string drawInRect:rect
+            withAttributes:attributes];
+    });
     return image;
 }
 /// NSString 转 UIImage
@@ -104,15 +95,14 @@
 /// 对UIImage对象进行缩放，并返回一个指定尺寸的新图像
 -(JobsRetImageByCGSizeBlock _Nonnull)imageResize{
     return ^UIImage *_Nonnull(CGSize newSize){
-        CGFloat scale = UIScreen.mainScreen.scale;
+        CGFloat scale = jobsScreenScaleForView(nil);
         //UIGraphicsBeginImageContext(newSize);
-        UIGraphicsBeginImageContextWithOptions(newSize, NO, scale);
-        [self drawInRect:CGRectMake(0,
-                                    0,
-                                    newSize.width,
-                                    newSize.height)];
-        UIImage* newImage = UIGraphicsGetImageFromCurrentImageContext();
-        UIGraphicsEndImageContext();
+        UIImage* newImage = JobsRenderImage(newSize, NO, scale, ^(CGContextRef jobsDrawingContext) {
+            [self drawInRect:CGRectMake(0,
+                                        0,
+                                        newSize.width,
+                                        newSize.height)];
+        });
         return newImage;
     };
 }
@@ -121,16 +111,15 @@
     @jobs_weakify(self)
     return ^UIImage *_Nonnull(CGFloat alpha){
         @jobs_strongify(self)
-        UIGraphicsBeginImageContextWithOptions(self.size, NO, 0.0f);
-        CGContextRef ctx = UIGraphicsGetCurrentContext();
-        CGRect area = CGRectMake(0, 0, self.size.width, self.size.height);
-        CGContextScaleCTM(ctx, 1, -1);
-        CGContextTranslateCTM(ctx, 0, -self.size.height);
-        CGContextSetBlendMode(ctx, kCGBlendModeMultiply);
-        CGContextSetAlpha(ctx, alpha);
-        CGContextDrawImage(ctx, area, self.CGImage);
-        UIImage *newImage = UIGraphicsGetImageFromCurrentImageContext();
-        UIGraphicsEndImageContext();
+        UIImage *newImage = JobsRenderImage(self.size, NO, 0.0f, ^(CGContextRef jobsDrawingContext) {
+            CGContextRef ctx = UIGraphicsGetCurrentContext();
+            CGRect area = CGRectMake(0, 0, self.size.width, self.size.height);
+            CGContextScaleCTM(ctx, 1, -1);
+            CGContextTranslateCTM(ctx, 0, -self.size.height);
+            CGContextSetBlendMode(ctx, kCGBlendModeMultiply);
+            CGContextSetAlpha(ctx, alpha);
+            CGContextDrawImage(ctx, area, self.CGImage);
+        });
         return newImage;
     };
 }
@@ -156,10 +145,9 @@
     return ^UIImage *_Nonnull(CGSize size){
         @jobs_strongify(self)
         CGRect rect = (CGRect){CGPointZero, size};
-        UIGraphicsBeginImageContextWithOptions(size, NO, UIScreen.mainScreen.scale);
-        [self drawInRect:rect];
-        UIImage *resImage = UIGraphicsGetImageFromCurrentImageContext();
-        UIGraphicsEndImageContext();
+        UIImage *resImage = JobsRenderImage(size, NO, jobsScreenScaleForView(nil), ^(CGContextRef jobsDrawingContext) {
+            [self drawInRect:rect];
+        });
         return resImage;
     };
 }
@@ -168,13 +156,13 @@
     @jobs_weakify(self)
     return ^UIImage *_Nonnull(CGSize size){
         @jobs_strongify(self)
-        UIGraphicsBeginImageContext(size);//size为CGSize类型，即你所需要的图片尺寸
-        [self drawInRect:CGRectMake(0,
-                                    0,
-                                    size.width,
-                                    size.height)];
-        UIImage *scaledImage = UIGraphicsGetImageFromCurrentImageContext();
-        UIGraphicsEndImageContext();
+        UIImage *scaledImage = JobsRenderImage(size, NO, 1, ^(CGContextRef jobsDrawingContext) {
+    //size为CGSize类型，即你所需要的图片尺寸
+            [self drawInRect:CGRectMake(0,
+                                        0,
+                                        size.width,
+                                        size.height)];
+        });
         return scaledImage;
     };
 }
@@ -208,22 +196,21 @@
             }break;
     }
     /// 开启上下文
-    UIGraphicsBeginImageContextWithOptions(boxBounds.size, NO, UIScreen.mainScreen.scale);
-    CGContextRef bitmap = UIGraphicsGetCurrentContext();
-    /// 归零path
-    UIBezierPath * newPath = path.copy;
-    [newPath applyTransform:CGAffineTransformMakeTranslation(-path.bounds.origin.x, -path.bounds.origin.y)];
-    [newPath addClip];
-    /// 移动原点至图片中心
-    CGContextTranslateCTM(bitmap, boxBounds.size.width / 2.0, boxBounds.size.height / 2.0);
-    CGContextScaleCTM(bitmap, 1.0, -1.0);
-    CGContextDrawImage(bitmap, CGRectMake(-width / 2,
-                                          -height / 2,
-                                          width,
-                                          height), self.CGImage);
-    /// 生成图片
-    UIImage *newImage = UIGraphicsGetImageFromCurrentImageContext();
-    UIGraphicsEndImageContext();
+    UIImage *newImage = JobsRenderImage(boxBounds.size, NO, jobsScreenScaleForView(nil), ^(CGContextRef jobsDrawingContext) {
+        CGContextRef bitmap = UIGraphicsGetCurrentContext();
+        /// 归零path
+        UIBezierPath * newPath = path.copy;
+        [newPath applyTransform:CGAffineTransformMakeTranslation(-path.bounds.origin.x, -path.bounds.origin.y)];
+        [newPath addClip];
+        /// 移动原点至图片中心
+        CGContextTranslateCTM(bitmap, boxBounds.size.width / 2.0, boxBounds.size.height / 2.0);
+        CGContextScaleCTM(bitmap, 1.0, -1.0);
+        CGContextDrawImage(bitmap, CGRectMake(-width / 2,
+                                              -height / 2,
+                                              width,
+                                              height), self.CGImage);
+        /// 生成图片
+    });
     return newImage;
 }
 /// 对系统方法 initWithData 的二次封装

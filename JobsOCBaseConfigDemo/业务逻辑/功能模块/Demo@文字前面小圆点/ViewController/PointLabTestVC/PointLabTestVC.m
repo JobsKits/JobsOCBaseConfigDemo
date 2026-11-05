@@ -1,0 +1,233 @@
+//
+//  PointLabTestVC.m
+//  JobsOCBaseConfigDemo
+//
+//  Created by Jobs on 2026年5月13日，星期三.
+//
+
+#import "PointLabTestVC.h"
+
+@interface PointLabTestVC ()
+
+/// UI
+Prop_strong()UIView *contentView;
+Prop_strong()UILabel *label2;
+/// Data
+Prop_strong()NSMutableAttributedString *attributedString;
+Prop_strong()NSMutableAttributedString *attributedString2;
+Prop_strong()NSMutableArray<NSString *> *items;
+Prop_copy()NSString *dot;
+
+@end
+
+@implementation PointLabTestVC
+
+- (void)dealloc{
+    JobsNotificationCenter.remove(self);
+    JobsLog(@"%@",JobsLocalFunc);
+}
+
+-(void)loadView{
+    jobsByVoidBlock action = ((jobsByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(PointLabTestVC.class, @selector(jobsLoadView)))(self, @selector(jobsLoadView));
+    if (action) action();
+}
+
+-(jobsByVoidBlock _Nonnull)jobsLoadView{
+    @jobs_weakify(self)
+    return ^{
+        @jobs_strongify(self)
+        if (!self) return;
+        [super loadView];
+        if ([self.requestParams isKindOfClass:UIViewModel.class]) {
+            self.byViewModel((UIViewModel *)self.requestParams);
+            if(self.viewModel.pushOrPresent != ComingStyle_Unknown){
+                self.byPushOrPresent(self.viewModel.pushOrPresent);
+            }
+        }
+        self.viewModel
+            .byBackBtnTitleModelBlock(^(__kindof UITextModel * _Nullable data) {
+                data.byText(@"返回".jobsTr());
+            })
+            .byTextModelBlock(^(__kindof UITextModel * _Nullable data) {
+                data
+                    .byTextCor(JobsLabelColor)
+                    .byText(@"文字前面小圆点".jobsTr())
+                    .byFont(UIFontWeightRegularSize(18));
+            })
+            .byNavBgCor(RGBA_COLOR(255, 238, 221, 1));
+    };
+}
+
+- (void)viewDidLoad {
+    jobsByVoidBlock action = ((jobsByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(PointLabTestVC.class, @selector(jobsViewDidLoad)))(self, @selector(jobsViewDidLoad));
+    if (action) action();
+}
+
+-(jobsByVoidBlock _Nonnull)jobsViewDidLoad{
+    @jobs_weakify(self)
+    return ^{
+        @jobs_strongify(self)
+        if (!self) return;
+        [super viewDidLoad];
+        self.makeNavByAlpha(1);
+        self.contentView.byAlpha(1);
+        self.label.byAlpha(1);
+        self.label2.byAlpha(1);
+    };
+}
+
+//-(void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event{
+//    self.invokeSysCamera();
+//}
+#pragma mark —— lazyLoad
+-(UIView *)contentView{
+    if(!_contentView){
+        @jobs_weakify(self)
+        _contentView = jobsMakeView(^(__kindof UIView * _Nullable view) {
+            @jobs_strongify(self)
+            view
+                .addOn(self.view)
+                .byAdd(^(MASConstraintMaker *make) {
+                    make.center.equalTo(self.view);
+                    make.width.mas_equalTo(200);
+                });
+        });
+    };return _contentView;
+}
+
+@synthesize label = _label;
+-(UILabel *)label{
+    if(!_label){
+        @jobs_weakify(self)
+        _label = jobsMakeLabel(^(__kindof UILabel * _Nullable label) {
+            @jobs_strongify(self)
+            label
+                .byAttributedString(self.attributedString)
+                .byNumberOfLines(0)
+                .byBgColor(JobsRandomColor)
+                .addOn(self.contentView)
+                .byAdd(^(MASConstraintMaker *make) {
+                    make.top.left.right.equalTo(self.contentView);
+                })
+                .makeLabelByShowingType(UILabelShowingType_05);
+        });
+    };return _label;
+}
+
+-(UILabel *)label2{
+    if(!_label2){
+        @jobs_weakify(self)
+        _label2 = jobsMakeLabel(^(__kindof UILabel * _Nullable label) {
+            @jobs_strongify(self)
+            label
+                .byAttributedString(self.attributedString2)
+                .byNumberOfLines(0)
+                .byBgColor(JobsRandomColor)
+                .addOn(self.contentView)
+                .byAdd(^(MASConstraintMaker *make) {
+                    make.top.equalTo(self.label.mas_bottom);
+                    make.left.right.bottom.equalTo(self.contentView);
+                })
+                .makeLabelByShowingType(UILabelShowingType_05);
+        });
+    };return _label2;
+}
+
+-(NSString *)dot{
+    if(!_dot){
+        _dot = @"\u2022";// @"⚫";
+    };return _dot;
+}
+
+-(NSMutableAttributedString *)attributedString{
+    if(!_attributedString){
+        NSString *firstText = @"我是中国人我是中国人我是中国人我是中国人我是中国人我是中国人";
+        NSString *secondText = @"你是日本人你是日本人你是日本人你是日本人你是日本人你是日本人";
+        NSString *firstLine = [NSString stringWithFormat:@"%@%@%@", self.dot, firstText, JobsNewline];
+        NSString *secondLine = [NSString stringWithFormat:@"%@%@%@", self.dot, secondText, JobsNewline];
+        NSUInteger secondDotLocation = firstLine.length;
+        _attributedString = JobsMutAttributedString([NSString stringWithFormat:@"%@%@", firstLine, secondLine]);
+        NSUInteger attributedLength = _attributedString.length;
+        _attributedString
+            /// 设置段落
+            .addAttributeNameByParagraphStyleModel(jobsMakeParagraphStyleModel(^(__kindof JobsParagraphStyleModel * _Nullable model) {
+                model.value = jobsMakeParagraphStyle(^(NSMutableParagraphStyle * _Nullable data) {
+                    data.byHeadIndent(10) // 设置文本的缩进，使其与圆点对齐
+                        .byFirstLineHeadIndent(0); // 第一行不缩进
+                });
+                model.byRange(NSMakeRange(0, attributedLength));
+            }))
+            /// 设置小圆点的颜色
+            .addForegroundColorAttributeNameByParagraphStyleModel(jobsMakeParagraphStyleModel(^(__kindof JobsParagraphStyleModel * _Nullable data1) {
+                data1.byValue(JobsRedColor)
+                     .byRange(NSMakeRange(0, 1));// 第一个圆点
+            }))
+            .addForegroundColorAttributeNameByParagraphStyleModel(jobsMakeParagraphStyleModel(^(__kindof JobsParagraphStyleModel * _Nullable data1) {
+                data1.byValue(JobsYellowColor)
+                     .byRange(NSMakeRange(secondDotLocation, 1));// 第二个圆点
+            }))
+            /// 设置文本颜色
+            .addForegroundColorAttributeNameByParagraphStyleModel(jobsMakeParagraphStyleModel(^(__kindof JobsParagraphStyleModel * _Nullable data1) {
+                data1.byValue(@"#D0D0D0".jobsCor())
+                     .byRange(NSMakeRange(1, attributedLength - 1));
+            }))
+            .addFontAttributeNameByParagraphStyleModel(jobsMakeParagraphStyleModel(^(__kindof JobsParagraphStyleModel * _Nullable data1) {
+                data1.byValue(UIFontWeightRegularSize(JobsWidth(12)))
+                     .byRange(NSMakeRange(0, attributedLength));
+            }));
+    };return _attributedString;
+}
+
+-(NSMutableAttributedString *)attributedString2{
+    if(!_attributedString2){
+        @jobs_weakify(self)
+        _attributedString2 = JobsMutAttributedString(JobsEmpty);
+        // 通过循环来创建每一行的富文本
+        for (NSString *item in self.items) {
+            // 添加小圆点
+            _attributedString2.add(JobsAttributedStringByTextAttachment(jobsMakeTextAttachment(^(NSTextAttachment * _Nullable data) {
+                data.byBounds(CGRectMake(0, 0, 10, 10));
+                UIImage *image = JobsRenderImage(data.bounds.size, NO, 0, ^(CGContextRef context) {
+                    [JobsRedColor setFill];
+                    UIBezierPath.byBezierPathWithOvalInRect(data.bounds).byFill();
+                });
+                data.byImage(image);
+            })));
+            // 添加空格后再添加文本
+            _attributedString2.add(JobsAttributedString(JobsSpace));
+            // 添加对应的文本
+            NSMutableAttributedString *text = JobsMutAttributedString(item);
+            text
+                .addFontAttributeNameByParagraphStyleModel(jobsMakeParagraphStyleModel(^(__kindof JobsParagraphStyleModel * _Nullable data) {
+                    data.byValue(UIFontWeightRegularSize(JobsWidth(12)))
+                        .byRange(NSMakeRange(0, text.length));
+                }))
+                .addForegroundColorAttributeNameByParagraphStyleModel(jobsMakeParagraphStyleModel(^(__kindof JobsParagraphStyleModel * _Nullable data) {
+                    data.byValue(@"#D0D0D0".jobsCor())
+                        .byRange(NSMakeRange(0, text.length));
+                }));
+            _attributedString2.add(text);
+            // 添加换行符
+            _attributedString2.add(JobsAttributedString(JobsNewline));
+        }
+        _attributedString2.addAttributeNameByParagraphStyleModel(jobsMakeParagraphStyleModel(^(__kindof JobsParagraphStyleModel * _Nullable data1) {
+            @jobs_strongify(self)
+            data1.value = jobsMakeParagraphStyle(^(NSMutableParagraphStyle * _Nullable data) {
+                data.byHeadIndent(10) // 设置文本的缩进，使其与圆点对齐
+                    .byFirstLineHeadIndent(0); // 第一行不缩进
+            });data1.range = NSMakeRange(0, self->_attributedString2.length);
+        }));
+    };return _attributedString2;
+}
+
+-(NSMutableArray<NSString *> *)items{
+    if(!_items){
+        _items = jobsMakeMutArr(^(__kindof NSMutableArray <NSString *>* _Nullable data) {
+            data.add(@"Your deposit will be successfully credited to your wallet once the transaction completed.")
+            .add(@"In case you meet any problem in deposit, please contact our CS.")
+            .add(@"Additional information can be found on our website.");
+        });
+    };return _items;
+}
+
+@end

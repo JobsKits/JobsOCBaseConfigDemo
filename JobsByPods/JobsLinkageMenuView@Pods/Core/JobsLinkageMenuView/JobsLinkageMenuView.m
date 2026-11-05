@@ -6,7 +6,6 @@
 //
 
 #import "JobsLinkageMenuView.h"
-
 #import <JobsLinkageMenuView/UIButton+UI.h>
 
 #define FULLVIEW_FOR6 667

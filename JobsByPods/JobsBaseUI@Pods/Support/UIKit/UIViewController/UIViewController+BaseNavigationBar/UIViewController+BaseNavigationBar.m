@@ -6,7 +6,6 @@
 //
 
 #import "UIViewController+BaseNavigationBar.h"
-
 #import <JobsBaseUI/BaseButton.h>
 #import <JobsBaseUI/BaseView.h>
 #import <JobsBaseUI/UIButton+SimplyMake.h>
@@ -580,7 +579,7 @@ JobsKey(_jobs_demoActionMenuOverlay)
                 .byAdd(^(MASConstraintMaker *make) {
                     make.left.equalTo(rowButton).offset(12);
                     make.right.bottom.equalTo(rowButton);
-                    make.height.mas_equalTo(1 / UIScreen.mainScreen.scale);
+                    make.height.mas_equalTo(1 / jobsScreenScaleForView(nil));
                 });
         });
     }

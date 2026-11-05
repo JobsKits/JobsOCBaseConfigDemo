@@ -29,6 +29,8 @@ Prop_strong()NSMutableArray *results;
 
 @end
 
+JobsKey(JobsJobsOCCountryCodeCtrlModernTraitsRegistrationKey)
+
 @implementation JobsOCCountryCodeCtrl
 
 -(JobsRetJobsOCCountryCodeCtrlByCountryCodeBlock _Nonnull)byCountryCodeBlock{
@@ -51,7 +53,30 @@ Prop_strong()NSMutableArray *results;
     @jobs_weakify(self)
     return ^{
         @jobs_strongify(self)
-        if (!self) return;
+        if (!self) {
+            return;
+        }
+        if (@available(iOS 17.0, tvOS 17.0, *)) {
+            if (!Jobs_getAssociatedObjectByTarget(self, JobsJobsOCCountryCodeCtrlModernTraitsRegistrationKey)) {
+                Jobs_setAssociatedRETAIN_NONATOMICByTarget(self, JobsJobsOCCountryCodeCtrlModernTraitsRegistrationKey, @YES)
+                NSArray<UITrait> *traits = [UITraitCollection.systemTraitsAffectingColorAppearance arrayByAddingObjectsFromArray:@[
+                    UITraitDisplayScale.class,
+                    UITraitPreferredContentSizeCategory.class,
+                    UITraitHorizontalSizeClass.class,
+                    UITraitVerticalSizeClass.class,
+                    UITraitLayoutDirection.class
+                ]];
+                [self registerForTraitChanges:traits
+                                 withHandler:^(__kindof id<UITraitEnvironment> environment,
+                                               UITraitCollection *previousTraitCollection) {
+                    JobsOCCountryCodeCtrl *target = (JobsOCCountryCodeCtrl *)environment;
+                    jobsByUITraitCollectionBlock action = ((jobsByUITraitCollectionBlock (*)(__typeof__(target), SEL))JobsBlockInstanceMethodIMP(JobsOCCountryCodeCtrl.class, @selector(jobsTraitCollectionDidChange)))(target, @selector(jobsTraitCollectionDidChange));
+                    if (action) {
+                        action(previousTraitCollection);
+                    }
+                }];
+            }
+        }
         [super viewDidLoad];
         self.byTitle(@"国家 / 地区代码".jobsTr());
         self.jobs_applyTheme();
@@ -60,6 +85,9 @@ Prop_strong()NSMutableArray *results;
 }
 
 -(void)traitCollectionDidChange:(UITraitCollection *)previousTraitCollection{
+    if (@available(iOS 17.0, tvOS 17.0, *)) {
+        return;
+    }
     jobsByUITraitCollectionBlock action = ((jobsByUITraitCollectionBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(JobsOCCountryCodeCtrl.class, @selector(jobsTraitCollectionDidChange)))(self, @selector(jobsTraitCollectionDidChange));
     if (action) action(previousTraitCollection);
 }
@@ -69,7 +97,11 @@ Prop_strong()NSMutableArray *results;
     return ^(UITraitCollection * previousTraitCollection){
         @jobs_strongify(self)
         if (!self) return;
-        [super traitCollectionDidChange:previousTraitCollection];
+        if (@available(iOS 17.0, tvOS 17.0, *)) {
+            // 现代注册回调只执行业务刷新，旧系统保留父类通知。
+        } else {
+            SuppressWdeprecatedDeclarationsWarning([super traitCollectionDidChange:previousTraitCollection];);
+        }
         if (@available(iOS 13.0, *)) {
             if ([self.traitCollection hasDifferentColorAppearanceComparedToTraitCollection:previousTraitCollection]) {
                 self.jobs_applyTheme();
@@ -465,7 +497,14 @@ numberOfRowsInSection:(NSInteger)section {
                     .byTextCor(JobsSecondaryLabelColor);
             })
             .bySelectionStyle(UITableViewCellSelectionStyleNone);
-    };return cell
+    }
+#if DEBUG
+    if ([NSProcessInfo.processInfo.arguments containsObject:@"--jobs-coverage-route"]) {
+        NSString *code = [self showCodeStringIndex:indexPath jieQue:NO];
+        cell.accessibilityIdentifier = [code isEqualToString:@"33"] ? @"jobs.coverage.country.row.33" : nil;
+    }
+#endif
+    return cell
         .byTextLabel(^(__kindof UILabel * _Nullable label) {
             NSString *countryName = [self showCodeStringIndex:indexPath jieQue:YES];
             label.byTextCor(JobsLabelColor)
@@ -540,7 +579,13 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
                     make.top.equalTo(self.view).offset(isiPhoneX_series() ? 84 : 64);
                 });
         });
-    };return _tableView;
+    }
+#if DEBUG
+    if ([NSProcessInfo.processInfo.arguments containsObject:@"--jobs-coverage-route"]) {
+        _tableView.accessibilityIdentifier = @"jobs.coverage.country.list";
+    }
+#endif
+    return _tableView;
 }
 
 -(NSDictionary *)sortedNameDict{

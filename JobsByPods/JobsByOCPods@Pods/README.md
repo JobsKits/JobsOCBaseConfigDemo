@@ -117,6 +117,8 @@ JobsByOCPods@Pods/
 - `JobsByOCPods.h`
 - `Support/播放器控制层/ZFCustomControlView/ZFCustomControlView.h`
 - `Core/**/*.h`
+- `Core/UIKit/NSObject/NSObject+Data/NSObject+Data.h` 提供 `byRequestParams(data)`，把参数写入当前对象已有的 `requestParams` 关联存储并返回当前对象；适用于输入框、视图等 `NSObject` 子类，复用 `JobsRetNSObjectByIDBlock`。
+- `UIColor.gradientCorDataMutArr:...traitCollection:` 与 `UIImage.imageWithString:...traitCollection:` 支持显式传入目标 Trait 的 `displayScale`，绘制比例下限为 1；未传 Trait 的原入口继续使用当前屏幕比例，并委托同一绘制内核。
 
 ### <span id="jobs-toc-heading-8" data-jobs-toc="v2">5.2、源码入口 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a></span><!-- jobs-toc:heading-end -->
 

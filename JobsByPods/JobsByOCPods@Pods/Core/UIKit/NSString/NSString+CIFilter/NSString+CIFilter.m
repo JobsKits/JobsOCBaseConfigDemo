@@ -88,18 +88,17 @@ static UIImage *JobsQRCodeUIImage(CIImage *ciImage, CGFloat widthSize) {
     CGFloat canvasSide = logoSide + safeBorderWidth * 2;
     CGRect canvasRect = CGRectMake((widthSize - canvasSide) / 2, (widthSize - canvasSide) / 2, canvasSide, canvasSide);
     CGRect logoRect = CGRectInset(canvasRect, safeBorderWidth, safeBorderWidth);
-    UIGraphicsBeginImageContextWithOptions(CGSizeMake(widthSize, widthSize), NO, 0);
-    [qrImage drawInRect:CGRectMake(0, 0, widthSize, widthSize)];
-    if (safeBorderWidth > 0) {
-        UIBezierPath *borderPath = UIBezierPath.byBezierPathWithRoundedRect(canvasRect, logoCornerRadius + safeBorderWidth);
-        [(borderColor ?: UIColor.whiteColor) setFill];
-        [borderPath fill];
-    }
-    UIBezierPath *logoPath = UIBezierPath.byBezierPathWithRoundedRect(logoRect, MAX(0, logoCornerRadius));
-    [logoPath addClip];
-    [logo drawInRect:logoRect];
-    UIImage *image = UIGraphicsGetImageFromCurrentImageContext();
-    UIGraphicsEndImageContext();
+    UIImage *image = JobsRenderImage(CGSizeMake(widthSize, widthSize), NO, 0, ^(CGContextRef jobsDrawingContext) {
+        [qrImage drawInRect:CGRectMake(0, 0, widthSize, widthSize)];
+        if (safeBorderWidth > 0) {
+            UIBezierPath *borderPath = UIBezierPath.byBezierPathWithRoundedRect(canvasRect, logoCornerRadius + safeBorderWidth);
+            [(borderColor ?: UIColor.whiteColor) setFill];
+            [borderPath fill];
+        }
+        UIBezierPath *logoPath = UIBezierPath.byBezierPathWithRoundedRect(logoRect, MAX(0, logoCornerRadius));
+        [logoPath addClip];
+        [logo drawInRect:logoRect];
+    });
     return image ?: qrImage;
 }
 /// 生成 Code128 条形码图像
@@ -143,13 +142,12 @@ static UIImage *JobsQRCodeUIImage(CIImage *ciImage, CGFloat widthSize) {
         textSize = [self sizeWithAttributes:attrs];
     }
     CGFloat totalHeight = barHeight + safeSpacing + ceil(textSize.height);
-    UIGraphicsBeginImageContextWithOptions(CGSizeMake(width, totalHeight), YES, 0);
-    [safeBgColor setFill];
-    UIRectFill(CGRectMake(0, 0, width, totalHeight));
-    [barImage drawInRect:CGRectMake(0, 0, width, barHeight)];
-    [self drawAtPoint:CGPointMake((width - textSize.width) / 2, barHeight + safeSpacing) withAttributes:attrs];
-    UIImage *image = UIGraphicsGetImageFromCurrentImageContext();
-    UIGraphicsEndImageContext();
+    UIImage *image = JobsRenderImage(CGSizeMake(width, totalHeight), YES, 0, ^(CGContextRef jobsDrawingContext) {
+        [safeBgColor setFill];
+        UIRectFill(CGRectMake(0, 0, width, totalHeight));
+        [barImage drawInRect:CGRectMake(0, 0, width, barHeight)];
+        [self drawAtPoint:CGPointMake((width - textSize.width) / 2, barHeight + safeSpacing) withAttributes:attrs];
+    });
     return image ?: barImage;
 }
 /// 制作滤镜

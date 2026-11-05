@@ -6,7 +6,6 @@
 //
 
 #import "JobsNavBarConfig.h"
-
 #import <JobsNavBar/NSString+Sys.h>
 #import <JobsNavBar/UIColor+Extra.h>
 #import <JobsNavBar/NSObject+Extra.h>

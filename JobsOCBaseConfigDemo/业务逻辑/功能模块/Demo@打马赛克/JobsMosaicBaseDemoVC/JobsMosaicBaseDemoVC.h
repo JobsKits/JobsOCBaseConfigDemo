@@ -6,7 +6,6 @@
 //
 
 #import <UIKit/UIKit.h>
-
 #import "JobsMosaicBrushImageView.h"
 #import "UIImage+JobsMosaicDemo.h"
 

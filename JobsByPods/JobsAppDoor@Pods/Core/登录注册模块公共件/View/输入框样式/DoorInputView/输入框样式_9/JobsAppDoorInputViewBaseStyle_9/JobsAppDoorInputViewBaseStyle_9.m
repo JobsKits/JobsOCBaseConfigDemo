@@ -6,7 +6,6 @@
 //
 
 #import "JobsAppDoorInputViewBaseStyle_9.h"
-
 #import <JobsAppDoor/JobsAppDoorInputViewHeader.h>
 
 @interface JobsAppDoorInputViewBaseStyle_9 ()

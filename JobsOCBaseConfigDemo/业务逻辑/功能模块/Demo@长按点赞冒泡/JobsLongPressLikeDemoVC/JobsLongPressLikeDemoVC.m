@@ -230,7 +230,11 @@ Prop_strong()UIImpactFeedbackGenerator *hapticFeedback;
                     make.width.height.mas_equalTo(JobsWidth(96));
                 });
         });
-    };return _likeBtn;
+    }
+#if DEBUG
+    _likeBtn.accessibilityIdentifier = @"jobs.coverage.surface.JobsLongPressLikeDemoVC.likeBtn";
+#endif
+    return _likeBtn;
 }
 
 -(UIImpactFeedbackGenerator *)hapticFeedback {

@@ -6,7 +6,6 @@
 //
 
 #import "NSObject+RichText.h"
-
 #import <JobsRichTextUtils/NSMutableArray+Extra.h>
 #import <JobsRichTextUtils/UIColor+Extra.h>
 #import <JobsRichTextUtils/NSString+Extra.h>

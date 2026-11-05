@@ -6,7 +6,6 @@
 //
 
 #import "JXCategoryTitleBackgroundCell.h"
-
 #import <JXCategoryViewExtra/JXCategoryTitleBackgroundCellModel.h>
 
 @interface JXCategoryTitleBackgroundCell()

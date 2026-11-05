@@ -6,7 +6,6 @@
 //
 
 #import "NSObject+URLMgr_7.h"
-
 #import <JobsAPIs/NSObject+Extra.h>
 
 @implementation NSObject (URLMgr_7)

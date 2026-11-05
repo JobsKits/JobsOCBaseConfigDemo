@@ -6,7 +6,6 @@
 //
 
 #import "TMSWalletCollectionViewCell.h"
-
 #import <JobsBaseUI/UICollectionView+JobsRegisterClass.h>
 #import <JobsBaseUI/UIView+Extra.h>
 

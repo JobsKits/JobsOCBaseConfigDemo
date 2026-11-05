@@ -6,7 +6,6 @@
 //
 
 #import "FMDoorModel.h"
-
 #import <JobsModel/NSCoder+Extra.h>
 #import <JobsModel/NSObject+Extra.h>
 

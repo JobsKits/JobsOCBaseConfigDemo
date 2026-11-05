@@ -9,7 +9,7 @@ jobs_pod_install_guard_path = File.join(
   __dir__,
   'ScriptsByPods',
   '【MacOS】📦Pod Install离线保护.command',
-  'jobs_pod_install_offline_guard.rb'
+  'jobs_pod_install_offline_guard.rb', 'jobs_pod_install_offline_guard.rb'
 )
 require jobs_pod_install_guard_path
 JobsPodInstallOfflineGuard.guard!(__dir__)
@@ -19,7 +19,7 @@ platform :ios, '16.6'
 
 # 同步准备当前安装进程的网络链路，让选源和后续源码下载继承同一配置。
 jobs_pod_network_dir = File.join(__dir__, 'ScriptsByPods', '【MacOS】🌐CocoaPods网络适配.command')
-jobs_pod_network_path = File.join(jobs_pod_network_dir, 'jobs_cocoapods_network.rb')
+jobs_pod_network_path = File.join(jobs_pod_network_dir, 'jobs_cocoapods_network.rb', 'jobs_cocoapods_network.rb')
 begin
   if File.file?(jobs_pod_network_path)
     require jobs_pod_network_path
@@ -35,7 +35,7 @@ end
 jobs_pod_dependency_command = File.basename($PROGRAM_NAME) == 'pod' &&
   %w[install update].include?(ARGV.find { |argument| !argument.start_with?('-') })
 if jobs_pod_dependency_command
-  jobs_pod_download_fallback_path = File.join(jobs_pod_network_dir, 'jobs_cocoapods_download_fallback.rb')
+  jobs_pod_download_fallback_path = File.join(jobs_pod_network_dir, 'jobs_cocoapods_download_fallback.rb', 'jobs_cocoapods_download_fallback.rb')
   begin
     if File.file?(jobs_pod_download_fallback_path)
       require jobs_pod_download_fallback_path
@@ -53,7 +53,7 @@ jobs_specs_source_path = File.join(
   __dir__,
   'ScriptsByPods',
   '【MacOS】🌐CocoaPods源自动选择.command',
-  'jobs_cocoapods_source.rb'
+  'jobs_cocoapods_source.rb', 'jobs_cocoapods_source.rb'
 )
 begin
   if File.file?(jobs_specs_source_path)
@@ -485,24 +485,24 @@ end
 
 # 为 CocoaPods 自动测试宿主挂载 Jobs 自有 Scene delegate；兼容要求 Scene 生命周期的新 SDK。
 def configure_jobs_stability_test_hosts(installer)
-  delegate_root = File.join(File.expand_path(__dir__), 'Tests', 'JobsPodsStabilityHost', 'JobsPodsStabilitySceneDelegate')
-  return unless File.file?(File.join(delegate_root, 'JobsPodsStabilitySceneDelegate.m'))
-
   project = installer.pods_project
-  group = project.main_group.find_subpath('Jobs Stability Test Host', true)
-  references = %w[JobsPodsStabilitySceneDelegate.h JobsPodsStabilitySceneDelegate.m].map do |filename|
-    path = File.join(delegate_root, filename)
-    reference = group.files.find { |file| file.display_name == filename } || group.new_file(path)
-    reference.path = Pathname.new(path).relative_path_from(project.path.dirname).to_s
-    reference.source_tree = 'SOURCE_ROOT'
-    reference
+  support_target = project.targets.find { |target| target.name == 'JobsOCStabilitySupport' }
+  unless support_target
+    warn '[JobsStability] 缺少 JobsOCStabilitySupport，跳过测试宿主 Scene 配置。'
+    return
   end
   project.targets.select { |target| target.name.start_with?('AppHost-') && target.name.end_with?('-Unit-Tests') }.each do |target|
-    reference = references.last
-    unless target.source_build_phase.files_references.include?(reference)
-      target.source_build_phase.add_file_reference(reference)
+    # Scene 类仅由 Pod 编译；宿主链接静态框架并保留通过 plist 按名称加载的 ObjC 类。
+    target.add_dependency(support_target) unless target.dependencies.any? { |dependency| dependency.target == support_target }
+    unless target.frameworks_build_phase.files_references.include?(support_target.product_reference)
+      target.frameworks_build_phase.add_file_reference(support_target.product_reference)
     end
     target.build_configurations.each do |configuration|
+      search_paths = Array(configuration.build_settings['FRAMEWORK_SEARCH_PATHS'] || '$(inherited)')
+      support_path = '$(BUILT_PRODUCTS_DIR)/JobsOCStabilitySupport'
+      configuration.build_settings['FRAMEWORK_SEARCH_PATHS'] = (search_paths + [support_path]).uniq
+      flags = Array(configuration.build_settings['OTHER_LDFLAGS'] || '$(inherited)')
+      configuration.build_settings['OTHER_LDFLAGS'] = (flags + ['-ObjC']).uniq
       if target.name == 'AppHost-JobsBaseUI-Unit-Tests'
         entitlements = File.join(__dir__, 'Tests', 'JobsPodsStabilityHost', 'JobsBaseUIKeychain', 'JobsBaseUIKeychain.entitlements')
         raise "Keychain 测试宿主 entitlement 不存在: #{entitlements}" unless File.file?(entitlements)

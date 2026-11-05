@@ -6,7 +6,6 @@
 //
 
 #import "BaseModel.h"
-
 #import <JobsModel/NSString+Extra.h>
 
 @implementation BaseModel

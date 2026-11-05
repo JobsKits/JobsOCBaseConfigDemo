@@ -6,7 +6,6 @@
 //
 
 #import "JobsTabBarVC.h"
-
 #import <JobsOCTools/UIViewController+Lottie.h>
 
 static NSArray<__kindof JobsTabBarItemConfig *> *JobsTabBarVCItemConfigs(void) {
@@ -301,7 +300,12 @@ static dispatch_once_t onceToken;
 #pragma clang diagnostic ignored "-Wdeprecated-implementations"
 /// 决定当前界面是否开启自动转屏，如果返回NO，后面两个方法也不会被调用，只是会支持默认的方向
 - (BOOL)shouldAutorotate {
-    return self.selectedViewController.shouldAutorotate;
+    if (@available(iOS 16.0, *)) {
+        UIInterfaceOrientationMask mask = self.selectedViewController.supportedInterfaceOrientations;
+        return mask != 0 && (mask & (mask - 1)) != 0;
+    } else {
+        SuppressWdeprecatedDeclarationsWarning(return self.selectedViewController.shouldAutorotate;);
+    }
 }
 #pragma clang diagnostic pop
 /// 当前控制器支持的屏幕旋转方向（在具体的控制器子类进行覆写）

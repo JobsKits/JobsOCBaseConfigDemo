@@ -6,7 +6,6 @@
 //
 
 #import "JobsTextField.h"
-
 #import <JobsBaseUI/UITextField+Extra.h>
 #import <JobsBaseUI/UITextField+Placeholder.h>
 #import <JobsBaseUI/NSObject+Measure.h>

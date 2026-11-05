@@ -28,7 +28,7 @@
         if (isValue(lottieImage)) {
     //        self.view.backgroundColor = JobsLightGrayColor;
             LOTAnimationView *lottieView = [LOTAnimationView animationNamed:lottieImage];
-            lottieView.byFrame(UIScreen.mainScreen.bounds);
+            lottieView.byFrame(jobsScreenBoundsForView(nil));
             lottieView.byContentMode(UIViewContentModeScaleAspectFit);
             lottieView.byLoopAnimation(YES);
             lottieView.byTag(100);

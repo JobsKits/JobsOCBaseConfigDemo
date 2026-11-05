@@ -22,6 +22,9 @@
 #import "JobsDefines.h"
 #endif
 
+// 用途：声明自动化测试；通过独立 UI 测试 Runner 启动 App，并测量启动性能。
+// 运行：在 Xcode 的 JobsOCBaseConfigDemoUITests 测试 Target 执行，或由现有 CI 调用；不编入主 App。
+
 @interface JobsOCBaseConfigDemoUITests : XCTestCase
 
 // JOBS_PROPERTY_DSL_DECLARATION_AUTOGEN_BEGIN JobsOCBaseConfigDemoUITests

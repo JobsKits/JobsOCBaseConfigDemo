@@ -7,7 +7,6 @@
 
 #import "UIView+Gesture.h"
 #import <JobsOCRuntimeKits/JobsWeakAssociation.h>
-
 #import <JobsOCDSL/JobsString.h>
 #import <JobsOCDSL/UIView+Extra.h>
 #import <JobsOCDSL/NSObject+Extra.h>

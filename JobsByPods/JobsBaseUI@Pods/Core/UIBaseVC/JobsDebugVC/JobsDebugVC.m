@@ -6,7 +6,6 @@
 //
 
 #import "JobsDebugVC.h"
-
 #import <JobsBaseUI/NSString+Extra.h>
 
 NSString *const JobsControllerDeallocTipsEnabledUserDefaultsKey = @"com.jobs.debug.showsControllerDeinitTips";

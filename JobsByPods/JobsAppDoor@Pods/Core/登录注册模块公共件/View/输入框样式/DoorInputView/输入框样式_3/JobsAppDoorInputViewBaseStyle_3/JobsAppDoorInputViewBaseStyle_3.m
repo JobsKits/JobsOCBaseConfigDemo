@@ -6,6 +6,7 @@
 //
 
 #import "JobsAppDoorInputViewBaseStyle_3.h"
+#import "../../../../../../测试支持/JobsAppDoorCoverageProbe/JobsAppDoorCoverageProbe.h"
 
 @interface JobsAppDoorInputViewBaseStyle_3 ()
 
@@ -234,6 +235,7 @@ Prop_strong()JobsAppDoorInputViewBaseStyleModel *doorInputViewBaseStyleModel;
                 self.magicTextField.byPlaceholder(self.doorInputViewBaseStyleModel.placeholder);
             }
         }).onLongPressGestureBy(^(id data){
+                JobsAppDoorCoverageLongPress(data);
             JobsLog(@"");
         })
         .addOn(self)
@@ -241,6 +243,7 @@ Prop_strong()JobsAppDoorInputViewBaseStyleModel *doorInputViewBaseStyleModel;
             make.top.right.bottom.equalTo(self);
             make.width.mas_equalTo(JobsWidth(40));
         });
+        JobsAppDoorCoverageName(_securityModeBtn, @"jobs.coverage.auth.role.security");
     };return _securityModeBtn;
 }
 @synthesize magicTextField = _magicTextField;
@@ -254,12 +257,18 @@ Prop_strong()JobsAppDoorInputViewBaseStyleModel *doorInputViewBaseStyleModel;
             textField
                 .byDelegate(self)
                 .bySecureTextEntry(self.doorInputViewBaseStyleModel.isShowSecurityBtn);
+            // 订阅会同步发送初值，此时工厂尚未返回；直接弱引用已创建的输入框。
+            @jobs_weakify(textField)
             [textField jobsTextFieldEventFilterBlock:^BOOL(id _Nullable data) {
-                JobsLog(@"SSS = %@",self.textFieldInputModel.PlaceHolder);
                 @jobs_strongify(self)
+                JobsLog(@"SSS = %@",self.textFieldInputModel.PlaceHolder);
                 return self.retBoolByIDBlock ? self.retBoolByIDBlock(data) : YES;
             } subscribeNextBlock:^(NSString *_Nullable x) {
                 @jobs_strongify(self)
+                @jobs_strongify(textField)
+                if (!self || !textField) {
+                    return;
+                }
                 JobsLog(@"输入的字符为 = %@",x);
                 securityModeBtn.byJobsVisible(isValue(x) && self.doorInputViewBaseStyleModel.isShowSecurityBtn);
                 if(!x) return;

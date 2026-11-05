@@ -6,7 +6,6 @@
 //
 
 #import "TMSCollectionViewLayout.h"
-
 #import <JobsBaseUI/NSString+ID.h>
 #import <JobsBaseUI/UICollectionViewLayoutAttributes+Extra.h>
 

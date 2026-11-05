@@ -380,7 +380,7 @@ Prop_assign()NSInteger concurrentCount;
             if (currentConfig.trackColor) {
                 trackLayer = CAShapeLayer.layer;
                 trackLayer.byName(@"jobs.fuse.outerRing.track");
-                trackLayer.byContentsScale(UIScreen.mainScreen.scale);
+                trackLayer.byContentsScale(jobsScreenScaleForView(nil));
                 trackLayer.byFillColor(currentConfig.fillColor.CGColor);
                 trackLayer.byStrokeColor(currentConfig.trackColor.CGColor);
                 trackLayer.byLineWidth(currentConfig.lineWidth);
@@ -393,7 +393,7 @@ Prop_assign()NSInteger concurrentCount;
             }
             CAShapeLayer *ringLayer = CAShapeLayer.layer;
             ringLayer.byName(@"jobs.fuse.outerRing.progress");
-            ringLayer.byContentsScale(UIScreen.mainScreen.scale);
+            ringLayer.byContentsScale(jobsScreenScaleForView(nil));
             ringLayer.byFillColor(currentConfig.fillColor.CGColor);
             ringLayer.byStrokeColor(currentConfig.strokeColor.CGColor);
             ringLayer.byLineWidth(currentConfig.lineWidth);

@@ -6,7 +6,6 @@
 //
 
 #import "UIViewController+GKCustomNavigationBar.h"
-
 #import <JobsNavigationTransitionMgr/UIButton+SimplyMake.h>
 
 static NSString *JobsGKNavigationTitleText(UITextModel *textModel) {

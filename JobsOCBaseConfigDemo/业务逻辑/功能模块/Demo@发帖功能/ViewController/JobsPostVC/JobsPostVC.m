@@ -6,6 +6,7 @@
 //
 
 #import "JobsPostVC.h"
+#import "../../../../Common/App工具类/测试支持/JobsOCCoverageGestureProbe/JobsOCCoverageGestureProbe.h"
 
 @interface JobsPostVC (){
 
@@ -90,11 +91,14 @@ Prop_strong()UITextModel *postTextModel;
             .byNavBgImage(@"导航栏左侧底图".img);
         {
             JobsPostDelViewHeight = JobsPostDelView.viewSizeByModel(nil).height;
-            self.byHistoryPhotoDataArr([self.photoManager getLocalModelsInFileWithAddData:YES]);
-            if (isValue(((JobsUserModel *)JobsUserModel.jobsSharedManager()).postDraftURLStr)) {
-                self.inputDataHistoryString = [FileFolderHandleTool filePath:((JobsUserModel *)JobsUserModel.jobsSharedManager()).postDraftURLStr
-                                                                    fileType:FileType_TXT];
-            }JobsLog(@"%@",self.inputDataHistoryString);
+            if (!JobsOCCoverageGestureProbeEnabled()) {
+                self.byHistoryPhotoDataArr([self.photoManager getLocalModelsInFileWithAddData:YES]);
+                if (isValue(((JobsUserModel *)JobsUserModel.jobsSharedManager()).postDraftURLStr)) {
+                    self.inputDataHistoryString = [FileFolderHandleTool filePath:((JobsUserModel *)JobsUserModel.jobsSharedManager()).postDraftURLStr
+                                                                        fileType:FileType_TXT];
+                }JobsLog(@"%@",self.inputDataHistoryString);
+            }
+
         }
     };
 }
@@ -182,6 +186,10 @@ Prop_strong()UITextModel *postTextModel;
         @jobs_strongify(self)
         if (!self) return;
         [super viewDidAppear:animated];
+        if (JobsOCCoverageGestureProbeEnabled()) {
+            self.jobsTextView.getTextView().accessibilityIdentifier = @"jobs.coverage.post.input";
+            JobsOCCoverageInstallTouchSurface(self.view, @"jobs.coverage.touch.JobsPostVC");
+        }
     };
 }
 
@@ -215,10 +223,19 @@ Prop_strong()UITextModel *postTextModel;
 
 -(void)touchesBegan:(NSSet<UITouch *> *)touches
           withEvent:(UIEvent *)event{
+    BOOL wasEditing = JobsOCCoverageGestureProbeEnabled() && self.jobsTextView.getTextView().isFirstResponder;
     [self.view endEditing:YES];
+    if (JobsOCCoverageGestureProbeEnabled()) {
+        self.view.accessibilityValue = wasEditing && !self.jobsTextView.getTextView().isFirstResponder
+            ? @"touchesBegan:editingEnded" : @"touchesBegan:noEditingTransition";
+    }
 }
 #pragma mark —— 一些私有方法
 -(void)保留文字{
+    if (JobsOCCoverageGestureProbeEnabled()) {
+        self.back(nil);
+        return;
+    }
     @jobs_weakify(self)
     if (isValue(self.inputDataString)) {
         NSError *err;
@@ -243,6 +260,10 @@ Prop_strong()UITextModel *postTextModel;
 }
 
 -(void)不保留文字{
+    if (JobsOCCoverageGestureProbeEnabled()) {
+        self.back(nil);
+        return;
+    }
     FileFolderHandleTool.cleanFilesWithPath(((JobsUserModel *)JobsUserModel.jobsSharedManager()).postDraftURLStr);
     [self.photoManager deleteLocalModelsInFile];
     self.back(nil);
@@ -453,7 +474,7 @@ gestureRecognizerEnded:(UILongPressGestureRecognizer *)longPgr
         _photoManager = jobsMakeHXPhotoManagerBySelectedTypePhotoAndVideo(^(__kindof HXPhotoManager * _Nullable manager) {
             manager.byConfiguration(^(__kindof HXPhotoConfiguration * _Nullable config) {
                 config
-                    .byLocalFileName(jobsCurrentAppName())// 设置保存的文件名称
+                    .byLocalFileName(JobsOCCoverageGestureProbeEnabled() ? @"JobsCoveragePostFixture" : jobsCurrentAppName())// 设置保存的文件名称
                     .byType(HXConfigurationTypeWXChat)
                     .byShowOriginalBytes(YES)
                     .byShowOriginalBytesLoading(YES)

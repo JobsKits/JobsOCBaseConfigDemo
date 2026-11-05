@@ -6,7 +6,6 @@
 //
 
 #import "LOTAnimationMJRefreshHeader.h"
-
 #import <MJRefreshExtra/UIView+Extra.h>
 #import <MJRefreshExtra/UIView+Measure.h>
 

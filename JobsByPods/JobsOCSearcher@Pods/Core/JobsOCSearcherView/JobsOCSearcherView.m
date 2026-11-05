@@ -422,27 +422,26 @@ Prop_copy(readwrite)NSArray <NSString *>*historySearches;
         @jobs_strongify(self)
         if (!self) return nil;
         CGSize size = CGSizeMake(16, 16);
-        UIGraphicsBeginImageContextWithOptions(size, NO, 0);
-        UIBezierPath *lidPath = jobsMakeBezierPath(nil);
-        lidPath.byLineWidth(1.4);
-        [color setStroke];
-        [lidPath moveToPoint:CGPointMake(4, 4.8)];
-        [lidPath addLineToPoint:CGPointMake(12, 4.8)];
-        [lidPath moveToPoint:CGPointMake(6.2, 3.2)];
-        [lidPath addLineToPoint:CGPointMake(9.8, 3.2)];
-        [lidPath stroke];
-        UIBezierPath *bodyPath = UIBezierPath.byBezierPathWithRoundedRect(CGRectMake(5, 6, 6, 7.8), 1.1);
-        bodyPath.byLineWidth(1.4);
-        [bodyPath stroke];
-        UIBezierPath *linePath = jobsMakeBezierPath(nil);
-        linePath.byLineWidth(1);
-        [linePath moveToPoint:CGPointMake(7, 7.5)];
-        [linePath addLineToPoint:CGPointMake(7, 12)];
-        [linePath moveToPoint:CGPointMake(9, 7.5)];
-        [linePath addLineToPoint:CGPointMake(9, 12)];
-        [linePath stroke];
-        UIImage *image = UIGraphicsGetImageFromCurrentImageContext();
-        UIGraphicsEndImageContext();
+        UIImage *image = JobsRenderImage(size, NO, 0, ^(CGContextRef jobsDrawingContext) {
+            UIBezierPath *lidPath = jobsMakeBezierPath(nil);
+            lidPath.byLineWidth(1.4);
+            [color setStroke];
+            [lidPath moveToPoint:CGPointMake(4, 4.8)];
+            [lidPath addLineToPoint:CGPointMake(12, 4.8)];
+            [lidPath moveToPoint:CGPointMake(6.2, 3.2)];
+            [lidPath addLineToPoint:CGPointMake(9.8, 3.2)];
+            [lidPath stroke];
+            UIBezierPath *bodyPath = UIBezierPath.byBezierPathWithRoundedRect(CGRectMake(5, 6, 6, 7.8), 1.1);
+            bodyPath.byLineWidth(1.4);
+            [bodyPath stroke];
+            UIBezierPath *linePath = jobsMakeBezierPath(nil);
+            linePath.byLineWidth(1);
+            [linePath moveToPoint:CGPointMake(7, 7.5)];
+            [linePath addLineToPoint:CGPointMake(7, 12)];
+            [linePath moveToPoint:CGPointMake(9, 7.5)];
+            [linePath addLineToPoint:CGPointMake(9, 12)];
+            [linePath stroke];
+        });
         return image;
     };
 }
@@ -805,11 +804,10 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
         @jobs_strongify(self)
         if (!self) return nil;
         CGRect rect = CGRectMake(0, 0, 1, 1);
-        UIGraphicsBeginImageContextWithOptions(rect.size, NO, 0);
-        [color setFill];
-        UIRectFill(rect);
-        UIImage *image = UIGraphicsGetImageFromCurrentImageContext();
-        UIGraphicsEndImageContext();
+        UIImage *image = JobsRenderImage(rect.size, NO, 0, ^(CGContextRef jobsDrawingContext) {
+            [color setFill];
+            UIRectFill(rect);
+        });
         return image;
     };
 }
@@ -840,19 +838,18 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
         @jobs_strongify(self)
         if (!self) return nil;
         CGSize size = CGSizeMake(16, 16);
-        UIGraphicsBeginImageContextWithOptions(size, NO, 0);
-        [color setStroke];
-        UIBezierPath *circlePath = UIBezierPath.byBezierPathWithOvalInRect(CGRectMake(2.2, 2.2, 8.8, 8.8));
-        circlePath.byLineWidth(1.6);
-        [circlePath stroke];
-        UIBezierPath *handlePath = jobsMakeBezierPath(nil);
-        handlePath.byLineWidth(1.8);
-        handlePath.byLineCapStyle(kCGLineCapRound);
-        [handlePath moveToPoint:CGPointMake(9.4, 9.4)];
-        [handlePath addLineToPoint:CGPointMake(13.4, 13.4)];
-        [handlePath stroke];
-        UIImage *image = UIGraphicsGetImageFromCurrentImageContext();
-        UIGraphicsEndImageContext();
+        UIImage *image = JobsRenderImage(size, NO, 0, ^(CGContextRef jobsDrawingContext) {
+            [color setStroke];
+            UIBezierPath *circlePath = UIBezierPath.byBezierPathWithOvalInRect(CGRectMake(2.2, 2.2, 8.8, 8.8));
+            circlePath.byLineWidth(1.6);
+            [circlePath stroke];
+            UIBezierPath *handlePath = jobsMakeBezierPath(nil);
+            handlePath.byLineWidth(1.8);
+            handlePath.byLineCapStyle(kCGLineCapRound);
+            [handlePath moveToPoint:CGPointMake(9.4, 9.4)];
+            [handlePath addLineToPoint:CGPointMake(13.4, 13.4)];
+            [handlePath stroke];
+        });
         return image;
     };
 }

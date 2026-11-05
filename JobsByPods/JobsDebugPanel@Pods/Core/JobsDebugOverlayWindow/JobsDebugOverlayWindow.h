@@ -13,7 +13,7 @@ NS_ASSUME_NONNULL_BEGIN
 @interface JobsDebugOverlayWindow : UIWindow
 
 Prop_weak(readonly)UIWindow *hostWindow;
--(instancetype)initWithHostWindow:(UIWindow *)window panel:(JobsDebugPanelManager *)panel;
+-(nullable instancetype)initWithHostWindow:(UIWindow *)window panel:(JobsDebugPanelManager *)panel;
 
 @end
 

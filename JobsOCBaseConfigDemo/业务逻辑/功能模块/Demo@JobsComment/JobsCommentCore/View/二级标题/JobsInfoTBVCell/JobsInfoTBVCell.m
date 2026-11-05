@@ -6,6 +6,7 @@
 //
 
 #import "JobsInfoTBVCell.h"
+#import "../../../../../../Common/App工具类/测试支持/JobsOCCoverageGestureProbe/JobsOCCoverageGestureProbe.h"
 
 @interface JobsInfoTBVCell ()
 
@@ -144,6 +145,7 @@ Prop_strong()JobsChildCommentModel *childCommentModel;
                     .jobsResetBtnTitleCor(x.selected ? JobsRedColor : JobsGrayColor);
                 if (self.objBlock) self.objBlock(x);
             }).onLongPressGestureBy(^(id data){
+                JobsOCCoverageLongPressDelivered(data);
                 JobsLog(@"");
             })
             .bgColorBy(JobsClearColor)
@@ -162,6 +164,7 @@ Prop_strong()JobsChildCommentModel *childCommentModel;
         .jobsResetBtnTitleCor(_likeBtn.selected ? JobsRedColor : HEXCOLOR(0x94A3B8))
         .jobsResetBtnImage(_likeBtn.selected ? JobsLoadBundleImage(nil, @"RBCLikeButton", nil, @"day_like_red") :JobsLoadBundleImage(nil, @"RBCLikeButton", nil, @"day_like"))
         .makeBtnTitleByShowingType(UILabelShowingType_03);
+    JobsOCCoveragePrepareIndexedLongPressButton(_likeBtn, @"jobs.coverage.longPress.JobsInfoTBVCell.likeBtn");
     return _likeBtn;
 }
 

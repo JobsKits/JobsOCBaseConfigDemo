@@ -125,7 +125,7 @@
         jobsMakeCAShapeLayer(^(__kindof CAShapeLayer * _Nullable layer) {
             layer
                 .byPath(UIBezierPath
-                        .byBezierPathWithRect(UIScreen.mainScreen.bounds)
+                        .byBezierPathWithRect(jobsScreenBoundsForView(nil))
                         .byAppendPath(UIBezierPath.byBezierPathWithOvalInRect(CGRectMake(100, arcTop, 200, 200)))// 中间镂空的矩形框
                         .byUsesEvenOddFillRule(YES).CGPath)
                 .byFillRule(kCAFillRuleEvenOdd)

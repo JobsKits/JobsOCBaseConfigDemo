@@ -6,7 +6,6 @@
 //
 
 #import "UIViewController+SuspendBtn.h"
-
 #import <JobsSuspend/UIButton+UI.h>
 #import <JobsSuspend/UIButton+SimplyMake.h>
 #import <JobsSuspend/NSObject+image.h>

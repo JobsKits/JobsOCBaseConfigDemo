@@ -6,7 +6,6 @@
 //
 
 #import "CJTextField.h"
-
 #import <JobsBaseUI/UITextField+Extra.h>
 
 @implementation CJTextField

@@ -9,6 +9,9 @@
 #import "../JobsAudioRecorderInitializationFixture/JobsAudioRecorderInitializationFixture.h"
 #import "../JobsAudioPlayerInitializationFixture/JobsAudioPlayerInitializationFixture.h"
 
+// 用途：实现自动化测试；验证录音和播放的初始化失败清理、会话互斥及旧回调不干扰新任务。
+// 运行：在 Xcode 的 Pods 工程 JobsOCAudioRecorder-Unit-Stability 测试 Target 执行，或由现有 CI 调用；不编入主 App。
+
 @implementation JobsOCAudioRecorderStabilityTests
 
 -(void)testLateRecorderCallbackDoesNotClearNewRecorderAndStartRejectsBusySession{

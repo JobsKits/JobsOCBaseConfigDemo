@@ -266,7 +266,11 @@ Prop_strong()UILabel *dragHintLab;
             [self jobs_resetScrollYViewY:self->_scrollYView.y <= middleY ? topY : bottomY
                                 animated:YES];
         });
-    };return _scrollYView;
+    }
+#if DEBUG
+    _scrollYView.accessibilityIdentifier = @"jobs.coverage.surface.JobsScrollViewVC.scrollYView";
+#endif
+    return _scrollYView;
 }
 
 -(UILabel *)dragHintLab{

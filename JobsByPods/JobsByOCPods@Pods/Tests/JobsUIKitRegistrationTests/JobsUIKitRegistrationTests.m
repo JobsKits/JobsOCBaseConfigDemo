@@ -15,6 +15,9 @@
 #import <JobsOCRuntimeKits/JobsSEL_IMP.h>
 #import <dlfcn.h>
 
+// 用途：实现自动化测试；验证 UIKit 注册和安全导航、多语言通知、注销弹窗及弱引用回调的生命周期。
+// 运行：在 Xcode 的 Pods 工程 JobsByOCPods-Unit-Stability 测试 Target 执行，或由现有 CI 调用；不编入主 App。
+
 // 静态 framework 会链接进宿主；用真实保存回调与 handler 区分 native / RAC getter。
 static IMP JobsNativeGestureCallbackGetter(SEL selector) {
     SEL handler = NSSelectorFromString(@"jobs_ocdsl_handleGestureAction:");

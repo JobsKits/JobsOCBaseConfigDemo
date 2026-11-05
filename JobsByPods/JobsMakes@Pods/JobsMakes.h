@@ -11,6 +11,8 @@
 #pragma clang diagnostic push
 #pragma clang diagnostic ignored"-Wdeprecated-declarations"
 #import <UIKit/UIKit.h>
+#import <AVFoundation/AVFoundation.h>
+#import <MediaPlayer/MediaPlayer.h>
 #import <MessageUI/MessageUI.h>
 #import <JavaScriptCore/JavaScriptCore.h> // 提供 Objective-C / Swift 与 JavaScript 交互能力，可执行脚本并进行对象桥接。
 #import <JobsMakes/NSString+Extra.h>
@@ -26,6 +28,27 @@
 #else
 #import "JobsDefines.h"
 #endif
+
+/// 相机发现使用新系统发现会话；旧系统枚举由调用方的兼容分支承接。
+NS_INLINE AVCaptureDeviceDiscoverySession *_Nonnull
+jobsMakeCaptureDeviceDiscoverySession(NSArray<AVCaptureDeviceType> *_Nonnull deviceTypes,
+                                      AVMediaType _Nonnull mediaType,
+                                      AVCaptureDevicePosition position)
+API_AVAILABLE(ios(10.0))
+{
+    return [AVCaptureDeviceDiscoverySession discoverySessionWithDeviceTypes:deviceTypes
+                                                                 mediaType:mediaType
+                                                                  position:position];
+}
+
+NS_INLINE UIEditMenuConfiguration *_Nonnull
+jobsMakeEditMenuConfiguration(id<NSCopying> _Nullable identifier,
+                              CGPoint sourcePoint)
+API_AVAILABLE(ios(16.0))
+{
+    return [UIEditMenuConfiguration configurationWithIdentifier:identifier
+                                                    sourcePoint:sourcePoint];
+}
 
 #pragma mark —— 关于富文本
 /// 创建不可变富文本
@@ -287,26 +310,41 @@ NS_INLINE __kindof UIBackgroundConfiguration *_Nonnull
 jobsMakeListPlainCellConfiguration(jobsByBackgroundConfigBlock _Nullable block)
 API_AVAILABLE(ios(14.0), tvos(14.0)) API_UNAVAILABLE(watchos)
 {
-    UIBackgroundConfiguration *config = UIBackgroundConfiguration.listPlainCellConfiguration;
+    UIBackgroundConfiguration *config;
+    if (@available(iOS 18.0, tvOS 18.0, *)) {
+        config = UIBackgroundConfiguration.listCellConfiguration;
+    } else {
+        SuppressWdeprecatedDeclarationsWarning(config = UIBackgroundConfiguration.listPlainCellConfiguration;);
+    }
     if (block) block(config);
     return config;
 }
 
 NS_INLINE __kindof UIBackgroundConfiguration * _Nonnull
 jobsMakeListPlainHeaderFooterConfiguration(jobsByBackgroundConfigBlock _Nullable block)
-API_DEPRECATED("Use +listHeaderConfiguration or +listFooterConfiguration", ios(14.0, 18.0)) API_UNAVAILABLE(watchos)
+API_AVAILABLE(ios(14.0), tvos(14.0)) API_UNAVAILABLE(watchos)
 {
     // ✅ 用消息语法，别用点号访问类方法
-    UIBackgroundConfiguration *config = UIBackgroundConfiguration.listPlainHeaderFooterConfiguration;
+    UIBackgroundConfiguration *config;
+    if (@available(iOS 18.0, tvOS 18.0, *)) {
+        config = UIBackgroundConfiguration.listHeaderConfiguration;
+    } else {
+        SuppressWdeprecatedDeclarationsWarning(config = UIBackgroundConfiguration.listPlainHeaderFooterConfiguration;);
+    }
     if (block) block(config);
     return config;
 }
 
 NS_INLINE __kindof UIBackgroundConfiguration *_Nonnull
 jobsMakeListGroupedCellConfiguration(jobsByBackgroundConfigBlock _Nullable block)
-API_DEPRECATED_WITH_REPLACEMENT("listCellConfiguration", ios(14.0, 18.0)) API_UNAVAILABLE(watchos)
+API_AVAILABLE(ios(14.0), tvos(14.0)) API_UNAVAILABLE(watchos)
 {
-    UIBackgroundConfiguration *config = UIBackgroundConfiguration.listGroupedCellConfiguration;
+    UIBackgroundConfiguration *config;
+    if (@available(iOS 18.0, tvOS 18.0, *)) {
+        config = UIBackgroundConfiguration.listCellConfiguration;
+    } else {
+        SuppressWdeprecatedDeclarationsWarning(config = UIBackgroundConfiguration.listGroupedCellConfiguration;);
+    }
     if (block) block(config);
     return config;
 }
@@ -344,7 +382,12 @@ NS_INLINE __kindof UIBackgroundConfiguration *_Nonnull
 jobsMakeListGroupedHeaderFooterConfiguration(jobsByBackgroundConfigBlock _Nullable block)
 API_AVAILABLE(ios(14.0), tvos(14.0)) API_UNAVAILABLE(watchos)
 {
-    UIBackgroundConfiguration *config = UIBackgroundConfiguration.listGroupedHeaderFooterConfiguration;
+    UIBackgroundConfiguration *config;
+    if (@available(iOS 18.0, tvOS 18.0, *)) {
+        config = UIBackgroundConfiguration.listHeaderConfiguration;
+    } else {
+        SuppressWdeprecatedDeclarationsWarning(config = UIBackgroundConfiguration.listGroupedHeaderFooterConfiguration;);
+    }
     if (block) block(config);
     return config;
 }
@@ -353,7 +396,12 @@ NS_INLINE __kindof UIBackgroundConfiguration *_Nonnull
 jobsMakeListSidebarHeaderConfiguration(jobsByBackgroundConfigBlock _Nullable block)
 API_AVAILABLE(ios(14.0), tvos(14.0)) API_UNAVAILABLE(watchos)
 {
-    UIBackgroundConfiguration *config = UIBackgroundConfiguration.listSidebarHeaderConfiguration;
+    UIBackgroundConfiguration *config;
+    if (@available(iOS 18.0, tvOS 18.0, *)) {
+        config = UIBackgroundConfiguration.listHeaderConfiguration;
+    } else {
+        SuppressWdeprecatedDeclarationsWarning(config = UIBackgroundConfiguration.listSidebarHeaderConfiguration;);
+    }
     if (block) block(config);
     return config;
 }
@@ -362,7 +410,12 @@ NS_INLINE __kindof UIBackgroundConfiguration *_Nonnull
 jobsMakeListSidebarCellConfiguration(jobsByBackgroundConfigBlock _Nullable block)
 API_AVAILABLE(ios(14.0), tvos(14.0)) API_UNAVAILABLE(watchos)
 {
-    UIBackgroundConfiguration *config = UIBackgroundConfiguration.listSidebarCellConfiguration;
+    UIBackgroundConfiguration *config;
+    if (@available(iOS 18.0, tvOS 18.0, *)) {
+        config = UIBackgroundConfiguration.listCellConfiguration;
+    } else {
+        SuppressWdeprecatedDeclarationsWarning(config = UIBackgroundConfiguration.listSidebarCellConfiguration;);
+    }
     if (block) block(config);
     return config;
 }
@@ -371,7 +424,12 @@ NS_INLINE __kindof UIBackgroundConfiguration *_Nonnull
 jobsMakeListAccompaniedSidebarCellConfiguration(jobsByBackgroundConfigBlock _Nullable block)
 API_AVAILABLE(ios(14.0), tvos(14.0)) API_UNAVAILABLE(watchos)
 {
-    UIBackgroundConfiguration *config = UIBackgroundConfiguration.listAccompaniedSidebarCellConfiguration;
+    UIBackgroundConfiguration *config;
+    if (@available(iOS 18.0, tvOS 18.0, *)) {
+        config = UIBackgroundConfiguration.listCellConfiguration;
+    } else {
+        SuppressWdeprecatedDeclarationsWarning(config = UIBackgroundConfiguration.listAccompaniedSidebarCellConfiguration;);
+    }
     if (block) block(config);
     return config;
 }
@@ -410,9 +468,21 @@ jobsMakeCollectionView(jobsByCollectionViewBlock _Nonnull block){
     return data;
 }
 
-NS_INLINE __kindof UIWindow *_Nonnull
+NS_INLINE __kindof UIWindow *_Nullable
 jobsMakeWindow(jobsByWindowBlock _Nonnull block){
-    UIWindow *data = UIWindow.alloc.init;
+    UIWindow *data;
+    if (@available(iOS 13.0, *)) {
+        UIWindowScene *scene = jobsGetForegroundWindowScene();
+        if (scene) {
+            data = [UIWindow.alloc initWithWindowScene:scene];
+        } else if (@available(iOS 26.0, *)) {
+            return nil;
+        } else {
+            SuppressWdeprecatedDeclarationsWarning(data = UIWindow.alloc.init;);
+        }
+    } else {
+        SuppressWdeprecatedDeclarationsWarning(data = UIWindow.alloc.init;);
+    }
     if (block) block(data);
     return data;
 }
@@ -442,6 +512,17 @@ NS_INLINE __kindof UILabel *_Nonnull
 jobsMakeLabel(jobsByLabelBlock _Nonnull block){
     UILabel *data = UILabel.alloc.init;
     if (block) block(data);
+    return data;
+}
+
+/// 系统媒体音量控件；保留原生滑条交互，仅隐藏音频路由入口。
+NS_INLINE __kindof MPVolumeView *_Nonnull
+jobsMakeVolumeView(jobsByViewBlock _Nullable block){
+    MPVolumeView *data = MPVolumeView.alloc.init;
+    data.showsRouteButton = NO;
+    if (block) {
+        block(data);
+    }
     return data;
 }
 

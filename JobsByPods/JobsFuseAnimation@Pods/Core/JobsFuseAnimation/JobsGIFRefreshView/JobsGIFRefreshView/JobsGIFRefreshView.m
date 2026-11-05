@@ -221,7 +221,7 @@ Prop_assign()BOOL wantsAnimating;
             CGImageRef imageRef = CGImageSourceCreateImageAtIndex(source, index, nil);
             if (!imageRef) continue;
             UIImage *image = [UIImage imageWithCGImage:imageRef
-                                                scale:UIScreen.mainScreen.scale
+                                                scale:jobsScreenScaleForView(nil)
                                           orientation:UIImageOrientationUp];
             [frames addObject:image];
             duration += [self jobs_delayAtIndex:index source:source];

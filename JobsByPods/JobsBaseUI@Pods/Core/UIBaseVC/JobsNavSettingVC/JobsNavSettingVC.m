@@ -6,7 +6,6 @@
 //
 
 #import "JobsNavSettingVC.h"
-
 #import <JobsBaseUI/UIViewController+BaseNavigationBar.h>
 #import <JobsBaseUI/UIView+Extra.h>
 #import <JobsNavBar/JobsNavBarConfig.h>

@@ -1,5 +1,4 @@
 #!/usr/bin/env ruby
-# 核验两种安装合同及真实生成的模拟器依赖图；不下载依赖或修改第三方源码。
 require 'json'
 require 'optparse'
 
@@ -13,6 +12,9 @@ rescue LoadError
   exec({ 'GEM_HOME' => "#{prefix}/opt/cocoapods/libexec", 'GEM_PATH' => nil },
        "#{prefix}/opt/ruby/bin/ruby", __FILE__, *ARGV)
 end
+
+# 用途：核验普通安装与模拟器安装的 Pod 依赖合同，可另验已有锁文件和真实生成的依赖图。
+# 运行：终端用 ruby 执行本文件，--installed-root 可指定已安装工程；不下载或安装依赖，不修改第三方源码。
 
 # 每次重新解析真实 podspec，并恢复调用方原有安装模式。
 def dependencies(path, mode)

@@ -32,6 +32,9 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface UIButton (DSL)
 
+/// 复制 Jobs 兼容设置，保留源的原回调与颜色变换，目标几何和阴影快照独立。
+-(JobsRetBtnByIDBlock _Nonnull)byCopyCompatibilityFromButton API_UNAVAILABLE(tvos, visionos, watchos);
+
 /// 设置 configuration。
 -(JobsRetBtnByButtonConfigurationBlock _Nonnull)byConfiguration API_AVAILABLE(ios(15.0), tvos(15.0)) API_UNAVAILABLE(watchos);
 /// 请求刷新 configuration。
@@ -82,21 +85,21 @@ NS_ASSUME_NONNULL_BEGIN
 -(JobsRetBtnByTextAlignmentBlock _Nonnull)byTitleAlignment;
 /// 设置标题换行方式；BaseButton 等子类若持有 lineBreakMode / titleLineBreakMode 属性，也会同步写入。
 -(JobsRetBtnByLineBreakModeBlock _Nonnull)byLineBreakMode;
-/// 设置 titleShadowOffset。
+/// 标题阴影：iOS 15+ 写入富文本配置，旧系统使用 UILabel 阴影偏移。
 -(JobsRetBtnByCGSizeBlock _Nonnull)byTitleShadowOffset API_UNAVAILABLE(tvos) API_UNAVAILABLE(visionos, watchos);
 /// 设置内容边距；iOS 15+ 的 UIButtonConfiguration 兼容由封装内部处理。
 -(JobsRetBtnByUIEdgeInsetsBlock _Nonnull)byContentEdgeInsets API_UNAVAILABLE(watchos);
-/// 设置 titleEdgeInsets。
+/// 标题边距：iOS 15+ 在配置更新中保留标题偏移，旧系统使用 titleEdgeInsets。
 -(JobsRetBtnByUIEdgeInsetsBlock _Nonnull)byTitleEdgeInsets API_UNAVAILABLE(watchos);
-/// 设置 imageEdgeInsets。
+/// 图片边距：iOS 15+ 保留图片偏移和尺寸，旧系统使用 imageEdgeInsets。
 -(JobsRetBtnByUIEdgeInsetsBlock _Nonnull)byImageEdgeInsets API_UNAVAILABLE(watchos);
-/// 设置 reversesTitleShadowWhenHighlighted。
+/// 高亮时反转标题阴影；iOS 15+ 通过配置更新处理。
 -(JobsRetBtnByBOOLBlock _Nonnull)byReversesTitleShadowWhenHighlighted API_UNAVAILABLE(watchos);
-/// 设置 adjustsImageWhenHighlighted。
+/// 高亮图片调整；iOS 15+ 保留并串接原配置回调和颜色变换。
 -(JobsRetBtnByBOOLBlock _Nonnull)byAdjustsImageWhenHighlighted API_UNAVAILABLE(watchos);
-/// 设置 adjustsImageWhenDisabled。
+/// 禁用图片调整；iOS 15+ 通过配置更新处理，禁用态优先于高亮态。
 -(JobsRetBtnByBOOLBlock _Nonnull)byAdjustsImageWhenDisabled API_UNAVAILABLE(watchos);
-/// 设置 showsTouchWhenHighlighted。
+/// 点按反馈；iOS 15+ 临时光晕并恢复原阴影，旧系统保留原生触摸反馈。
 -(JobsRetBtnByBOOLBlock _Nonnull)byShowsTouchWhenHighlighted API_UNAVAILABLE(tvos) API_UNAVAILABLE(watchos);
 /// 设置 UIButton 可访问性标签。
 -(JobsRetBtnByStringBlock _Nonnull)byAccessibilityLabel;

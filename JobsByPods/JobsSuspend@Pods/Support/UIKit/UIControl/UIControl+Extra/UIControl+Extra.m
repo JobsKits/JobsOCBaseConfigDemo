@@ -6,7 +6,6 @@
 //
 
 #import "UIControl+Extra.h"
-
 #import <JobsSuspend/JobsControlTarget.h>
 
 JobsKey(kJobsTargetsMapKey)

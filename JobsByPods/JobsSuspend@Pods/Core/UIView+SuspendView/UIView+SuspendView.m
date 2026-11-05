@@ -6,7 +6,6 @@
 //
 
 #import "UIView+SuspendView.h"
-
 #import <JobsSuspend/UIView+Measure.h>
 
 @interface JobsSuspendGestureDelegate : NSObject<UIGestureRecognizerDelegate>

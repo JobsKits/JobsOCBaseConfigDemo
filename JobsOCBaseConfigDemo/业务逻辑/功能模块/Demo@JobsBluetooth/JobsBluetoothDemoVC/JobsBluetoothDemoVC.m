@@ -60,6 +60,9 @@ Prop_copy()NSArray <NSString *>*features;
     static NSString *reuseIdentifier = @"JobsBluetoothDemoCell";
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:reuseIdentifier];
     if (!cell) cell = [UITableViewCell.alloc initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:reuseIdentifier];
+#if DEBUG
+    cell.accessibilityIdentifier = [NSString stringWithFormat:@"jobs.coverage.open.JobsBluetoothFeatureDemoVC.%ld", (long)indexPath.row];
+#endif
     return cell.byTextLabel(^(__kindof UILabel * _Nullable label) {
         label.byText([NSString stringWithFormat:@"%ld. %@", (long)indexPath.row + 1, self.features[indexPath.row]])
             .byFont(UIFontWeightMediumSize(15))

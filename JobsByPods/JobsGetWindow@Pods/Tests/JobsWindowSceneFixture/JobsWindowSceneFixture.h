@@ -10,6 +10,9 @@
 
 #import <UIKit/UIKit.h>
 
+// 用途：声明测试替身（fixture）；提供可控的窗口集合、Scene 活跃状态和会话标识，供窗口筛选测试。
+// 运行：由 JobsGetWindow-Unit-Stability 测试用例创建，不单独运行；不进入主 App，也不代表真实设备或外网验收。
+
 @interface JobsWindowSceneFixture : NSObject
 
 @property(nonatomic,copy)NSArray<UIWindow *> *windows;

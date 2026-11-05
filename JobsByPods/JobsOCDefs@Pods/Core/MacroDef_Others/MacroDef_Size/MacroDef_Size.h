@@ -293,11 +293,11 @@ NS_INLINE BOOL isFullScreen(void){
  */
 #pragma mark —— 屏幕二维长宽数据输出
 NS_INLINE CGSize JobsMainScreen(void){
-    return UIScreen.mainScreen.bounds.size;
+    return jobsScreenBoundsForView(nil).size;
 }
 #pragma mark —— 屏幕Frame数据输出
 NS_INLINE CGRect MainScreenFrame(void){
-    return UIScreen.mainScreen.bounds;
+    return jobsScreenBoundsForView(nil);
 }
 #pragma mark —— 横屏判定
 #warning 横屏的时候，较之于竖屏，宽高会互换
@@ -327,11 +327,11 @@ NS_INLINE CGFloat JobsDeviceRealWidth(void){
 #endif
 /// 宽度适配（基于设计稿宽度）
 static inline CGFloat ScaleW(CGFloat value) {
-    return value * (UIScreen.mainScreen.bounds.size.width / JobsDesignWidth);
+    return value * (jobsScreenBoundsForView(nil).size.width / JobsDesignWidth);
 }
 /// 高度适配（基于设计稿高度）
 static inline CGFloat ScaleH(CGFloat value) {
-    return value * (UIScreen.mainScreen.bounds.size.height / JobsDesignHeight);
+    return value * (jobsScreenBoundsForView(nil).size.height / JobsDesignHeight);
 }
 /// https://www.strerr.com/screen.html
 /// 屏幕像素标准转化：输入原型图上的宽和高，对外输出App对应的移动设备的真实宽高
@@ -343,14 +343,14 @@ static inline CGFloat ScaleH(CGFloat value) {
  */
 /// 以 375pt 作为设计稿宽度基准（自动取短边）
 NS_INLINE CGFloat JobsWidth(CGFloat designWidth) {
-    CGSize screenSize = UIScreen.mainScreen.bounds.size;
+    CGSize screenSize = jobsScreenBoundsForView(nil).size;
     CGFloat screenShortSide = MIN(screenSize.width, screenSize.height);
     static const CGFloat baseWidth = 375.0;
     return (screenShortSide / baseWidth) * designWidth;
 }
 /// 以 812pt 作为设计稿高度基准（自动取长边）
 NS_INLINE CGFloat JobsHeight(CGFloat designHeight) {
-    CGSize screenSize = UIScreen.mainScreen.bounds.size;
+    CGSize screenSize = jobsScreenBoundsForView(nil).size;
     CGFloat screenLongSide = MAX(screenSize.width, screenSize.height);
     static const CGFloat baseHeight = 812.0;
     return (screenLongSide / baseHeight) * designHeight;
@@ -358,7 +358,7 @@ NS_INLINE CGFloat JobsHeight(CGFloat designHeight) {
 /// 按照设计稿宽度做等比例缩放（支持横屏）
 /// 需要等视图加载后调用（不能在 App 启动太早的阶段）
 NS_INLINE CGFloat JobsSafeWidth(CGFloat designWidth) {
-    UIWindow *targetWindow = UIApplication.sharedApplication.windows.firstObject;
+    UIWindow *targetWindow = jobsGetMainWindow();
     // iOS 13+ 使用 Scene 获取当前激活窗口
     if (@available(iOS 13.0, *)) {
         for (UIWindowScene *scene in UIApplication.sharedApplication.connectedScenes) {
@@ -371,7 +371,7 @@ NS_INLINE CGFloat JobsSafeWidth(CGFloat designWidth) {
     CGFloat safeWidth = targetWindow.safeAreaLayoutGuide.layoutFrame.size.width;
     // fallback 防止获取失败时宽度为0
     if (safeWidth <= 0) {
-        CGSize screenSize = UIScreen.mainScreen.bounds.size;
+        CGSize screenSize = jobsScreenBoundsForView(nil).size;
         safeWidth = MIN(screenSize.width, screenSize.height); // 自动适配横竖屏
     }
     static const CGFloat baseWidth = 430.0; // 以 iPhone 16 Pro Max 为设计基准
@@ -380,7 +380,7 @@ NS_INLINE CGFloat JobsSafeWidth(CGFloat designWidth) {
 /// 按照设计稿宽度做等比例缩放（支持横屏）
 /// 需要等视图加载后调用（不能在 App 启动太早的阶段）
 NS_INLINE CGFloat JobsSafeHeight(CGFloat designHeight) {
-    UIWindow *targetWindow = UIApplication.sharedApplication.windows.firstObject;
+    UIWindow *targetWindow = jobsGetMainWindow();
     // iOS 13+ 取当前活跃 Scene 的主窗口
     if (@available(iOS 13.0, *)) {
         for (UIWindowScene *scene in UIApplication.sharedApplication.connectedScenes) {
@@ -393,7 +393,7 @@ NS_INLINE CGFloat JobsSafeHeight(CGFloat designHeight) {
     CGFloat safeHeight = targetWindow.safeAreaLayoutGuide.layoutFrame.size.height;
     // fallback 防止获取失败
     if (safeHeight <= 0) {
-        CGSize screenSize = UIScreen.mainScreen.bounds.size;
+        CGSize screenSize = jobsScreenBoundsForView(nil).size;
         safeHeight = MAX(screenSize.width, screenSize.height); // 横屏/竖屏都自动适配
     }
     static const CGFloat baseHeight = 932.0; // iPhone 16 Pro Max 高度为设计基准

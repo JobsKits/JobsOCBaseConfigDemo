@@ -6,7 +6,6 @@
 //
 
 #import "JobsIconfont.h"
-
 #import <CoreText/CoreText.h>
 #import <objc/runtime.h>
 
@@ -346,8 +345,31 @@ static const void *JobsIconfontRequestIdentityKey = &JobsIconfontRequestIdentity
                         size:(CGSize)size
                        color:(UIColor *)color
              backgroundColor:(UIColor *)backgroundColor{
+    return [self iconImageForGlyph:glyph
+                             size:size
+                            color:color
+                  backgroundColor:backgroundColor
+                  traitCollection:[UITraitCollection traitCollectionWithDisplayScale:jobsScreenScaleForView(nil)]];
+}
+
+-(UIImage *)iconImageForGlyph:(JobsIconfontGlyph)glyph
+                        size:(CGSize)size
+                       color:(UIColor *)color
+             traitCollection:(UITraitCollection *)traitCollection{
+    return [self iconImageForGlyph:glyph
+                             size:size
+                            color:color
+                  backgroundColor:UIColor.clearColor
+                  traitCollection:traitCollection];
+}
+
+-(UIImage *)iconImageForGlyph:(JobsIconfontGlyph)glyph
+                        size:(CGSize)size
+                       color:(UIColor *)color
+             backgroundColor:(UIColor *)backgroundColor
+             traitCollection:(UITraitCollection *)traitCollection{
     UIGraphicsImageRendererFormat *format = UIGraphicsImageRendererFormat.defaultFormat;
-    format.byScale(UIScreen.mainScreen.scale);
+    format.byScale(MAX(traitCollection.displayScale, 1));
     format.byOpaque(CGColorGetAlpha(backgroundColor.CGColor) >= 1);
     UIGraphicsImageRenderer *renderer = [UIGraphicsImageRenderer.alloc initWithSize:size
                                                                               format:format];
@@ -375,6 +397,15 @@ static const void *JobsIconfontRequestIdentityKey = &JobsIconfontRequestIdentity
     return [self iconImageForGlyph:self.fallbackGlyphForAsset(asset)
                              size:size
                             color:UIColor.systemGray3Color];
+}
+
+-(UIImage *)placeholderImageForAsset:(JobsIconfontRemoteAsset)asset
+                                size:(CGSize)size
+                     traitCollection:(UITraitCollection *)traitCollection{
+    return [self iconImageForGlyph:self.fallbackGlyphForAsset(asset)
+                             size:size
+                            color:UIColor.systemGray3Color
+                  traitCollection:traitCollection];
 }
 
 -(JobsIconfontLoadToken *)loadAsset:(JobsIconfontRemoteAsset)asset

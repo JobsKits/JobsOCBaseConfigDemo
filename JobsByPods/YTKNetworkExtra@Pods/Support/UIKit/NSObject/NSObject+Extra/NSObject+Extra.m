@@ -6,7 +6,6 @@
 //
 
 #import "NSObject+Extra.h"
-
 #import <YTKNetworkExtra/NSURLRequest+Extra.h>
 
 @implementation NSObject (YTKNetworkExtraExtra)

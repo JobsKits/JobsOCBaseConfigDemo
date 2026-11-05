@@ -6,7 +6,6 @@
 //
 
 #import "JobsFiltrationView.h"
-
 #import <JobsFiltrationView/NSMutableArray+Extra.h>
 #import <JobsFiltrationView/UIView+Extra.h>
 

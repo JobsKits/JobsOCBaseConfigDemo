@@ -6,6 +6,7 @@
 //
 
 #import "JobsVideoTBVCell.h"
+#import "../../../../Common/App工具类/测试支持/JobsOCCoverageGestureProbe/JobsOCCoverageGestureProbe.h"
 
 @interface JobsVideoTBVCell ()
 
@@ -91,6 +92,20 @@ Prop_strong()VideoModel_Core *core_data;
                         }
                     }).load();
             self.rbView.byAlpha(1);
+            if (JobsOCCoverageGestureProbeEnabled()) {
+                NSArray<UIButton *> *buttons = self.rbView.getButtonArr();
+                NSArray<NSString *> *names = @[@"loveBtn", @"commentBtn", @"shareBtn"];
+                if (buttons.count == names.count) {
+                    for (NSUInteger index = 0; index < buttons.count; index++) {
+                        NSString *prefix = index == 1 ? @"jobs.coverage.open.JobsCommentCoreVC"
+                            : [@"jobs.coverage.longPress.JobsRightBtnsView." stringByAppendingString:names[index]];
+                        JobsOCCoveragePrepareLongPressButton(buttons[index],
+                            [NSString stringWithFormat:@"%@.%ld", prefix, (long)self.index]);
+                    }
+                }
+                JobsOCCoveragePrepareLongPressButton(self.rotation,
+                    [NSString stringWithFormat:@"jobs.coverage.longPress.JobsVideoTBVCell.rotation.%ld", (long)self.index]);
+            }
             self.textLabel.byText(self.core_data.videoTitle);
             self.textLabel.byTextCor(JobsRedColor);
 //            self.rotation.hidden;// 宽大于高 = 横屏视频，才支持旋转
@@ -154,6 +169,7 @@ Prop_strong()VideoModel_Core *core_data;
                 JobsLog(@"");
                 if ([self.delegate respondsToSelector:@selector(jobsZf_douyinRotation)]) self.delegate.jobsZf_douyinRotation();
             }).onLongPressGestureBy(^(id data){
+                JobsOCCoverageLongPressDelivered(data);
                 JobsLog(@"");
             })
             .addOn(self.contentView)
@@ -162,7 +178,9 @@ Prop_strong()VideoModel_Core *core_data;
                 make.centerY.equalTo(self.contentView);
                 make.left.equalTo(self.contentView);
             });
-    };return _rotation;
+    }
+    JobsOCCoveragePrepareLongPressButton(_rotation, @"jobs.coverage.longPress.JobsVideoTBVCell.rotation");
+    return _rotation;
 }
 
 @end

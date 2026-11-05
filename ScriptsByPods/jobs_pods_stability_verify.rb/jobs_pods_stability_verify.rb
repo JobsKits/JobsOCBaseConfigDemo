@@ -6,9 +6,9 @@ require 'json'
 require 'open3'
 require 'optparse'
 require 'time'
-require_relative 'jobs_stability_command'
-require_relative 'jobs_stability_host_entitlements'
-require_relative 'jobs_stability_sources'
+require_relative 'jobs_stability_command.rb/jobs_stability_command'
+require_relative 'jobs_stability_host_entitlements.rb/jobs_stability_host_entitlements'
+require_relative 'jobs_stability_sources.rb/jobs_stability_sources'
 
 $stdout.sync = true
 
@@ -228,7 +228,7 @@ end
 passed = true
 if %w[all pods].include?(options[:phase])
   if options[:batch_pods]
-    require_relative 'jobs_stability_pod_batch'
+    require_relative 'jobs_stability_pod_batch.rb/jobs_stability_pod_batch'
     plan = JobsStabilityPodBatch.prepare(root, pods.keys, options[:output])
     assert_current_source.call
     options[:configurations].each do |configuration|

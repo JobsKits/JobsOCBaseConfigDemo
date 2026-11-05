@@ -23,6 +23,8 @@ Prop_strong()UIStackView *contentStackView;
 
 @end
 
+JobsKey(JobsJobsOCNumberStepperModernTraitsRegistrationKey)
+
 @implementation JobsOCNumberStepper
 
 -(JobsRetJobsOCNumberStepperByNSIntegerBlock _Nonnull)byValue{
@@ -112,6 +114,9 @@ Prop_strong()UIStackView *contentStackView;
 }
 
 -(void)traitCollectionDidChange:(UITraitCollection *)previousTraitCollection{
+    if (@available(iOS 17.0, tvOS 17.0, *)) {
+        return;
+    }
     jobsByUITraitCollectionBlock action = ((jobsByUITraitCollectionBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(JobsOCNumberStepper.class, @selector(jobsTraitCollectionDidChange)))(self, @selector(jobsTraitCollectionDidChange));
     if (action) action(previousTraitCollection);
 }
@@ -121,7 +126,11 @@ Prop_strong()UIStackView *contentStackView;
     return ^(UITraitCollection * previousTraitCollection){
         @jobs_strongify(self)
         if (!self) return;
-        [super traitCollectionDidChange:previousTraitCollection];
+        if (@available(iOS 17.0, tvOS 17.0, *)) {
+            // 现代注册回调只执行业务刷新，旧系统保留父类通知。
+        } else {
+            SuppressWdeprecatedDeclarationsWarning([super traitCollectionDidChange:previousTraitCollection];);
+        }
         self.textField.layer.byBorderColorUIColor(JobsSeparatorColor);
     };
 }
@@ -184,7 +193,30 @@ Prop_strong()UIStackView *contentStackView;
     @jobs_weakify(self)
     return ^{
         @jobs_strongify(self)
-        if (!self) return;
+        if (!self) {
+            return;
+        }
+        if (@available(iOS 17.0, tvOS 17.0, *)) {
+            if (!Jobs_getAssociatedObjectByTarget(self, JobsJobsOCNumberStepperModernTraitsRegistrationKey)) {
+                Jobs_setAssociatedRETAIN_NONATOMICByTarget(self, JobsJobsOCNumberStepperModernTraitsRegistrationKey, @YES)
+                NSArray<UITrait> *traits = [UITraitCollection.systemTraitsAffectingColorAppearance arrayByAddingObjectsFromArray:@[
+                    UITraitDisplayScale.class,
+                    UITraitPreferredContentSizeCategory.class,
+                    UITraitHorizontalSizeClass.class,
+                    UITraitVerticalSizeClass.class,
+                    UITraitLayoutDirection.class
+                ]];
+                [self registerForTraitChanges:traits
+                                 withHandler:^(__kindof id<UITraitEnvironment> environment,
+                                               UITraitCollection *previousTraitCollection) {
+                    JobsOCNumberStepper *target = (JobsOCNumberStepper *)environment;
+                    jobsByUITraitCollectionBlock action = ((jobsByUITraitCollectionBlock (*)(__typeof__(target), SEL))JobsBlockInstanceMethodIMP(JobsOCNumberStepper.class, @selector(jobsTraitCollectionDidChange)))(target, @selector(jobsTraitCollectionDidChange));
+                    if (action) {
+                        action(previousTraitCollection);
+                    }
+                }];
+            }
+        }
         self.contentStackView.byHidden(NO);
         [self.decreaseButtonContainer mas_makeConstraints:^(MASConstraintMaker *make) {
             make.width.mas_equalTo(44);

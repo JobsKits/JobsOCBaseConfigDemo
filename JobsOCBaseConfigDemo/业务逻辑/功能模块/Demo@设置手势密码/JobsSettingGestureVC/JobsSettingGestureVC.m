@@ -24,6 +24,11 @@ Prop_strong()JobsGestureLockView *demoLockView;
 Prop_strong()UIButton *clearButton;
 Prop_copy()NSString *demoFirstPattern;
 Prop_assign()JobsSettingGestureFlowState flowState;
+-(void)jobs_recordCoveragePatternResult:(NSString *)result;
+#if DEBUG
+-(void)jobs_installCoveragePatternControls;
+-(void)jobs_coveragePatternButtonTapped:(UIButton *)sender;
+#endif
 
 @end
 
@@ -37,11 +42,22 @@ Prop_assign()JobsSettingGestureFlowState flowState;
 @implementation JobsSettingGestureVC
 
 - (instancetype)init{
+    NSString *storageKey = JobsSettingGestureStorageKey;
+#if DEBUG
+    if ([NSProcessInfo.processInfo.arguments containsObject:@"--jobs-coverage-route"]) {
+        storageKey = [@"jobs.coverage.gesture." stringByAppendingString:NSUUID.UUID.UUIDString];
+    }
+#endif
     return [self initWithMode:JobsGestureLockModeCreate
-                   storageKey:JobsSettingGestureStorageKey];
+                   storageKey:storageKey];
 }
 
 - (void)dealloc{
+#if DEBUG
+    if ([self.storageKey hasPrefix:@"jobs.coverage.gesture."]) {
+        JobsGestureLockVC.deleteGesturePasswordForKey(self.storageKey);
+    }
+#endif
     JobsLog(@"%@",JobsLocalFunc);
 //    JobsRemoveNotification(self);
 }
@@ -99,8 +115,59 @@ Prop_assign()JobsSettingGestureFlowState flowState;
         self.demoLockView.byAlpha(1);
         self.clearButton.byAlpha(1);
         self.refreshStateFromStorage();
+#if DEBUG
+        [self jobs_installCoveragePatternControls];
+#endif
     };
 }
+#if DEBUG
+-(void)jobs_installCoveragePatternControls{
+    if (![NSProcessInfo.processInfo.arguments containsObject:@"--jobs-coverage-route"]) {
+        return;
+    }
+    NSArray<NSString *> *titles = @[@"组件 A", @"组件 B", @"短路径", @"清除测试密码"];
+    NSArray<NSString *> *keys = @[@"A", @"B", @"short", @"clear"];
+    NSMutableArray<UIButton *> *buttons = NSMutableArray.array;
+    for (NSUInteger index = 0; index < titles.count; index++) {
+        UIButton *button = jobsMakeButton(^(__kindof UIButton * _Nullable button) {
+            button.byTag(index);
+            button.jobsResetBtnTitle(titles[index])
+                .jobsResetBtnTitleCor(JobsSystemBlueColor)
+                .jobsResetBtnTitleFont(UIFontWeightRegularSize(11));
+        });
+        button.accessibilityIdentifier = [@"jobs.coverage.component.pattern." stringByAppendingString:keys[index]];
+        [button addTarget:self action:@selector(jobs_coveragePatternButtonTapped:) forControlEvents:UIControlEventTouchUpInside];
+        [buttons addObject:button];
+    }
+    UIStackView *stack = [UIStackView.alloc initWithArrangedSubviews:buttons];
+    stack.axis = UILayoutConstraintAxisHorizontal;
+    stack.distribution = UIStackViewDistributionFillEqually;
+    [self.view addSubview:stack];
+    [stack mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.equalTo(self.view.mas_safeAreaLayoutGuideLeft).offset(8);
+        make.right.equalTo(self.view.mas_safeAreaLayoutGuideRight).offset(-8);
+        make.bottom.equalTo(self.view.mas_safeAreaLayoutGuideBottom).offset(-2);
+        make.height.mas_equalTo(28);
+    }];
+}
+
+-(void)jobs_coveragePatternButtonTapped:(UIButton *)sender{
+    if (![NSProcessInfo.processInfo.arguments containsObject:@"--jobs-coverage-route"] ||
+        ![self.storageKey hasPrefix:@"jobs.coverage.gesture."]) {
+        return;
+    }
+    if (sender.tag == 3) {
+        JobsGestureLockVC.deleteGesturePasswordForKey(self.storageKey);
+        self.refreshStateFromStorage();
+        return;
+    }
+    NSArray<NSArray<NSNumber *> *> *patterns = @[@[@0, @1, @2, @5], @[@0, @3, @6, @7], @[@0, @1]];
+    if (sender.tag >= 0 && (NSUInteger)sender.tag < patterns.count) {
+        [self.demoLockView jobs_coverageReplayNodeIndices:patterns[sender.tag]];
+    }
+}
+#endif
+
 #pragma mark —— 一些公有方法
 -(JobsRetCGSizeByVoidBlock _Nonnull)getTopLineLabSize{
     @jobs_weakify(self)
@@ -139,6 +206,7 @@ Prop_assign()JobsSettingGestureFlowState flowState;
     if (pattern.length < lockView.configuration.minimumPatternLength) {
         self.showErrorAndClear([NSString stringWithFormat:@"至少连接 %lu 个点".jobsTr(),
                                  (unsigned long)lockView.configuration.minimumPatternLength]);
+        [self jobs_recordCoveragePatternResult:@"tooShort"];
         return;
     }
     switch (self.flowState) {
@@ -148,21 +216,24 @@ Prop_assign()JobsSettingGestureFlowState flowState;
             self.byFlowState(JobsSettingGestureFlowStateConfirmFirst);
             lockView.showValidationResult(JobsGestureLockValidationResultSuccess);
             self.hintLabel.byText(@"请再绘制一次进行确认".jobsTr());
+            [self jobs_recordCoveragePatternResult:@"createFirstAccepted"];
             self.clearGestureTraceAfterDelay();
             break;
         /// 处理二次确认手势
         case JobsSettingGestureFlowStateConfirmFirst:
             if ([self.demoFirstPattern isEqualToString:pattern]) {
-                [JobsGestureLockVC saveGesturePassword:pattern forKey:JobsSettingGestureStorageKey];
+                [JobsGestureLockVC saveGesturePassword:pattern forKey:self.storageKey];
                 lockView.showValidationResult(JobsGestureLockValidationResultSuccess);
                 self.hintLabel.byText(@"设置成功 ✅ 现在可以用它解锁了".jobsTr());
                 self.byFlowState(JobsSettingGestureFlowStateValidate);
                 self.modeControl.bySelectedSegmentIndex(1);
+                [self jobs_recordCoveragePatternResult:@"created"];
                 self.clearGestureTraceAfterDelay();
             } else {
                 self.byDemoFirstPattern(nil);
                 self.byFlowState(JobsSettingGestureFlowStateCreateFirst);
                 self.showErrorAndClear(@"两次不一致，请重新设置".jobsTr());
+                [self jobs_recordCoveragePatternResult:@"confirmMismatch"];
             }
             break;
         /// 处理验证手势
@@ -170,17 +241,47 @@ Prop_assign()JobsSettingGestureFlowState flowState;
             if (![self hasStoredPattern]()) {
                 self.hintLabel.byText(@"还没设置手势，先去“设置/重置”".jobsTr());
                 lockView.reset();
+                [self jobs_recordCoveragePatternResult:@"noStoredPattern"];
                 return;
             }
-            if ([JobsGestureLockVC.gesturePasswordForKey(JobsSettingGestureStorageKey) isEqualToString:pattern]) {
+            if ([JobsGestureLockVC.gesturePasswordForKey(self.storageKey) isEqualToString:pattern]) {
                 lockView.showValidationResult(JobsGestureLockValidationResultSuccess);
                 self.hintLabel.byText(@"解锁成功 ✅".jobsTr());
+                [self jobs_recordCoveragePatternResult:@"verifySuccess"];
                 self.clearGestureTraceAfterDelay();
             } else {
                 self.showErrorAndClear(@"手势错误".jobsTr());
+                [self jobs_recordCoveragePatternResult:@"verifyWrong"];
             }
             break;
     }
+}
+
+// 只观察原状态机已发生的结果，延时清轨迹不覆盖最后一次结果。
+-(void)jobs_recordCoveragePatternResult:(NSString *)result {
+#if DEBUG
+    if (![NSProcessInfo.processInfo.arguments containsObject:@"--jobs-coverage-route"] ||
+        ![self.storageKey hasPrefix:@"jobs.coverage.gesture."] || !_hintLabel || !_demoLockView) {
+        return;
+    }
+    NSString *phase;
+    switch (self.flowState) {
+        case JobsSettingGestureFlowStateCreateFirst:
+            phase = @"create";
+            break;
+        case JobsSettingGestureFlowStateConfirmFirst:
+            phase = @"confirm";
+            break;
+        case JobsSettingGestureFlowStateValidate:
+            phase = @"verify";
+            break;
+        default:
+            return;
+    }
+    _hintLabel.accessibilityIdentifier = @"jobs.coverage.pattern.result";
+    _hintLabel.accessibilityValue = result;
+    _demoLockView.accessibilityValue = [@"phase:" stringByAppendingString:phase];
+#endif
 }
 
 -(jobsByBtnBlock _Nonnull)didTapClearButton{
@@ -219,10 +320,12 @@ Prop_assign()JobsSettingGestureFlowState flowState;
             self.byFlowState(JobsSettingGestureFlowStateValidate);
             self.modeControl.bySelectedSegmentIndex(1);
             self.hintLabel.byText(@"请输入手势解锁".jobsTr());
+            [self jobs_recordCoveragePatternResult:@"readyToVerify"];
         } else {
             self.byFlowState(JobsSettingGestureFlowStateCreateFirst);
             self.modeControl.bySelectedSegmentIndex(0);
             self.hintLabel.byText(@"请先设置手势（至少 4 个点）".jobsTr());
+            [self jobs_recordCoveragePatternResult:@"empty"];
         }
     };
 }
@@ -232,7 +335,7 @@ Prop_assign()JobsSettingGestureFlowState flowState;
     return ^BOOL{
         @jobs_strongify(self)
         if (!self) return (BOOL){0};
-        return JobsGestureLockVC.gesturePasswordForKey(JobsSettingGestureStorageKey).length > 0;
+        return JobsGestureLockVC.gesturePasswordForKey(self.storageKey).length > 0;
     };
 }
 
@@ -356,16 +459,21 @@ Prop_assign()JobsSettingGestureFlowState flowState;
 
 -(JobsGestureLockView *)demoLockView{
     if (!_demoLockView) {
-        _demoLockView = [JobsGestureLockView.alloc initWithConfiguration:JobsGestureLockConfiguration.defaultConfiguration()]
-            .byDelegate(self)
+        JobsGestureLockView *lockView = [JobsGestureLockView.alloc initWithConfiguration:JobsGestureLockConfiguration.defaultConfiguration()];
+        _demoLockView = lockView;
+        lockView.byDelegate(self)
             .byBgColor(JobsClearColor)
             .addOn(self.view)
             .byAdd(^(MASConstraintMaker *make) {
                 make.top.equalTo(self.hintLabel.mas_bottom).offset(JobsWidth(16));
                 make.left.right.equalTo(self.view).inset(JobsWidth(25));
-                make.height.equalTo(self.demoLockView.mas_width);
+                make.height.equalTo(lockView.mas_width);
             });
-    };return _demoLockView;
+    }
+#if DEBUG
+    _demoLockView.accessibilityIdentifier = @"jobs.coverage.surface.JobsSettingGestureVC.demoLockView";
+#endif
+    return _demoLockView;
 }
 
 -(UIButton *)clearButton{

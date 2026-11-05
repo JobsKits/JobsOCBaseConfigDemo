@@ -6,7 +6,6 @@
 //
 
 #import "HQTextField.h"
-
 #import <JobsBaseUI/CALayer+Extra.h>
 
 @interface HQTextField ()
@@ -89,7 +88,7 @@ Prop_strong()CABasicAnimation *opacityAnimation;
         _warnLayer = jobsMakeCAShapeLayer(^(__kindof CAShapeLayer *_Nullable data) {
             @jobs_strongify(self)
             data.byPath(UIBezierPath.byBezierPathWithRoundedRect(self.warnLayer.bounds, 0).CGPath)
-                .byLineWidth(6. / UIScreen.mainScreen.scale)
+                .byLineWidth(6. / jobsScreenScaleForView(nil))
                 .byLineDashPattern(nil)
                 .byFillColor(JobsClearColor.CGColor)
                 .byStrokeColor(JobsRedColor.CGColor)

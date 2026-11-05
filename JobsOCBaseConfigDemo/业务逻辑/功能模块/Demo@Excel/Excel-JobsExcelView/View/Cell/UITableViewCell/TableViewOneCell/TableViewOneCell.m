@@ -59,9 +59,9 @@ Prop_assign()CGSize size;
         [self.linePath addLineToPoint:CGPointMake(size.width, size.height)];
         [self.linePath addLineToPoint:CGPointMake(0, size.height)];
         self.linePath.byStroke();
-        UIGraphicsBeginImageContext(size);
-        self.linePath.byStroke();
-        UIGraphicsEndImageContext();
+        JobsRenderImage(size, NO, 1, ^(CGContextRef context) {
+            self.linePath.byStroke();
+        });
         self.lineLayer.addOn(self.button.layer);
     };
 }

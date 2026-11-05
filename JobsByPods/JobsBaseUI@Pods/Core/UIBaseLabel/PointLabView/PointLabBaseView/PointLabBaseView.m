@@ -6,7 +6,6 @@
 //
 
 #import "PointLabBaseView.h"
-
 #import <JobsBaseUI/NSString+Sys.h>
 #import <JobsBaseUI/UIView+Extra.h>
 #import <JobsBaseUI/UIView+Refresh.h>

@@ -6,7 +6,6 @@
 //
 
 #import "NSObject+YTKNetwork.h"
-
 #import <YTKNetworkExtra/NSData+Extra.h>
 #import <YTKNetworkExtra/NSMutableDictionary+Extra.h>
 #import <YTKNetworkExtra/NSObject+Extra.h>

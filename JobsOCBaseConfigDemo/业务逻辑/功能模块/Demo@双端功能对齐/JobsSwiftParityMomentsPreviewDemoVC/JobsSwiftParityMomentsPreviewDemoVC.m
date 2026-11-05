@@ -6,6 +6,7 @@
 //
 
 #import "JobsSwiftParityMomentsPreviewDemoVC.h"
+#import "../../../Common/App工具类/测试支持/JobsOCCoverageGestureProbe/JobsOCCoverageGestureProbe.h"
 
 @interface JobsSwiftParityMomentsPreviewDemoVC ()
 <
@@ -285,6 +286,7 @@ Prop_assign()JobsOCCommentMode commentMode;
         default:
             break;
     }
+    JobsOCCoverageLongPressRecognizerDelivered(button, gesture);
 }
 
 -(void)jobs_beginLikeByButton:(UIButton *)button
@@ -646,6 +648,9 @@ Prop_assign()JobsOCCommentMode commentMode;
             });
         [self jobs_updateLikeButton:button
                                post:post];
+        if (JobsOCCoverageGestureProbeEnabled()) {
+            button.accessibilityIdentifier = [NSString stringWithFormat:@"jobs.coverage.moments.like.%ld", (long)indexPath.row];
+        }
     });
     NSArray<NSString *> *comments = post[@"comments"];
     jobsMakeLabel(^(__kindof UILabel * _Nullable label) {

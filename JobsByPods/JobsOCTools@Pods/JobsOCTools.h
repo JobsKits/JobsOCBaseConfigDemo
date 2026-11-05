@@ -19,6 +19,7 @@
 #import <JobsOCTools/GXCardView.h>
 #import <JobsOCTools/HAHandleDemoView.h>
 #import <JobsOCTools/ImageCodeView.h>
+#import <JobsOCTools/JobsAdNoticeView.h>
 #import <JobsOCTools/JobsCalenderView.h>
 #import <JobsOCTools/JobsCustomTabBar.h>
 #import <JobsOCTools/JobsCustomTabBarButton.h>

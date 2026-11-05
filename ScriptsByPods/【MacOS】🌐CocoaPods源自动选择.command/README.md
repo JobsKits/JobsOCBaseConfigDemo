@@ -30,12 +30,14 @@
 | 文件 | 职责 |
 | --- | --- |
 | [同名 `.command`](./【MacOS】🌐CocoaPods源自动选择.command) | 使用系统 `/bin/zsh` 执行网络测试、比较耗时并输出源 URL。 |
-| [jobs_cocoapods_source.rb](./jobs_cocoapods_source.rb) | 由 [Podfile](../../Podfile) 顶部加载，在 `source` 声明前同步调用脚本，并处理当前进程中的公共源锁定信息。 |
+| [jobs_cocoapods_source.rb](./jobs_cocoapods_source.rb/jobs_cocoapods_source.rb) | 由 [Podfile](../../Podfile) 顶部加载，在 `source` 声明前同步调用脚本，并处理当前进程中的公共源锁定信息。 |
 | [Tests](./Tests/) | 不执行真实安装的隔离验证。 |
 
-执行 `pod install` 或 `pod update` 时自动测速，无须更换日常命令。其它 `pod` 查询命令不触发网络测试。测速必须先于依赖解析，不能放入 `pre_install`、`post_install` 或 `post_integrate`；它也不属于现有离线保护模块异步执行的报告、索引任务。
+未启用纯净跳过开关时，执行 `pod install` 或 `pod update` 自动测速，无须更换日常命令。其它 `pod` 查询命令不触发网络测试。测速必须先于依赖解析，不能放入 `pre_install`、`post_install` 或 `post_integrate`；它与本地脚本保护模块的前置报告、集成后索引属于独立阶段。
 
 [**Xcode**](https://developer.apple.com/xcode) 的 `ScriptsByPods → 【MacOS】🌐CocoaPods源自动选择.command` 分组展示本包的脚本、适配器、说明与测试引用；这些文件没有 App target 成员关系，也不增加 Build Phase 或 Scheme 自动动作，实际调用入口是 Podfile。
+
+Podfile 加载的 Ruby 适配器识别 `JOBS_POD_INSTALL_PURE` 和 `JOBS_POD_INSTALL_SKIP_EXTERNAL_SCRIPTS`：任一启用时强制 `probe: false`，不调用本包 Shell、不执行网络测速，但保留本地公共源配置与锁文件处理。Xcode 通用入口默认空回车的基础模式会设置这些开关；输入大写 `YES` 的完整模式不注入开关，仍尊重用户已有环境。此规则不改变独立 Shell 入口的手动测速行为，也不保证 CocoaPods 的规格或源码下载离线。
 
 ## <span id="jobs-toc-heading-3" data-jobs-toc="v2">二、网络测试与选择规则 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a></span><!-- jobs-toc:heading-end -->
 
@@ -59,7 +61,7 @@
 
 ## <span id="jobs-toc-heading-4" data-jobs-toc="v2">三、运行方式与参数 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a></span><!-- jobs-toc:heading-end -->
 
-在工程根目录正常安装，Podfile 自动执行测速：
+在工程根目录正常安装，未启用上述跳过开关时 Podfile 自动测速：
 
 ```shell
 pod install
@@ -79,6 +81,7 @@ pod install
 
 | 环境变量 | 默认值 / 用途 |
 | --- | --- |
+| `JOBS_POD_INSTALL_PURE` / `JOBS_POD_INSTALL_SKIP_EXTERNAL_SCRIPTS` | 默认未设置；任一启用时 Ruby 适配器只处理本地配置与锁文件，不调用测速脚本。 |
 | `JOBS_SPECS_SOURCE` | `auto`，依据实测选择；`cdn` / `git` 固定本次来源，仍执行测试并报告结果。 |
 | `JOBS_SPECS_PROBE_TIMEOUT` | `8`，每条候选线路完整测试的最长等待秒数，可配置整数 `1`～`30`。 |
 | `JOBS_SPECS_CONNECT_TIMEOUT` | `2`，HTTP 连接超时秒数，可配置整数 `1`～`30`，实际不超过候选线路总超时。 |
@@ -114,7 +117,7 @@ JOBS_SPECS_SOURCE=cdn \
 - Podfile 调用：`jobs-cocoapods-source-<工程路径摘要>.log`。
 - 独立运行：`【MacOS】🌐CocoaPods源自动选择.<工程路径摘要>.log`。
 
-两种入口都会显示实际日志位置。排查时同时检查选源日志和 CocoaPods 自身错误：规格源可用不代表所有源码仓库都可用。
+执行网络测速时，两种入口都会显示实际日志位置。排查时同时检查选源日志和 CocoaPods 自身错误：规格源可用不代表所有源码仓库都可用。
 
 迁移到其它电脑时，保留本目录的 `.command`、Ruby 适配器、README 与 Tests，同时保留相邻网络适配包的完整目录与工程根目录 Podfile 的加载代码，维持两个包相对工程根目录的 `ScriptsByPods/<同名脚本包>/` 层级。无需复制另一台电脑的临时日志或修改本机绝对路径。
 
@@ -123,7 +126,7 @@ JOBS_SPECS_SOURCE=cdn \
 在运行 CocoaPods 的同一 Ruby 环境中，从本目录执行隔离回归：
 
 ```shell
-ruby ./Tests/run_regression.rb
+ruby ./Tests/run_regression.rb/run_regression.rb
 ```
 
 <a id="🔚" href="#前言" style="font-size:17px; color:green; font-weight:bold;">我是有底线的➤点我回到首页</a>

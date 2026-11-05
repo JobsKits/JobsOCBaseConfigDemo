@@ -57,6 +57,10 @@ Prop_assign(readonly)JobsGestureLockValidationResult validationResult;
 -(instancetype)initWithConfiguration:(nullable JobsGestureLockConfiguration *)configuration;
 -(jobsByJobsGestureLockValidationResultBlock _Nonnull)showValidationResult;
 -(jobsByVoidBlock _Nonnull)reset;
+#if DEBUG
+// 组件巡检复用真实选点和结束处理，不合成私有触摸事件。
+-(void)jobs_coverageReplayNodeIndices:(NSArray<NSNumber *> *)indices;
+#endif
 
 // JOBS_PROPERTY_DSL_DECLARATION_AUTOGEN_BEGIN JobsGestureLockView
 -(JobsRetJobsGestureLockViewByBOOLBlock _Nonnull)byFinished;

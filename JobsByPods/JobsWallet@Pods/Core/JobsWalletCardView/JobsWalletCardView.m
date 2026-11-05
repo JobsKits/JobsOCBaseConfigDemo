@@ -6,7 +6,6 @@
 //
 
 #import "JobsWalletCardView.h"
-
 #import <JobsWallet/JobsWalletCardCollectionViewCell.h>
 
 @interface JobsWalletCardView ()

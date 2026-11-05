@@ -127,8 +127,8 @@ Prop_strong()NSTimer *shrinkTimer;
         if (!self) return (CGFloat){0};
         CGPoint bgViewCenter = self.bgView.center;
         CGPoint svCenter = self.center;
-        CGFloat screenWidth = [[UIScreen mainScreen] bounds].size.width;
-        CGFloat screenHeight = [[UIScreen mainScreen] bounds].size.height;
+        CGFloat screenWidth = [jobsGetMainScreen() bounds].size.width;
+        CGFloat screenHeight = [jobsGetMainScreen() bounds].size.height;
         CGFloat w;
         CGFloat h;
         if (bgViewCenter.x > svCenter.x) {

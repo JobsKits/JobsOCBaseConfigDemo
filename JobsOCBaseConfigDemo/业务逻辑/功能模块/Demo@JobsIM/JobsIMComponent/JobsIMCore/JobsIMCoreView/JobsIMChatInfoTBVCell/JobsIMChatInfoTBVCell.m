@@ -23,7 +23,7 @@ static CGFloat JobsIMChatBubbleHeight(NSString *text) {
     return ceil(MAX(JobsIMChatMessageFont().lineHeight, textSize.height)) + JobsWidth(10);
 }
 
-@interface JobsIMChatInfoTBVCell ()
+@interface JobsIMChatInfoTBVCell () <UIEditMenuInteractionDelegate>
 
 /// UI
 Prop_strong()UIImageView *iconIMGV;/// 用户头像
@@ -33,7 +33,8 @@ Prop_strong()UILabel *chatContentLab;/// 聊天信息承接
 Prop_strong()UILabel *timeLab;
 Prop_strong()UILongPressGestureRecognizer *longPG;
 Prop_strong()NSMutableArray <UIImage *>*chatBubbleMutArr;
-Prop_strong()NSMutableArray <UIMenuItem *>*menuItemMutArr;
+Prop_strong()NSMutableArray *menuItemMutArr;
+@property(nonatomic, strong) UIEditMenuInteraction *editMenuInteraction API_AVAILABLE(ios(16.0));
 /// data
 Prop_copy()NSString *senderChatTextStr;/// 该聊天的文本信息
 Prop_copy()NSString *senderChatTextTimeStr;/// 该聊天的时间戳
@@ -457,6 +458,17 @@ UITextFieldProtocol_synthesize_part2
                 // 这里把 cell 做为第一响应
                 // cell 默认无法成为 responder，需要重写 canBecomeFirstResponder
                 [cell becomeFirstResponder];
+                if (@available(iOS 16.0, *)) {
+                    if (!self.editMenuInteraction) {
+                        self.editMenuInteraction = UIEditMenuInteraction.initBy(self);
+                        self.byAddInteraction(self.editMenuInteraction);
+                    }
+                    CGPoint sourcePoint = CGPointMake(CGRectGetMidX(cell.chatBubbleIMGV.frame),
+                                                      CGRectGetMidY(cell.chatBubbleIMGV.frame));
+                    UIEditMenuConfiguration *configuration = jobsMakeEditMenuConfiguration(nil, sourcePoint);
+                    [self.editMenuInteraction presentEditMenuWithConfiguration:configuration];
+                    return;
+                }
 #pragma clang diagnostic push
 #pragma clang diagnostic ignored "-Wdeprecated-declarations"
                 jobsMakeMenuController(^(__kindof UIMenuController * _Nullable menuController) {
@@ -479,6 +491,21 @@ UITextFieldProtocol_synthesize_part2
     };return _longPG;
 }
 
+#pragma mark —— UIEditMenuInteractionDelegate
+- (UIMenu *)editMenuInteraction:(UIEditMenuInteraction *)interaction
+          menuForConfiguration:(UIEditMenuConfiguration *)configuration
+              suggestedActions:(NSArray<UIMenuElement *> *)suggestedActions API_AVAILABLE(ios(16.0)) {
+    UIAction *pin = jobsMakeAction(@"置顶".jobsTr(), nil, nil, ^(__kindof UIAction *action) {
+        JobsLog(@"置顶");
+    }, nil);
+    UIAction *delete = jobsMakeAction(@"删除".jobsTr(), nil, nil, ^(__kindof UIAction *action) {
+        JobsLog(@"删除");
+    }, nil);
+    return jobsMakeMenu(@"", @[pin, delete], nil);
+}
+
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wdeprecated-declarations"
 -(NSMutableArray<UIMenuItem *> *)menuItemMutArr{
     if (!_menuItemMutArr) {
         @jobs_weakify(self)
@@ -497,6 +524,7 @@ UITextFieldProtocol_synthesize_part2
         });
     };return _menuItemMutArr;
 }
+#pragma clang diagnostic pop
 
 -(NSMutableArray<MGSwipeButtonModel *> *)leftBtnMutArr{
     if (!_leftBtnMutArr) {

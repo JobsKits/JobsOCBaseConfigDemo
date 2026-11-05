@@ -329,3 +329,7 @@ ruby ScriptsByPods/jobs_pods_stability_verify.rb/jobs_pods_stability_verify.rb \
 运行前应已安装工程依赖；runner 的 `--phase pods` 默认分别编译 Debug / Release，`--phase tests` 默认运行 Debug（JobsOCSnowflake 默认 Debug / Release），并将命令、源码指纹、日志和退出码保存到工程 `work/JobsPodsStability/`。如需固定输出目录，使用 runner 的 `--output`。
 
 <a id="🔚" href="#前言" style="font-size:17px; color:green; font-weight:bold;">我是有底线的➤点我回到首页</a>
+
+在 Debug 构建通过 `--jobs-coverage-route` 启动页面巡检时，`BaseViewController` 仅在实际 `viewDidAppear` 且视图已进入窗口后，给当前页添加 `jobs.coverage.page.<类名>` 可访问性标识。它用于二级页面的到达断言，不代表页面内操作或后端业务已经通过。正常启动和 Release 构建不启用此标记。
+
+自有父页完成导航离场后，巡检探针还会跟踪本次导航的真实目标实例；只有它仍为可见栈顶、已进入窗口并完成转场时才挂页面到达标识，兼容不继承 Jobs 基类的外援 Demo。探针有界等待，不改外援源码、不替换导航代理、不使用 swizzle；它只证明到达，页面内交互仍需独立步骤和断言。

@@ -6,7 +6,6 @@
 //
 
 #import "JobsBasePopupView.h"
-
 #import <JobsBasePopupView/BaseButton.h>
 #import <JobsBasePopupView/UIButton+SimplyMake.h>
 #import <JobsBasePopupView/UIView+BackgroundImage.h>

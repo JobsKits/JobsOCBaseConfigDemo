@@ -46,6 +46,7 @@
 - 对系统类或少量第三方 UI 类的方法做链式封装，例如 `UIView`、`UITableView`、`UITextField`、`UITextView`、`UIBackgroundConfiguration`、`UIControl`、`ASButtonNode`。
 - `CMMotionManager+DSL` 覆盖加速度计、陀螺仪、磁力计与设备姿态的更新频率、启动、停止、队列回调及参考坐标系配置；调用方可从 `CMMotionManager.byMotionManager()` 开始一链完成配置和监听。
 - 系统类 DSL 以“当前类本层级”为边界，只封装当前类自己声明的属性、无参数方法和单参数方法；父类能力留在父类 DSL，子类特有能力留在子类 DSL。
+- `UINavigationItem.byTitle(title)`、`byLeftBarButtonItems(items)` 与 `byRightBarButtonItems(items)` 在 `JobsSystemAPIDSLSupplement` 的导航项分类中设置标题、左右按钮组并返回原导航项，支持继续调用 `byTitleView(...)` 等导航项 DSL；不能用控制器同名方法的声明代替导航项实现。
 - OC 侧 DSL 统一依赖 `JobsBlock` 提供 Block typedef，避免每个 Pod 自己散落定义。
 - `JobsOCDefs` 的主题语义颜色可继续通过 `byBgColor(...)`、`byTextCor(...)`、`byTitleCor(...)` 等既有 DSL 使用；底层 setter 自动登记主题 Key，调用方无需追加页面级刷新逻辑。
 - `UITableViewCell.byAccessoryType(...)` 与普通 / 编辑附件入口为系统 disclosure 箭头绑定 Cell 局部外观，跟随 App 当前主题；移除箭头或改用自定义附件后解除绑定并恢复原外观，保留调用方显式指定的外观，不修改 Window 或控制器树。
@@ -126,6 +127,7 @@ JobsOCDSL@Pods/
 - `UIBarButtonItem+DSL`、`UITableViewCell+DSL`、`UIImpactFeedbackGenerator+DSL` 覆盖各自当前类本层属性和 0 / 1 参数方法，不复制 `UIBarItem`、`UIView`、`UIFeedbackGenerator` 的父类能力。
 - `UIButton+DSL` 覆盖按钮本层 configuration、普通状态标题 / 图片 / 富文本、titleLabel / imageView 回调，以及 `adjustsImageWhenHighlighted` 等旧式按钮属性；父类交互状态仍走 `UIControl+DSL`。Jobs 公开 DSL 不复制 UIKit deprecated 标记，`contentEdgeInsets` 的 configuration 适配及其它旧属性的兼容、回退和最小范围压警告均由实现内部处理。状态写入使用 `bySelected(...)` / `byEnabled(...)` / `byHighlighted(...)`，切换使用 `byToggleSelected()`，读取使用 `jobs_isSelected` / `jobs_isEnabled` / `jobs_isHighlighted` / `jobs_effectiveState`。
 - `UINavigationController+DSL` 用 `byDelegate(...)` 收口导航控制器代理；`UNUserNotificationCenter+DSL` 用同名入口收口通知中心代理。
+- `UIApplication` 的 `byApplicationIconBadgeNumber(...)` 在 iOS 16+ 使用 `UNUserNotificationCenter.setBadgeCount:withCompletionHandler:` 异步设置角标，失败写入日志；旧系统保留原生角标属性。链式返回值用于继续配置，不代表异步写入已成功。
 - `UIBarAppearance+DSL` 在父类层统一提供背景、阴影与背景配置方法，`UINavigationBarAppearance` 与 `UITabBarAppearance` 共同复用，不在两个子类重复铺设父类属性。
 - `UIBarAppearance+DSL` 同时承接公共背景、阴影与三种 `configureWith...Background` 方法；`UINavigationBarAppearance+DSL` 只放标题 / 按钮外观等子类属性，`UINavigationBar+DSL` 与 `UITabBar+DSL` 分别承接各自 appearance 管线和旧系统栏兼容属性，栏背景色、阴影图和背景图由封装内部在 appearance 与旧系统属性之间切换，不向调用方暴露 deprecated 标记。
 - `UIAppearance` 是消息记录代理，不能执行返回 Block 的实例 DSL；全局 `UITabBar` 外观使用 `jobsApplyStandardAppearance:` / `jobsApplyScrollEdgeAppearance:`，真实 `UITabBar` 实例继续使用 `byStandardAppearance` / `byScrollEdgeAppearance`。

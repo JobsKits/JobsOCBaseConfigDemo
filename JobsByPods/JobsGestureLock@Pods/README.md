@@ -264,3 +264,7 @@ ruby ScriptsByPods/jobs_pods_stability_verify.rb/jobs_pods_stability_verify.rb \
 运行前应已安装工程依赖；runner 的 `--phase pods` 默认分别编译 Debug / Release，`--phase tests` 默认运行 Debug（JobsOCSnowflake 默认 Debug / Release），并将命令、源码指纹、日志和退出码保存到工程 `work/JobsPodsStability/`。如需固定输出目录，使用 runner 的 `--output`。
 
 <a id="🔚" href="#前言" style="font-size:17px; color:green; font-weight:bold;">我是有底线的➤点我回到首页</a>
+
+Debug 页面巡检提供组件级选点重放：索引映射现有节点，复用原补点、去重、`currentPattern` 与真实结束回调；不合成私有触摸事件，也不降低最少点数。宿主 Demo 的 A / B / 短路径 / 清除测试密码按钮只在 Debug 且携带 `--jobs-coverage-route` 时显示，使用独立 UUID 存储 key 并定向清理，不修改用户原有手势密码。这类结果记录为 `component`，与公开 XCUITest 真实拖拽的 `gesture` 结果分开。
+
+带 `jobs.coverage.gesture.` 前缀的巡检 UUID key 只在 Debug 且携带巡检启动参数时路由到独立 `*.jobs.coverage.gesture` 偏好域；本轮初始化仅清理该测试域，正常运行的用户手势 key 继续使用原默认库。进程异常退出不会把测试密码写入用户默认库。

@@ -6,7 +6,6 @@
 //
 
 #import "UploadImageApi.h"
-
 #import <JobsAPIs/NSString+Extra.h>
 #import <JobsAPIs/NSMutableDictionary+Extra.h>
 

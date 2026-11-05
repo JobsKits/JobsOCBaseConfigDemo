@@ -6,7 +6,6 @@
 //
 
 #import "NSObject+DeviceIP.h"
-
 #import <MJExtension/MJExtension.h>
 
 @implementation NSObject (DeviceIP)

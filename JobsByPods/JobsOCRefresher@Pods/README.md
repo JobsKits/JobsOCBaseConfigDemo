@@ -128,7 +128,7 @@ JobsOCRefresher@Pods
 ### <span id="jobs-toc-heading-8" data-jobs-toc="v2">4.3、震动 / 声音反馈 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a></span><!-- jobs-toc:heading-end -->
 
 ```objc
-JobsOCRefreshConfig *config = JobsOCRefreshConfig.defaultHeaderConfig;
+JobsOCRefreshConfig *config = JobsOCRefreshConfig.defaultHeaderConfig();
 config.enablesHaptics = YES;
 config.soundName = @"refresh.wav";
 
@@ -144,9 +144,9 @@ config.soundName = @"refresh.wav";
 ### <span id="jobs-toc-heading-9" data-jobs-toc="v2">4.4、动画插件与热替换 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a></span><!-- jobs-toc:heading-end -->
 
 ```objc
-JobsOCRefreshConfig *config = JobsOCRefreshConfig.defaultHeaderConfig;
+JobsOCRefreshConfig *config = JobsOCRefreshConfig.defaultHeaderConfig();
 config.showsText = NO;
-config.animator = [[JobsTodayNewsRefreshView alloc] initWithConfig:JobsTodayNewsRefreshConfig.config];
+config.animator = [[JobsTodayNewsRefreshView alloc] initWithConfig:JobsTodayNewsRefreshConfig.config()];
 
 [tableView jobs_byRefreshHeaderWithConfig:config action:^{
     [tableView jobs_switchRefreshAt:JobsOCRefreshPositionHeader
@@ -156,7 +156,7 @@ config.animator = [[JobsTodayNewsRefreshView alloc] initWithConfig:JobsTodayNews
 
 ```objc
 id<JobsRefreshAnimatorProtocol> douyinAnimator =
-    [[JobsDouyinRefreshView alloc] initWithConfig:JobsDouyinRefreshConfig.config];
+    [[JobsDouyinRefreshView alloc] initWithConfig:JobsDouyinRefreshConfig.config()];
 [tableView jobs_replaceRefreshAnimator:douyinAnimator
                             atPosition:JobsOCRefreshPositionHeader];
 ```

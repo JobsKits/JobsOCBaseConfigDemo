@@ -6,7 +6,6 @@
 //
 
 #import "JobsAppDoorInputViewBaseStyle_6.h"
-
 #import <JobsAppDoor/AuthCodeLab.h>
 
 @interface JobsAppDoorInputViewBaseStyle_6 ()

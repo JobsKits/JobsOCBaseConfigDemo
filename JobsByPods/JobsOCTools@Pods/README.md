@@ -82,7 +82,7 @@ JobsOCTools@Pods/
 ├── README.md  # 当前自述
 ├── JobsOCTools.h  # 根入口头文件
 ├── JobsPodspecKit.rb  # 本地 podspec 基座
-├── Core/  # 公开入口与核心实现，183 个文件
+├── Core/  # 公开入口与核心实现，185 个文件
 ├── Support/  # 内部支援，4 个文件
 ├── Resource/  # 非代码资源，75 个文件
 ├── LICENSE  # 许可证文件
@@ -95,7 +95,7 @@ JobsOCTools@Pods/
 
 ## <span id="jobs-toc-heading-5" data-jobs-toc="v2">四、`Core` / `Support` 边界 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a></span><!-- jobs-toc:heading-end -->
 
-- `Core` 当前包含 183 个文件，其中源码 / 头文件 148 个；按 Jobs 规范，它是 `JobsOCTools` 对外公开 API 和核心实现的边界。
+- `Core` 当前包含 185 个文件，其中源码 / 头文件 150 个；按 Jobs 规范，它是 `JobsOCTools` 对外公开 API 和核心实现的边界。
 - `Support` 当前包含 4 个文件，其中源码 / 头文件 4 个；它只服务当前 Pod 内部实现，不建议被 App 层或其它 Pod 直接引用。
 - `Support/UIKit/NSString/NSString+Sys` 提供当前 Pod 内部使用的 `byTrimmingCharactersInSet` 字符串裁剪 DSL，不回引 `JobsByOCPods`。
 - `Core` 里需要暴露给外部的头文件应进入 `public_header_files`；实现细节、兼容代码、内部分类优先放在 `Support`。
@@ -107,6 +107,7 @@ JobsOCTools@Pods/
 
 - `JobsOCTools.h`
 - `Core/**/*.h`
+- `Core/JobsAdNoticeView/JobsAdNoticeView.h/.m` 提供固定广告提示条，保留原有文案、30 点高度与懒加载布局；通过 `JobsOCTools.h` 公开，宿主在 `jobsRichViewByModel` 中触发显示。依赖沿用已声明的 JobsBaseUI、JobsMakes、JobsOCDSL、JobsLanMgr、JobsBlock、JobsOCDefs、XYColorOC 与 Masonry，不新增依赖。
 - `JobsCustomTabBarVC.initWithConfiguration:` 与 `JobsCustomTabBar.initWithConfiguration:` 支持每个 Scene 独立的 `JobsCustomTabBarConfig`、按钮和控制器，不读取 AppDelegate 的全局 UI 缓存；子控制器、Bar 和初始选中项在首次 `viewWillAppear:` 安装，此时初始化传入的配置已就绪；Bar 通过 `jobsMakeCustomTabBarWithConfiguration(configuration, block)` 创建后随本实例布局更新。
 - `jobsMakeNormalCustomTabBarVC` / `jobsMakeNormalCustomTabBarConfig` 创建独立实例；`jobsSharedManager()` 与 Shared 工厂保留旧宿主显式共享语义。多窗口宿主为每个根创建独立配置和子控制器后，以 `initWithConfiguration:` 注入；按钮 Block 弱引用所属控制器，禁止用全局 AppDelegate 切换其它 Scene。
 
@@ -363,3 +364,5 @@ ruby JobsByPods/JobsOCTools@Pods/Tests/run_regression.rb
 运行前应已安装工程依赖；runner 的 `--phase pods` 默认分别编译 Debug / Release，`--phase tests` 默认运行 Debug（JobsOCSnowflake 默认 Debug / Release），并将命令、源码指纹、日志和退出码保存到工程 `work/JobsPodsStability/`。如需固定输出目录，使用 runner 的 `--output`。
 
 <a id="🔚" href="#前言" style="font-size:17px; color:green; font-weight:bold;">我是有底线的➤点我回到首页</a>
+
+Debug 构建为自带 Demo 的手势控件提供 `jobs.coverage.surface.JobsScrollViewVC.scrollYView` 可访问性标识，供项目内确定性巡检在真实控件上执行手势；标识本身不表示相机、麦克风或硬件能力已通过验证。

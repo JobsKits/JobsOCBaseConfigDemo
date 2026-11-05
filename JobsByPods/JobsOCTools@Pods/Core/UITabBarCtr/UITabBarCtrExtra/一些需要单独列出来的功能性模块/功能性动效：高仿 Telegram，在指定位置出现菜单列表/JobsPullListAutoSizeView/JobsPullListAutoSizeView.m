@@ -134,7 +134,7 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
                 .byScrollEnabled(NO)
                 .addOn(self)
                 .cornerCutToCircleWithCornerRadius(JobsWidth(3)) // 圆润
-                .byFrame(CGRectMake(self.targetView.centerX + self.listTbVWidth < UIScreen.mainScreen.bounds.size.width ? self.targetView.centerX : self.targetView.centerX - self.listTbVWidth,
+                .byFrame(CGRectMake(self.targetView.centerX + self.listTbVWidth < jobsScreenBoundsForView(nil).size.width ? self.targetView.centerX : self.targetView.centerX - self.listTbVWidth,
                                 tableviewY < 0 ? tableviewY += tableviewHeight : tableviewY,
                                 self.listTbVWidth, // 相对固定
                                     tableviewHeight));  // 相对固定

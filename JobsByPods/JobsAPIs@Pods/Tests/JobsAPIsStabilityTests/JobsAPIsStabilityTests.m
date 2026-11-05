@@ -10,6 +10,9 @@
 #import "JobsAPIUploadConstraintFixture.h"
 #import "JobsAPIRequestProtocolFixture.h"
 
+// 用途：实现自动化测试；验证真实请求代理的 GET 编码、超时与蜂窝约束、图片 multipart 上传、错误及取消传递。
+// 运行：在 Xcode 的 Pods 工程 JobsAPIs-Unit-Stability 测试 Target 执行，或由现有 CI 调用；不编入主 App。
+
 // 仅声明锁定 YTK 3.0.6 已有测试入口；不替换其请求构建或结果处理实现。
 @interface YTKNetworkAgent (JobsAPIsProtocolStabilityAccess)
 

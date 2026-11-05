@@ -6,7 +6,6 @@
 //
 
 #import "NSObject+URLMgr_6.h"
-
 #import <JobsAPIs/NSObject+Extra.h>
 /// 来自  http://18.162.73.145:19201/doc.html#/home
 @implementation NSObject (URLMgr_6)

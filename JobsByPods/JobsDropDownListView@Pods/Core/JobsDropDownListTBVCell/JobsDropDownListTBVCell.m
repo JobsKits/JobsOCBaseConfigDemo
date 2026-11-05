@@ -6,7 +6,6 @@
 //
 
 #import "JobsDropDownListTBVCell.h"
-
 #import <JobsBaseUI/NSObject+image.h>
 #import <JobsDropDownListView/UIView+Extra.h>
 #import <JobsDropDownListView/UITableView+RegisterClass.h>

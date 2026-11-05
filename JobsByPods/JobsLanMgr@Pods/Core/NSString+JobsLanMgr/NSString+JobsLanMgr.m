@@ -6,7 +6,6 @@
 //
 
 #import "NSString+JobsLanMgr.h"
-
 #import <JobsLanMgr/LanMgr.h>
 
 @implementation NSString (JobsLanMgr)

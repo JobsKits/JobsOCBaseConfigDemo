@@ -25,7 +25,7 @@ NS_INLINE CGFloat hs(CGFloat v) {
     static CGFloat hv = 0;
     static dispatch_once_t once_t = 0;
     dispatch_once(&once_t, ^{
-        CGRect rect = UIScreen.mainScreen.bounds;
+        CGRect rect = jobsScreenBoundsForView(nil);
         hv = rect.size.width / 375;
     });
     return hv * v;
@@ -35,7 +35,7 @@ NS_INLINE CGFloat vs(CGFloat v) {
     static CGFloat vv = 0;
     static dispatch_once_t once_t = 0;
     dispatch_once(&once_t, ^{
-        CGRect rect = UIScreen.mainScreen.bounds;
+        CGRect rect = jobsScreenBoundsForView(nil);
         vv = rect.size.height / 667;
     });
     return vv * v;

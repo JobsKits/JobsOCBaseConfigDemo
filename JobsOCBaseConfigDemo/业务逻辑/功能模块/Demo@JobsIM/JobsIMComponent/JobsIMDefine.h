@@ -16,7 +16,6 @@
 #define JobsIMDefine_h
 
 #import <CoreGraphics/CoreGraphics.h>
-
 #import <Foundation/Foundation.h>
 
 #define isAllowSysEdit NO// 编译期就要优先进去，所以不能用属性

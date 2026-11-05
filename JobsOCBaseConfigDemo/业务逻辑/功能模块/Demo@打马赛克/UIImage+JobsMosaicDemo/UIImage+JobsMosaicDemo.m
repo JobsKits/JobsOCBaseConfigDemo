@@ -15,15 +15,12 @@
         @jobs_strongify(self)
         if (!self) return nil;
         if (self.imageOrientation == UIImageOrientationUp) return self;
-        UIGraphicsBeginImageContextWithOptions(self.size,
-                                               NO,
-                                               self.scale);
-        [self drawInRect:CGRectMake(0,
-                                    0,
-                                    self.size.width,
-                                    self.size.height)];
-        UIImage *image = UIGraphicsGetImageFromCurrentImageContext();
-        UIGraphicsEndImageContext();
+        UIImage *image = JobsRenderImage(self.size, NO, self.scale, ^(CGContextRef jobsDrawingContext) {
+            [self drawInRect:CGRectMake(0,
+                                        0,
+                                        self.size.width,
+                                        self.size.height)];
+        });
         return image ?: self;
     };
 }
@@ -74,26 +71,23 @@
                                   baseImage.size.width,
                                   baseImage.size.height);
     CGFloat diameter = MAX(brushDiameter, 1);
-    UIGraphicsBeginImageContextWithOptions(baseImage.size,
-                                           NO,
-                                           baseImage.scale);
-    [baseImage drawInRect:imageRect];
-    CGContextRef context = UIGraphicsGetCurrentContext();
-    for (NSValue *pointValue in centers) {
-        CGPoint center = pointValue.CGPointValue;
-        CGRect brushRect = CGRectMake(center.x - diameter / 2.0,
-                                      center.y - diameter / 2.0,
-                                      diameter,
-                                      diameter);
-        CGContextSaveGState(context);
-        CGContextAddEllipseInRect(context,
-                                  brushRect);
-        CGContextClip(context);
-        [pixelImage drawInRect:imageRect];
-        CGContextRestoreGState(context);
-    }
-    UIImage *resultImage = UIGraphicsGetImageFromCurrentImageContext();
-    UIGraphicsEndImageContext();
+    UIImage *resultImage = JobsRenderImage(baseImage.size, NO, baseImage.scale, ^(CGContextRef jobsDrawingContext) {
+        [baseImage drawInRect:imageRect];
+        CGContextRef context = jobsDrawingContext;
+        for (NSValue *pointValue in centers) {
+            CGPoint center = pointValue.CGPointValue;
+            CGRect brushRect = CGRectMake(center.x - diameter / 2.0,
+                                          center.y - diameter / 2.0,
+                                          diameter,
+                                          diameter);
+            CGContextSaveGState(context);
+            CGContextAddEllipseInRect(context,
+                                      brushRect);
+            CGContextClip(context);
+            [pixelImage drawInRect:imageRect];
+            CGContextRestoreGState(context);
+        }
+    });
     return resultImage ?: baseImage;
 }
 

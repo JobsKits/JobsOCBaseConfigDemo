@@ -6,7 +6,6 @@
 //
 
 #import "JobsNavigationTransitionMgr.h"
-
 #import <JobsNavigationTransitionMgr/UIView+Extra.h>
 #import <JobsNavigationTransitionMgr/UIViewController+Extra.h>
 #import <JobsNavigationTransitionMgr/UIGestureRecognizer+Extra.h>

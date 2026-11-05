@@ -100,9 +100,11 @@ Prop_strong()UIActivityIndicatorView *indicatorView;
 #pragma mark —— LazyLoad
 -(UIActivityIndicatorView *)indicatorView {
     if (!_indicatorView) {
-        UIActivityIndicatorViewStyle style = UIActivityIndicatorViewStyleGray;
+        UIActivityIndicatorViewStyle style;
         if (@available(iOS 13.0, *)) {
             style = UIActivityIndicatorViewStyleMedium;
+        } else {
+            SuppressWdeprecatedDeclarationsWarning(style = UIActivityIndicatorViewStyleGray;);
         }
         _indicatorView = UIActivityIndicatorView.byActivityIndicatorViewWithStyle(style)
             .byHidesWhenStopped(YES);

@@ -59,14 +59,14 @@ check_environment() {
     print -u2 -r -- 'Ruby 不可用，请先检查当前 CocoaPods / Ruby 环境。'
     return 1
   fi
-  [[ -f "$SCRIPT_DIR/jobs_cocoapods_network.rb" ]] || {
+  [[ -f "$SCRIPT_DIR/jobs_cocoapods_network.rb/jobs_cocoapods_network.rb" ]] || {
     print -u2 -r -- '网络适配器缺失，请复制完整脚本包。'
     return 1
   }
 }
 # 在独立 Ruby 进程测试路由，不将临时代理导出到调用终端。
 run_diagnostic() {
-  "$RUBY_BIN" - "$SCRIPT_DIR/jobs_cocoapods_network.rb" "$PROJECT_ROOT" 2>&1 <<'RUBY' | /usr/bin/tee -a "$LOG_FILE"
+  "$RUBY_BIN" - "$SCRIPT_DIR/jobs_cocoapods_network.rb/jobs_cocoapods_network.rb" "$PROJECT_ROOT" 2>&1 <<'RUBY' | /usr/bin/tee -a "$LOG_FILE"
 require ARGV.fetch(0)
 result = JobsCocoaPodsNetwork.apply!(project_root: ARGV.fetch(1), probe: true)
 puts '[PodNetwork] 诊断结束；探测通过不等于完整依赖已经下载。'

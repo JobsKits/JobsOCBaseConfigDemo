@@ -144,55 +144,52 @@ didFinishSavingWithError:(NSError *)error
         @jobs_strongify(self)
         if (!self) return nil;
         CGSize size = CGSizeMake(900, 640);
-        UIGraphicsBeginImageContextWithOptions(size,
-                                               YES,
-                                               0);
-        [HEXCOLOR(0x102A43) setFill];
-        UIRectFill(CGRectMake(0,
-                              0,
-                              size.width,
-                              size.height));
-        NSArray <UIColor *>*colors = @[
-            HEXCOLOR(0x1D9BF0),
-            HEXCOLOR(0x34C759),
-            HEXCOLOR(0xFF9F0A),
-            HEXCOLOR(0xFF375F),
-            HEXCOLOR(0xAF52DE)
-        ];
-        for (NSInteger index = 0; index < 14; index++) {
-            UIColor *color = colors[index % colors.count];
-            [color setFill];
-            CGFloat width = 180 + (index % 4) * 36;
-            CGFloat height = 80 + (index % 3) * 28;
-            CGFloat x = 38 + (index % 5) * 166;
-            CGFloat y = 48 + (index / 5) * 170 + (index % 2) * 24;
-            UIBezierPath *path = UIBezierPath.byBezierPathWithRoundedRect(CGRectMake(x,
-                                                                                    y,
-                                                                                    width,
-                                                                                    height),
-                                                                          22);
-            path.byFill();
-        }
-        NSDictionary *titleAttrs = @{
-            NSFontAttributeName: UIFontWeightSemiboldSize(54),
-            NSForegroundColorAttributeName: UIColor.whiteColor
-        };
-        [@"Jobs Mosaic Demo" drawInRect:CGRectMake(64,
-                                                   252,
-                                                   size.width - 128,
-                                                   90)
-                         withAttributes:titleAttrs];
-        NSDictionary *subAttrs = @{
-            NSFontAttributeName: UIFontWeightRegularSize(28),
-            NSForegroundColorAttributeName: [UIColor.whiteColor colorWithAlphaComponent:.86]
-        };
-        [@"拖动涂抹或调节粗细，保存结果到系统相册" drawInRect:CGRectMake(68,
-                                                                 344,
-                                                                 size.width - 136,
-                                                                 60)
-                                               withAttributes:subAttrs];
-        UIImage *image = UIGraphicsGetImageFromCurrentImageContext();
-        UIGraphicsEndImageContext();
+        UIImage *image = JobsRenderImage(size, YES, 0, ^(CGContextRef jobsDrawingContext) {
+            [HEXCOLOR(0x102A43) setFill];
+            UIRectFill(CGRectMake(0,
+                                  0,
+                                  size.width,
+                                  size.height));
+            NSArray <UIColor *>*colors = @[
+                HEXCOLOR(0x1D9BF0),
+                HEXCOLOR(0x34C759),
+                HEXCOLOR(0xFF9F0A),
+                HEXCOLOR(0xFF375F),
+                HEXCOLOR(0xAF52DE)
+            ];
+            for (NSInteger index = 0; index < 14; index++) {
+                UIColor *color = colors[index % colors.count];
+                [color setFill];
+                CGFloat width = 180 + (index % 4) * 36;
+                CGFloat height = 80 + (index % 3) * 28;
+                CGFloat x = 38 + (index % 5) * 166;
+                CGFloat y = 48 + (index / 5) * 170 + (index % 2) * 24;
+                UIBezierPath *path = UIBezierPath.byBezierPathWithRoundedRect(CGRectMake(x,
+                                                                                        y,
+                                                                                        width,
+                                                                                        height),
+                                                                              22);
+                path.byFill();
+            }
+            NSDictionary *titleAttrs = @{
+                NSFontAttributeName: UIFontWeightSemiboldSize(54),
+                NSForegroundColorAttributeName: UIColor.whiteColor
+            };
+            [@"Jobs Mosaic Demo" drawInRect:CGRectMake(64,
+                                                       252,
+                                                       size.width - 128,
+                                                       90)
+                             withAttributes:titleAttrs];
+            NSDictionary *subAttrs = @{
+                NSFontAttributeName: UIFontWeightRegularSize(28),
+                NSForegroundColorAttributeName: [UIColor.whiteColor colorWithAlphaComponent:.86]
+            };
+            [@"拖动涂抹或调节粗细，保存结果到系统相册" drawInRect:CGRectMake(68,
+                                                                     344,
+                                                                     size.width - 136,
+                                                                     60)
+                                                   withAttributes:subAttrs];
+        });
         return image ?: jobsMakeImage(^(UIImage *object){});
     };
 }
@@ -273,7 +270,11 @@ didFinishSavingWithError:(NSError *)error
             make.left.right.equalTo(self.view).inset(JobsWidth(16));
             make.bottom.equalTo(self.statusLabel.mas_top).offset(-JobsWidth(12));
         }];
-    };return _imageView;
+    }
+#if DEBUG
+    _imageView.accessibilityIdentifier = @"jobs.coverage.surface.JobsMosaicBaseDemoVC.imageView";
+#endif
+    return _imageView;
 }
 
 -(UILabel *)statusLabel{

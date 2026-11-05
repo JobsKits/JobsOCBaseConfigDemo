@@ -6,7 +6,6 @@
 //
 
 #import "NSObject+CurrentDevice.h"
-
 #import <JobsDeviceInfo/NSObject+Extra.h>
 
 @implementation NSObject (CurrentDevice)
@@ -147,7 +146,7 @@
     return ^BOOL{
         @jobs_strongify(self)
         if (!self) return (BOOL){0};
-        return (UIScreen.mainScreen.scale >= 2.0);// 非Retain屏幕 1.0
+        return (jobsScreenScaleForView(nil) >= 2.0);// 非Retain屏幕 1.0
     };
 }
 

@@ -44,6 +44,13 @@ NS_ASSUME_NONNULL_BEGIN
               textAlignment:(NSTextAlignment)textAlignment
             backGroundColor:(UIColor *)backGroundColor
                   textColor:(UIColor *)textColor;
++(UIImage *)imageWithString:(NSString *)string
+                       font:(UIFont *)font
+                      width:(CGFloat)width
+              textAlignment:(NSTextAlignment)textAlignment
+            backGroundColor:(UIColor *)backGroundColor
+                  textColor:(UIColor *)textColor
+            traitCollection:(UITraitCollection *)traitCollection;
 /// NSString 转 UIImage
 /// @param string 准备转换的字符串
 /// @param size 字符串的尺寸

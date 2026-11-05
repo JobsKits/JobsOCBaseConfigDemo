@@ -6,7 +6,6 @@
 //
 
 #import "NSString+Extra.h"
-
 #import <JobsBasePopupView/UIColor+Extra.h>
 
 @implementation NSString (Extra)

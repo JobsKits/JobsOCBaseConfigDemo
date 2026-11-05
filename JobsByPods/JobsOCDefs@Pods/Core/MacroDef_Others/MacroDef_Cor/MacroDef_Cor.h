@@ -7,6 +7,7 @@
 
 #import <UIKit/UIKit.h>
 #import <JobsOCDefs/JobsTheme.h>
+#import <JobsOCDefs/MacroDef_SysWarning.h>
 
 #if __has_include(<XYColorOC/XYColorOC.h>)
 #import <XYColorOC/XYColorOC.h>
@@ -379,9 +380,38 @@ NS_INLINE UIColor *_Nullable JobsTertiarySystemFillCor(CGFloat alpha){ return Jo
 NS_INLINE UIColor *_Nullable JobsQuaternarySystemFillCor(CGFloat alpha){ return JobsColorWithAlpha(UIColor.quaternarySystemFillColor, alpha); }
 NS_INLINE UIColor *_Nullable JobsRandomCor(CGFloat alpha){ return HEXCOLOR_ALPHA(arc4random_uniform(0xFFFFFF), alpha); }
 NS_INLINE UIColor *_Nullable JobsHexCor(CGFloat alpha, UInt32 hexValue){ return HEXCOLOR_ALPHA(hexValue, alpha); }
-NS_INLINE UIColor *_Nullable JobsGroupTableViewBackgroundCor(CGFloat alpha){ return JobsColorWithAlpha(UIColor.groupTableViewBackgroundColor, alpha); }
-NS_INLINE UIColor *_Nullable JobsViewFlipsideBackgroundCor(CGFloat alpha){ return JobsColorWithAlpha(UIColor.viewFlipsideBackgroundColor, alpha); }
-NS_INLINE UIColor *_Nullable JobsScrollViewTexturedBackgroundCor(CGFloat alpha){ return JobsColorWithAlpha(UIColor.scrollViewTexturedBackgroundColor, alpha); }
-NS_INLINE UIColor *_Nullable JobsUnderPageBackgroundCor(CGFloat alpha){ return JobsColorWithAlpha(UIColor.underPageBackgroundColor, alpha); }
+NS_INLINE UIColor *_Nullable JobsGroupTableViewBackgroundCor(CGFloat alpha){
+    if (@available(iOS 13.0, *)) {
+        return JobsColorWithAlpha(UIColor.systemGroupedBackgroundColor, alpha);
+    }
+    SuppressWdeprecatedDeclarationsWarning(return JobsColorWithAlpha(UIColor.groupTableViewBackgroundColor, alpha););
+}
+NS_INLINE UIColor *_Nullable JobsViewFlipsideBackgroundCor(CGFloat alpha){
+    if (@available(iOS 13.0, *)) {
+        return JobsColorWithAlpha(UIColor.secondarySystemBackgroundColor, alpha);
+    }
+    if (@available(iOS 7.0, *)) {
+        return JobsColorWithAlpha(UIColor.darkGrayColor, alpha);
+    }
+    SuppressWdeprecatedDeclarationsWarning(return JobsColorWithAlpha(UIColor.viewFlipsideBackgroundColor, alpha););
+}
+NS_INLINE UIColor *_Nullable JobsScrollViewTexturedBackgroundCor(CGFloat alpha){
+    if (@available(iOS 13.0, *)) {
+        return JobsColorWithAlpha(UIColor.tertiarySystemBackgroundColor, alpha);
+    }
+    if (@available(iOS 7.0, *)) {
+        return JobsColorWithAlpha(UIColor.lightGrayColor, alpha);
+    }
+    SuppressWdeprecatedDeclarationsWarning(return JobsColorWithAlpha(UIColor.scrollViewTexturedBackgroundColor, alpha););
+}
+NS_INLINE UIColor *_Nullable JobsUnderPageBackgroundCor(CGFloat alpha){
+    if (@available(iOS 13.0, *)) {
+        return JobsColorWithAlpha(UIColor.systemGroupedBackgroundColor, alpha);
+    }
+    if (@available(iOS 7.0, *)) {
+        return JobsColorWithAlpha(UIColor.lightGrayColor, alpha);
+    }
+    SuppressWdeprecatedDeclarationsWarning(return JobsColorWithAlpha(UIColor.underPageBackgroundColor, alpha););
+}
 
 #endif /* MacroDef_Cor_h */

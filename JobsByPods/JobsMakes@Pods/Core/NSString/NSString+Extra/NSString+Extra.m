@@ -6,7 +6,6 @@
 //
 
 #import "NSString+Extra.h"
-
 #import <JobsMakes/UIColor+Extra.h>
 
 @implementation NSString (JobsMakesExtra)

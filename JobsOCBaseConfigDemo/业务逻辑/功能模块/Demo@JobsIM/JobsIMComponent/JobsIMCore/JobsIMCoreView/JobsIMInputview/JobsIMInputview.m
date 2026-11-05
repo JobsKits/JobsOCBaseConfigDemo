@@ -6,6 +6,7 @@
 //
 
 #import "JobsIMInputview.h"
+#import "../../../../../../Common/App工具类/测试支持/JobsOCCoverageGestureProbe/JobsOCCoverageGestureProbe.h"
 
 @interface JobsIMInputview ()
 
@@ -119,6 +120,7 @@ Prop_strong()BaseButton *sendBtn;
                 x.byEnabled(NO);
             })
             .onLongPressGestureBy(^(id data){
+                JobsOCCoverageLongPressDelivered(data);
                 JobsLog(@"");
             })
             .disabledStateTitleColorBy(JobsWhiteColor)
@@ -132,7 +134,9 @@ Prop_strong()BaseButton *sendBtn;
             });
         _sendBtn.byUserInteractionEnabled(NO);
         if (_sendBtn) _sendBtn.byEnabled(NO);
-    };return _sendBtn;
+    }
+    JobsOCCoveragePrepareLongPressButton(_sendBtn, @"jobs.coverage.longPress.JobsIMInputview.sendBtn");
+    return _sendBtn;
 }
 
 -(ZYTextField *)inputTextField{
@@ -175,7 +179,11 @@ Prop_strong()BaseButton *sendBtn;
             JobsLog(@"输入的字符为 = %@",x);
             self.someChangeUIBy(x);
         }];
-    };return _inputTextField;
+    }
+    if (JobsOCCoverageGestureProbeEnabled()) {
+        _inputTextField.accessibilityIdentifier = @"jobs.coverage.im.input";
+    }
+    return _inputTextField;
 }
 
 -(UIImageView *)imgView{

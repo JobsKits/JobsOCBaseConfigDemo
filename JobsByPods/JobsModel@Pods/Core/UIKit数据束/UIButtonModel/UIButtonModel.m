@@ -6,7 +6,6 @@
 //
 
 #import "UIButtonModel.h"
-
 #import <JobsModel/NSString+Extra.h>
 
 @implementation UIButtonModel

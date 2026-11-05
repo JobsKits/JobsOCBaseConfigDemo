@@ -102,7 +102,7 @@ Prop_assign()NSTimeInterval delayRemaining;
         _label = label;
         _viewportLayer = CALayer.layer;
         _viewportLayer.byMasksToBounds(YES);
-        _viewportLayer.byContentsScale(UIScreen.mainScreen.scale);
+        _viewportLayer.byContentsScale(jobsScreenScaleForView(nil));
         _textLayer = JobsCoreTextScrollLayer.layer;
         [_viewportLayer addSublayer:_textLayer];
         _configuration = JobsLabelScrollConfiguration.continuousConfiguration();

@@ -29,7 +29,7 @@
 
 ## <span id="jobs-toc-heading-2" data-jobs-toc="v2">一、目录文件 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a></span><!-- jobs-toc:heading-end -->
 
-- `./jobs_pod_install_offline_guard.rb`：由 `Podfile` 最前面加载，同步启动前置依赖报告，并继承当前终端输入。
+- `./jobs_pod_install_offline_guard.rb/jobs_pod_install_offline_guard.rb`：由 `Podfile` 最前面加载，同步启动前置依赖报告，并继承当前终端输入。
 - `./【MacOS】📦Pod Install离线保护.command`：统一编排前置任务和 `post_integrate` 收尾任务。
 
 ## <span id="jobs-toc-heading-3" data-jobs-toc="v2">二、两阶段执行策略 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a></span><!-- jobs-toc:heading-end -->
@@ -54,7 +54,7 @@
 
 3、无活动构建时终止空闲的 `SWBBuildService` / `XCBBuildService`，再用工作空间只读列表命令重建会话。
 
-4、前台调用 `../codegraph_init.command/codegraph_init.command`，传入明确工程根目录；等待工具链体检、索引和 Markdown 导出结束，真实输入和结果均保留在当前终端。
+4、前台调用 `../【MacOS】codegraph_init.command/【MacOS】codegraph_init.command`，传入明确工程根目录；等待工具链体检、索引和 Markdown 导出结束，真实输入和结果均保留在当前终端。
 
 5、缺失或损坏工具须经终端选择后补齐。Homebrew 目前没有该官方 CodeGraph 对应 formula，因此优先通过 Brew 管理 `node@24`，再从官方 npm 包 `@colbymchenry/codegraph` 安装 CLI 到用户独立前缀；安装前展示来源。已有健康 CLI 复用，更新和重建地图按子脚本说明确认。
 
@@ -107,7 +107,7 @@ Podfile 入口可设置 `JOBS_POD_INSTALL_INTERACTION=check-only`，或兼容原
 
 ## <span id="jobs-toc-heading-8" data-jobs-toc="v2">五、日志 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a></span><!-- jobs-toc:heading-end -->
 
-日志位于系统临时目录，并使用工程路径摘要隔离三个 iOS 工程：
+日志位于系统临时目录，并使用工程路径摘要隔离不同 iOS 工程：
 
 - 前置输出直接进入当前安装终端，不另起后台进程或后台总日志。
 - `【MacOS】📦Pod Install离线保护.<工程摘要>.log`：统一入口汇总。
@@ -117,7 +117,7 @@ Podfile 入口可设置 `JOBS_POD_INSTALL_INTERACTION=check-only`，或兼容原
 隔离交互回归入口：
 
 ```shell
-ruby ./Tests/interaction_workflow_test.rb
+ruby ./Tests/interaction_workflow_test.rb/interaction_workflow_test.rb
 ```
 
 回归使用临时工程、假子脚本与 PTY，不执行真实 CocoaPods、Homebrew、Graphviz、PIF 恢复或 CodeGraph。

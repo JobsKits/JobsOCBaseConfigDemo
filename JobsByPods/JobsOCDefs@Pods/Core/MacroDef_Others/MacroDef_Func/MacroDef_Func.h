@@ -24,6 +24,45 @@
 #import <JobsOCDefs/MacroDef_Time.h>
 #import <JobsOCDefs/JobsDefineUserDefault.h>
 
+#if __has_include(<JobsBlock/JobsBlock.h>)
+#import <JobsBlock/JobsBlock.h>
+#else
+#import "JobsBlock.h"
+#endif
+
+/// 保留绘制尺寸、透明度和倍率，旧位图上下文仅用于 iOS 10 以前。
+NS_INLINE UIImage *_Nullable JobsRenderImage(CGSize size,
+                                             BOOL opaque,
+                                             CGFloat scale,
+                                             jobsByCGContextRefBlock _Nullable drawing) {
+    if (size.width <= 0 || size.height <= 0 ||
+        !isfinite(size.width) || !isfinite(size.height)) {
+        return nil;
+    }
+    if (@available(iOS 10.0, *)) {
+        UIGraphicsImageRendererFormat *format = UIGraphicsImageRendererFormat.defaultFormat;
+        format.opaque = opaque;
+        if (scale > 0) {
+            format.scale = scale;
+        }
+        UIGraphicsImageRenderer *renderer = [UIGraphicsImageRenderer.alloc initWithSize:size
+                                                                               format:format];
+        return [renderer imageWithActions:^(UIGraphicsImageRendererContext *context) {
+            if (drawing) {
+                drawing(context.CGContext);
+            }
+        }];
+    }
+    SuppressWdeprecatedDeclarationsWarning(UIGraphicsBeginImageContextWithOptions(size, opaque, scale););
+    if (drawing) {
+        drawing(UIGraphicsGetCurrentContext());
+    }
+    UIImage *image;
+    SuppressWdeprecatedDeclarationsWarning(image = UIGraphicsGetImageFromCurrentImageContext(););
+    SuppressWdeprecatedDeclarationsWarning(UIGraphicsEndImageContext(););
+    return image;
+}
+
 #pragma mark —— 获取 AppDelegate 和 SceneDelegate
 /// ((AppDelegate *)AppDelegate.jobsSharedManager())
 NS_INLINE id<UIApplicationDelegate> _Nullable getSysAppDelegate(void){

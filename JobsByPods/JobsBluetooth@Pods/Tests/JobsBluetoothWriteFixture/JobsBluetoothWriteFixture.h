@@ -7,6 +7,9 @@
 
 #import <CoreBluetooth/CoreBluetooth.h>
 
+// 用途：声明测试替身（fixture）；模拟外设写入能力、MTU 和发包记录，供分片与 ACK 顺序测试控制。
+// 运行：由 JobsBluetooth-Unit-Stability 测试用例创建，不单独运行；不进入主 App，也不代表真实设备或外网验收。
+
 @interface JobsBluetoothWriteFixture : NSObject
 
 @property(nonatomic, strong) NSMutableArray<NSData *> *sentChunks;

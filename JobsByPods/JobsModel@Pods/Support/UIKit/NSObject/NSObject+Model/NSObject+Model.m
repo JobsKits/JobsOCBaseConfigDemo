@@ -6,7 +6,6 @@
 //
 
 #import "NSObject+Model.h"
-
 #import <JobsModel/NSObject+UsrInfo.h>
 
 @implementation NSObject (Model)

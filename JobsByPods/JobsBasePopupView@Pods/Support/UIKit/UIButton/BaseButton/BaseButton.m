@@ -6,7 +6,6 @@
 //
 
 #import "BaseButton.h"
-
 #import <JobsBasePopupView/UIButton+UI.h>
 
 @interface BaseButton ()

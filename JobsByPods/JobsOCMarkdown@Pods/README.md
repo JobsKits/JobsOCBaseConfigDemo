@@ -52,6 +52,8 @@
 
 ## <span id="jobs-toc-heading-1" data-jobs-toc="v2">一、能力 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a></span><!-- jobs-toc:heading-end -->
 
+- `Core/JobsOCMarkdownCatalog`、`Core/JobsOCMarkdownConfiguration`、`Core/JobsOCMarkdownDocument`、`Core/JobsOCMarkdownView`、`Support/Native/JobsOCMarkdownResourceLocator` 中的头文件与实现以完整基名目录成对管理；公开头文件名不变，`Tests` / `Example` 继续沿用原有编译与排除边界。
+
 `JobsOCMarkdown` 是面向 Jobs Objective-C 新工程的本地 Markdown 渲染 Pod。
 它使用 `WKWebView` 承载成熟的 Web 解析内核，支持：
 
@@ -140,10 +142,10 @@ flowchart LR
 源码定位（路径以本 README 所在目录为基准；只带走 README 时，可把文件名作为职责定位线索）：
 
 - [JobsOCMarkdown.h](<./JobsOCMarkdown.h>)
-- [Core/JobsOCMarkdownConfiguration.h](<./Core/JobsOCMarkdownConfiguration.h>)
-- [Core/JobsOCMarkdownView.h](<./Core/JobsOCMarkdownView.h>)
-- [Core/JobsOCMarkdownCatalog.h](<./Core/JobsOCMarkdownCatalog.h>)
-- [Core/JobsOCMarkdownDocument.h](<./Core/JobsOCMarkdownDocument.h>)
+- [Core/JobsOCMarkdownConfiguration/JobsOCMarkdownConfiguration.h](<./Core/JobsOCMarkdownConfiguration/JobsOCMarkdownConfiguration.h>)
+- [Core/JobsOCMarkdownView/JobsOCMarkdownView.h](<./Core/JobsOCMarkdownView/JobsOCMarkdownView.h>)
+- [Core/JobsOCMarkdownCatalog/JobsOCMarkdownCatalog.h](<./Core/JobsOCMarkdownCatalog/JobsOCMarkdownCatalog.h>)
+- [Core/JobsOCMarkdownDocument/JobsOCMarkdownDocument.h](<./Core/JobsOCMarkdownDocument/JobsOCMarkdownDocument.h>)
 
 依赖与编译入口：[JobsOCMarkdown.podspec](<./JobsOCMarkdown.podspec>)。其中根级依赖声明包括 `JobsMakes`、`JobsOCDSL`、`JobsOCDefs`、`JobsBlock`、`Masonry`。源码范围、资源及可选 subspec 以这里的声明为准；辅助脚本动态补充的依赖不在上述摘录中展开。
 

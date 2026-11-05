@@ -129,6 +129,7 @@ JobsOCVideoRecorderVC *vc = [JobsOCVideoRecorderVC.alloc initWithConfig:config];
 - 录制页会在进入时隐藏宿主系统导航栏 / GK 导航栏，改用安全区内的自绘返回、标题和右侧操作区；离开页面时恢复宿主导航栏。
 - 自定义相册需要相册读写权限，不能只依赖 add-only 权限。
 - 视频方向按开始录制时的设备方向固化到当前文件，中途旋转不做 track 重建。
+- 预览方向在 iOS 27+ 通过当前相机与预览层的 `AVCaptureDeviceRotationCoordinator` 换算旋转角度，并先确认连接支持该角度；更旧系统保留 `videoOrientation` 的指定逻辑方向语义，避免改成随重力旋转。前后摄像头镜像规则不变。
 - 少于 `minDuration` 的录制不会预览，也不会保存，只提示用户。
 - 录制页和预览页按钮事件使用 `onClickBy` Block 链式入口，不在调用方新增 `byAddTarget`。
 - `pod install --no-repo-update` 后需要确认 `Development Pods > JobsOCVideoRecorder` 能展开真实 `Core` 目录。
@@ -228,3 +229,5 @@ ruby ScriptsByPods/jobs_pods_stability_verify.rb/jobs_pods_stability_verify.rb \
 运行前应已安装工程依赖；runner 的 `--phase pods` 默认分别编译 Debug / Release，`--phase tests` 默认运行 Debug（JobsOCSnowflake 默认 Debug / Release），并将命令、源码指纹、日志和退出码保存到工程 `work/JobsPodsStability/`。如需固定输出目录，使用 runner 的 `--output`。
 
 <a id="🔚" href="#前言" style="font-size:17px; color:green; font-weight:bold;">我是有底线的➤点我回到首页</a>
+
+Debug 构建为自带 Demo 的手势控件提供 `jobs.coverage.surface.JobsOCVideoRecorderVC.recordBtn` 可访问性标识，供项目内确定性巡检在真实控件上执行手势；标识本身不表示相机、麦克风或硬件能力已通过验证。

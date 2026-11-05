@@ -6,7 +6,6 @@
 //
 
 #import "BaseTextView.h"
-
 #import <JobsBaseUI/NSString+Sys.h>
 #import <JobsBaseUI/NSString+Menu.h>
 #import <JobsBaseUI/NSMutableArray+Extra.h>
@@ -43,6 +42,9 @@
 
 -(instancetype)initWithFrame:(CGRect)frame{
     if (self = [super initWithFrame:frame]) {
+        if (@available(iOS 16.0, *)) {
+            return self;
+        }
 #pragma clang diagnostic push
 #pragma clang diagnostic ignored "-Wdeprecated-declarations"
         @jobs_weakify(self)
@@ -65,6 +67,23 @@
         }
 #pragma clang diagnostic pop
     };return self;
+}
+
+- (UIMenu *)editMenuForTextRange:(UITextRange *)textRange
+              suggestedActions:(NSArray<UIMenuElement *> *)suggestedActions API_AVAILABLE(ios(16.0)) {
+    @jobs_weakify(self)
+    UIAction *response = jobsMakeAction(@"响应事件".jobsTr(), nil, nil, ^(__kindof UIAction *action) {
+        @jobs_strongify(self)
+        if (self.retIDBySelectorBlock) {
+            self.retIDBySelectorBlock(self, action);
+        }
+    }, nil);
+    UIMenu *baseMenu = nil;
+    if ([UITextView instancesRespondToSelector:@selector(editMenuForTextRange:suggestedActions:)]) {
+        baseMenu = [super editMenuForTextRange:textRange suggestedActions:suggestedActions];
+    }
+    NSArray<UIMenuElement *> *children = [(baseMenu.children ?: suggestedActions ?: @[]) arrayByAddingObject:response];
+    return baseMenu ? [baseMenu menuByReplacingChildren:children] : jobsMakeMenu(@"", children, nil);
 }
 
 -(instancetype)initWithFrame:(CGRect)frame
@@ -137,7 +156,15 @@
     if(!sender) return NO;
     if ([super canPerformAction:action withSender:sender]) return YES;
     if (action == @selector(delete:)) return YES;
-    if([sender isKindOfClass:UIMenuController.class] || [sender isKindOfClass:UIMenu.class]){// _UIImmutableKeyCommand
+    BOOL isMenu = NO;
+    if (@available(iOS 13.0, *)) {
+        isMenu = [sender isKindOfClass:UIMenu.class];
+    }
+    if (@available(iOS 16.0, *)) {
+        return isMenu && [NSStringFromSelector(action) containsString:@"selector_"];
+    }
+    isMenu = isMenu || [sender isKindOfClass:UIMenuController.class];
+    if (isMenu) {
         return [NSStringFromSelector(action) containsString:@"selector_"];
     };return NO;
 #pragma clang diagnostic pop

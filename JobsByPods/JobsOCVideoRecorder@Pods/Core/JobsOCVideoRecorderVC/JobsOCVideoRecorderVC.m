@@ -159,6 +159,11 @@ JobsOCVideoRecorderVCPropertyDSL(JobsRetJobsOCVideoRecorderVCByBOOLBlock, BOOL, 
             self.filterBtn.byAlpha(0.35);
             self.recordBtn.byUserInteractionEnabled(NO);
             self.recordBtn.byAlpha(0.35);
+#if DEBUG
+            if ([NSProcessInfo.processInfo.arguments containsObject:@"--jobs-coverage-route"]) {
+                self.view.accessibilityValue = @"recorder:simulatorUnsupported";
+            }
+#endif
             @"iOS 模拟器不支持摄像头录制，请使用真机".jobsTr().toast();
         #else
             self.requestPermissions();
@@ -289,22 +294,42 @@ JobsOCVideoRecorderVCPropertyDSL(JobsRetJobsOCVideoRecorderVCByBOOLBlock, BOOL, 
         [TKPermissionCamera authWithAlert:YES completion:^(BOOL cameraAuth) {
             @jobs_strongify(self)
             if (!cameraAuth) {
+#if DEBUG
+                if ([NSProcessInfo.processInfo.arguments containsObject:@"--jobs-coverage-route"]) {
+                    self.view.accessibilityValue = @"recorder:cameraDenied";
+                }
+#endif
                 @"相机权限未开启".jobsTr().toast();
                 return;
             }
             [TKPermissionMicrophone authWithAlert:YES completion:^(BOOL microphoneAuth) {
                 @jobs_strongify(self)
                 if (!microphoneAuth) {
+#if DEBUG
+                    if ([NSProcessInfo.processInfo.arguments containsObject:@"--jobs-coverage-route"]) {
+                        self.view.accessibilityValue = @"recorder:microphoneDenied";
+                    }
+#endif
                     @"麦克风权限未开启".jobsTr().toast();
                     return;
                 }
                 [TKPermissionPhoto authWithAlert:YES level:TKPhotoAccessLevelReadWrite completion:^(BOOL photoAuth) {
                     @jobs_strongify(self)
                     if (!photoAuth) {
+#if DEBUG
+                        if ([NSProcessInfo.processInfo.arguments containsObject:@"--jobs-coverage-route"]) {
+                            self.view.accessibilityValue = @"recorder:photoDenied";
+                        }
+#endif
                         @"相册权限未开启".jobsTr().toast();
                         return;
                     }
                     self.byPermissionReady(YES);
+#if DEBUG
+                    if ([NSProcessInfo.processInfo.arguments containsObject:@"--jobs-coverage-route"]) {
+                        self.view.accessibilityValue = @"recorder:permissionReady";
+                    }
+#endif
                     if (!self.captureSuspended && self.view.window &&
                         UIApplication.sharedApplication.applicationState == UIApplicationStateActive) {
                         [self.captureManager startRunning];
@@ -637,6 +662,11 @@ JobsOCVideoRecorderVCPropertyDSL(JobsRetJobsOCVideoRecorderVCByBOOLBlock, BOOL, 
         }];
         [self.view layoutIfNeeded];
         self.previewView.playWithURL(URL);
+#if DEBUG
+        if ([NSProcessInfo.processInfo.arguments containsObject:@"--jobs-coverage-route"]) {
+            self.view.accessibilityValue = @"recorder:previewReady";
+        }
+#endif
         [self.view bringSubviewToFront:self.backBtn];
         [self.view bringSubviewToFront:self.titleLabel];
         if (self.canSwitchCamera()) [self.view bringSubviewToFront:self.switchCameraBtn];
@@ -1084,7 +1114,11 @@ didOutputAudioSampleBuffer:(CMSampleBufferRef)sampleBuffer{
             make.bottom.equalTo(self.view.mas_safeAreaLayoutGuideBottom).offset(-JobsWidth(36));
             make.size.mas_equalTo(CGSizeMake(JobsWidth(88), JobsWidth(88)));
         });
-    };return _recordBtn;
+    }
+#if DEBUG
+    _recordBtn.accessibilityIdentifier = @"jobs.coverage.surface.JobsOCVideoRecorderVC.recordBtn";
+#endif
+    return _recordBtn;
 }
 
 -(UILabel *)recordDurationLabel{

@@ -16,7 +16,7 @@
         NSInteger frameInterval = MAX(1, data);
         if (@available(iOS 10.0, tvOS 10.0, *)) {
             self.preferredFramesPerSecond = MAX(1,
-                                                UIScreen.mainScreen.maximumFramesPerSecond / frameInterval);
+                                                jobsGetMainScreen().maximumFramesPerSecond / frameInterval);
         }else{
             SuppressWdeprecatedDeclarationsWarning(self.frameInterval = frameInterval);
         };return self;

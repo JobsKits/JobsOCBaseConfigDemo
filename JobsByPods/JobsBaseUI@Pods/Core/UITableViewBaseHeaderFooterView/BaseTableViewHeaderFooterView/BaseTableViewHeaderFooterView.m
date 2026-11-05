@@ -6,7 +6,6 @@
 //
 
 #import "BaseTableViewHeaderFooterView.h"
-
 #import <JobsBaseUI/UITableView+Extra.h>
 #import <JobsBaseUI/UITableViewHeaderFooterView+BaseTableViewHeaderFooterViewProtocol.h>
 #import <JobsBaseUI/UIView+Extra.h>

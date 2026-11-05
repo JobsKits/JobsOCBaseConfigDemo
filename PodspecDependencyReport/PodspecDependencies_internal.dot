@@ -67,6 +67,7 @@ digraph PodspecDependencies {
   "JobsOCCountryCodeCtrl";
   "JobsOCDSL";
   "JobsOCDefs";
+  "JobsOCDeviceGuard";
   "JobsOCExcel";
   "JobsOCGraphicCaptcha";
   "JobsOCKeyboardMgr";
@@ -81,6 +82,7 @@ digraph PodspecDependencies {
   "JobsOCSkeletonView";
   "JobsOCSnowflake";
   "JobsOCSplash";
+  "JobsOCStabilitySupport";
   "JobsOCTimer";
   "JobsOCTimerMgr";
   "JobsOCTools";
@@ -519,6 +521,8 @@ digraph PodspecDependencies {
   "JobsOCDefs" -> "JobsGetWindow";
   "JobsOCDefs" -> "JobsStringUtils";
   "JobsOCDefs" -> "XYColorOC";
+  "JobsOCDeviceGuard" -> "JobsBlock";
+  "JobsOCDeviceGuard" -> "JobsOCDefs";
   "JobsOCExcel" -> "JobsBaseUI";
   "JobsOCExcel" -> "JobsBlock";
   "JobsOCExcel" -> "JobsMakes";

@@ -580,7 +580,7 @@ xcodebuild test \
 
 ### <span id="jobs-toc-heading-37" data-jobs-toc="v2">7.1、先从纯逻辑开始 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a></span><!-- jobs-toc:heading-end -->
 
-新手最推荐先测这些：
+> 新手最推荐先测这些：
 
 | 优先级 | 内容 | 原因 |
 | --- | --- | --- |
@@ -637,7 +637,7 @@ xcodebuild test \
 
 ### <span id="jobs-toc-heading-41" data-jobs-toc="v2">8.1、为什么我按 `Command + U` 没反应？ <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a></span><!-- jobs-toc:heading-end -->
 
-检查这几个点：
+> 检查这几个点：
 
 | 检查项 | 说明 |
 | --- | --- |
@@ -685,7 +685,7 @@ XCTAssertTrue([button waitForExistenceWithTimeout:5]);
 
 ### <span id="jobs-toc-heading-44" data-jobs-toc="v2">8.4、为什么 UI 测试有时候成功、有时候失败？ <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a></span><!-- jobs-toc:heading-end -->
 
-这叫不稳定测试，常见原因：
+> 这叫不稳定测试，常见原因：
 
 | 原因 | 处理 |
 | --- | --- |

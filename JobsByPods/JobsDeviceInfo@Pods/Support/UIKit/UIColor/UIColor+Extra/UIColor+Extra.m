@@ -112,12 +112,11 @@
                                  0.0f,
                                  1.0f,
                                  1.0f);
-        UIGraphicsBeginImageContext(rect.size);
-        CGContextRef context = UIGraphicsGetCurrentContext();
-        CGContextSetFillColorWithColor(context, cor.CGColor);
-        CGContextFillRect(context, rect);
-        UIImage *image = UIGraphicsGetImageFromCurrentImageContext();
-        UIGraphicsEndImageContext();
+        UIImage *image = JobsRenderImage(rect.size, NO, 1, ^(CGContextRef jobsDrawingContext) {
+            CGContextRef context = jobsDrawingContext;
+            CGContextSetFillColorWithColor(context, cor.CGColor);
+            CGContextFillRect(context, rect);
+        });
         return image;
     };
 }
@@ -134,7 +133,7 @@
                            opaque:(BOOL)opaque
                    targetViewRect:(CGRect)targetViewRect{
     /**
-     
+
          该方法首先检查目标视图矩形的宽度和高度是否为零，如果是零，则会触发断言，表示宽度或高度为零将返回nil。
          接下来，它检查传入的颜色数组CorDataMutArr是否为nil，如果为nil，则创建一个包含默认红色和绿色的颜色数组。
          如果不为nil，则将颜色数组中的颜色转换为CGColor。
@@ -155,31 +154,29 @@
                                      withObject:(id)CorDataMutArr[t].CGColor];
         }
     }
-    UIGraphicsBeginImageContextWithOptions(targetViewRect.size,
-                                           opaque,
-                                           UIScreen.mainScreen.scale);
-    CGContextRef context = UIGraphicsGetCurrentContext();
-    //绘制渐变层
-    CGColorSpaceRef colorSpaceRef = CGColorSpaceCreateDeviceRGB();
-    CGGradientRef gradientRef = CGGradientCreateWithColors(colorSpaceRef,
-                                                           (__bridge CFArrayRef)CorDataMutArr,
-                                                           NULL);
-    CGPoint EndPoint = endPoint;
-    if (CGPointEqualToPoint(endPoint, CGPointZero)) {
-        EndPoint = CGPointMake(CGRectGetMaxX(targetViewRect),
-                               CGRectGetMaxY(targetViewRect));
-    }
-    CGContextDrawLinearGradient(context,
-                                gradientRef,
-                                startPoint,
-                                EndPoint,
-                                kCGGradientDrawsBeforeStartLocation | kCGGradientDrawsAfterEndLocation);
-    /// 取到渐变图片
-    UIImage *gradientImage = UIGraphicsGetImageFromCurrentImageContext();
-    /// 释放资源
-    CGColorSpaceRelease(colorSpaceRef);
-    CGGradientRelease(gradientRef);
-    UIGraphicsEndImageContext();
+    UIImage *gradientImage = JobsRenderImage(targetViewRect.size, opaque, jobsScreenScaleForView(nil), ^(CGContextRef jobsDrawingContext) {
+        CGContextRef context = jobsDrawingContext;
+        //绘制渐变层
+        CGColorSpaceRef colorSpaceRef = CGColorSpaceCreateDeviceRGB();
+        CGGradientRef gradientRef = CGGradientCreateWithColors(colorSpaceRef,
+                                                               (__bridge CFArrayRef)CorDataMutArr,
+                                                               NULL);
+        CGPoint EndPoint = endPoint;
+        if (CGPointEqualToPoint(endPoint, CGPointZero)) {
+            EndPoint = CGPointMake(CGRectGetMaxX(targetViewRect),
+                                   CGRectGetMaxY(targetViewRect));
+        }
+        CGContextDrawLinearGradient(context,
+                                    gradientRef,
+                                    startPoint,
+                                    EndPoint,
+                                    kCGGradientDrawsBeforeStartLocation | kCGGradientDrawsAfterEndLocation);
+        /// 取到渐变图片
+
+        /// 释放资源
+        CGColorSpaceRelease(colorSpaceRef);
+        CGGradientRelease(gradientRef);
+    });
     return [UIColor colorWithPatternImage:gradientImage];
 }
 #pragma mark —— 实例方法
@@ -259,17 +256,17 @@
 -(JobsRetImageByFrameBlock _Nonnull)imageByRect{
     return ^UIImage *_Nonnull(CGRect rect){
         /// 开启位图上下文
-        UIGraphicsBeginImageContext(rect.size);
-        /// 获取位图上下文
-        CGContextRef context = UIGraphicsGetCurrentContext();
-        /// 使用color演示填充上下文
-        CGContextSetFillColorWithColor(context, self.CGColor);
-        /// 渲染上下文
-        CGContextFillRect(context, rect);
-        /// 从上下文中获取图片
-        UIImage *theImage = UIGraphicsGetImageFromCurrentImageContext();
-        /// 结束上下文
-        UIGraphicsEndImageContext();
+        UIImage *theImage = JobsRenderImage(rect.size, NO, 1, ^(CGContextRef jobsDrawingContext) {
+            /// 获取位图上下文
+            CGContextRef context = jobsDrawingContext;
+            /// 使用color演示填充上下文
+            CGContextSetFillColorWithColor(context, self.CGColor);
+            /// 渲染上下文
+            CGContextFillRect(context, rect);
+            /// 从上下文中获取图片
+
+            /// 结束上下文
+        });
         return theImage;
     };
 }

@@ -6,7 +6,6 @@
 //
 
 #import <UIKit/UIKit.h>
-
 #import "JobsOCSkeletonUserCell.h"
 
 #if __has_include(<Masonry/Masonry.h>)

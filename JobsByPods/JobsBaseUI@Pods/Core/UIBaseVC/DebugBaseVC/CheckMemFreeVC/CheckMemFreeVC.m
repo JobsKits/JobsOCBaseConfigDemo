@@ -6,7 +6,6 @@
 //
 
 #import "CheckMemFreeVC.h"
-
 #import <JobsBaseUI/NSString+Toast.h>
 
 @interface CheckMemFreeVC ()

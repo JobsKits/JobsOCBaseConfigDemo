@@ -6,8 +6,11 @@
 //
 
 #import "JobsAppDoorVC.h"
+#import "../../../测试支持/JobsAppDoorCoverageProbe/JobsAppDoorCoverageProbe.h"
 
 //ZFPlayerController *ZFPlayer_DoorVC;
+static char JobsAppDoorVolumeObservationContext;
+
 @interface JobsAppDoorVC ()<UIGestureRecognizerDelegate>{
 
     NSInteger index;// 当前被激活的TextField的序号，从1开始
@@ -23,6 +26,8 @@ Prop_strong(nullable)UIButton *customerServiceBtn;
 Prop_strong(nullable)UIButton *volumeBtn;
 Prop_strong(nullable)UIView *volumePanelView;
 Prop_strong(nullable)UISlider *volumeSlider;
+Prop_strong(nullable)MPVolumeView *systemVolumeView;
+Prop_assign()BOOL observingSystemDoorVolume;
 Prop_strong(nullable)UILabel *volumePercentLab;
 Prop_strong(nullable)UITapGestureRecognizer *volumeDismissTapGesture;
 Prop_strong(nullable)UIPanGestureRecognizer *volumeSliderPanGesture;
@@ -77,6 +82,13 @@ Prop_strong()JobsAppDoorModel *appDoorModel;
 - (void)dealloc{
     JobsLog(@"%@",JobsLocalFunc);
     JobsRemoveNotification(self);
+#if !TARGET_OS_SIMULATOR
+    if (_observingSystemDoorVolume) {
+        [AVAudioSession.sharedInstance removeObserver:self
+                                          forKeyPath:@"outputVolume"
+                                             context:&JobsAppDoorVolumeObservationContext];
+    }
+#endif
 }
 
 +(void)destroySingleton{
@@ -511,23 +523,32 @@ static dispatch_once_t static_jobsAppDoorOnceToken;
     if ([touchView isDescendantOfView:self.volumeBtn] ||
         [touchView isDescendantOfView:self.volumePanelView]) {
         return NO;
-    };return YES;
+    }
+    // 触摸分发时收起，避免与输入框、按钮和播放器的手势竞争。
+    [self jobs_setVolumePanelVisible:NO
+                            animated:YES];
+    return NO;
 }
 
 -(JobsRetFloatByVoidBlock _Nonnull)jobs_currentDoorVolume{
     @jobs_weakify(self)
     return ^float{
         @jobs_strongify(self)
-        if (!self) return (float){0};
+        if (!self) {
+            return 0;
+        }
+#if TARGET_OS_SIMULATOR
         id<ZFPlayerMediaPlayback> currentPlayerManager = _player.currentPlayerManager;
-        float volume = _volumeSlider ? _volumeSlider.value : 0;
-        if (_player) {
-            volume = _player.volume;
-        }else if (currentPlayerManager) {
+        float volume = 1;
+        if (currentPlayerManager) {
             volume = currentPlayerManager.volume;
-        }else if (_playerManager) {
+        } else if (_playerManager) {
             volume = _playerManager.volume;
-        };return MAX(0, MIN(1, volume));
+        }
+#else
+        float volume = AVAudioSession.sharedInstance.outputVolume;
+#endif
+        return MAX(0, MIN(1, volume));
     };
 }
 
@@ -548,21 +569,23 @@ static dispatch_once_t static_jobsAppDoorOnceToken;
     @jobs_weakify(self)
     return ^(float volume){
         @jobs_strongify(self)
-        if (!self) return;
-        volume = MAX(0, MIN(1, volume));
-        BOOL muted = volume <= 0.001f;
-        id<ZFPlayerMediaPlayback> currentPlayerManager = _player.currentPlayerManager;
-        self.volumeSlider.byValue(volume);
-        if (_player) {
-            _player.byMuted(muted);
-            _player.byVolume(volume);
+        if (!self) {
+            return;
         }
+#if TARGET_OS_SIMULATOR
+        volume = MAX(0, MIN(1, volume));
+        self.volumeSlider.byValue(volume);
+#else
+        // 真机交由原生 MPVolumeView 调系统音量，播放器不再叠加第二层衰减。
+        volume = 1;
+#endif
+        id<ZFPlayerMediaPlayback> currentPlayerManager = _player.currentPlayerManager;
         if (currentPlayerManager) {
-            ((NSObject *)currentPlayerManager).byMuted(muted);
+            ((NSObject *)currentPlayerManager).byMuted(NO);
             ((NSObject *)currentPlayerManager).byVolume(volume);
         }
         if (_playerManager && _playerManager != currentPlayerManager) {
-            _playerManager.byMuted(muted);
+            _playerManager.byMuted(NO);
             _playerManager.byVolume(volume);
         }
         self.jobs_updateVolumePercentText();
@@ -599,6 +622,11 @@ static dispatch_once_t static_jobsAppDoorOnceToken;
         float volume = self.jobs_currentDoorVolume();
         NSInteger percent = (NSInteger)(MAX(0, MIN(1, volume)) * 100.0f + 0.5f);
         self.volumePercentLab.byText([NSString stringWithFormat:@"%ld%%",(long)percent]);
+#if DEBUG
+        if (_volumePanelView && [NSProcessInfo.processInfo.arguments containsObject:@"--jobs-coverage-route"]) {
+            _volumePanelView.accessibilityValue = self.volumePercentLab.text;
+        }
+#endif
     };
 }
 
@@ -607,8 +635,8 @@ static dispatch_once_t static_jobsAppDoorOnceToken;
     NSString *cleanCode = code.byTrimmingCharactersInSet(NSCharacterSet.whitespaceAndNewlineCharacterSet);
     if (!cleanCode.length) cleanCode = @"86";
     NSString *codeText = [cleanCode hasPrefix:@"+"] ? cleanCode : [NSString stringWithFormat:@"+%@",cleanCode];
-    if (self.jobs_isTaiwanCountryName(countryName)) return [NSString stringWithFormat:@"｜%@",codeText];
-    return [NSString stringWithFormat:@"%@｜%@",self.jobs_countryFlagByCountryName(countryName),codeText];
+    if (self.jobs_isTaiwanCountryName(countryName)) return [NSString stringWithFormat:@"%@",codeText];
+    return [NSString stringWithFormat:@"%@\u00A0%@",self.jobs_countryFlagByCountryName(countryName),codeText];
 }
 
 -(JobsRetBOOLByStrBlock _Nonnull)jobs_isTaiwanCountryName{
@@ -744,7 +772,12 @@ static dispatch_once_t static_jobsAppDoorOnceToken;
                                                  JobsWidth(8),
                                                  panelW,
                                                  JobsWidth(20)));
-        self.volumeSlider
+#if TARGET_OS_SIMULATOR
+        UIView *volumeControl = self.volumeSlider;
+#else
+        UIView *volumeControl = self.systemVolumeView;
+#endif
+        volumeControl
             .byBounds(CGRectMake(0, 0, panelH - JobsWidth(54), JobsWidth(28)))
             .byCenterPoint(CGPointMake(panelW / 2, panelH / 2 + JobsWidth(10)));
         self.jobs_bringDoorControlsToFront();
@@ -771,7 +804,11 @@ static dispatch_once_t static_jobsAppDoorOnceToken;
     self.volumePanelView
         .byHidden(NO)
         .byUserInteractionEnabled(visible);
-    if (visible) self.volumeSlider.byValue(self.jobs_currentDoorVolume());
+#if TARGET_OS_SIMULATOR
+    if (visible) {
+        self.volumeSlider.byValue(self.jobs_currentDoorVolume());
+    }
+#endif
     self.jobs_updateVolumePercentText();
     CGFloat alpha = visible ? 1 : 0;
     CGAffineTransform transform = visible ? CGAffineTransformIdentity : CGAffineTransformMakeScale(0.88f, 0.88f);
@@ -781,7 +818,9 @@ static dispatch_once_t static_jobsAppDoorOnceToken;
             .byTransform(transform);
     };
     void (^completion)(BOOL) = ^(BOOL finished) {
-        if (!visible) self.volumePanelView.byHidden(YES);
+        if (!self.volumePanelShowing) {
+            self.volumePanelView.byHidden(YES);
+        }
     };
     if (!animated) {
         animations();
@@ -855,7 +894,15 @@ static dispatch_once_t static_jobsAppDoorOnceToken;
             });
         [self.view layoutIfNeeded];
         self.byLogoContentViewY(self.logoContentView.y);
-    };return _logoContentView;
+    }
+#if DEBUG
+    if ([NSProcessInfo.processInfo.arguments containsObject:@"--jobs-coverage-route"]) {
+        _logoContentView.accessibilityIdentifier = @"jobs.coverage.auth.style1.volume.outside";
+        _logoContentView.isAccessibilityElement = YES;
+        _logoContentView.accessibilityLabel = @"登录装饰Logo";
+    }
+#endif
+    return _logoContentView;
 }
 
 -(JobsAppDoorForgotCodeContentView *)forgotCodeContentView{
@@ -977,7 +1024,8 @@ static dispatch_once_t static_jobsAppDoorOnceToken;
                 contentView.jobsRichViewByModel(nil);
             })
             .cornerCutToCircleWithCornerRadius(8);
-    };return _jobsAppDoorContentView;
+    };
+    return _jobsAppDoorContentView;
 }
 
 - (UIButton *)customerServiceBtn {
@@ -1012,6 +1060,7 @@ static dispatch_once_t static_jobsAppDoorOnceToken;
                 JobsLog(@"点击客服按钮");
             })
             .onLongPressGestureBy(^ (id data) {
+                JobsAppDoorCoverageLongPress(data);
                 JobsLog(@"");
             })
             .bgColorBy(Cor1)
@@ -1052,7 +1101,9 @@ static dispatch_once_t static_jobsAppDoorOnceToken;
                     .byAdjustsFontSizeToFitWidth(NO)
                     .byLineBreakMode(NSLineBreakByWordWrapping);
         });
-    };return _customerServiceBtn;
+    }
+    JobsAppDoorCoverageName(_customerServiceBtn, @"jobs.coverage.auth.lp.JobsAppDoorVC.customerServiceBtn");
+    return _customerServiceBtn;
 }
 
 -(UIButton *)volumeBtn{
@@ -1083,7 +1134,13 @@ static dispatch_once_t static_jobsAppDoorOnceToken;
                     });
                 button.imageView.byContentMode(UIViewContentModeScaleAspectFit);
             });
-    };return _volumeBtn;
+    }
+#if DEBUG
+    if ([NSProcessInfo.processInfo.arguments containsObject:@"--jobs-coverage-route"]) {
+        _volumeBtn.accessibilityIdentifier = @"jobs.coverage.auth.style1.volume.toggle";
+    }
+#endif
+    return _volumeBtn;
 }
 
 -(UIView *)volumePanelView{
@@ -1107,6 +1164,7 @@ static dispatch_once_t static_jobsAppDoorOnceToken;
                 .addOn(self.view)
                 .byViewBlock(^(__kindof UIView *view) {
                     self.volumePercentLab.addOn(view);
+#if TARGET_OS_SIMULATOR
                     self.volumeSlider.addOn(view);
                     self.volumeSliderPanGesture = [UIPanGestureRecognizer.alloc initWithTarget:self
                                                                                          action:@selector(jobs_volumePanelValueGesture:)];
@@ -1116,9 +1174,20 @@ static dispatch_once_t static_jobsAppDoorOnceToken;
                                                                                         action:@selector(jobs_volumePanelValueGesture:)];
                     self.volumeSliderTapGesture.byCancelsTouchesInView(NO);
                     [view addGestureRecognizer:self.volumeSliderTapGesture];
+#else
+                    self.systemVolumeView.addOn(view);
+#endif
                 });
         });
-    };return _volumePanelView;
+    }
+#if DEBUG
+    if ([NSProcessInfo.processInfo.arguments containsObject:@"--jobs-coverage-route"]) {
+        _volumePanelView.accessibilityIdentifier = @"jobs.coverage.auth.style1.volume.panel";
+        _volumePanelView.isAccessibilityElement = YES;
+        _volumePanelView.accessibilityLabel = @"视频音量";
+    }
+#endif
+    return _volumePanelView;
 }
 
 -(UILabel *)volumePercentLab{
@@ -1133,6 +1202,46 @@ static dispatch_once_t static_jobsAppDoorOnceToken;
         });
         self.jobs_updateVolumePercentText();
     };return _volumePercentLab;
+}
+
+-(MPVolumeView *)systemVolumeView{
+    if (!_systemVolumeView) {
+        _systemVolumeView = jobsMakeVolumeView(^(__kindof UIView * _Nullable view) {
+            view
+                .byTintColor(Cor4)
+                .byTransform(CGAffineTransformMakeRotation(-M_PI_2));
+        });
+#if !TARGET_OS_SIMULATOR
+        self.jobs_applyDoorVolume(1);
+        [AVAudioSession.sharedInstance addObserver:self
+                                       forKeyPath:@"outputVolume"
+                                          options:NSKeyValueObservingOptionNew
+                                          context:&JobsAppDoorVolumeObservationContext];
+        self.observingSystemDoorVolume = YES;
+#endif
+    }
+    return _systemVolumeView;
+}
+
+-(void)observeValueForKeyPath:(NSString *)keyPath
+                    ofObject:(id)object
+                      change:(NSDictionary<NSKeyValueChangeKey,id> *)change
+                     context:(void *)context{
+    if (context != &JobsAppDoorVolumeObservationContext) {
+        [super observeValueForKeyPath:keyPath
+                            ofObject:object
+                              change:change
+                             context:context];
+        return;
+    }
+    @jobs_weakify(self)
+    dispatch_async(dispatch_get_main_queue(), ^{
+        @jobs_strongify(self)
+        if (!self) {
+            return;
+        }
+        self.jobs_updateVolumePercentText();
+    });
 }
 
 -(UISlider *)volumeSlider{

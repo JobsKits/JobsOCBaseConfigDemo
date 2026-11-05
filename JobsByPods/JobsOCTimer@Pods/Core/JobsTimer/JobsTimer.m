@@ -6,7 +6,6 @@
 //
 
 #import <math.h>
-
 #import "JobsTimer.h"
 #import <JobsOCTimer/NSObject+Queue.h>
 

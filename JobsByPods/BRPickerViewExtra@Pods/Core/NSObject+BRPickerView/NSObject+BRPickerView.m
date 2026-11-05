@@ -7,7 +7,6 @@
 //
 
 #import "NSObject+BRPickerView.h"
-
 #import <BRPickerViewExtra/NSMutableArray+Extra.h>
 
 @implementation NSObject (BRPickerView)

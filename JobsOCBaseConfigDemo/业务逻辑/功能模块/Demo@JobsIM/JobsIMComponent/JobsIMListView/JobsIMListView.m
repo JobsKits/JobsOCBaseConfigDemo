@@ -72,6 +72,9 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
         .jobsRichElementsTableViewCellBy(self.jobsIMListMutArr[indexPath.row])
         .JobsBlock1(^(id _Nullable data) {;
         });
+#if DEBUG
+    cell.accessibilityIdentifier = [NSString stringWithFormat:@"jobs.coverage.open.JobsIMVC.%ld", (long)indexPath.row];
+#endif
     return cell.byAllowsMultipleSwipe(YES);
 }
 #pragma mark —— MGSwipeTableCellDelegate

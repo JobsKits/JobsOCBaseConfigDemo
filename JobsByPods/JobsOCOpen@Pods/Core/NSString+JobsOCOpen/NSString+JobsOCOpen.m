@@ -6,7 +6,6 @@
 //
 
 #import "NSString+JobsOCOpen.h"
-
 #import <JobsOCOpen/NSString+Sys.h>
 
 static char JobsOCOpenMailProxyKey;

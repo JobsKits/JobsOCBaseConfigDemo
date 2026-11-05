@@ -2,7 +2,7 @@
 # 抽取当前生产启动/播放路径，替换会话与初始化 factory；不使用麦克风或真实 AudioSession。
 require 'tmpdir'
 require 'open3'
-source = File.read(File.expand_path('../Core/JobsOCAudioRecorder.m', __dir__))
+source = File.read(File.expand_path('../Core/JobsOCAudioRecorder/JobsOCAudioRecorder.m', __dir__))
 def extract(source, signature)
   start = source.index(signature)
   opening = source.index('{', start)

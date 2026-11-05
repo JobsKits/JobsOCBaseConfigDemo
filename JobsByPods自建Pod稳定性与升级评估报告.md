@@ -121,7 +121,7 @@
 | JobsMarqueeView | dealloc L63–65 → jobsStop getter L144–150 | [JobsMarqueeViewCore.m](./JobsByPods/JobsMarqueeView@Pods/Core/JobsMarqueeView/JobsMarqueeViewCore/JobsMarqueeViewCore.m) |
 | JobsProgressBar | dealloc L52–54 → stopAutoProgress getter L107–117 | [JobsProgressBar.m](./JobsByPods/JobsProgressBar@Pods/Core/JobsProgressBar/JobsProgressBar/JobsProgressBar.m) |
 | JobsOCRefresher | proxy dealloc L386–387 → removeObservers getter L408–418 | [UIScrollView+JobsOCRefresher.m](./JobsByPods/JobsOCRefresher@Pods/Core/JobsOCRefresher/UIScrollView+JobsOCRefresher/UIScrollView+JobsOCRefresher.m) |
-| JobsOCMarkdown | dealloc L90–92 → webView getter L294–296 → jobsMakeWebView L264–267 | [JobsOCMarkdownView.m](./JobsByPods/JobsOCMarkdown@Pods/Core/JobsOCMarkdownView.m) |
+| JobsOCMarkdown | dealloc L90–92 → webView getter L294–296 → jobsMakeWebView L264–267 | [JobsOCMarkdownView.m](./JobsByPods/JobsOCMarkdown@Pods/Core/JobsOCMarkdownView/JobsOCMarkdownView.m) |
 | JobsClockView | dealloc L53–54 → jobsStop getter L326–329 | [JobsClockView.m](./JobsByPods/JobsClockView@Pods/Core/JobsClockView/JobsClockView.m) |
 | JobsOCTimerMgr | dealloc L135–137 → teardownAppStateObservers / stopAndRemoveAll，L654–657 / L523–526 | [JobsTimerMgr.m](./JobsByPods/JobsOCTimerMgr@Pods/Core/JobsTimerMgr/JobsTimerMgr.m) |
 
@@ -133,7 +133,7 @@
 
 ### <span id="jobs-toc-heading-8" data-jobs-toc="v2">3.2、R02｜P1：Markdown 的公开加载入口形成递归环 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a></span><!-- jobs-toc:heading-end -->
 
-[JobsOCMarkdownView.m](./JobsByPods/JobsOCMarkdown@Pods/Core/JobsOCMarkdownView.m) L105–126：`byDocument` → `loadDocument` Block → 双参数加载方法 → 再次 `byDocument`。直接调用任一加载入口都可能进入同一环，真正读文件和渲染尚未到达就会栈溢出。
+[JobsOCMarkdownView.m](./JobsByPods/JobsOCMarkdown@Pods/Core/JobsOCMarkdownView/JobsOCMarkdownView.m) L105–126：`byDocument` → `loadDocument` Block → 双参数加载方法 → 再次 `byDocument`。直接调用任一加载入口都可能进入同一环，真正读文件和渲染尚未到达就会栈溢出。
 
 **建议：**“存储 document”和“开始加载”各归一个内核；加载内核直接更新真实存储，不反调会再次开始加载的 DSL。保留现有 WeakMessageHandler 和 JSON/base64 payload 防御。
 
@@ -284,7 +284,7 @@ L43–49 又允许节点值 32，再用 5 位 mask 变成 0；0 / 32 节点别�
 
 ### <span id="jobs-toc-heading-25" data-jobs-toc="v2">5.3、A03｜P1：音频启动结果忽略，旧 recorder 完成可污染新录音 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a></span><!-- jobs-toc:heading-end -->
 
-[JobsOCAudioRecorder.m](./JobsByPods/JobsOCAudioRecorder@Pods/Core/JobsOCAudioRecorder.m) L151–170 忽略实际 record BOOL，发布开始后直接 YES。L195–202 delegate 未核对 recorder 身份，使用共享 currentURL/keepFile；stop A 后立即 start B，晚到 A 回调可能清空 B 状态、停用 AudioSession 或处理 B 文件。
+[JobsOCAudioRecorder.m](./JobsByPods/JobsOCAudioRecorder@Pods/Core/JobsOCAudioRecorder/JobsOCAudioRecorder.m) L151–170 忽略实际 record BOOL，发布开始后直接 YES。L195–202 delegate 未核对 recorder 身份，使用共享 currentURL/keepFile；stop A 后立即 start B，晚到 A 回调可能清空 B 状态、停用 AudioSession 或处理 B 文件。
 
 **建议：**状态覆盖 Starting/Recording/Stopping，不只 isRecording；实际 record 成功才宣布开始；每次 session 保存自己的 URL/保留意图，delegate 校验身份；串行化生命周期和中断/编码失败。
 

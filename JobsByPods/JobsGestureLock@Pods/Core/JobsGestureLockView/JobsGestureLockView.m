@@ -20,6 +20,8 @@ Prop_strong()NSMutableArray<UIButton *> *nodeButtons;
 Prop_strong()UIPanGestureRecognizer *panGesture;
 Prop_assign()CGPoint currentPoint;
 Prop_assign()BOOL finished;
+
+-(void)jobs_finishPattern;
 Prop_assign(readwrite)JobsGestureLockValidationResult validationResult;
 
 @end
@@ -176,15 +178,41 @@ Prop_assign(readwrite)JobsGestureLockValidationResult validationResult;
         if (pan.state == UIGestureRecognizerStateEnded ||
             pan.state == UIGestureRecognizerStateCancelled ||
             pan.state == UIGestureRecognizerStateFailed) {
-            self.byFinished(YES);
-            NSString *pattern = self.currentPattern();
-            if ([self.delegate respondsToSelector:@selector(gestureLockView:didCompletePattern:)]) {
-                [self.delegate gestureLockView:self didCompletePattern:pattern];
-            }
+            [self jobs_finishPattern];
         }
         [self setNeedsDisplay];
     };
 }
+
+-(void)jobs_finishPattern{
+    self.byFinished(YES);
+    NSString *pattern = self.currentPattern();
+    if ([self.delegate respondsToSelector:@selector(gestureLockView:didCompletePattern:)]) {
+        [self.delegate gestureLockView:self didCompletePattern:pattern];
+    }
+}
+
+#if DEBUG
+-(void)jobs_coverageReplayNodeIndices:(NSArray<NSNumber *> *)indices{
+    if (![NSProcessInfo.processInfo.arguments containsObject:@"--jobs-coverage-route"]) {
+        return;
+    }
+    for (NSNumber *index in indices) {
+        if (![index isKindOfClass:NSNumber.class] || index.integerValue < 0 || index.unsignedIntegerValue >= self.nodeButtons.count) {
+            return;
+        }
+    }
+    self.reset();
+    [self layoutIfNeeded];
+    for (NSNumber *index in indices) {
+        UIButton *node = self.nodeButtons[index.unsignedIntegerValue];
+        self.byCurrentPoint(node.center);
+        self.appendButtonWithInterpolation(node);
+    }
+    [self jobs_finishPattern];
+    [self setNeedsDisplay];
+}
+#endif
 
 -(JobsRetUIButtonByCGPointBlock _Nonnull)hitButtonAtPoint{
     @jobs_weakify(self)

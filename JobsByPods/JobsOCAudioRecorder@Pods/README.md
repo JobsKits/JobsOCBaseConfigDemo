@@ -34,6 +34,8 @@
 
 ## <span id="jobs-toc-heading-1" data-jobs-toc="v2">一、架构脉络与关键设计 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a></span><!-- jobs-toc:heading-end -->
 
+- `Core/JobsOCAudioRecorder` 中的头文件与实现以完整基名目录成对管理；公开头文件名不变，`Tests` / `Example` 继续沿用原有编译与排除边界。
+
 本节用于用中文快速理解组件，并为按框架重建提供入口；关注职责、运行关系和关键边界，不要求逐行复刻。
 
 ### <span id="jobs-toc-heading-2" data-jobs-toc="v2">1.1、设计目的与职责划分 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a></span><!-- jobs-toc:heading-end -->
@@ -70,7 +72,7 @@ flowchart TD
 
 源码定位（路径以本 README 所在目录为基准；只带走 README 时，可把文件名作为职责定位线索）：
 
-- [Core/JobsOCAudioRecorder.h](<./Core/JobsOCAudioRecorder.h>)
+- [Core/JobsOCAudioRecorder/JobsOCAudioRecorder.h](<./Core/JobsOCAudioRecorder/JobsOCAudioRecorder.h>)
 
 依赖与编译入口：[JobsOCAudioRecorder.podspec](<./JobsOCAudioRecorder.podspec>)。其中根级依赖声明包括 `JobsOCTimer`、`JobsOCDSL`、`JobsBlock`、`JobsOCDefs`。源码范围、资源及可选 subspec 以这里的声明为准；辅助脚本动态补充的依赖不在上述摘录中展开。
 

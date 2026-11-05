@@ -6,6 +6,7 @@
 //
 
 #import "LuckyWheelDemoVC.h"
+#import "../../../../Common/App工具类/测试支持/JobsOCCoverageGestureProbe/JobsOCCoverageGestureProbe.h"
 
 @interface LuckyWheelDemoVC ()
 
@@ -334,10 +335,13 @@ Prop_strong()NSMutableArray<LuckyWheelSegment *> *segments;
                 self.wheelView.toggleSpin();
                 self.updateSpinToggleBtnBySpinning(self.wheelView.isSpinning);
             }).onLongPressGestureBy(^(id data){
+                JobsOCCoverageLongPressDelivered(data);
                 JobsLog(@"");
             })
             .bySize(CGSizeMake(JobsWidth(78), JobsWidth(36)));
-    };return _spinToggleBtn;
+    }
+    JobsOCCoveragePrepareLongPressButton(_spinToggleBtn, @"jobs.coverage.longPress.LuckyWheelDemoVC.spinToggleBtn");
+    return _spinToggleBtn;
 }
 
 @end

@@ -116,9 +116,11 @@ static JobsOCSplashConfiguration *JobsOCSplashConfigurationForNextLaunch(void) {
 #ifdef DEBUG
         /// 打印全员字体
         UIFont.getAvailableFont();
-        [DDLog addLogger:DDOSLogger.sharedInstance];
-        /// 想要 Xcode console 输出也可加：
-        [DDLog addLogger:DDTTYLogger.sharedInstance];
+        if (@available(iOS 10.0, *)) {
+            [DDLog addLogger:DDOSLogger.sharedInstance];
+        } else {
+            [DDLog addLogger:DDTTYLogger.sharedInstance];
+        }
 #endif
         self.makeJobsNavBarConfig();/// 全局配置 JobsNavBarConfig
         self.makeTABAnimatedConfig();/// 全局配置 TABAnimated

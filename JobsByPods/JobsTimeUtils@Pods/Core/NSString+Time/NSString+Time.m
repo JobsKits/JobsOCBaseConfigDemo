@@ -6,7 +6,6 @@
 //
 
 #import "NSString+Time.h"
-
 #import <JobsTimeUtils/NSDate+Extra.h>
 #import <JobsTimeUtils/NSFormatter+Extra.h>
 #import <JobsTimeUtils/NSDateFormatter+Extra.h>

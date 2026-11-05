@@ -7,6 +7,9 @@
 
 #import "JobsAudioRecorderInitializationFixture.h"
 
+// 用途：实现测试替身（fixture）；注入录音器初始化失败及残留文件，验证错误传递和部分文件清理。
+// 运行：由 JobsOCAudioRecorder-Unit-Stability 测试用例创建，不单独运行；不进入主 App，也不代表真实设备或外网验收。
+
 @implementation JobsAudioRecorderInitializationFixture
 
 -(BOOL)activateRecordingSession:(AVAudioSession **)session error:(NSError **)error{

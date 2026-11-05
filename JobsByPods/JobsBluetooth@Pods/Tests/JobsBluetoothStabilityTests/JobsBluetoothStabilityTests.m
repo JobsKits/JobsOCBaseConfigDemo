@@ -8,6 +8,9 @@
 #import "JobsBluetoothStabilityTests.h"
 #import "JobsBluetoothWriteFixture.h"
 
+// 用途：实现自动化测试；验证蓝牙命令匹配、超时取消、旧连接隔离、MTU 分片与 ACK 完成顺序。
+// 运行：在 Xcode 的 Pods 工程 JobsBluetooth-Unit-Stability 测试 Target 执行，或由现有 CI 调用；不编入主 App。
+
 // 声明生产 delegate 入口；只替换外设 IO，不实现第二套命令调度逻辑。
 @interface JobsBluetoothManager (JobsBluetoothNativeDelegateStabilityAccess)
 

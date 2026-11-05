@@ -210,6 +210,9 @@ heightForRowAtIndexPath:(NSIndexPath *)indexPath{
 
 - (__kindof UITableViewCell *)tableView:(UITableView *)tableView
                   cellForRowAtIndexPath:(NSIndexPath *)indexPath{
+#if DEBUG
+    self.tbvSectionRowCellMutArr[indexPath.section].accessibilityIdentifier = [@"jobs.coverage.open." stringByAppendingString:NSStringFromClass(self.dataMutArr[indexPath.section].cls)];
+#endif
     return self.tbvSectionRowCellMutArr[indexPath.section]
         .byAccessoryType(UITableViewCellAccessoryDisclosureIndicator)
         .byIndexPath(indexPath)

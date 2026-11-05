@@ -6,7 +6,6 @@
 //
 
 #import "JobsTextLabStyleTBVCell.h"
-
 #import <JobsBaseUI/UITableView+RegisterClass.h>
 #import <JobsBaseUI/UIView+Extra.h>
 

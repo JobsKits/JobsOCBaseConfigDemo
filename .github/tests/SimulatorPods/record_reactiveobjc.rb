@@ -1,5 +1,4 @@
 #!/usr/bin/env ruby
-# 只读保存 ReactiveObjC 的生成配置与宏头清单；所有诊断产物仅写入指定输出目录。
 require 'digest'
 require 'fileutils'
 require 'json'
@@ -22,6 +21,9 @@ rescue LoadError
   exec({ 'GEM_HOME' => "#{prefix}/opt/cocoapods/libexec", 'GEM_PATH' => nil },
        "#{prefix}/opt/ruby/bin/ruby", __FILE__, *ARGV)
 end
+
+# 用途：只读收集 ReactiveObjC 生成配置、宏头和头文件清单，供模拟器依赖问题对照诊断。
+# 运行：CI 或终端用 ruby 执行，传入工程根目录和工程外的输出目录；仅输出诊断副本，不修改 Pods 或业务源码。
 
 project = Xcodeproj::Project.open(project_path)
 targets = project.targets.select { |target| target.name == 'ReactiveObjC' }

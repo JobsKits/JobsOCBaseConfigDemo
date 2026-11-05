@@ -99,19 +99,18 @@ Prop_copy()NSString *barcodeContent;
         @jobs_strongify(self)
         if (!self) return nil;
         CGSize size = CGSizeMake(JobsWidth(72), JobsWidth(72));
-        UIGraphicsBeginImageContextWithOptions(size, NO, 0);
-        CGRect rect = CGRectMake(0, 0, size.width, size.height);
-        UIBezierPath *path = UIBezierPath.byBezierPathWithRoundedRect(rect, JobsWidth(16));
-        [HEXCOLOR(0x1D7FF2) setFill];
-        path.byFill();
-        NSString *text = @"J";
-        NSDictionary<NSAttributedStringKey,id> *attrs = @{NSFontAttributeName:UIFontBoldSystemFontOfSize(JobsWidth(42)),
-                                                          NSForegroundColorAttributeName:UIColor.whiteColor};
-        CGSize textSize = [text sizeWithAttributes:attrs];
-        [text drawAtPoint:CGPointMake((size.width - textSize.width) / 2, (size.height - textSize.height) / 2)
-           withAttributes:attrs];
-        UIImage *image = UIGraphicsGetImageFromCurrentImageContext();
-        UIGraphicsEndImageContext();
+        UIImage *image = JobsRenderImage(size, NO, 0, ^(CGContextRef jobsDrawingContext) {
+            CGRect rect = CGRectMake(0, 0, size.width, size.height);
+            UIBezierPath *path = UIBezierPath.byBezierPathWithRoundedRect(rect, JobsWidth(16));
+            [HEXCOLOR(0x1D7FF2) setFill];
+            path.byFill();
+            NSString *text = @"J";
+            NSDictionary<NSAttributedStringKey,id> *attrs = @{NSFontAttributeName:UIFontBoldSystemFontOfSize(JobsWidth(42)),
+                                                              NSForegroundColorAttributeName:UIColor.whiteColor};
+            CGSize textSize = [text sizeWithAttributes:attrs];
+            [text drawAtPoint:CGPointMake((size.width - textSize.width) / 2, (size.height - textSize.height) / 2)
+               withAttributes:attrs];
+        });
         return image ?: jobsMakeImage(^(UIImage *object){});
     };
 }

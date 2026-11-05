@@ -142,7 +142,7 @@ ruby ScriptsByPods/jobs_pods_stability_verify.rb/jobs_pods_stability_verify.rb \
 | plist Foundation macOS 回归 | 提取最终生产 read Block，bundle 定位注入，真实文件验证空/非字符串、缺失/目录、坏/数组根 plist、有效字典与删除后返回 nil，compile/run 0；[日志](/tmp/jobs-foundation-plist-read-20261005-82432-19k7aes/regression.log)。真实 bundle 查找由现有 UIKit XCTest 验收 |
 | Navigation Support plist macOS 回归 | 对实际 link65 指向的 Navigation Support 生产 Block 再提取并编译，真实 Foundation 文件边界 compile/run 0；与 ByPods Core 方法逐字节相同，[日志](/tmp/jobs-foundation-plist-read-20261005-56039-6q4yv3/regression.log)。当前 109 spec 的实际 FileAccessor 选中 1372 个 `.m`，排除 6 个他人作者后扫描 1366 个 Jobs 源码，仅剩 FileFolderHandleTool Pod 自身引用；[选择与命中 JSON](/tmp/jobs-filefolder-selected-source-scan.json)。真实独立链接结果见最终验收记录和模块矩阵 |
 | 宿主 privacy hook 实际 subprocess 回归 | 直接提取生产函数和实际生成的 owned marker 片段，在临时完整 Root 布局运行 8 个真实 subprocess：两次 hook、build/install/skip 三次片段均 exit0；缺源 build/install/hook 三次均预期 exit1。单 marker、第二次字节/mtime 不变；恢复完整宿主源字节，四个模拟 vendor bundle 的八文件不变；[日志](/tmp/jobs-host-privacy-hook-20261005-49556-a55yak/regression.log)、[JSON](/tmp/jobs-host-privacy-hook-20261005-49556-a55yak/results.json)。未执行完整 CP 资源脚本、供应商正文或 actool，不等同真实 Archive |
-| Mach-O 编译权限 helper 回归 | 10 个真实 Mach-O 场景通过：clang 链接 unsigned thin、lipo 合并 fat、缺 section 且相邻 xcent、空/错身份/混合架构、坏 plist、实际 section offset 越界、非法路径，以及既有双架构 AppHost；[日志](/tmp/jobs-host-entitlements-regression.log)、[回归源码](./ScriptsByPods/jobs_pods_stability_verify.rb/Tests/host_entitlements_regression.rb)。权限从实际二进制 `__TEXT,__entitlements` 读取；不是 10 次编译，不用源 entitlement/xcent 或签名文件存在代替权限证明。该 helper 独立审计 AppHost SHA 为 `4ab7d7e962bd01779440032a1d6cd8a5c16ad05f071a6df0f48a1aaeedc9aa5d` |
+| Mach-O 编译权限 helper 回归 | 10 个真实 Mach-O 场景通过：clang 链接 unsigned thin、lipo 合并 fat、缺 section 且相邻 xcent、空/错身份/混合架构、坏 plist、实际 section offset 越界、非法路径，以及既有双架构 AppHost；[日志](/tmp/jobs-host-entitlements-regression.log)、[回归源码](./ScriptsByPods/jobs_pods_stability_verify.rb/Tests/host_entitlements_regression.rb/host_entitlements_regression.rb)。权限从实际二进制 `__TEXT,__entitlements` 读取；不是 10 次编译，不用源 entitlement/xcent 或签名文件存在代替权限证明。该 helper 独立审计 AppHost SHA 为 `4ab7d7e962bd01779440032a1d6cd8a5c16ad05f071a6df0f48a1aaeedc9aa5d` |
 | BaseUI 最近一轮真实定向 XCTest | 2026-10-05 14:03:25 Debug 命令和进程 exit0，真实 xcresult 3/3 通过、failed0、skipped0；[日志](./work/JobsPodsStability/full/test-JobsBaseUI-Debug-140325.log)、[结果包](./work/JobsPodsStability/full/JobsBaseUI-Debug-140325239.xcresult)、[完整结果 JSON](./work/JobsPodsStability/full/results.json)。严格 `codesign --verify --strict --verbose=2` exit0；宿主实际 x86_64 / arm64 权限分别从 offset11614 / 10116、size438 读取，三项 application-identifier / keychain-access-groups / get-task-allow 均匹配该宿主，全部架构 valid。该次宿主 SHA `2d3b21a32877963365108bc38fad6384abc4862373f255542c07e56b05c7b881`，与稍后的 helper 宿主快照分别记录；此定向结果不代替源码继续收口后的最终完整矩阵 |
 | ByPods UIKit iOS XCTest | 真实可见窗口与 `didShowViewController` 逐阶段等待，保留 YES / NO 动画参数、最终根栈、top / visible 控制器及锁复位断言；注册、退出与 plist 合计 5 / 5 通过、0 跳过，Xcode 49.23 秒实际退出 0；[结果包](./work/JobsPodsStability/full/JobsByOCPods-Debug-143104784.xcresult)。本次当前源码指纹 `b31cd2b7b06a8e9fb867c08273a74bbcaba7f73d868c8f1f973d3873143096a2`，该阶段完整47模块验收尚待结束；最终实测结果见最终验收记录和模块矩阵 |
 | Clock 运行释放 XCTest 诊断 | 本轮实际 3 例 2 通过、1 失败，原运行 fixture 未清空 DSL +0 返回对象的临时持有；已在首个真实 tick 后排空显式 autoreleasepool，保留生产 tick 及 weak nil / timer 取消 / 无后续 tick 全部断言。[实际失败日志](./work/JobsPodsStability/full/test-JobsClockView-Debug-144344.log)、[ABI 复现](/tmp/jobs-clock-dsl-autorelease-proof/regression.log)。最终实测结果见最终验收记录和模块矩阵 |
@@ -163,15 +163,15 @@ ruby ScriptsByPods/jobs_pods_stability_verify.rb/jobs_pods_stability_verify.rb \
 
 验收记录包含实际命令、退出码、源码及工程配置 SHA-256、日志和 XCTest 结果包。每个单元执行前后检查源码一致性，文件在编译期间被修改会中止验收；历史通过记录只在指纹一致时复用。XCTest 必须从真实结果包读到实际执行和通过用例，零用例或无法解析不能计为通过。
 
-验收 runner 对每次 Pod / App 构建默认设置 1800 秒、每次 XCTest 命令默认设置 600 秒超时，可用 `--build-timeout` / `--test-timeout` 调整。截止后向本命令独立组发送 TERM，5 秒宽限后尝试 KILL；组探测 EPERM 按仍存在处理，权限失败保留诊断，只允许 fallback 尚未领取状态的本次直接 child。最终实际 `wait2(WNOHANG)` 最多再等 5 秒，领取失败时明确记录 `process_status_collected=false`、实际退出码 / 信号 null 与 PID，不宣称清理成功。超时记录 `timed_out=true`、验证退出 124；源码变化 75 优先，部分结果包和产物不作为成功证据。[命令超时回归](./ScriptsByPods/jobs_pods_stability_verify.rb/Tests/command_timeout_regression.rb) 保留原 7 个真实进程场景，另加 4 个明确注入 EPERM、使用真实进程的边界验证；这不替代XCTest和完整编译验收；最终实测结果见最终验收记录和模块矩阵。
+验收 runner 对每次 Pod / App 构建默认设置 1800 秒、每次 XCTest 命令默认设置 600 秒超时，可用 `--build-timeout` / `--test-timeout` 调整。截止后向本命令独立组发送 TERM，5 秒宽限后尝试 KILL；组探测 EPERM 按仍存在处理，权限失败保留诊断，只允许 fallback 尚未领取状态的本次直接 child。最终实际 `wait2(WNOHANG)` 最多再等 5 秒，领取失败时明确记录 `process_status_collected=false`、实际退出码 / 信号 null 与 PID，不宣称清理成功。超时记录 `timed_out=true`、验证退出 124；源码变化 75 优先，部分结果包和产物不作为成功证据。[命令超时回归](./ScriptsByPods/jobs_pods_stability_verify.rb/Tests/command_timeout_regression.rb/command_timeout_regression.rb) 保留原 7 个真实进程场景，另加 4 个明确注入 EPERM、使用真实进程的边界验证；这不替代XCTest和完整编译验收；最终实测结果见最终验收记录和模块矩阵。
 
 109 份 README 的最终结果由证据校验器回填，默认只预览；单 Pod、回归或主工程任一证据缺失、失败或指纹过期，均拒绝回填：
 
 ```shell
-ruby ScriptsByPods/jobs_pods_stability_verify.rb/update_readme_results.rb \
+ruby ScriptsByPods/jobs_pods_stability_verify.rb/update_readme_results.rb/update_readme_results.rb \
   --results "$PWD/work/JobsPodsStability/full/results.json"
 # 完整验收通过后才写入结果
-ruby ScriptsByPods/jobs_pods_stability_verify.rb/update_readme_results.rb \
+ruby ScriptsByPods/jobs_pods_stability_verify.rb/update_readme_results.rb/update_readme_results.rb \
   --results "$PWD/work/JobsPodsStability/full/results.json" --apply
 ```
 

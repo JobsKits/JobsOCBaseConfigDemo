@@ -6,7 +6,6 @@
 //
 
 #import <UIKit/UIKit.h>
-
 #import "JobsOCExcelDemoCell.h"
 
 #if __has_include(<FDFullscreenPopGesture/FDFullscreenPopGesture.h>)

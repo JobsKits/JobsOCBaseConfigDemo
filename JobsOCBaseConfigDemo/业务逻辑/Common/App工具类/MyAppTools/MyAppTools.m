@@ -89,7 +89,7 @@ static dispatch_once_t MyAppToolsOnceToken;
         _appDelegateWindow = jobsMakeWindow(^(__kindof UIWindow * _Nullable data) {
             @jobs_strongify(self)
             data
-                .byWindowFrame(UIScreen.mainScreen.bounds)
+                .byWindowFrame(jobsScreenBoundsForView(nil))
                 .byRootViewController(RootViewController)
                 .byMakeKeyAndVisible();
         });

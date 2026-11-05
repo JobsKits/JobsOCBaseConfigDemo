@@ -28,7 +28,7 @@
 ```shell
 ruby ScriptsByPods/jobs_pods_stability_audit.rb/jobs_pods_stability_audit.rb \
   --output /tmp/jobs-pods-stability-audit.json
-ruby ScriptsByPods/jobs_pods_stability_audit.rb/Tests/run_regression.rb
+ruby ScriptsByPods/jobs_pods_stability_audit.rb/Tests/run_regression.rb/run_regression.rb
 ```
 
 默认工程目录由脚本位置推导，不依赖当前工作目录；默认输出为同目录 `audit.json`，默认 baseline 为 `baseline.json`。`--root`、`--baseline` 可显式指定路径，`--output -` 输出纯 JSON。系统 Ruby 没有 CocoaPods 时，复用现有 Homebrew Ruby/CocoaPods 环境，不下载或安装 Gem。

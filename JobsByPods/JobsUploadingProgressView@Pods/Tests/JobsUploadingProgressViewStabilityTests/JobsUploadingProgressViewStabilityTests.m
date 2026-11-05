@@ -7,6 +7,9 @@
 
 #import "JobsUploadingProgressViewStabilityTests.h"
 
+// 用途：实现自动化测试；验证上传进度隐藏后再次展示会重启动画，且指定宿主不被视图强留。
+// 运行：在 Xcode 的 Pods 工程 JobsUploadingProgressView-Unit-Stability 测试 Target 执行，或由现有 CI 调用；不编入主 App。
+
 // 声明现有实现中的关闭 Block，仅供回归调用，不扩展生产公开 API。
 @interface JobsUploadingProgressView (JobsStabilityDismiss)
 

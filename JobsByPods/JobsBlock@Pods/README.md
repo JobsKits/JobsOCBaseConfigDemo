@@ -103,6 +103,7 @@ JobsBlock@Pods/
 - `JobsBlockDef.h`
 - `JobsBlockHeader.h`
 - `Core/**/*.h`
+- `JobsRetUINavigationItemByNSStringBlock` 描述接收可空标题、返回原 `UINavigationItem` 的链式签名，由 `JobsOCDSL` 的 `UINavigationItem.byTitle(...)` 使用；通用请求参数绑定继续复用 `JobsRetNSObjectByIDBlock`。
 
 - `Core/确定参数的Block/ReturnByCertainParametersBlock.h` 集中维护带返回值的确定参数 Block，`UITextView`、`UIBezierPath / CALayer / UIView` 方法型 DSL 相关返回类型统一从这里暴露。
 - `JobsOCDSL` 新增系统类 DSL 时，所需 `JobsRet<Class>By<Type>Block` 统一先在 `ReturnByCertainParametersBlock.h` 查找；缺失时补在这里，避免 DSL 头文件私自定义 Block。

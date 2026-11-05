@@ -40,6 +40,8 @@ Prop_strong(readonly,nullable)JobsDebugEnvironment *currentEnvironment;
 -(JobsRetDebugPanelByChangedHandlerBlock _Nonnull)byEnvironmentChanged;
 -(JobsRetDebugPanelByActionsBlock _Nonnull)byActions;
 -(JobsRetDebugPanelByVoidBlock _Nonnull)start;
+// 仅DEBUG巡检fixture有效；返回原窗口/原控件已真实落地。
+-(BOOL)jobs_prepareCoverageFloatingEntryForWindow:(UIWindow *)hostWindow;
 -(JobsRetDebugPanelByVoidBlock _Nonnull)hideForCurrentLaunch;
 -(JobsRetDebugPanelByViewControllerBlock _Nonnull)showFrom;
 // 浮动入口在整个调试导航流程中再次点击时返回打开面板前的页面。

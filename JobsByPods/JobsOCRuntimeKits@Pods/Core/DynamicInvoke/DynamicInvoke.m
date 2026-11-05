@@ -6,7 +6,6 @@
 //
 
 #import "DynamicInvoke.h"
-
 #import <JobsOCRuntimeKits/NSMutableArray+Extra.h>
 
 @interface DynamicInvoke ()

@@ -328,6 +328,9 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface UINavigationItem (JobsSystemAPIDSLSupplement)
 
+-(JobsRetUINavigationItemByNSStringBlock _Nonnull)byTitle;
+
+-(JobsRetNavigationItemByBarButtonItemsBlock _Nonnull)byLeftBarButtonItems;
 -(JobsRetNavigationItemByBarButtonItemsBlock _Nonnull)byRightBarButtonItems;
 // JOBS_PROPERTY_DSL_DECLARATION_AUTOGEN_BEGIN UINavigationItem
 -(JobsRetUINavigationItemByUIBarButtonItemBlock _Nonnull)byLeftBarButtonItem;
@@ -373,8 +376,8 @@ NS_ASSUME_NONNULL_BEGIN
 -(JobsRetApplicationByBOOLBlock _Nonnull)byIdleTimerDisabled;
 // JOBS_PROPERTY_DSL_DECLARATION_AUTOGEN_BEGIN UIApplication
 -(JobsRetApplicationByBOOLBlock _Nonnull)byApplicationSupportsShakeToEdit;
+/// iOS 16+ 异步更新角标，失败写入日志；旧系统使用 UIApplication。
 -(JobsRetUIApplicationByNSIntegerBlock _Nonnull)byApplicationIconBadgeNumber;
--(void)setApplicationIconBadgeNumber:(NSInteger)data;
 -(void)setApplicationSupportsShakeToEdit:(BOOL)data;
 // JOBS_PROPERTY_DSL_DECLARATION_AUTOGEN_END UIApplication
 @end

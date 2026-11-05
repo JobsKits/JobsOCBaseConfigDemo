@@ -6,7 +6,6 @@
 //
 
 #import "JobsNavBar.h"
-
 #import <JobsNavBar/BaseButton.h>
 #import <JobsNavBar/UIButton+Extra.h>
 #import <JobsNavBar/UIView+Extra.h>

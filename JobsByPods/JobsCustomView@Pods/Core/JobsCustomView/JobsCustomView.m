@@ -6,7 +6,6 @@
 //
 
 #import "JobsCustomView.h"
-
 #import <JobsCustomView/NSObject+Extra.h>
 #import <JobsCustomView/NSMutableArray+Extra.h>
 #import <JobsCustomView/UIButton+SimplyMake.h>

@@ -224,6 +224,9 @@ Prop_strong()UIButton *rightDirectionBtn;
     @jobs_weakify(self)
     return jobsMakeButton(^(__kindof UIButton * _Nullable button) {
         @jobs_strongify(self)
+#if DEBUG
+        button.accessibilityIdentifier = [NSString stringWithFormat:@"jobs.coverage.open.JobsPresentedVC.%ld", (long)direction];
+#endif
         button
             .byTitle(title.jobsTr())
             .byTitleCor(JobsWhiteColor)

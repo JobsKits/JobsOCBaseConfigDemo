@@ -1,5 +1,8 @@
 require_relative 'select_simulator'
 
+# 用途：用内存中的模拟器清单验证 SDK 代际、数字版本、可用性与架构筛选，拒绝旧已启动设备抢占。
+# 运行：终端用 ruby 执行本文件，或由 CI 调用；不启动模拟器，不执行主 App 测试。
+
 def runtime(version, **attributes)
   { 'identifier' => "com.apple.CoreSimulator.SimRuntime.iOS-#{version.tr('.', '-')}",
     'version' => version, 'isAvailable' => true, 'supportedArchitectures' => ['arm64'] }.merge(attributes.transform_keys(&:to_s))

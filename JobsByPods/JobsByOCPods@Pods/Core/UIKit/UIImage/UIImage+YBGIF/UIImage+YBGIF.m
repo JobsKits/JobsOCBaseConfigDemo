@@ -32,7 +32,7 @@
                     }
                     duration += [self frameDurationAtIndex:i source:source];
                     data.add([UIImage imageWithCGImage:image
-                                                             scale:UIScreen.mainScreen.scale
+                                                             scale:jobsScreenScaleForView(nil)
                                                        orientation:UIImageOrientationUp]);
                     CGImageRelease(image);
                 }
@@ -71,7 +71,7 @@
 /// 根据图片名字创建gif图片
 +(JobsRetImageByStrBlock _Nonnull)animatedGIFByName{
     return ^UIImage *_Nullable(__kindof NSString *_Nullable name){
-        CGFloat scale = UIScreen.mainScreen.scale;
+        CGFloat scale = jobsScreenScaleForView(nil);
         if (scale > 1.0f) {
             NSString *retinaPath = name.add(@"@2x.gif").jobsPathForResourceWithFullName();
             NSData *data = [NSData dataWithContentsOfFile:retinaPath];
@@ -111,14 +111,14 @@
         NSMutableArray <UIImage *>*scaledImages = jobsMakeMutArr(^(__kindof NSMutableArray * _Nullable data) {
             @jobs_strongify(self)
             for (UIImage *image in self.images) {
-                UIGraphicsBeginImageContextWithOptions(size, NO, 0.0);
-                 [image drawInRect:CGRectMake(thumbnailPoint.x,
-                                              thumbnailPoint.y,
-                                              scaledSize.width,
-                                              scaledSize.height)];
-                UIImage *newImage = UIGraphicsGetImageFromCurrentImageContext();
-                data.add(newImage);
-                UIGraphicsEndImageContext();
+                UIImage *newImage = JobsRenderImage(size, NO, 0.0, ^(CGContextRef jobsDrawingContext) {
+                     [image drawInRect:CGRectMake(thumbnailPoint.x,
+                                                  thumbnailPoint.y,
+                                                  scaledSize.width,
+                                                  scaledSize.height)];
+
+                    data.add(newImage);
+                });
             }
         });return [UIImage animatedImageWithImages:scaledImages duration:self.duration];
     };

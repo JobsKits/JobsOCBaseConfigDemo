@@ -6,7 +6,6 @@
 //
 
 #import <UIKit/UIKit.h>
-
 #import "GoodsClassModel.h"
 #import "ThreeClassCell.h"
 

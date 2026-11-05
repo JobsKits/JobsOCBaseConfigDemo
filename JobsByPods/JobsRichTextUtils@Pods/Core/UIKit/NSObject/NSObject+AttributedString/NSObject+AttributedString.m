@@ -6,7 +6,6 @@
 //
 
 #import "NSObject+AttributedString.h"
-
 #import <JobsRichTextUtils/NSString+Extra.h>
 
 @implementation NSObject (AttributedString)

@@ -6,7 +6,6 @@
 //
 
 #import "JobsTextViewStyleTBVCell.h"
-
 #import <JobsBaseUI/NSString+Sys.h>
 #import <JobsBaseUI/NSObject+Extra.h>
 #import <SZTextViewExtra/SZTextView+Extra.h>

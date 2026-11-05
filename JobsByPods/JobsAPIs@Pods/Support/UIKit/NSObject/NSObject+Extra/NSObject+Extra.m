@@ -6,7 +6,6 @@
 //
 
 #import "NSObject+Extra.h"
-
 #import <JobsAPIs/NSURLRequest+Extra.h>
 #import <JobsAPIs/NSData+Extra.h>
 #import <JobsAPIs/JobsBaseApi.h>

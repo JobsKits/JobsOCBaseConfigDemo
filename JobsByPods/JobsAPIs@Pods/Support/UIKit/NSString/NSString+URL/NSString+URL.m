@@ -6,7 +6,6 @@
 //
 
 #import "NSString+URL.h"
-
 #import <JobsAPIs/NSURLRequest+Extra.h>
 #import <JobsAPIs/NSString+Replace.h>
 

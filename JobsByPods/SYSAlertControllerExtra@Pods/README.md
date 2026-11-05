@@ -73,6 +73,8 @@
 
 ## <span id="jobs-toc-heading-4" data-jobs-toc="v2">三、目录结构 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a></span><!-- jobs-toc:heading-end -->
 
+- `Support/UIKit/NSString/NSString+Extra` 中的头文件与实现以完整基名目录成对管理；公开头文件名不变，`Tests` / `Example` 继续沿用原有编译与排除边界。
+
 ```text
 SYSAlertControllerExtra@Pods/
 ├── SYSAlertControllerExtra.podspec  # Pod 描述文件

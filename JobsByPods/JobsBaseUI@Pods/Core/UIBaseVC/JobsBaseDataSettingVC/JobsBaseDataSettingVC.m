@@ -6,7 +6,6 @@
 //
 
 #import "JobsBaseDataSettingVC.h"
-
 #import <JobsBaseUI/NSObject+Extra.h>
 #import <JobsBaseUI/UIViewController+BaseNavigationBar.h>
 #import <JobsBaseUI/UIViewController+BackBtn.h>

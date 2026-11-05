@@ -53,7 +53,11 @@ NS_ASSUME_NONNULL_END
 NS_INLINE __kindof WKWebView *_Nonnull jobsMakeWKWebViewByConfig(jobsByWKWebViewBlock _Nonnull block){
     WKWebView *data = WKWebView.initBy(jobsMakeWKWebViewConfiguration(^(WKWebViewConfiguration * _Nullable config) {
         /// 确保 WebView 的配置允许加载外部资源：
-        config.preferences.javaScriptEnabled = YES;
+        if (@available(iOS 14.0, *)) {
+            config.defaultWebpagePreferences.byAllowsContentJavaScript(YES);
+        } else {
+            SuppressWdeprecatedDeclarationsWarning(config.preferences.javaScriptEnabled = YES;);
+        }
         config.preferences.javaScriptCanOpenWindowsAutomatically = YES;
         config.allowsInlineMediaPlayback = YES;
         config.mediaTypesRequiringUserActionForPlayback = WKAudiovisualMediaTypeNone; // 确保媒体资源可以自动播放

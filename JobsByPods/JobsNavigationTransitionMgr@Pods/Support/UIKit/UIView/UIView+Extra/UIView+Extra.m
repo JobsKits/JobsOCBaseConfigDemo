@@ -347,14 +347,11 @@
     return ^UIImage *_Nullable{
         @jobs_strongify(self)
         if (!self) return nil;
-        CGSize size = UIScreen.mainScreen.bounds.size;
-        CGFloat scale = UIScreen.mainScreen.scale;
-        UIGraphicsBeginImageContextWithOptions(size,
-                                               YES,
-                                               scale);
-        [jobsGetMainWindow().layer renderInContext:UIGraphicsGetCurrentContext()];
-        UIImage *image = UIGraphicsGetImageFromCurrentImageContext();
-        UIGraphicsEndImageContext();
+        CGSize size = jobsScreenBoundsForView(nil).size;
+        CGFloat scale = jobsScreenScaleForView(nil);
+        UIImage *image = JobsRenderImage(size, YES, scale, ^(CGContextRef jobsDrawingContext) {
+            [jobsGetMainWindow().layer renderInContext:UIGraphicsGetCurrentContext()];
+        });
         return image;
     };
 }
@@ -387,22 +384,19 @@
         if (!self) return nil;
         if (CGRectIsEmpty(self.frame)) return nil;
         CGSize size = self.bounds.size;
-        CGFloat scale = UIScreen.mainScreen.scale;
-        UIGraphicsBeginImageContextWithOptions(size,
-                                               NO,
-                                               scale);
-        if ([self respondsToSelector:@selector(drawViewHierarchyInRect:afterScreenUpdates:)]) {
-            /// 对view进行一个快照，然后将快照渲染到当前的上下文中 https://www.jianshu.com/p/3d246235388c
-            /// rect：指定图片绘制的坐标
-            /// afterUpdates：截图的瞬间是否将屏幕当前的变更渲染进去
-            [self drawViewHierarchyInRect:self.bounds
-                       afterScreenUpdates:YES];
-        }else{
-            /// 将view的layer渲染到当前的绘制的上下文中
-            [self.layer renderInContext:UIGraphicsGetCurrentContext()];
-        }
-        UIImage *image = UIGraphicsGetImageFromCurrentImageContext();
-        UIGraphicsEndImageContext();
+        CGFloat scale = jobsScreenScaleForView(nil);
+        UIImage *image = JobsRenderImage(size, NO, scale, ^(CGContextRef jobsDrawingContext) {
+            if ([self respondsToSelector:@selector(drawViewHierarchyInRect:afterScreenUpdates:)]) {
+                /// 对view进行一个快照，然后将快照渲染到当前的上下文中 https://www.jianshu.com/p/3d246235388c
+                /// rect：指定图片绘制的坐标
+                /// afterUpdates：截图的瞬间是否将屏幕当前的变更渲染进去
+                [self drawViewHierarchyInRect:self.bounds
+                           afterScreenUpdates:YES];
+            }else{
+                /// 将view的layer渲染到当前的绘制的上下文中
+                [self.layer renderInContext:UIGraphicsGetCurrentContext()];
+            }
+        });
         return image;
     };
 }
@@ -419,21 +413,18 @@
         if (!self) return nil;
         if ([self isKindOfClass:UIScrollView.class]) {
             UIScrollView *scrollview = (UIScrollView *)self;
-            UIGraphicsBeginImageContextWithOptions(scrollview.contentSize,
-                                                   YES,
-                                                   UIScreen.mainScreen.scale);
-            /// 获取当前scrollview的frame 和 contentOffset
-            // CGRect saveFrame = scrollview.frame;
-            // CGPoint saveOffset = scrollview.contentOffset;
-            /// 置为起点
-            scrollview.byContentOffset(CGPointZero);
-            scrollview.frame = CGRectMake(0,
-                                          0,
-                                          scrollview.contentSize.width,
-                                          scrollview.contentSize.height);
-            [scrollview.layer renderInContext:UIGraphicsGetCurrentContext()];
-            UIImage *image = UIGraphicsGetImageFromCurrentImageContext();
-            UIGraphicsEndImageContext();
+            UIImage *image = JobsRenderImage(scrollview.contentSize, YES, jobsScreenScaleForView(nil), ^(CGContextRef jobsDrawingContext) {
+                /// 获取当前scrollview的frame 和 contentOffset
+                // CGRect saveFrame = scrollview.frame;
+                // CGPoint saveOffset = scrollview.contentOffset;
+                /// 置为起点
+                scrollview.byContentOffset(CGPointZero);
+                scrollview.frame = CGRectMake(0,
+                                              0,
+                                              scrollview.contentSize.width,
+                                              scrollview.contentSize.height);
+                [scrollview.layer renderInContext:UIGraphicsGetCurrentContext()];
+            });
             return image;
         };return nil;
     };
@@ -444,15 +435,14 @@
     return ^UIImage *_Nonnull(__kindof UIView *_Nonnull data){
         @jobs_strongify(self)
         /// 1、开始位图上下文
-        UIGraphicsBeginImageContext(CGSizeMake(self.width,self.height - 80));
-        /// 2、获取上下文
-        CGContextRef ctx = UIGraphicsGetCurrentContext();
-        /// 3、截图
-        [self.layer renderInContext:ctx];
-        /// 4、获取图片
-        UIImage *newImage = UIGraphicsGetImageFromCurrentImageContext();
-        /// 5、关闭上下文
-        UIGraphicsEndImageContext() ;
+        UIImage *newImage = JobsRenderImage(CGSizeMake(self.width,self.height - 80), NO, 1, ^(CGContextRef jobsDrawingContext) {
+            /// 2、获取上下文
+            CGContextRef ctx = jobsDrawingContext;
+            /// 3、截图
+            [self.layer renderInContext:ctx];
+            /// 4、获取图片
+            /// 5、关闭上下文
+        });
         return newImage;
     };
 }
@@ -461,13 +451,12 @@
     @jobs_weakify(self)
     return ^UIImage *_Nonnull(CGRect rect){
         @jobs_strongify(self)
-        UIGraphicsBeginImageContext(self.frame.size);
-        CGContextRef context = UIGraphicsGetCurrentContext();
-        CGContextSaveGState(context);
-        UIRectClip(rect);
-        [self.layer renderInContext:context];
-        UIImage *theImage = UIGraphicsGetImageFromCurrentImageContext();
-        UIGraphicsEndImageContext();
+        UIImage *theImage = JobsRenderImage(self.frame.size, NO, 1, ^(CGContextRef jobsDrawingContext) {
+            CGContextRef context = jobsDrawingContext;
+            CGContextSaveGState(context);
+            UIRectClip(rect);
+            [self.layer renderInContext:context];
+        });
         return theImage;
     };
 }

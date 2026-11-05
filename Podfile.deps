@@ -169,6 +169,7 @@ def database
 end
 
 def byJobsDo
+  pod 'JobsOCStabilitySupport',         :path => './JobsByPods/JobsOCStabilitySupport@Pods'
 #  pod 'JobsBlock', :git => 'https://github.com/JobsKits/JobsBlock.git' ,:tag => '1.0.1'
   # 本地 Pods（统一挂载管理）
   pod 'JobsAppIconRibbon',              :path => './JobsByPods/JobsAppIconRibbon@Pods'

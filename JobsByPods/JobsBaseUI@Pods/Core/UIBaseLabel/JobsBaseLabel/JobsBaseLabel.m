@@ -6,7 +6,6 @@
 //
 
 #import "JobsBaseLabel.h"
-
 #import <JobsBaseUI/NSObject+Extra.h>
 #import <JobsBaseUI/UIView+Extra.h>
 

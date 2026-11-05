@@ -6,7 +6,6 @@
 //
 
 #import "JobsGestureLockVC.h"
-
 #import <JobsGestureLock/JobsGestureLockIndicator.h>
 #import <JobsGestureLock/JobsGestureLockResource.h>
 #import <JobsGestureLock/JobsGestureLockStorage.h>

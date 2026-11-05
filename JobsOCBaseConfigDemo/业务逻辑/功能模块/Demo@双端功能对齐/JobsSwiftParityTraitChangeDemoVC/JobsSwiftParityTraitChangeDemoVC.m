@@ -7,6 +7,8 @@
 
 #import "JobsSwiftParityTraitChangeDemoVC.h"
 
+JobsKey(JobsJobsSwiftParityTraitChangeDemoVCModernTraitsRegistrationKey)
+
 @implementation JobsSwiftParityTraitChangeDemoVC
 
 -(JobsRetStrByVoidBlock _Nonnull)demoNavigationTitle{
@@ -45,7 +47,35 @@
     };
 }
 
+-(void)viewDidLoad{
+    [super viewDidLoad];
+    if (@available(iOS 17.0, tvOS 17.0, *)) {
+        if (!Jobs_getAssociatedObjectByTarget(self, JobsJobsSwiftParityTraitChangeDemoVCModernTraitsRegistrationKey)) {
+            Jobs_setAssociatedRETAIN_NONATOMICByTarget(self, JobsJobsSwiftParityTraitChangeDemoVCModernTraitsRegistrationKey, @YES)
+            NSArray<UITrait> *traits = [UITraitCollection.systemTraitsAffectingColorAppearance arrayByAddingObjectsFromArray:@[
+                UITraitDisplayScale.class,
+                UITraitPreferredContentSizeCategory.class,
+                UITraitHorizontalSizeClass.class,
+                UITraitVerticalSizeClass.class,
+                UITraitLayoutDirection.class
+            ]];
+            [self registerForTraitChanges:traits
+                             withHandler:^(__kindof id<UITraitEnvironment> environment,
+                                           UITraitCollection *previousTraitCollection) {
+                JobsSwiftParityTraitChangeDemoVC *target = (JobsSwiftParityTraitChangeDemoVC *)environment;
+                jobsByUITraitCollectionBlock action = ((jobsByUITraitCollectionBlock (*)(__typeof__(target), SEL))JobsBlockInstanceMethodIMP(JobsSwiftParityTraitChangeDemoVC.class, @selector(jobsTraitCollectionDidChange)))(target, @selector(jobsTraitCollectionDidChange));
+                if (action) {
+                    action(previousTraitCollection);
+                }
+            }];
+        }
+    }
+}
+
 -(void)traitCollectionDidChange:(UITraitCollection *)previousTraitCollection{
+    if (@available(iOS 17.0, tvOS 17.0, *)) {
+        return;
+    }
     jobsByUITraitCollectionBlock action = ((jobsByUITraitCollectionBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(JobsSwiftParityTraitChangeDemoVC.class, @selector(jobsTraitCollectionDidChange)))(self, @selector(jobsTraitCollectionDidChange));
     if (action) action(previousTraitCollection);
 }
@@ -55,7 +85,11 @@
     return ^(UITraitCollection * previousTraitCollection){
         @jobs_strongify(self)
         if (!self) return;
-        [super traitCollectionDidChange:previousTraitCollection];
+        if (@available(iOS 17.0, tvOS 17.0, *)) {
+            // 现代注册回调只执行业务刷新，旧系统保留父类通知。
+        } else {
+            SuppressWdeprecatedDeclarationsWarning([super traitCollectionDidChange:previousTraitCollection];);
+        }
         if (previousTraitCollection.userInterfaceStyle == self.traitCollection.userInterfaceStyle) return;
         NSString *style = self.traitCollection.userInterfaceStyle == UIUserInterfaceStyleDark ? @"深色" : @"浅色";
         self.updateStatus([NSString stringWithFormat:@"TraitChange 已响应：%@模式",style]);

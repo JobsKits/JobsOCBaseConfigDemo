@@ -6,7 +6,6 @@
 //
 
 #import <UIKit/UIKit.h>
-
 #import "JobsLiveInputBar.h"
 #import "JobsLiveMsgCell.h"
 

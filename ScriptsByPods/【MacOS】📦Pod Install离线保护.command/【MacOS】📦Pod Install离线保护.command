@@ -196,7 +196,11 @@ validate_environment() {
   log_message "工程目录：${PROJECT_ROOT}"
   log_message "执行阶段：preflight=${RUN_PREFLIGHT}，post_integrate=${RUN_POST_INTEGRATE}，check_only=${CHECK_ONLY}。"
   if (( RUN_PREFLIGHT == 1 )); then
-    log_message "前置任务策略：只使用本机已有工具与源码，不发起工具安装。"
+    if (( OFFLINE_MODE == 1 )); then
+      log_message "前置任务策略：显式离线，仅复用本机已有工具，不安装或升级。"
+    else
+      log_message "前置任务策略：保留报告子脚本的安装 / 升级选择；确认后才预检网络并执行维护。"
+    fi
   fi
 }
 
@@ -244,7 +248,7 @@ run_dependency_report() {
 
 # 集成成功后前台执行 CodeGraph，安装及地图操作由子脚本确认。
 run_codegraph_task() {
-  local script_name="codegraph_init.command"
+  local script_name="【MacOS】codegraph_init.command"
   local script_path="$(resolve_script_path "${script_name}")"
   local allow_install="${CODEGRAPH_ALLOW_INSTALL:-1}"
   if [[ "${JOBS_SKIP_CODEGRAPH:-0}" == 1 ]]; then

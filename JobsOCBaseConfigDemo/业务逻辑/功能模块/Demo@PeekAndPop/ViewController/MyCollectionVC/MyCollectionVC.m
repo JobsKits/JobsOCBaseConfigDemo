@@ -166,10 +166,28 @@ Prop_strong()NSMutableArray <__kindof UIViewModel *>*dataMutArr;
 }
 
 #pragma mark —— UICollectionViewDelegate,UICollectionViewDataSource
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wdeprecated-implementations"
 - (nullable UIContextMenuConfiguration *)collectionView:(UICollectionView *)collectionView
       contextMenuConfigurationForItemAtIndexPath:(NSIndexPath *)indexPath
                                            point:(CGPoint)point {
-    if (indexPath.section >= self.dataMutArr.count) return nil;
+    if (@available(iOS 16.0, *)) {
+        return nil;
+    }
+    return [self jobsContextMenuConfigurationForIndexPath:indexPath];
+}
+#pragma clang diagnostic pop
+
+- (nullable UIContextMenuConfiguration *)collectionView:(UICollectionView *)collectionView
+      contextMenuConfigurationForItemsAtIndexPaths:(NSArray<NSIndexPath *> *)indexPaths
+                                             point:(CGPoint)point API_AVAILABLE(ios(16.0)) {
+    return [self jobsContextMenuConfigurationForIndexPath:indexPaths.firstObject];
+}
+
+- (nullable UIContextMenuConfiguration *)jobsContextMenuConfigurationForIndexPath:(NSIndexPath *)indexPath API_AVAILABLE(ios(13.0)) {
+    if (!indexPath || indexPath.section >= self.dataMutArr.count) {
+        return nil;
+    }
     return jobsMakeContextMenuConfiguration(indexPath,
                                              ^UIViewController * _Nullable{
         PreviewVC *previewVC = PreviewVC.new;

@@ -8,6 +8,9 @@
 #import "JobsOCBaseConfigDemoTests.h"
 #import <objc/message.h>
 
+// 用途：实现自动化测试；验证宿主 Bundle、计时器前后台与手动暂停、开屏、手势页、下拉选择及蓝牙页面的基础回归。
+// 运行：在 Xcode 的 JobsOCBaseConfigDemoTests 测试 Target 执行，或由现有 CI 调用；不编入主 App。
+
 @implementation JobsOCBaseConfigDemoTests
 
 -(void)setUp {

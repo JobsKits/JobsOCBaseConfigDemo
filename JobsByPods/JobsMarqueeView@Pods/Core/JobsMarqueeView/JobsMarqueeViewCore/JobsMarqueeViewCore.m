@@ -775,9 +775,7 @@ Prop_copy()NSString *timerIdentifier;
             }
         }
         button
-            .byAdjustsImageWhenHighlighted(source.adjustsImageWhenHighlighted)
-            .byAdjustsImageWhenDisabled(source.adjustsImageWhenDisabled)
-            .byShowsTouchWhenHighlighted(source.showsTouchWhenHighlighted)
+            .byCopyCompatibilityFromButton(source)
             .jobsResetBtnTitleFont(source.titleLabel.font)
             .jobsResetBtnBgCor(source.backgroundColor)
             .byContentHorizontalAlignment(source.contentHorizontalAlignment)

@@ -6,6 +6,7 @@
 //
 
 #import "JobsAppDoorInputViewBaseStyle_7.h"
+#import "../../../../../../测试支持/JobsAppDoorCoverageProbe/JobsAppDoorCoverageProbe.h"
 
 @interface JobsAppDoorInputViewBaseStyle_7 ()
 
@@ -201,23 +202,28 @@ Prop_strong()UIViewModel *chooseBtnViewModel;
                 x.byRequestParams(@"JobsAppDoorCountryCodeCtrl");
                 if (self.objBlock) self.objBlock(x);
             }).onLongPressGestureBy(^(id data){
+                JobsAppDoorCoverageLongPress(data);
                 JobsLog(@"");
             })
             .addOn(self)
             .byAdd(^(MASConstraintMaker *make) {
                 make.left.equalTo(self.leftIMGV.mas_right).offset(JobsWidth(8));
                 make.centerY.equalTo(self);
-                make.size.mas_equalTo(CGSizeMake(JobsWidth(56), JobsWidth(18)));
+                make.size.mas_equalTo(CGSizeMake(JobsWidth(76), JobsWidth(26)));
             })
             .byViewBlock(^(__kindof UIView *view) {
                 UIButton *button = (UIButton *)view;
                 button.byContentHorizontalAlignment(UIControlContentHorizontalAlignmentLeft);
+                if (@available(iOS 16.0, *)) {
+                    button.jobsResetTitleLineBreakMode(NSLineBreakByClipping);
+                }
                 button.titleLabel
                     .byNumberOfLines(1)
                     .byLineBreakMode(NSLineBreakByClipping)
                     .byAdjustsFontSizeToFitWidth(YES)
                     .byMinimumScaleFactor(0.8f);
             });
+        JobsAppDoorCoverageName(_chooseBtn, @"jobs.coverage.auth.role.country");
     };return _chooseBtn;
 }
 
@@ -226,7 +232,7 @@ Prop_strong()UIViewModel *chooseBtnViewModel;
         @jobs_weakify(self)
         _chooseBtnViewModel = jobsMakeViewModel(^(__kindof UIViewModel * _Nullable data) {
             @jobs_strongify(self)
-            data.textModel.byText(@"🇨🇳|+86")
+            data.textModel.byText(@"🇨🇳\u00A0+86")
                           .byTextCor(JobsWhiteColor)
                           .byTextLineSpacing(0)
                           .byFont(UIFontWeightRegularSize(12));
@@ -249,13 +255,19 @@ Prop_strong()UIViewModel *chooseBtnViewModel;
                     make.right.equalTo(self).offset(-JobsWidth(12));
                     make.left.equalTo(self.chooseBtn.mas_right).offset(JobsWidth(4));
                 });
+            // 订阅会同步发送初值，此时工厂尚未返回；直接弱引用已创建的输入框。
+            @jobs_weakify(textField)
             [textField jobsTextFieldEventFilterBlock:^BOOL(NSString * _Nullable data) {
                 @jobs_strongify(self)
                 return self.retBoolByIDBlock ? self.retBoolByIDBlock(data) : YES;
             } subscribeNextBlock:^(NSString * _Nullable x) {
                 @jobs_strongify(self)
+                @jobs_strongify(textField)
+                if (!self || !textField) {
+                    return;
+                }
                 JobsLog(@"输入的字符为 = %@",x);
-                [self block:self->_magicTextField value:x];
+                [self block:textField value:x];
             }];
         });
     };return _magicTextField;

@@ -6,7 +6,6 @@
 //
 
 #import "TMSWalletCollectionReusableView.h"
-
 #import <JobsBaseUI/UIView+Extra.h>
 
 @interface TMSWalletCollectionReusableView ()

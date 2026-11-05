@@ -7,6 +7,9 @@
 
 #import "JobsOCSnowflakeStabilityTests.h"
 
+// 用途：实现自动化测试；验证雪花 ID 序列耗尽、时钟回退、节点和时间边界，以及并发唯一性。
+// 运行：在 Xcode 的 Pods 工程 JobsOCSnowflake-Unit-Stability 测试 Target 执行，或由现有 CI 调用；不编入主 App。
+
 static int JobsSnowflakeCompareIDs(const void *left, const void *right) {
     uint64_t first = *(const uint64_t *)left;
     uint64_t second = *(const uint64_t *)right;

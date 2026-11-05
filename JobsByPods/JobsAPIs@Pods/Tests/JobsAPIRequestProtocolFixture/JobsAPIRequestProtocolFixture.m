@@ -7,6 +7,9 @@
 
 #import "JobsAPIRequestProtocolFixture.h"
 
+// 用途：实现测试替身（fixture）；拦截测试 URL 并观察请求体、错误和取消事件，避免访问真实服务器。
+// 运行：由 JobsAPIs-Unit-Stability 测试用例创建，不单独运行；不进入主 App，也不代表真实设备或外网验收。
+
 static void (^JobsAPIRequestObserver)(NSURLRequest *, NSData *);
 static void (^JobsAPIStopObserver)(NSURLRequest *);
 

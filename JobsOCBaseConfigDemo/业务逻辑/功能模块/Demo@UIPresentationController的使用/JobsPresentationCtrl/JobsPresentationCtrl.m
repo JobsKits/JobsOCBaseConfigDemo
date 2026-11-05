@@ -6,6 +6,7 @@
 //
 
 #import "JobsPresentationCtrl.h"
+#import "../../../Common/App工具类/测试支持/JobsOCCoverageGestureProbe/JobsOCCoverageGestureProbe.h"
 
 //! The corner radius applied to the view containing the presented view
 //! controller.
@@ -106,6 +107,9 @@ Prop_strong()UIView *presentationWrappingView;
                     });
             });
             self.byPresentationWrappingView(presentationWrapperView);
+            if (JobsOCCoverageGestureProbeEnabled()) {
+                presentationWrapperView.accessibilityIdentifier = @"jobs.coverage.presentation.wrapper";
+            }
             self.panGestureRecognizer = [UIPanGestureRecognizer.alloc initWithTarget:self
                                                                               action:@selector(jobs_handlePanGesture:)];
             self.panGestureRecognizer.byDelegate(self);
@@ -361,6 +365,9 @@ Prop_strong()UIView *presentationWrappingView;
                 if (CGRectGetMinY(self.presentationWrappingView.frame) > self.jobs_defaultPresentedMinY()) {
                     [self.presentingViewController dismissViewControllerAnimated:YES
                                                                       completion:NULL];
+                    if (JobsOCCoverageGestureProbeEnabled() && panGestureRecognizer.state == UIGestureRecognizerStateEnded) {
+                        self.presentingViewController.view.accessibilityValue = @"presentationPan:ended:dismissalRequested";
+                    }
                 }else{
                     self.byInteractiveFrame(self.presentationWrappingView.frame);
                     UIView.jobsAnimateWithSpring(0.28,

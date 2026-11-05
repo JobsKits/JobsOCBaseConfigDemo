@@ -7,6 +7,9 @@
 
 #import "JobsOCDeviceGuardLaunchTests.h"
 
+// 用途：实现自动化测试；验证启动门禁策略冻结、默认越狱阻断、拦截页面及真实 Scene 与冻结判定一致。
+// 运行：在 Xcode 的 JobsOCBaseConfigDemoTests 测试 Target 执行，或由现有 CI 调用；不编入主 App。
+
 static JobsOCDeviceGuardReport *JobsOCLaunchTestReport(NSArray<JobsOCDeviceGuardCheck *> *checks, NSString *unsupportedReason) {
     return [[JobsOCDeviceGuardReport alloc] initWithChecks:checks
         configuration:JobsOCDeviceGuardConfiguration.defaultConfiguration() unsupportedReason:unsupportedReason];

@@ -65,6 +65,8 @@
 - 推荐词使用彩色矩形标签多行排布，文字固定为白色，标签背景不使用透明色或白色。
 - 历史搜索使用 `NSUserDefaults` 按 `historyStorageKey` 持久化，只有键盘搜索确认会自动写入历史，支持单条删除、全部清空和最大条数限制。
 - 点击推荐词或历史词后，只负责填入输入框并通过 `itemSelectedBlock` 回调给业务侧，不自动写入历史。
+- `placeholder`、`recommendTitle`、`historyTitle` 为空时分别回退为 `请输入搜索内容`、`🔍搜索推荐`、`⏰搜索历史`；使用自定义 Config 时仍保留这些默认文案。
+- 使用 `searchView.clearHistory()` 清空历史，随后刷新列表并触发 `clearHistoryBlock`。该入口返回无参 Block，属于终止动作；新旧 OC 工程使用同一公开调用方式。
 
 ## <span id="jobs-toc-heading-4" data-jobs-toc="v2">三、目录结构 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a></span><!-- jobs-toc:heading-end -->
 
@@ -131,12 +133,14 @@ JobsOCSearcher@Pods/
 示例配置：
 
 ```objc
-JobsOCSearcherConfig *config = JobsOCSearcherConfig.defaultConfig;
-config.itemSelectedBlock = ^(NSString * _Nullable text) {
-    NSLog(@"select = %@", text);
-};
+JobsOCSearcherConfig *config = JobsOCSearcherConfig.defaultConfig()
+    .byItemSelectedBlock(^(NSString * _Nullable text) {
+        NSLog(@"select = %@", text);
+    });
 JobsOCSearcherView *searchView = [JobsOCSearcherView.alloc initWithConfig:config];
 searchView.byRecommendSearches(@[@"JobsBaseUI", @"JobsOCDSL", @"JobsOCSearcher"]);
+// 业务需要清空时调用，并由组件分发 clearHistoryBlock。
+searchView.clearHistory();
 ```
 
 ## <span id="jobs-toc-heading-12" data-jobs-toc="v2">七、资源说明 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a></span><!-- jobs-toc:heading-end -->

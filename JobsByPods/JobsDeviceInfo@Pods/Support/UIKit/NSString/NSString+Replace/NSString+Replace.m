@@ -116,14 +116,23 @@
     @jobs_weakify(self)
     return ^NSURL *_Nullable{
         @jobs_strongify(self)
-        if (!self) return nil;
-        SuppressWdeprecatedDeclarationsWarning(
-          return NSString.toString(CFBridgingRelease(
-                                                     CFURLCreateStringByAddingPercentEscapes(kCFAllocatorDefault,
-                                                                                             (CFStringRef)self,
-                                                                                             (CFStringRef)@"!$&'()*+,-./:;=?@_~%#[]",
-                                                                                             NULL,
-                                                                                             kCFStringEncodingUTF8))).jobsURL());
+        if (!self) {
+            return nil;
+        }
+        if (@available(iOS 7.0, *)) {
+            // 保留原 URL 分隔符和已有百分号编码，只转义非 URL 字符。
+            NSCharacterSet *allowed = [NSCharacterSet characterSetWithCharactersInString:
+                @"ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789-._~!$&'()*+,/:;=?@%#[]"];
+            return [self stringByAddingPercentEncodingWithAllowedCharacters:allowed].jobsURL();
+        } else {
+            SuppressWdeprecatedDeclarationsWarning(
+                return NSString.toString(CFBridgingRelease(
+                    CFURLCreateStringByAddingPercentEscapes(kCFAllocatorDefault,
+                                                           (CFStringRef)self,
+                                                           (CFStringRef)@"!$&'()*+,-./:;=?@_~%#[]",
+                                                           NULL,
+                                                           kCFStringEncodingUTF8))).jobsURL());
+        }
     };
 }
 /// 替换某个字符串中间的字符为replacement

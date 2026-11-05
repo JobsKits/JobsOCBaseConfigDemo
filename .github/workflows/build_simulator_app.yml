@@ -113,13 +113,13 @@ jobs:
       - name: Verify configuration and result guards
         timeout-minutes: 10
         run: |
-          ruby ScriptsByPods/jobs_pods_stability_audit.rb/Tests/run_regression.rb
-          ruby ScriptsByPods/jobs_pods_stability_verify.rb/Tests/source_fingerprint_regression.rb
-          ruby ScriptsByPods/jobs_pods_stability_verify.rb/Tests/test_phase_regression.rb
-          ruby ScriptsByPods/jobs_pods_stability_verify.rb/Tests/readme_results_regression.rb
-          ruby ScriptsByPods/jobs_pods_stability_verify.rb/Tests/command_timeout_regression.rb
-          ruby ScriptsByPods/jobs_pods_stability_verify.rb/Tests/host_entitlements_regression.rb
-          ruby ScriptsByPods/jobs_pods_stability_verify.rb/Tests/pod_batch_regression.rb
+          ruby ScriptsByPods/jobs_pods_stability_audit.rb/Tests/run_regression.rb/run_regression.rb
+          ruby ScriptsByPods/jobs_pods_stability_verify.rb/Tests/source_fingerprint_regression.rb/source_fingerprint_regression.rb
+          ruby ScriptsByPods/jobs_pods_stability_verify.rb/Tests/test_phase_regression.rb/test_phase_regression.rb
+          ruby ScriptsByPods/jobs_pods_stability_verify.rb/Tests/readme_results_regression.rb/readme_results_regression.rb
+          ruby ScriptsByPods/jobs_pods_stability_verify.rb/Tests/command_timeout_regression.rb/command_timeout_regression.rb
+          ruby ScriptsByPods/jobs_pods_stability_verify.rb/Tests/host_entitlements_regression.rb/host_entitlements_regression.rb
+          ruby ScriptsByPods/jobs_pods_stability_verify.rb/Tests/pod_batch_regression.rb/pod_batch_regression.rb
 
       - name: Record ReactiveObjC build configuration
         timeout-minutes: 5
@@ -156,7 +156,7 @@ jobs:
       - name: Audit built Keychain test host
         timeout-minutes: 10
         run: |
-          ruby ScriptsByPods/jobs_pods_stability_verify.rb/Tests/host_entitlements_regression.rb \
+          ruby ScriptsByPods/jobs_pods_stability_verify.rb/Tests/host_entitlements_regression.rb/host_entitlements_regression.rb \
             "${RUNNER_TEMP}/JobsOCStability/Products/Debug-iphonesimulator/AppHost-JobsBaseUI-Unit-Tests.app/AppHost-JobsBaseUI-Unit-Tests"
 
       - name: Build Simulator app

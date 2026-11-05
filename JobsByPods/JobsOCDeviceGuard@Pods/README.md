@@ -22,6 +22,8 @@
 
 ## 🔥 <span id="前言">前言</span>
 
+- `Tests/JobsOCDeviceGuardTests` 中的头文件与实现以完整基名目录成对管理；公开头文件名不变，`Tests` / `Example` 继续沿用原有编译与排除边界。
+
 > [**Objective-C**](https://developer.apple.com/library/archive/documentation/Cocoa/Conceptual/ProgrammingWithObjectiveC/Introduction/Introduction.html) 设备安全检测组件，将可观察证据、检测完成状态和业务建议分开输出。配套 <u>[**Swift**](https://www.swift.org/)</u> 实现为 `JobsSwiftDeviceGuard`，采用同一判定口径。
 
 组件只能在 App 已运行且宿主调用检测入口后执行，无法介入或阻止系统安装。检测核心只输出报告与 `shouldRestrict` 建议；宿主已在首个业务启动步骤接入同步门禁，命中 `isJailbroken` 后停止后续显式业务初始化，由 Scene 创建全屏原生拦截页。登录、支付或每次请求没有单独的拦截器，仍需按具体业务接入。客户端结果可能被修改、隐藏或绕过，`noIndicators` 只代表本次未发现可观察特征，不能证明设备安全。高价值业务还应结合服务端授权和 [**App Attest**](https://developer.apple.com/documentation/devicecheck/establishing-your-app-s-integrity)。

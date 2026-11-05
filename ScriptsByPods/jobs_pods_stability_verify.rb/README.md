@@ -22,6 +22,8 @@
 
 按真实 [**Xcode**](https://developer.apple.com/xcode) scheme 验证 `JobsByPods` 中的自建模块，再执行 [**XCTest**](https://developer.apple.com/documentation/xctest) 和主工程构建。排除 `ManualBy*`，不修改供应商源码；日志留在 `work/JobsPodsStability`，不会被工程的 `build/` 打包清理。
 
+稳定性 Scene 类由本地 [JobsOCStabilitySupport](../../JobsByPods/JobsOCStabilitySupport@Pods/README.md) 管理；`Podfile` 安装 hook 将静态框架、构建依赖和 `-ObjC` 接入每个 `AppHost-*-Unit-Tests`，不再向宿主逐份加入 Scene 源码。主 App 的 Scene 配置不受影响。
+
 ## <span id="jobs-toc-heading-2" data-jobs-toc="v2">一、运行方式 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a></span><!-- jobs-toc:heading-end -->
 
 在仓库根目录先用现行 [**CocoaPods**](https://cocoapods.org/) 安装，再指定可用模拟器 UUID：
@@ -41,7 +43,7 @@ CI 在 Pod 阶段显式启用 `--batch-pods`，将选中的自建 Pod target 放
 ruby ScriptsByPods/jobs_pods_stability_verify.rb/jobs_pods_stability_verify.rb \
   --phase pods --batch-pods --architecture arm64 \
   --output "$PWD/work/JobsPodsStability/full"
-ruby ScriptsByPods/jobs_pods_stability_verify.rb/Tests/pod_batch_regression.rb
+ruby ScriptsByPods/jobs_pods_stability_verify.rb/Tests/pod_batch_regression.rb/pod_batch_regression.rb
 ```
 
 批量构建保留全部自建 Pod 的 Debug / Release 覆盖，交给 Xcode 在单图中合并共享依赖；每次最多并行 2 个构建任务。CI 为整图显式设置 `--build-timeout 3300`，每配置最多 55 分钟，两配置共用原有的 120 分钟步骤时限；本地默认单次构建仍为 1800 秒。未加 `--batch-pods` 时继续逐 Pod 模式，也可结合 `--pod` 定向排错。批次失败或超时就停止后续配置、测试与主工程流程；源码变更门禁及安装模式、架构身份继续生效。
@@ -52,7 +54,7 @@ XCTest 还核验真实 `.xcresult` 摘要，记录执行、通过、失败与跳
 
 JobsBaseUI 的真实 Keychain 测试由独立 Simulator 宿主使用 ad-hoc `-` 签名；[测试 entitlement](../../Tests/JobsPodsStabilityHost/JobsBaseUIKeychain/JobsBaseUIKeychain.entitlements) 只使用该宿主自己的 bundle identifier，不配置业务 App 的共享组、个人证书或 provisioning profile。runner 仅为这组测试开启签名，并核验实际产物的签名、展开后的 application identifier 和 access group；Keychain 用例必须全部执行通过、零跳过。其余 Pod / App 构建保留原签名策略。签名策略写入结果缓存，entitlement 源文件纳入内容指纹。
 
-Xcode 可将 Simulator 权限放进实际宿主 Mach-O 的 `__TEXT,__entitlements`，同时代码签名内的 entitlement 为空。验收先验证代码签名，再由 [二进制权限审计](./jobs_stability_host_entitlements.rb) 读取每个实际架构的已编译段，核对宿主身份和权限，不以源 plist 或 `.xcent` 存在替代产物证明。[回归](./Tests/host_entitlements_regression.rb) 无参数执行 9 个独立真实 Mach-O 场景，适用于尚未构建测试宿主的干净环境；显式传入当前宿主 executable 后追加第 10 个真实产物检查，指定路径缺失即失败。GitHub Actions 前置执行独立场景，Pod 测试成功后再传入当次 `JobsOCStability/Products/Debug-iphonesimulator` 内的 AppHost；不会读取本地历史 `work/JobsPodsStability/full` 产物。
+Xcode 可将 Simulator 权限放进实际宿主 Mach-O 的 `__TEXT,__entitlements`，同时代码签名内的 entitlement 为空。验收先验证代码签名，再由 [二进制权限审计](./jobs_stability_host_entitlements.rb/jobs_stability_host_entitlements.rb) 读取每个实际架构的已编译段，核对宿主身份和权限，不以源 plist 或 `.xcent` 存在替代产物证明。[回归](./Tests/host_entitlements_regression.rb/host_entitlements_regression.rb) 无参数执行 9 个独立真实 Mach-O 场景，适用于尚未构建测试宿主的干净环境；显式传入当前宿主 executable 后追加第 10 个真实产物检查，指定路径缺失即失败。GitHub Actions 前置执行独立场景，Pod 测试成功后再传入当次 `JobsOCStability/Products/Debug-iphonesimulator` 内的 AppHost；不会读取本地历史 `work/JobsPodsStability/full` 产物。
 
 ## <span id="jobs-toc-heading-3" data-jobs-toc="v2">二、定向复验 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a></span><!-- jobs-toc:heading-end -->
 
@@ -69,7 +71,7 @@ ruby ScriptsByPods/jobs_pods_stability_verify.rb/jobs_pods_stability_verify.rb \
 
 本地默认不设置 `JOBS_SIMULATOR_ONLY`。仅模拟器 CI 在整个 job 设置 `JOBS_SIMULATOR_ONLY=1`，安装时排除只有真机 arm64 slice 的 IJK，保留 AVPlayer / ControlView；切换模式必须重新 `pod install`，所有后续审计和验证沿用相同环境。`installation_mode` 写入结果与源码指纹，回填会注明仅模拟器依赖图，不把此验收描述成真机 IJK 验收。安装后的[依赖图回归](../../.github/tests/SimulatorPods/dependency_regression.rb)检查真实锁文件、Pods targets、ZFPlayer 编译源码和生成 umbrella，提前拒绝 IJK 混入。
 
-CI 在安装前按当前 Simulator SDK 主版本选择可用 arm64 iPhone 并启动，不让旧系统的已启动设备抢占。完整保留 49 个 Stability Pod（Snowflake 两配置，共 50 配置）及各 macOS harness；测试阶段预算 120 分钟。任何 XCTest 失败、零执行或链接失败即停止后续测试与 harness，保留失败结果；成功路径仍执行完整矩阵。[首错与完整路径回归](./Tests/test_phase_regression.rb)验证这个边界，控制台失败摘要保留真实 `ld:` 原因。
+CI 在安装前按当前 Simulator SDK 主版本选择可用 arm64 iPhone 并启动，不让旧系统的已启动设备抢占。完整保留 49 个 Stability Pod（Snowflake 两配置，共 50 配置）及各 macOS harness；测试阶段预算 120 分钟。任何 XCTest 失败、零执行或链接失败即停止后续测试与 harness，保留失败结果；成功路径仍执行完整矩阵。[首错与完整路径回归](./Tests/test_phase_regression.rb/test_phase_regression.rb)验证这个边界，控制台失败摘要保留真实 `ld:` 原因。
 
 CI 测试阶段显式启用 `--separate-test-builds`。每个 Stability scheme 先以 `build-for-testing` 准备同一配置、模拟器、输出目录及签名策略的测试 bundle 和宿主，使用 `--build-timeout`（默认 1800 秒）；成功后再以 `test-without-building` 执行原用例，使用 `--test-timeout`（默认 600 秒）。准备记录为 `kind=test_build`，测试仍为 `kind=test`；准备日志保留完整构建输出和 `-showBuildTimingSummary`，测试继续保存独立 `.xcresult`。准备失败或超时就停止后续测试与 harness，不能用准备成功代替实际测试通过。分离模式与默认 `test` 模式的成功缓存不混用，测试证据关联当次成功准备记录。
 
@@ -89,38 +91,38 @@ ruby ScriptsByPods/jobs_pods_stability_verify.rb/jobs_pods_stability_verify.rb \
 
 `--build-timeout SECONDS`、`--test-timeout SECONDS` 只接受有限正数。未启用分离时，原 `test` 动作的构建与执行仍共用 600 秒；需要单独约束冷依赖构建时使用上述分离开关，测试宿主连接异常也不会无限挂住后续验收。
 
-[jobs_stability_command.rb](./jobs_stability_command.rb) 为每次构建 / XCTest 命令建立独立进程组，以单调时钟检查截止时间。超时先向该组发送 TERM，最多等待 5 秒，再尝试向仍存在的组发送 KILL；组长已退出而同组子进程仍在运行时仍处理原组。`kill(0)` 返回 EPERM 表示组仍存在，信号权限失败记入 `termination_diagnostics`；仅在确认本次直接 child 尚未被领取时尝试直接 child 信号，不遍历其它任务。最终通过实际 `wait2(WNOHANG)` 最多再等待 5 秒；若状态仍无法领取，`process_status_collected=false`，实际 `process_exit_status` / `process_signal` 为 null，保留 `process_pid` 和诊断，不声称进程已清理。超时验证状态为 124，源码变动状态 75 优先；即使 TERM handler 返回 0，超时仍失败，不读取部分 `.xcresult` 作为成功证据，也不复用超时缓存。脱离该组的系统服务 / 模拟器 AppHost 不在此清理范围，避免影响其它任务。
+[jobs_stability_command.rb](./jobs_stability_command.rb/jobs_stability_command.rb) 为每次构建 / XCTest 命令建立独立进程组，以单调时钟检查截止时间。超时先向该组发送 TERM，最多等待 5 秒，再尝试向仍存在的组发送 KILL；组长已退出而同组子进程仍在运行时仍处理原组。`kill(0)` 返回 EPERM 表示组仍存在，信号权限失败记入 `termination_diagnostics`；仅在确认本次直接 child 尚未被领取时尝试直接 child 信号，不遍历其它任务。最终通过实际 `wait2(WNOHANG)` 最多再等待 5 秒；若状态仍无法领取，`process_status_collected=false`，实际 `process_exit_status` / `process_signal` 为 null，保留 `process_pid` 和诊断，不声称进程已清理。超时验证状态为 124，源码变动状态 75 优先；即使 TERM handler 返回 0，超时仍失败，不读取部分 `.xcresult` 作为成功证据，也不复用超时缓存。脱离该组的系统服务 / 模拟器 AppHost 不在此清理范围，避免影响其它任务。
 
 ```shell
 ruby ScriptsByPods/jobs_pods_stability_verify.rb/jobs_pods_stability_verify.rb \
   --phase tests --pod JobsBioKit --simulator '<UDID>' \
   --test-timeout 600 --build-timeout 1800 \
   --output "$PWD/work/JobsPodsStability/full"
-ruby ScriptsByPods/jobs_pods_stability_verify.rb/Tests/command_timeout_regression.rb
+ruby ScriptsByPods/jobs_pods_stability_verify.rb/Tests/command_timeout_regression.rb/command_timeout_regression.rb
 ```
 
-[命令超时回归](./Tests/command_timeout_regression.rb) 保留原 7 个真实进程场景：正常成功、非零退出、忽略 TERM 的父子组、组长先退但子进程继续运行、无关组隔离、124 / 75 优先级与部分结果包拒领。另加 1 个延迟 1 秒的真实启动场景和 4 个明确注入 EPERM 的边界场景，仍使用真实进程验证直接 child fallback、无法领取状态时有界返回、ensure 不遮盖原异常，以及 runner 的 124 / 75 与部分结果包拒领。EPERM 是测试注入，不代表系统真实出现权限故障。共 12 个场景，测试夹具具有 5 秒有界启动预算，并核对真实单调时钟就绪证据；失败时保留夹具日志。测试不执行 Xcode 构建或依赖安装；组权限被拒绝的 fixture 还确认后代可能仍活，不把发送 KILL 等同于完整清理或领取所有后代状态。
+[命令超时回归](./Tests/command_timeout_regression.rb/command_timeout_regression.rb) 保留原 7 个真实进程场景：正常成功、非零退出、忽略 TERM 的父子组、组长先退但子进程继续运行、无关组隔离、124 / 75 优先级与部分结果包拒领。另加 1 个延迟 1 秒的真实启动场景和 4 个明确注入 EPERM 的边界场景，仍使用真实进程验证直接 child fallback、无法领取状态时有界返回、ensure 不遮盖原异常，以及 runner 的 124 / 75 与部分结果包拒领。EPERM 是测试注入，不代表系统真实出现权限故障。共 12 个场景，测试夹具具有 5 秒有界启动预算，并核对真实单调时钟就绪证据；失败时保留夹具日志。测试不执行 Xcode 构建或依赖安装；组权限被拒绝的 fixture 还确认后代可能仍活，不把发送 KILL 等同于完整清理或领取所有后代状态。
 
 同一输出目录保留 `results.json`、完整命令、退出状态、耗时、源码指纹和 XCTest `.xcresult`；只有相同源码指纹且成功的记录会复用。指纹包括生产 / 测试源码、原始资源、`JobsAppIconRibbon.config`、生成后的 Pods 工程及门禁实现。验证期间检查新增、删除和内容变化，发生变化时停止并列出文件；冻结修改后重跑。仅更新时间而内容相同的文件不使结果失效，结束时再核对完整内容指纹。构建串行使用独立 DerivedData、Products 和 Intermediates，避免其它任务争用数据库。
 
 批量模式每配置保存一条 `kind=pod_batch` 的真实进程记录，只有这条记录持有批次耗时、命令和进程状态；`kind=pod` 的成员引用明确标记 `execution_mode=batch-member`、`seconds=null`，并关联同一 `batch_id`、target UUID、成员清单指纹和共享日志，不把整批耗时当成每个 Pod 的独立耗时。成员、Scheme、workspace、manifest 与成功进程证据共同校验后才能复用缓存或领取 README 结果；失败、超时、证据缺失、后来失败或成员变化均不能被旧成功掩盖。批量成员不会作为逐 Pod 独立构建的缓存。
 
-[源码枚举](./jobs_stability_sources.rb)由 runner 与 README 回填工具共用。只排除 `JobsAppIconRibbon.config` 指定的原始 AppIcon 同目录下、当前输出前缀对应的 Debug / Release 派生 `appiconset`，避免 macOS / SDK 图像渲染差异触发源码漂移误报。原始 AppIcon、配置、生成器以及其它同名资源仍参与指纹；缺少有效配置时不排除任何图标。[指纹回归](./Tests/source_fingerprint_regression.rb)覆盖派生产物改写 / 增删与真实输入变更，GitHub Actions 在逐 Pod 构建前执行这些配置回归。
+[源码枚举](./jobs_stability_sources.rb/jobs_stability_sources.rb)由 runner 与 README 回填工具共用。只排除 `JobsAppIconRibbon.config` 指定的原始 AppIcon 同目录下、当前输出前缀对应的 Debug / Release 派生 `appiconset`，避免 macOS / SDK 图像渲染差异触发源码漂移误报。原始 AppIcon、配置、生成器以及其它同名资源仍参与指纹；缺少有效配置时不排除任何图标。[指纹回归](./Tests/source_fingerprint_regression.rb/source_fingerprint_regression.rb)覆盖派生产物改写 / 增删与真实输入变更，GitHub Actions 在逐 Pod 构建前执行这些配置回归。
 
 ## <span id="jobs-toc-heading-4" data-jobs-toc="v2">三、验收结果与 README 同步 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a></span><!-- jobs-toc:heading-end -->
 
-[update_readme_results.rb](./update_readme_results.rb) 只领取当前源码指纹的完整结果，要求当前全部 110 个 Pod 两种配置、实际 Stability / macOS 回归和主 App 两种配置全部成功；缺日志、缺结果、旧指纹、零测试或后来的失败记录都会拒绝回填。默认预览，`--apply` 只替换各 README 独立验证章节的结果句，保留模块合同。它不执行安装或构建。
+[update_readme_results.rb](./update_readme_results.rb/update_readme_results.rb) 只领取当前源码指纹的完整结果，要求当前全部 110 个 Pod 两种配置、实际 Stability / macOS 回归和主 App 两种配置全部成功；缺日志、缺结果、旧指纹、零测试或后来的失败记录都会拒绝回填。默认预览，`--apply` 只替换各 README 独立验证章节的结果句，保留模块合同。它不执行安装或构建。
 
-领取批量记录时逐一校验每个 Pod 在当前配置的真实批次成员身份，结果句注明共享批次覆盖；独立 Stability 测试仍按实际 XCTest 结果领取，联合构建成功不代表组件测试通过。[批量回归](./Tests/pod_batch_regression.rb) 用隔离 Pods 工程和替身 `xcodebuild` 核对两配置覆盖、aggregate、资源 / 测试宿主排除、指纹身份、缓存、退出状态、超时和证据损坏，不执行真实构建或安装。真实耗时改善与完整 CI 验收以对应提交的 workflow 为准。
+领取批量记录时逐一校验每个 Pod 在当前配置的真实批次成员身份，结果句注明共享批次覆盖；独立 Stability 测试仍按实际 XCTest 结果领取，联合构建成功不代表组件测试通过。[批量回归](./Tests/pod_batch_regression.rb/pod_batch_regression.rb) 用隔离 Pods 工程和替身 `xcodebuild` 核对两配置覆盖、aggregate、资源 / 测试宿主排除、指纹身份、缓存、退出状态、超时和证据损坏，不执行真实构建或安装。真实耗时改善与完整 CI 验收以对应提交的 workflow 为准。
 
-[证据校验器回归](./Tests/readme_results_regression.rb) 包含 62 个 fixture 检查，覆盖通用证据、文档保护、Keychain 签名 receipt、显式 Pod 清单和分离模式的准备证据。BaseUI 回填与 runner 使用相同合同：全部用例通过、零跳过、签名策略匹配、签名审计成功，并持有当次代码签名权限或所有架构的编译权限证据；缺审计、错误策略、部分跳过、无效签名或权限记录均拒绝。分离模式必须匹配同 Pod、配置和源码指纹的最新成功准备记录，且准备发生在测试之前；准备缺失、后续失败或超时、日志缺失、PID 或其它身份字段不匹配都不能领取旧测试成功。清单以已审 `baseline.json` 的 `expected_pods` 精确核对名称和记录数量，不再使用固定数量常量。回填只读取当次测试记录，不重读后续构建可能替换的 Products 二进制。
+[证据校验器回归](./Tests/readme_results_regression.rb/readme_results_regression.rb) 包含 62 个 fixture 检查，覆盖通用证据、文档保护、Keychain 签名 receipt、显式 Pod 清单和分离模式的准备证据。BaseUI 回填与 runner 使用相同合同：全部用例通过、零跳过、签名策略匹配、签名审计成功，并持有当次代码签名权限或所有架构的编译权限证据；缺审计、错误策略、部分跳过、无效签名或权限记录均拒绝。分离模式必须匹配同 Pod、配置和源码指纹的最新成功准备记录，且准备发生在测试之前；准备缺失、后续失败或超时、日志缺失、PID 或其它身份字段不匹配都不能领取旧测试成功。清单以已审 `baseline.json` 的 `expected_pods` 精确核对名称和记录数量，不再使用固定数量常量。回填只读取当次测试记录，不重读后续构建可能替换的 Products 二进制。
 
 ```shell
-ruby ScriptsByPods/jobs_pods_stability_verify.rb/update_readme_results.rb \
+ruby ScriptsByPods/jobs_pods_stability_verify.rb/update_readme_results.rb/update_readme_results.rb \
   --results "$PWD/work/JobsPodsStability/full/results.json"
-ruby ScriptsByPods/jobs_pods_stability_verify.rb/update_readme_results.rb \
+ruby ScriptsByPods/jobs_pods_stability_verify.rb/update_readme_results.rb/update_readme_results.rb \
   --results "$PWD/work/JobsPodsStability/full/results.json" --apply
-ruby ScriptsByPods/jobs_pods_stability_verify.rb/Tests/readme_results_regression.rb
+ruby ScriptsByPods/jobs_pods_stability_verify.rb/Tests/readme_results_regression.rb/readme_results_regression.rb
 ```
 
 README 不在编译源码指纹内；主 App 文档浏览器保存构建时的 Markdown 快照。回填后若需随包文档同步，应再真实构建 App，并保留新的退出码，不能仅领取之前的 App 缓存记录。

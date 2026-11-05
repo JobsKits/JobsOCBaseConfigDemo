@@ -38,6 +38,7 @@
 - 统一清理 SDWebImage 内存与磁盘缓存。
 - CoreText 动态注册图标字体与阿里妈妈文字字体。
 - 统一输出 `UILabel`、`UIButton` 和 `UIImage`。
+- `iconImageForGlyph:size:color:traitCollection:`、带 `backgroundColor` 的对应重载及 `placeholderImageForAsset:size:traitCollection:` 支持显式目标 Trait 的 `displayScale`，比例下限为 1；原有无 Trait 入口保持可用。
 
 ## <span id="jobs-toc-heading-2" data-jobs-toc="v2">二、适用场景 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a></span><!-- jobs-toc:heading-end -->
 

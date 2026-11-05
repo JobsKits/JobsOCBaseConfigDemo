@@ -6,7 +6,6 @@
 //
 
 #import "UICollectionHeaderFooterView.h"
-
 #import <JobsBaseUI/UIView+Extra.h>
 #import <JobsBaseUI/UIView+Measure.h>
 

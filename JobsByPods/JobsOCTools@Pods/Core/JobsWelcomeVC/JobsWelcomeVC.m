@@ -211,7 +211,7 @@ Prop_strong()NSMutableArray <NSString *>*dataMutArr;
                 .byPagingEnabled(YES)
                 .byShowsHorizontalScrollIndicator(NO)
                 .byShowsVerticalScrollIndicator(NO)
-                .byFrame(UIScreen.mainScreen.bounds)
+                .byFrame(jobsScreenBoundsForView(nil))
                 .addOn(self.view);
         });
     };return _scrollView;

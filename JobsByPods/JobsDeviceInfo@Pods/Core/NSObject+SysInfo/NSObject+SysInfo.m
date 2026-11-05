@@ -6,7 +6,6 @@
 //
 
 #import "NSObject+SysInfo.h"
-
 #import <JobsDeviceInfo/NSObject+Extra.h>
 
 @implementation NSObject (SysInfo)
@@ -184,7 +183,11 @@
 /// 是否是iPhone
 +(JobsRetBOOLByVoidBlock _Nonnull)iPhone{
     return ^BOOL{
-        return UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone;
+        if (@available(iOS 13.0, *)) {
+            return UIDevice.currentDevice.userInterfaceIdiom == UIUserInterfaceIdiomPhone;
+        } else {
+            SuppressWdeprecatedDeclarationsWarning(return UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone;);
+        }
     };
 }
 
@@ -214,7 +217,11 @@
 /// 是否是iPad
 +(JobsRetBOOLByVoidBlock _Nonnull)iPad{
     return ^BOOL{
-        return UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad;
+        if (@available(iOS 13.0, *)) {
+            return UIDevice.currentDevice.userInterfaceIdiom == UIUserInterfaceIdiomPad;
+        } else {
+            SuppressWdeprecatedDeclarationsWarning(return UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad;);
+        }
     };
 }
 
@@ -229,7 +236,7 @@
 /// 是否是 Retain 屏幕：通过判断屏幕的像素密度来确认
 +(JobsRetBOOLByVoidBlock _Nonnull)isRetain{
     return ^BOOL{
-        return UIScreen.mainScreen.scale >= 2.0; /// YES：设备具有 Retina 屏幕（或者更高分辨率的屏幕）
+        return jobsScreenScaleForView(nil) >= 2.0; /// YES：设备具有 Retina 屏幕（或者更高分辨率的屏幕）
     };
 }
 

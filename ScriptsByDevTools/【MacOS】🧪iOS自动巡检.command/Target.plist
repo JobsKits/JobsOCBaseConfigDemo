@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>BundleID</key>
+	<string>com.JobsOCBaseConfigDemo.byPods</string>
+	<key>DevelopmentTeam</key>
+	<string></string>
+	<key>HostProject</key>
+	<string>JobsOCBaseConfigDemo.xcodeproj</string>
+	<key>HostTarget</key>
+	<string>JobsOCBaseConfigDemo</string>
+	<key>Name</key>
+	<string>OC 新工程（本地 Pods）</string>
+	<key>Project</key>
+	<string>oc-new</string>
+	<key>RunnerBundleID</key>
+	<string></string>
+</dict>
+</plist>

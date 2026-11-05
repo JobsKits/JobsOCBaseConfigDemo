@@ -6,7 +6,6 @@
 //
 
 #import "JobsImageViewStyleCVCell.h"
-
 #import <JobsBaseUI/CALayer+Extra.h>
 #import <JobsBaseUI/UIView+Extra.h>
 #import <JobsBaseUI/UICollectionView+JobsRegisterClass.h>

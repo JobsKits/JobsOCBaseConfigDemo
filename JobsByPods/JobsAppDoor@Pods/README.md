@@ -127,6 +127,8 @@ config.registerConfig.graphicCaptchaConfig.caseSensitive = YES;
 - `notchVideoResourceName`：刘海屏视频资源名。
 - `compactVideoResourceName`：非刘海屏视频资源名。
 - AppDoor-1、AppDoor-2 使用视频背景时，App 进入后台立即暂停播放；回到前台后，只恢复本次由后台切换自动暂停且仍处于可见窗口中的页面。
+- 两套样式的右上角音量面板在点击面板和音量按钮以外的位置时收起；同一次触摸仍交给原输入框或按钮处理，不需要再点一次。
+- 真机面板使用 [**MPVolumeView**](https://developer.apple.com/documentation/mediaplayer/mpvolumeview) 调整系统媒体音量，播放器保持未静音和 `1.0` 局部音量；硬件音量键造成的 `AVAudioSession.outputVolume` 变化会刷新百分比。模拟器使用自定义滑条调整播放器局部音量；Apple 明确说明模拟器不支持通过 MPVolumeView 改系统音量，侧边音量键是否影响宿主输出还需按当前模拟器环境实测，不能把模拟器滑条百分比等同于系统音量。
 
 ## <span id="jobs-toc-heading-8" data-jobs-toc="v2">七、第一套面板的视觉规则 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a></span><!-- jobs-toc:heading-end -->
 
@@ -134,8 +136,8 @@ config.registerConfig.graphicCaptchaConfig.caseSensitive = YES;
 - 占位符与真实输入文字保持相同字号，颜色比真实文字更暗，避免两种状态混淆。
 - 切换到注册态或键盘出现时隐藏 Logo；返回登录态且键盘收起后恢复。
 - 登录态 Logo 使用 `150pt × 50pt` 横向比例；“记住我 / 忘记密码”按输入框中心线分栏，字号与 AppDoor-2 对齐为 `12pt`，图标使用 `14pt`，并强制单行显示。
-- “去注册 / 返回登录”侧栏与“返回首页”统一使用 `UIFontWeightSemiboldSize(JobsWidth(15))`；字体同时写入 `UIButtonConfiguration` 兼容入口和标题标签，避免 iOS 16+ 回退成系统默认字体。注册输入框使用 `12pt` 纵向间距整体上提，提交按钮与最后一个输入框保留 `16pt` 间距，避免贴近面板底部。
-- 手机号国家区号固定单行显示，使用紧凑 `12pt` 字号；注册提交按钮与上方输入框使用相同宽高和水平中线。
+- 登录 / 注册切换侧栏与提交按钮使用 `UIFontWeightSemiboldSize(JobsWidth(18))`，标题为 `JobsWidth(22)`；“返回首页”保留 `UIFontWeightSemiboldSize(JobsWidth(15))`。字体同时写入 `UIButtonConfiguration` 兼容入口和标题标签，避免 iOS 16+ 回退成系统默认字体。注册输入框使用 `12pt` 纵向间距整体上提，提交按钮与最后一个输入框保留 `16pt` 间距，避免贴近面板底部。
+- 手机号国旗与区号以不换行空格 `U+00A0` 连接并固定单行显示，使用紧凑 `12pt` 字号；首次显示和国家选择回写均保持同行。注册提交按钮与上方输入框使用相同宽高和水平中线。
 - “获取验证码”按钮默认宽度收紧为 `82pt`，标题使用 `10pt` 单行自适应；倒计时文案居中显示本地化的剩余时间。AppDoor-1 通过手机号 `rac_textSignal` 单向驱动按钮状态，手机号为空或倒计时执行中时禁用；组件点击同样使用 RAC 信号，启用后触发验证码回调和倒计时。AppDoor-2 当前不监控手机号，按钮保持可点击。
 - “返回首页”固定跟在登录 / 注册提交按钮下方，不按切换前的面板高度缓存位置。
 - “返回首页”从按钮当前可见标题和普通态标题中兼容识别动作，再调用控制器统一返回链；页面需要通过 `push` / `present` 进入，若业务把认证页直接设为根控制器，则必须由宿主提供首页替换逻辑，因为根控制器本身没有可返回目标。
@@ -149,7 +151,7 @@ config.registerConfig.graphicCaptchaConfig.caseSensitive = YES;
 - 页面不创建或展示系统 / GK 导航栏，不保留导航标题和返回按钮；Logo 只服务初始登录卡片，切到注册或忘记密码卡片时立即隐藏，音量入口仍作为背景视频的独立悬浮控件存在。
 - 登录态 Logo 使用 `82pt × 82pt` 正方形容器和等比缩放，禁止把正方形原图横向拉伸；用户名、密码、确认密码、短信验证码和图形验证码的占位文字与真实输入起点统一前移。手机号继续使用独立的国旗 / 区号复合布局，号码占位文字、光标与真实输入使用 `4pt` 内部起点，缩短和 `+86` 之间的空白。
 - 登录卡片保留“返回首页”；注册卡片的提交按钮上移，并在其下方提供同样的“返回首页”。
-- 注册卡片按字段数使用 `12pt` 纵向间距动态计算高度；标题、输入文字、占位符、切换栏与提交按钮使用更紧凑的字号，完整六字段表单也不再被上下边缘挤压。
+- 注册卡片按字段数使用 `12pt` 纵向间距动态计算高度；登录 / 注册切换侧栏与提交按钮使用 `18pt` 半粗体，标题使用 `22pt` 半粗体，输入文字与占位符保持原有紧凑字号。国旗与区号复用公共输入件的不换行空格和单行规则，完整六字段表单也不再被上下边缘挤压。
 
 ## <span id="jobs-toc-heading-10" data-jobs-toc="v2">九、目录边界 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a></span><!-- jobs-toc:heading-end -->
 
@@ -177,6 +179,7 @@ JobsAppDoor@Pods/
 ## <span id="jobs-toc-heading-11" data-jobs-toc="v2">十、验证方式 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a></span><!-- jobs-toc:heading-end -->
 
 - 分别进入 AppDoor-1 和 AppDoor-2，点击“忘记密码”，确认页面首帧不崩溃；连续输入、删除两次密码，确认“确认”按钮仅在内容相同且非空时启用。
+- 分别检查登录 / 注册字号与国家切换后的国旗区号同行；展开音量面板后点击输入框和切换按钮，确认面板收起且原动作同时生效。模拟器检查局部滑条数值和可听音量，真机另验原生媒体音量及硬件音量键；二者的验证结果分别记录。
 
 ```shell
 ruby -c JobsAppDoor.podspec
@@ -270,3 +273,5 @@ ruby ScriptsByPods/jobs_pods_stability_verify.rb/jobs_pods_stability_verify.rb \
 运行前应已安装工程依赖；runner 的 `--phase pods` 默认分别编译 Debug / Release，`--phase tests` 默认运行 Debug（JobsOCSnowflake 默认 Debug / Release），并将命令、源码指纹、日志和退出码保存到工程 `work/JobsPodsStability/`。如需固定输出目录，使用 runner 的 `--output`。
 
 <a id="🔚" href="#前言" style="font-size:17px; color:green; font-weight:bold;">我是有底线的➔点我回到首页</a>
+
+Debug 页面巡检为两种登录样式、注册切换、记住我和忘记密码控件提供 `jobs.coverage.auth.*` 标识；`submitted` 仅在真实按钮回调收到点击后记录，表示本地表单动作已送达，不表示服务端登录、注册或密码重置成功。本 Demo 未提供后台认证成功契约，巡检不会伪造已登录状态或真实账号。

@@ -5,6 +5,7 @@
 //  Created by Jobs on 2026年5月13日，星期三.
 //
 
+#import <MediaPlayer/MediaPlayer.h>
 #ifndef JOBS_HEADER_GUARD_JOBSAPPDOORVC_EB363B5645
 #define JOBS_HEADER_GUARD_JOBSAPPDOORVC_EB363B5645
 
