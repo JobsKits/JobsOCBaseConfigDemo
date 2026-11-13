@@ -12,9 +12,9 @@
 +(JobsRetNSArrayNSDictionaryNSStringIDByVoidBlock _Nonnull)localCatalog{
     return ^NSArray<NSDictionary<NSString *, id> *> *{
         return @[
-            @{@"appId":@"learning.bridge", @"name":@"微应用与 Bridge", @"version":@"1.0"},
-            @{@"appId":@"learning.sandbox", @"name":@"沙箱文件实验", @"version":@"1.0"},
-            @{@"appId":@"learning.pwa", @"name":@"PWA 离线资源", @"version":@"1.0"}
+            @{@"appId":@"learning.bridge", @"name":@"微应用与 Bridge".jobsTr(), @"version":@"1.0"},
+            @{@"appId":@"learning.sandbox", @"name":@"沙箱文件实验".jobsTr(), @"version":@"1.0"},
+            @{@"appId":@"learning.pwa", @"name":@"PWA 离线资源".jobsTr(), @"version":@"1.0"}
         ];
     };
 }
@@ -33,7 +33,7 @@
             }
         }
         dispatch_async(dispatch_get_main_queue(), ^{
-            completion(@{@"apps":valid ? apps : JobsMicroPlatformProvider.localCatalog(), @"source":valid ? @"服务端 API" : @"本地教学目录（API 未部署、超时或响应无效）"});
+            completion(@{@"apps":valid ? apps : JobsMicroPlatformProvider.localCatalog(), @"source":valid ? @"服务端 API".jobsTr() : @"本地教学目录（API 未部署、超时或响应无效）".jobsTr()});
         });
     }] resume];
 }

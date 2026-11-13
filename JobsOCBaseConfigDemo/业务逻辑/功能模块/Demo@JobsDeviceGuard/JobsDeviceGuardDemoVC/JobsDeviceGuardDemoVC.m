@@ -48,7 +48,7 @@ Prop_assign()BOOL detecting;
         self.readOnlyButton.byHidden(NO);
         self.writeProbeButton.byHidden(NO);
         self.sensitiveActionButton.byHidden(NO);
-        self.guardReportLabel.byText(@"尚未检测。点击上方按钮开始；检测报告将在这里逐项展示。");
+        self.guardReportLabel.byText(@"尚未检测。点击上方按钮开始；检测报告将在这里逐项展示。".jobsTr());
     };
 }
 
@@ -60,7 +60,7 @@ Prop_assign()BOOL detecting;
     self.readOnlyButton.byEnabled(NO);
     self.writeProbeButton.byEnabled(NO);
     self.sensitiveActionButton.byEnabled(NO);
-    self.guardReportLabel.byText(@"正在后台检测设备环境……");
+    self.guardReportLabel.byText(@"正在后台检测设备环境……".jobsTr());
     JobsOCDeviceGuardConfiguration *configuration = JobsOCDeviceGuardConfiguration.defaultConfiguration()
         .bySandboxWriteProbeEnabled(writeProbe);
     @jobs_weakify(self)
@@ -110,7 +110,7 @@ Prop_assign()BOOL detecting;
 -(UILabel *)guardIntroLabel {
     if (!_guardIntroLabel) {
         _guardIntroLabel = jobsMakeLabel(^(__kindof UILabel *label) {
-            label.byText(@"组件在 App 运行后检测，无法阻止 iOS 安装。\n只读检查默认启用；写入探测需单独点击，会尝试创建并立即删除沙盒外测试文件。\n模拟器、Mac Catalyst、Mac上的iOS App返回不支持。单类别命中仅可疑，多类别才判越狱；失败与未完成不会当作通过。本地检测可能被绕过。")
+            label.byText(@"组件在 App 运行后检测，无法阻止 iOS 安装。\n只读检查默认启用；写入探测需单独点击，会尝试创建并立即删除沙盒外测试文件。\n模拟器、Mac Catalyst、Mac上的iOS App返回不支持。单类别命中仅可疑，多类别才判越狱；失败与未完成不会当作通过。本地检测可能被绕过。".jobsTr())
                 .byFont(UIFontWeightRegularSize(15))
                 .byNumberOfLines(0)
                 .byTextColor(JobsLabelColor)
@@ -128,7 +128,7 @@ Prop_assign()BOOL detecting;
     if (!_readOnlyButton) {
         @jobs_weakify(self)
         _readOnlyButton = jobsMakeButton(^(__kindof UIButton *button) {
-            button.jobsResetBtnTitle(@"重新检测（只读）")
+            button.jobsResetBtnTitle(@"重新检测（只读）".jobsTr())
                 .jobsResetBtnTitleCor(JobsLabelColor)
                 .jobsResetBtnTitleFont(UIFontWeightBoldSize(16))
                 .jobsResetBtnCornerRadiusValue(JobsWidth(10))
@@ -154,7 +154,7 @@ Prop_assign()BOOL detecting;
     if (!_writeProbeButton) {
         @jobs_weakify(self)
         _writeProbeButton = jobsMakeButton(^(__kindof UIButton *button) {
-            button.jobsResetBtnTitle(@"检测并尝试沙盒外写入")
+            button.jobsResetBtnTitle(@"检测并尝试沙盒外写入".jobsTr())
                 .jobsResetBtnTitleCor(JobsLabelColor)
                 .jobsResetBtnTitleFont(UIFontWeightBoldSize(16))
                 .jobsResetBtnCornerRadiusValue(JobsWidth(10))
@@ -179,7 +179,7 @@ Prop_assign()BOOL detecting;
     if (!_sensitiveActionButton) {
         @jobs_weakify(self)
         _sensitiveActionButton = jobsMakeButton(^(__kindof UIButton *button) {
-            button.jobsResetBtnTitle(@"模拟敏感操作（先复检）")
+            button.jobsResetBtnTitle(@"模拟敏感操作（先复检）".jobsTr())
                 .jobsResetBtnTitleCor(JobsLabelColor)
                 .jobsResetBtnTitleFont(UIFontWeightBoldSize(16))
                 .jobsResetBtnCornerRadiusValue(JobsWidth(10))

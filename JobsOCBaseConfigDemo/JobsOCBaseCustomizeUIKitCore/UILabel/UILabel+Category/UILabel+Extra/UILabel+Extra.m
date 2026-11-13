@@ -71,12 +71,14 @@ JobsKey(_shapeLayer)
 -(CAShapeLayer *)shapeLayer{
     CAShapeLayer *ShapeLayer = Jobs_getAssociatedObject(_shapeLayer);
     if (!ShapeLayer) {
-        Jobs_setAssociatedRETAIN_NONATOMIC(_shapeLayer, [self.text animateOnView:self
-                                                                          atRect:self.bounds
-                                                                         forFont:self.font
-                                                                       withColor:self.textColor
-                                                                    andDirection:self.transformLayerDirectionType]);
-    };return ShapeLayer;
+        ShapeLayer = [self.text animateOnView:self
+                                      atRect:self.bounds
+                                     forFont:self.font
+                                   withColor:self.textColor
+                                andDirection:self.transformLayerDirectionType];
+        Jobs_setAssociatedRETAIN_NONATOMIC(_shapeLayer, ShapeLayer);
+    }
+    return ShapeLayer;
 }
 
 -(void)setShapeLayer:(CAShapeLayer *)shapeLayer{

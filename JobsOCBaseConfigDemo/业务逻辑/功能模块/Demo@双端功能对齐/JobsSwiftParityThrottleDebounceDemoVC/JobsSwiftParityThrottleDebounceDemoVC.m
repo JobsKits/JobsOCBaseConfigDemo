@@ -61,7 +61,7 @@ Prop_strong()UIButton *eventBtn;
         @jobs_strongify(self)
         if (!self) return;
         self.previewImageView.byHidden(YES);
-        self.previewTitleLab.byText(@"TouchDown 用节流\nTouchUpInside 用防抖");
+        self.previewTitleLab.byText(@"TouchDown 用节流\nTouchUpInside 用防抖".jobsTr());
         self.eventBtn.byHidden(NO);
     };
 }
@@ -94,7 +94,7 @@ Prop_strong()UIButton *eventBtn;
     if (!_eventBtn) {
         _eventBtn = jobsMakeButton(^(__kindof UIButton * _Nullable button) {
             button
-                .jobsResetBtnTitle(@"事件接收器")
+                .jobsResetBtnTitle(@"事件接收器".jobsTr())
                 .jobsResetBtnTitleFont(UIFontWeightSemiboldSize(15))
                 .jobsResetBtnTitleCor(UIColor.whiteColor)
                 .jobsResetBtnBgCor(HEXCOLOR(0x7C3AED))

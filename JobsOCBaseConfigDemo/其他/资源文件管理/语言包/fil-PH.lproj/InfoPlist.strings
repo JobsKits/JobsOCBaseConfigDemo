@@ -1,9 +1,8 @@
-/* 
-  InfoPlist.strings
-  JobsOCBaseConfigDemo
-
-  Created by User on 7/1/24.
-  
-*/
-
-CFBundleDisplayName = "OCDemo";
+/* Jobs App localized permission purpose strings. */
+"CFBundleDisplayName" = "OCDemo";
+"NSBluetoothAlwaysUsageDescription" = "Ginagamit upang mag-scan, kumonekta, at makipagpalitan ng datos sa mga kalapit na aparatong Bluetooth LE.";
+"NSCameraUsageDescription" = "Kailangang gumamit ng kamera upang maranasan ang augmented reality ng ARKit, matukoy ang mga patag na ibabaw, at magrekord ng bidyo.";
+"NSBluetoothPeripheralUsageDescription" = "Ginagamit upang makakonekta sa mga kalapit na aparatong Bluetooth LE sa mga mas lumang bersiyon ng iOS.";
+"NSPhotoLibraryAddUsageDescription" = "Kailangang magdagdag ng mga screenshot, larawan, o bidyo sa iyong aklatan ng larawan.";
+"NSMicrophoneUsageDescription" = "Kailangang gumamit ng mikropono upang magrekord at mamahala ng lokal na tunog.";
+"NSPhotoLibraryUsageDescription" = "Kailangang buksan ang iyong aklatan ng larawan upang i-save ang mga nairekord na bidyo.";

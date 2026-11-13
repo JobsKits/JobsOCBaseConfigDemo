@@ -576,7 +576,9 @@ Prop_strong()UIImageView *coverImageView;
     [self layoutIfNeeded];
     [self setNeedsDisplay];
     self.titleLabel.byText(title);
-    self.player.orientationObserver.byFullScreenMode(fullScreenMode);
+    if (self.player.orientationObserver) {
+        self.player.orientationObserver.byFullScreenMode(fullScreenMode);
+    }
     [self.player.currentPlayerManager.view.coverImageView setImageWithURLString:coverUrl
                                                                     placeholder:placeholder];
 }
@@ -863,6 +865,13 @@ orientationDidChanged:(ZFOrientationObserver *)observer {
                 .byContentMode(UIViewContentModeScaleAspectFit);
         });
     };return _coverImageView;
+}
+
+- (ZFSpeedLoadingView *)activity {
+    if (!_activity) {
+        _activity = [[ZFSpeedLoadingView alloc] initWithFrame:CGRectZero];
+    }
+    return _activity;
 }
 
 - (ZFSliderView *)bottomPgrogress {

@@ -253,6 +253,12 @@ referenceSizeForFooterInSection:(NSInteger)section{
             .registerCollectionViewClass()
             .registerCollectionViewCellClass(ThreeClassCell.class,@"")
             .byAlwaysBounceVertical(YES);
+        [_collectionView registerClass:UICollectionReusableView.class
+              forSupplementaryViewOfKind:UICollectionElementKindSectionHeader
+                     withReuseIdentifier:UICollectionReusableView.class.description];
+        [_collectionView registerClass:UICollectionReusableView.class
+              forSupplementaryViewOfKind:UICollectionElementKindSectionFooter
+                     withReuseIdentifier:UICollectionReusableView.class.description];
         _collectionView.byBgColor(JobsSecondarySystemBackgroundColor);
         _collectionView.addOn(self)
             .byAdd(^(MASConstraintMaker *make) {

@@ -21,7 +21,6 @@
 Prop_strong()BaiShaETProjChoiceStadiumView *choiceStadiumView;
 // Data
 Prop_strong()NSMutableArray <UIViewModel *>*dataMutArr;
-Prop_strong()NSMutableArray <NSMutableArray <__kindof UICollectionViewCell *>*>*cvcellMutArr;
 
 @end
 
@@ -230,7 +229,7 @@ Prop_strong()NSMutableArray <NSMutableArray <__kindof UICollectionViewCell *>*>*
     return ^NSInteger(UICollectionView * collectionView){
         @jobs_strongify(self)
         if (!self) return (NSInteger){0};
-        return self.cvcellMutArr.count;
+        return 5;
     };
 }
 
@@ -240,27 +239,27 @@ Prop_strong()NSMutableArray <NSMutableArray <__kindof UICollectionViewCell *>*>*
     return [self planAtIndexPath:indexPath
                           block1:^{
         @jobs_strongify(self)
-        self->cell01 = (BaiShaETProjVIPSubCVCell_01 *)self.cvcellMutArr[indexPath.section][indexPath.item];
+        self->cell01 = [BaiShaETProjVIPSubCVCell_01 cellWithCollectionView:collectionView forIndexPath:indexPath];
         self->cell01.jobsRichElementsCollectionViewCellBy(nil);
         return self->cell01;
     }block2:^{
         @jobs_strongify(self)
-        self->cell02 = (BaiShaETProjVIPSubCVCell_02 *)self.cvcellMutArr[indexPath.section][indexPath.item];
+        self->cell02 = [BaiShaETProjVIPSubCVCell_02 cellWithCollectionView:collectionView forIndexPath:indexPath];
         self->cell02.jobsRichElementsCollectionViewCellBy(nil);
         return self->cell02;
     }block3:^{
         @jobs_strongify(self)
-        self->cell03 = (BaiShaETProjVIPSubCVCell_03 *)self.cvcellMutArr[indexPath.section][indexPath.item];
+        self->cell03 = [BaiShaETProjVIPSubCVCell_03 cellWithCollectionView:collectionView forIndexPath:indexPath];
         self->cell03.jobsRichElementsCollectionViewCellBy(nil);
         return self->cell03;
     }block4:^{
         @jobs_strongify(self)
-        self->cell04 = (BaiShaETProjVIPSubCVCell_04 *)self.cvcellMutArr[indexPath.section][indexPath.item];
+        self->cell04 = [BaiShaETProjVIPSubCVCell_04 cellWithCollectionView:collectionView forIndexPath:indexPath];
         self->cell04.jobsRichElementsCollectionViewCellBy(nil);
         return self->cell04;
     }block5:^id{
         @jobs_strongify(self)
-        self->cell05 = (BaiShaETProjVIPSubCVCell_05 *)self.cvcellMutArr[indexPath.section][indexPath.item];
+        self->cell05 = [BaiShaETProjVIPSubCVCell_05 cellWithCollectionView:collectionView forIndexPath:indexPath];
         self->cell05.jobsRichElementsCollectionViewCellBy(nil);
         return self->cell05;
     }];
@@ -268,14 +267,14 @@ Prop_strong()NSMutableArray <NSMutableArray <__kindof UICollectionViewCell *>*>*
 
 - (NSInteger)collectionView:(nonnull UICollectionView *)collectionView
      numberOfItemsInSection:(NSInteger)section {
-    return self.cvcellMutArr[section].count;
+    return 1;
 }
 
 - (UICollectionReusableView *)collectionView:(UICollectionView *)collectionView
            viewForSupplementaryElementOfKind:(NSString *)kind
                                  atIndexPath:(NSIndexPath *)indexPath {
     if (kind.isEqualToString(UICollectionElementKindSectionFooter)) {
-        if (indexPath.section == self.cvcellMutArr.count - 1) {
+        if (indexPath.section == 5 - 1) {
             return [collectionView UICollectionElementKindSectionFooterClass:BaiShaETProjVIPSubCVFooterView.class
                                                                 forIndexPath:indexPath].JobsRichViewByModel2(jobsMakeViewModel(^(__kindof UIViewModel * _Nullable viewModel) {
                 viewModel.textModel.byText(@"查看VIP規則".jobsTr());
@@ -331,7 +330,7 @@ didDeselectItemAtIndexPath:(NSIndexPath *)indexPath {
 - (CGSize)collectionView:(UICollectionView *)collectionView
                   layout:(UICollectionViewLayout*)collectionViewLayout
 referenceSizeForFooterInSection:(NSInteger)section{
-    if (section == self.cvcellMutArr.count - 1) {
+    if (section == 5 - 1) {
         return BaiShaETProjVIPSubCVFooterView.collectionReusableViewSizeByModel(nil);
     }else return CGSizeZero;
 }
@@ -376,6 +375,27 @@ minimumInteritemSpacingForSectionAtIndex:(NSInteger)section{
        insetForSectionAtIndex:(NSInteger)section {
     return jobsMakeSameEdgeInset(JobsWidth(8));
 }
+-(UIScrollView *)listScrollView{
+    return self.collectionView;
+}
+
+-(void)listDidAppear{
+#if DEBUG
+    if (JobsOCCoverageGestureProbeEnabled()) {
+        self.view.accessibilityIdentifier = nil;
+        self.collectionView.accessibilityIdentifier = @"jobs.coverage.page.JXCategoryViewWithHeaderViewSubVC";
+    }
+#endif
+}
+
+-(void)listDidDisappear{
+#if DEBUG
+    if (JobsOCCoverageGestureProbeEnabled()) {
+        self.collectionView.accessibilityIdentifier = nil;
+    }
+#endif
+}
+
 #pragma mark —— lazyLoad
 -(BaiShaETProjChoiceStadiumView *)choiceStadiumView{
     if (!_choiceStadiumView) {
@@ -397,43 +417,27 @@ minimumInteritemSpacingForSectionAtIndex:(NSInteger)section{
         @jobs_weakify(self)
         _collectionView = UICollectionView.initByLayout(self.verticalLayout)
             .registerCollectionViewClass()
+            .registerCollectionViewCellClass(BaiShaETProjVIPSubCVCell_01.class, @"")
+            .registerCollectionViewCellClass(BaiShaETProjVIPSubCVCell_02.class, @"")
+            .registerCollectionViewCellClass(BaiShaETProjVIPSubCVCell_03.class, @"")
+            .registerCollectionViewCellClass(BaiShaETProjVIPSubCVCell_04.class, @"")
+            .registerCollectionViewCellClass(BaiShaETProjVIPSubCVCell_05.class, @"")
             .dataLink(self)
             .byContentInset(UIEdgeInsetsMake(0, 0, JobsBottomSafeAreaHeight() + JobsTabBarHeight(nil), 0))
             .byShowsVerticalScrollIndicator(NO)
             .byBgColor(RGB_SAMECOLOR(246));
-        _collectionView.addOn(self.scrollView);
+        [_collectionView registerClass:BaseCollectionReusableView.class
+              forSupplementaryViewOfKind:UICollectionElementKindSectionHeader
+                     withReuseIdentifier:BaseCollectionReusableView.class.description];
+        [_collectionView registerClass:BaiShaETProjVIPSubCVFooterView.class
+              forSupplementaryViewOfKind:UICollectionElementKindSectionFooter
+                     withReuseIdentifier:BaiShaETProjVIPSubCVFooterView.class.description];
+        _collectionView.addOn(self.view);
         [_collectionView mas_makeConstraints:^(MASConstraintMaker *make) {
             @jobs_strongify(self)
-            make.edges.equalTo(self.scrollView);
+            make.edges.equalTo(self.view);
         }];
     };return _collectionView;
-}
--(NSMutableArray <NSMutableArray<__kindof UICollectionViewCell *>*>*)cvcellMutArr{
-    if (!_cvcellMutArr) {
-        _cvcellMutArr = jobsMakeMutArr(^(__kindof NSMutableArray * _Nullable data) {
-            @jobs_weakify(self)
-            data.add(jobsMakeMutArr(^(__kindof NSMutableArray * _Nullable data2) {
-                @jobs_strongify(self)
-                data2.add([BaiShaETProjVIPSubCVCell_01 cellWithCollectionView:self.collectionView forIndexPath:self.myIndexPath((JobsIndexPath){0,0})]);
-            }))
-            .add(jobsMakeMutArr(^(__kindof NSMutableArray * _Nullable data2) {
-                @jobs_strongify(self)
-                data2.add([BaiShaETProjVIPSubCVCell_02 cellWithCollectionView:self.collectionView forIndexPath:self.myIndexPath((JobsIndexPath){1,0})]);
-            }))
-            .add(jobsMakeMutArr(^(__kindof NSMutableArray * _Nullable data2) {
-                @jobs_strongify(self)
-                data2.add([BaiShaETProjVIPSubCVCell_03 cellWithCollectionView:self.collectionView forIndexPath:self.myIndexPath((JobsIndexPath){2,0})]);
-            }))
-            .add(jobsMakeMutArr(^(__kindof NSMutableArray * _Nullable data2) {
-                @jobs_strongify(self)
-                data2.add([BaiShaETProjVIPSubCVCell_04 cellWithCollectionView:self.collectionView forIndexPath:self.myIndexPath((JobsIndexPath){3,0})]);
-            }))
-            .add(jobsMakeMutArr(^(__kindof NSMutableArray * _Nullable data2) {
-                @jobs_strongify(self)
-                data2.add([BaiShaETProjVIPSubCVCell_05 cellWithCollectionView:self.collectionView forIndexPath:self.myIndexPath((JobsIndexPath){4,0})]);
-            }));
-        });
-    };return _cvcellMutArr;
 }
 
 -(NSMutableArray<UIViewModel *> *)dataMutArr{

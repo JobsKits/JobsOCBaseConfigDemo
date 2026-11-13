@@ -97,7 +97,7 @@ Prop_assign()CGFloat jobsDefaultPopUpHeight;
             self.byHiddenNavigationBar(YES);
             self.byGKStatusBarHidden(YES);
             self.byGKNavigationBarBlock(^(__kindof GKCustomNavigationBar * _Nullable navigationBar) {
-                navigationBar.byVisible(YES);
+                navigationBar.byVisible(NO);
             });
             self.titleHeaderView.byAlpha(1);
             self.byJobsDefaultPopUpHeight(self.popUpHeight);
@@ -132,6 +132,8 @@ Prop_assign()CGFloat jobsDefaultPopUpHeight;
         @jobs_strongify(self)
         if (!self) return;
         [super viewDidAppear:animated];
+        /// 评论弹层使用自己的标题、关闭和拖动区域。
+        self.gk_navigationBar.byHidden(YES);
     };
 }
 

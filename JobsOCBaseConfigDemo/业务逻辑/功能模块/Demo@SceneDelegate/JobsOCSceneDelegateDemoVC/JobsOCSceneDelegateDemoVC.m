@@ -405,7 +405,7 @@ Prop_strong()UIButton *closeSceneBtn;
             (long)application.openSessions.count]);
         UISceneSession *session = self.currentScene.session;
         if (!session) {
-            self.sessionLab.byText(@"当前页面尚未绑定 UIWindowScene");
+            self.sessionLab.byText(@"当前页面尚未绑定 UIWindowScene".jobsTr());
             self.updateButtons();
             return;
         }

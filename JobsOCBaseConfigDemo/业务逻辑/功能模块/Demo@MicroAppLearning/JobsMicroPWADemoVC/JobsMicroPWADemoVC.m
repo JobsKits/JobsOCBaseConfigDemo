@@ -34,15 +34,19 @@ Prop_assign()BOOL loadingNativeOffline;
 
 @implementation JobsMicroPWADemoVC
 
+-(void)dealloc{
+    JobsRemoveNotification(_pwaWebView);
+}
+
 -(JobsRetStrByVoidBlock _Nonnull)learningTitle{
     return ^NSString *{
-        return @"PWA / 离线资源";
+        return @"PWA / 离线资源".jobsTr();
     };
 }
 
 -(JobsRetStrByVoidBlock _Nonnull)learningIntroduction{
     return ^NSString *{
-        return @"内置包可直接断网使用，属于 Native 离线资源。真实 Service Worker 需可信 HTTP(S) origin；输入自有 HTTPS 部署地址后查看实际注册和缓存。";
+        return @"内置包可直接断网使用，属于 Native 离线资源。真实 Service Worker 需可信 HTTP(S) origin；输入自有 HTTPS 部署地址后查看实际注册和缓存。".jobsTr();
     };
 }
 
@@ -55,21 +59,21 @@ Prop_assign()BOOL loadingNativeOffline;
         }
         NSURL *support = [NSFileManager.defaultManager URLsForDirectory:NSApplicationSupportDirectory inDomains:NSUserDomainMask].firstObject;
         self->_nativeOfflineDirectory = [[support URLByAppendingPathComponent:@"JobsMicroLearning" isDirectory:YES] URLByAppendingPathComponent:@"NativeOffline-v2" isDirectory:YES];
-        self->_pwaURL = [self learningFieldWithText:@"" placeholder:@"自有 HTTPS 地址，例如 https://your-domain/pwa/" identifier:@"lab.pwaURL"];
+        self->_pwaURL = [self learningFieldWithText:@"" placeholder:@"自有 HTTPS 地址，例如 https://your-domain/pwa/".jobsTr() identifier:@"lab.pwaURL"];
         self.appendLearningView(self.pwaURL);
-        self.appendLearningView([self learningButtonWithTitle:@"加载 HTTPS PWA（先部署资源）" identifier:@"lab.pwaOnline" action:^(UIButton *sender) {
+        self.appendLearningView([self learningButtonWithTitle:@"加载 HTTPS PWA（先部署资源）".jobsTr() identifier:@"lab.pwaOnline" action:^(UIButton *sender) {
             @jobs_strongify(self)
             self.loadHTTPSPWA();
         }]);
-        self.appendLearningView([self learningButtonWithTitle:@"打开 / 重载本地离线包" identifier:@"lab.pwaOffline" action:^(UIButton *sender) {
+        self.appendLearningView([self learningButtonWithTitle:@"打开 / 重载本地离线包".jobsTr() identifier:@"lab.pwaOffline" action:^(UIButton *sender) {
             @jobs_strongify(self)
             self.loadNativeOfflinePackage();
         }]);
-        self.appendLearningView([self learningButtonWithTitle:@"查看 SW / Cache 真实状态" identifier:@"lab.pwaInspect" action:^(UIButton *sender) {
+        self.appendLearningView([self learningButtonWithTitle:@"查看 SW / Cache 真实状态".jobsTr() identifier:@"lab.pwaInspect" action:^(UIButton *sender) {
             @jobs_strongify(self)
             self.inspectPWAState();
         }]);
-        self.appendLearningView([self learningButtonWithTitle:@"重置本地离线包（重新从 bundle 安装）" identifier:@"lab.pwaReset" action:^(UIButton *sender) {
+        self.appendLearningView([self learningButtonWithTitle:@"重置本地离线包（重新从 bundle 安装）".jobsTr() identifier:@"lab.pwaReset" action:^(UIButton *sender) {
             @jobs_strongify(self)
             NSError *error;
             if ([NSFileManager.defaultManager fileExistsAtPath:self.nativeOfflineDirectory.path]) {
@@ -116,15 +120,27 @@ Prop_assign()BOOL loadingNativeOffline;
                 [NSFileManager.defaultManager copyItemAtURL:source toURL:self.nativeOfflineDirectory error:&error];
             }
         }
+        if (!error && source) {
+            for (NSString *name in @[@"index.html", @"manifest.webmanifest", @"sw.js"]) {
+                NSURL *origin = [source URLByAppendingPathComponent:name];
+                NSURL *destination = [self.nativeOfflineDirectory URLByAppendingPathComponent:name];
+                NSData *shipped = [NSData dataWithContentsOfURL:origin];
+                if (shipped && ![shipped isEqualToData:[NSData dataWithContentsOfURL:destination]]) {
+                    if (![shipped writeToURL:destination options:NSDataWritingAtomic error:&error]) {
+                        break;
+                    }
+                }
+            }
+        }
         NSURL *entry = [self.nativeOfflineDirectory URLByAppendingPathComponent:@"index.html"];
         if (error || ![NSFileManager.defaultManager isReadableFileAtPath:entry.path]) {
-            self.reportLearningStatus([NSString stringWithFormat:@"离线包不可用：%@。点击重置重新安装。", error.localizedDescription ?: @"资源缺失"]);
+            self.reportLearningStatus([NSString stringWithFormat:@"离线包不可用：%@。点击重置重新安装。".jobsTr(), error.localizedDescription ?: @"资源缺失".jobsTr()]);
             return;
         }
         self->_loadingNativeOffline = YES;
         [self configureLearningWebView:self.pwaWebView localEntryURL:entry];
         [self.pwaWebView loadFileURL:entry allowingReadAccessToURL:self.nativeOfflineDirectory];
-        self.reportLearningStatus(@"Native 离线包 v2 已加载，无需联网。file:// 不提供 Service Worker 注册。网页计数可点击体验；查看状态可核对模式。");
+        self.reportLearningStatus(@"Native 离线包 v2 已加载，无需联网。file:// 不提供 Service Worker 注册。网页计数可点击体验；查看状态可核对模式。".jobsTr());
     };
 }
 
@@ -137,12 +153,12 @@ Prop_assign()BOOL loadingNativeOffline;
         }
         NSURL *URL = [NSURL URLWithString:self.pwaURL.text];
         if (![URL.scheme.lowercaseString isEqualToString:@"https"] || !URL.host.length || URL.user.length || URL.password.length) {
-            self.reportLearningStatus(@"请输入自有 HTTPS PWA 入口，再点击加载。需要把 PWA 目录的三个文件一起部署。");
+            self.reportLearningStatus(@"请输入自有 HTTPS PWA 入口，再点击加载。需要把 PWA 目录的三个文件一起部署。".jobsTr());
             return;
         }
         self->_loadingNativeOffline = NO;
         [self configureLearningWebView:self.pwaWebView localEntryURL:nil];
-        self.reportLearningStatus(@"正在加载 HTTPS 页面。失败后自动回退本地包；成功后点击查看真实 SW / Cache 状态。");
+        self.reportLearningStatus(@"正在加载 HTTPS 页面。失败后自动回退本地包；成功后点击查看真实 SW / Cache 状态。".jobsTr());
         [self.pwaWebView loadRequest:[NSURLRequest requestWithURL:URL cachePolicy:NSURLRequestUseProtocolCachePolicy timeoutInterval:2]];
     };
 }
@@ -157,7 +173,7 @@ Prop_assign()BOOL loadingNativeOffline;
         [self.pwaWebView callAsyncJavaScript:@"return await (async()=>{let r={origin:location.origin,secure:window.isSecureContext,mode:location.protocol==='file:'?'Native offline (非 SW)':'HTTPS PWA',controller:!!navigator.serviceWorker?.controller};try{r.registrations=navigator.serviceWorker?(await navigator.serviceWorker.getRegistrations()).map(x=>({scope:x.scope,state:x.active?.state||x.installing?.state||'waiting'})):[];r.caches=window.caches?await caches.keys():[];}catch(e){r.error=String(e)}return JSON.stringify(r,null,2)})()" arguments:@{} inFrame:nil inContentWorld:WKContentWorld.pageWorld completionHandler:^(id result, NSError *error) {
             @jobs_strongify(self)
             if (self) {
-                self.reportLearningStatus(error ? [NSString stringWithFormat:@"状态读取失败：%@，可重载后重试。", error.localizedDescription] : [NSString stringWithFormat:@"实际运行状态：\n%@", result]);
+                self.reportLearningStatus(error ? [NSString stringWithFormat:@"状态读取失败：%@，可重载后重试。".jobsTr(), error.localizedDescription] : [NSString stringWithFormat:@"实际运行状态：\n%@".jobsTr(), result]);
             }
         }];
     };
@@ -169,7 +185,7 @@ Prop_assign()BOOL loadingNativeOffline;
     }
     if (!self.loadingNativeOffline) {
         self.loadNativeOfflinePackage();
-        self.reportLearningStatus([NSString stringWithFormat:@"HTTPS 加载失败，已回退 Native 离线包：%@", error.localizedDescription]);
+        self.reportLearningStatus([NSString stringWithFormat:@"HTTPS 加载失败，已回退 Native 离线包：%@".jobsTr(), error.localizedDescription]);
     }
 }
 

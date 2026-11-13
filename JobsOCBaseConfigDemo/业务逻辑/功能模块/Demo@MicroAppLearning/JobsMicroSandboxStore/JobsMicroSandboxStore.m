@@ -33,7 +33,7 @@
     BOOL validName = fileName.length > 0 && [fileName rangeOfString:@"\\A[A-Za-z0-9_-]{1,60}\\.[A-Za-z0-9]{1,8}\\z" options:NSRegularExpressionSearch].location != NSNotFound;
     if (!validID || !validName) {
         if (error) {
-            *error = [NSError errorWithDomain:@"JobsMicroSandbox" code:1 userInfo:@{NSLocalizedDescriptionKey:@"已阻止越界路径：appID 或文件名不合法"}];
+            *error = [NSError errorWithDomain:@"JobsMicroSandbox" code:1 userInfo:@{NSLocalizedDescriptionKey:@"已阻止越界路径：appID 或文件名不合法".jobsTr()}];
         }
         return nil;
     }
@@ -48,7 +48,7 @@
         NSDictionary *attributes = [manager attributesOfItemAtPath:root.path error:nil];
         if (attributes && ![attributes[NSFileType] isEqualToString:NSFileTypeDirectory]) {
             if (error) {
-                *error = [NSError errorWithDomain:@"JobsMicroSandbox" code:2 userInfo:@{NSLocalizedDescriptionKey:@"已阻止目录符号链接或非目录节点"}];
+                *error = [NSError errorWithDomain:@"JobsMicroSandbox" code:2 userInfo:@{NSLocalizedDescriptionKey:@"已阻止目录符号链接或非目录节点".jobsTr()}];
             }
             return nil;
         }
@@ -61,7 +61,7 @@
     NSString *prefix = [root.path stringByAppendingString:@"/"];
     if ((targetAttributes && ![targetAttributes[NSFileType] isEqualToString:NSFileTypeRegular]) || ![target.URLByResolvingSymlinksInPath.path hasPrefix:prefix]) {
         if (error) {
-            *error = [NSError errorWithDomain:@"JobsMicroSandbox" code:2 userInfo:@{NSLocalizedDescriptionKey:@"已阻止文件符号链接逃逸或非普通文件"}];
+            *error = [NSError errorWithDomain:@"JobsMicroSandbox" code:2 userInfo:@{NSLocalizedDescriptionKey:@"已阻止文件符号链接逃逸或非普通文件".jobsTr()}];
         }
         return nil;
     }
@@ -71,7 +71,7 @@
 -(BOOL)writeText:(NSString *)text application:(NSString *)appID fileName:(NSString *)fileName error:(NSError **)error{
     if ([text lengthOfBytesUsingEncoding:NSUTF8StringEncoding] > 16 * 1024) {
         if (error) {
-            *error = [NSError errorWithDomain:@"JobsMicroSandbox" code:3 userInfo:@{NSLocalizedDescriptionKey:@"教学草稿上限为 16 KB"}];
+            *error = [NSError errorWithDomain:@"JobsMicroSandbox" code:3 userInfo:@{NSLocalizedDescriptionKey:@"教学草稿上限为 16 KB".jobsTr()}];
         }
         return NO;
     }

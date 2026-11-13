@@ -119,7 +119,7 @@ Prop_strong()UILabel *detailLabel;
 -(UILabel *)titleLabel {
     if (!_titleLabel) {
         _titleLabel = jobsMakeLabel(^(__kindof UILabel *label) {
-            label.byText(@"设备安全限制")
+            label.byText(@"设备安全限制".jobsTr())
                 .byFont(UIFontWeightBoldSize(24))
                 .byNumberOfLines(0)
                 .byTextAlignment(NSTextAlignmentCenter)
@@ -156,7 +156,7 @@ Prop_strong()UILabel *detailLabel;
 -(UILabel *)detailLabel {
     if (!_detailLabel) {
         _detailLabel = jobsMakeLabel(^(__kindof UILabel *label) {
-            label.byText(@"本次启动已停止业务初始化。请恢复可信设备环境后重新启动应用。")
+            label.byText(@"本次启动已停止业务初始化。请恢复可信设备环境后重新启动应用。".jobsTr())
                 .byFont(UIFontWeightRegularSize(15))
                 .byNumberOfLines(0)
                 .byTextAlignment(NSTextAlignmentCenter)

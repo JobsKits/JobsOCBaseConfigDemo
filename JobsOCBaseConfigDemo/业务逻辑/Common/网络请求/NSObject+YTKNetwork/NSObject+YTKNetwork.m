@@ -310,6 +310,9 @@
     @jobs_weakify(self)
     return ^__kindof YTKBaseRequest *_Nonnull(YTKBaseRequest *request){
         @jobs_strongify(self)
+        if (!self) {
+            return request;
+        }
         /// 解析+处理HTTPResponseCode
         JobsResponseModel *responseModel = JobsMapResponseModelBy(request);
         /// 打印请求体

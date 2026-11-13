@@ -1,10 +1,8 @@
-/* 
-  InfoPlist.strings
-  JobsOCBaseConfigDemo
-
-  Created by User on 7/1/24.
-  
-*/
-
-// Localizable App Name是App在英语环境环境下显示的名称
-CFBundleDisplayName = "OCDemo";
+/* Jobs App localized permission purpose strings. */
+"CFBundleDisplayName" = "OCDemo";
+"NSBluetoothAlwaysUsageDescription" = "用于扫描、连接并与附近的 BLE 设备交换数据。";
+"NSCameraUsageDescription" = "需要访问相机以体验 ARKit 增强现实、检测平面和录制视频。";
+"NSBluetoothPeripheralUsageDescription" = "用于兼容旧系统访问附近的 BLE 设备。";
+"NSPhotoLibraryAddUsageDescription" = "需要添加截图、图片或视频到相册。";
+"NSMicrophoneUsageDescription" = "需要访问麦克风以录制和管理本地音频。";
+"NSPhotoLibraryUsageDescription" = "需要访问相册以保存录制视频。";

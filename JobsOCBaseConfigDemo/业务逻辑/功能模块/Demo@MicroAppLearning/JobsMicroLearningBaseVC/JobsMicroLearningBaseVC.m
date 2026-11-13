@@ -53,7 +53,7 @@ Prop_strong()id contentSizeCategoryObserver;
         [super loadView];
         self.viewModel
             .byBackBtnTitleModelBlock(^(__kindof UITextModel *data) {
-                data.byText(@"返回");
+                data.byText(@"返回".jobsTr());
             })
             .byTextModelBlock(^(__kindof UITextModel *data) {
                 data.byText(self.learningTitle());
@@ -112,13 +112,20 @@ Prop_strong()id contentSizeCategoryObserver;
                 });
         });
         self.appendLearningView([self learningLabelWithText:self.learningIntroduction() secondary:YES]);
-        self->_learningStatus = [self learningLabelWithText:@"准备就绪。先看说明，再点击下面的操作。" secondary:NO];
-        self->_learningStatus
-            .byAccessibilityIdentifier(@"lab.status")
-            .byBgColor(JobsSecondarySystemBackgroundColor)
-            .byCornerRadius(10)
-            .byClipsToBounds(YES);
-        self.appendLearningView(self->_learningStatus);
+        self->_learningStatus = [self learningLabelWithText:@"准备就绪。先看说明，再点击下面的操作。".jobsTr() secondary:NO];
+        self->_learningStatus.byAccessibilityIdentifier(@"lab.status");
+        UIStackView *statusContainer = jobsMakeStackView(^(UIStackView *stack) {
+            stack
+                .byAxis(UILayoutConstraintAxisVertical)
+                .byLayoutMarginsRelativeArrangement(YES)
+                .byAddArrangedSubview(self->_learningStatus);
+            stack
+                .byLayoutMargins(UIEdgeInsetsMake(12, 14, 12, 14))
+                .byBgColor(JobsSecondarySystemBackgroundColor)
+                .byCornerRadius(10)
+                .byClipsToBounds(YES);
+        });
+        self.appendLearningView(statusContainer);
         self.buildLearningContent();
         self->_contentSizeCategoryObserver = [NSNotificationCenter.defaultCenter addObserverForName:UIContentSizeCategoryDidChangeNotification
                                                                                              object:nil
@@ -138,13 +145,13 @@ Prop_strong()id contentSizeCategoryObserver;
 
 -(JobsRetStrByVoidBlock _Nonnull)learningTitle{
     return ^NSString *{
-        return @"微应用工程学习";
+        return @"微应用工程学习".jobsTr();
     };
 }
 
 -(JobsRetStrByVoidBlock _Nonnull)learningIntroduction{
     return ^NSString *{
-        return @"每页只验证一个能力，真实边界和生产接入点写在对应源码注释。";
+        return @"每页只验证一个能力，真实边界和生产接入点写在对应源码注释。".jobsTr();
     };
 }
 
@@ -167,7 +174,7 @@ Prop_strong()id contentSizeCategoryObserver;
     return ^(NSString *text) {
         @jobs_strongify(self)
         if (self) {
-            self.learningStatus.byText(text ?: @"没有结果，请重试。");
+            self.learningStatus.byText(text ?: @"没有结果，请重试。".jobsTr());
             self.refreshLearningWebLayout();
         }
     };
@@ -308,7 +315,8 @@ Prop_strong()id contentSizeCategoryObserver;
         label
             .byText(text)
             .byTextCor(JobsLabelColor)
-            .byFont(UIFontWeightRegularSize(15))
+            .byFont([UIFontMetrics.defaultMetrics scaledFontForFont:UIFontWeightRegularSize(15)])
+            .byAdjustsFontForContentSizeCategory(YES)
             .byNumberOfLines(0);
     });
     if (secondary) {
@@ -326,7 +334,7 @@ Prop_strong()id contentSizeCategoryObserver;
     UIButton *button = jobsMakeButton(^(UIButton *button) {
         button
             .jobsResetBtnTitle(title)
-            .jobsResetBtnTitleFont(UIFontWeightSemiboldSize(15))
+            .jobsResetBtnTitleFont([UIFontMetrics.defaultMetrics scaledFontForFont:UIFontWeightSemiboldSize(15)])
             .jobsResetBtnTitleCor(UIColor.whiteColor)
             .jobsResetBtnBgCor(RGB_COLOR(20, 77, 142))
             .jobsResetBtnCornerRadiusValue(10)
@@ -334,7 +342,8 @@ Prop_strong()id contentSizeCategoryObserver;
             .byTitleLabel(^(UILabel *label) {
                 label
                     .byLineBreakMode(NSLineBreakByWordWrapping)
-                    .byTextAlignment(NSTextAlignmentCenter);
+                    .byTextAlignment(NSTextAlignmentCenter)
+                    .byAdjustsFontForContentSizeCategory(YES);
             })
             .onClickBy(action)
             .byAccessibilityIdentifier(identifier);
@@ -351,7 +360,8 @@ Prop_strong()id contentSizeCategoryObserver;
             .byText(text)
             .byBorderStyle(UITextBorderStyleRoundedRect)
             .byTextCor(JobsLabelColor)
-            .byFont(UIFontWeightRegularSize(15))
+            .byFont([UIFontMetrics.defaultMetrics scaledFontForFont:UIFontWeightRegularSize(15)])
+            .byAdjustsFontForContentSizeCategory(YES)
             .byAccessibilityIdentifier(identifier)
             .byBgColor(JobsSecondarySystemBackgroundColor);
     });
@@ -362,7 +372,7 @@ Prop_strong()id contentSizeCategoryObserver;
         ((UITextField *)object).byAttributedPlaceholder(JobsAttributedStringByAttributes(placeholder, @{NSForegroundColorAttributeName:color}));
     }];
     [field mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.height.mas_equalTo(44);
+        make.height.mas_greaterThanOrEqualTo([UIFontMetrics.defaultMetrics scaledValueForValue:44]);
     }];
     return field;
 }

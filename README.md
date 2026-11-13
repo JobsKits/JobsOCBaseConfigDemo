@@ -315,6 +315,8 @@
 
 ## <span id="jobs-toc-heading-3" data-jobs-toc="v2">二、🌈特色一览 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a></span><!-- jobs-toc:heading-end -->
 
+应用语言统一在 Demo 列表的设置页面切换，提供跟随系统、简体中文、繁体中文、藏文、英文、日文、法文、西班牙文、德文、俄罗斯文、韩文，并保留既有菲律宾语。ARKit 与设备采集页面消费同一全局语言，不保留页面内语言选择或独立偏好。
+
 > **工程形态**：OC 新旧工程共享同一套 Jobs 自维护能力与文档标准；新工程按职责拆分为本地 [**CocoaPods**](https://cocoapods.org/) 模块，旧工程将对应源码与资源直接集成到主工程。两种形态都以同一套公开 API、Demo、行为和数据库选型结论为准。
 
 本节只回答“项目最值得复用什么”。具体原理、完整参数和边界说明继续以对应源码、模块 `README.md` 与可运行 Demo 为准。
@@ -376,6 +378,7 @@ Jobs 自维护的应用、Demo 与本地 Pod 统一执行同一套 [**Objective-
 
 | 能力域 | 代表模块 | 特色摘要 |
 | --- | --- | --- |
+| 增强现实 | [ARKit 空间实验室](./JobsOCBaseConfigDemo/业务逻辑/功能模块/Demo@ARKit/README.md) | 苹果官方 ARKit 教学与实操：世界追踪、水平平面、射线放置和锚点；方块 / 球体 / 机器人支持缩放、旋转、清空与重置，含十语言、三主题和明确标注的离线三维预览。真实空间体验需要受支持的实体设备。 |
 | 登录注册 | `JobsAppDoor` | Style1 侧栏变形与 Style2 全屏横滑两套认证 UI；统一登录、注册、忘记密码、短信 / 图形验证码和资源包。国旗与区号用不换行空格同行，切换侧栏 / 提交以 `18pt`、标题以 `22pt` 为基准（Style1 沿用 `JobsWidth` 缩放）；音量面板点外部收起并继续响应原控件，真机用原生系统音量，模拟器保留播放器局部滑条。详见[模块说明](./JobsOCBaseConfigDemo/OCBaseConfig/JobsMixFunc/JobsAppDoor/尝试高仿蜜柚.md/README.md)。 |
 | 开屏 | `JobsOCSplash` | 本地图片、本地 GIF、远程图片、本地视频、远程视频五种内容；远程视频仅播放完整缓存，未命中时立即回退本地视频并持续预加载。 |
 | 刷新与动画 | `JobsOCRefresher` + `JobsFuseAnimation` | 上下左右四向刷新、统一状态机、触感 / 声音；系统、图片、GIF、Lottie、今日头条、抖音动画可在挂载后原位热替换。 |
@@ -391,7 +394,7 @@ Jobs 自维护的应用、Demo 与本地 Pod 统一执行同一套 [**Objective-
 | 场景生命周期 | `AppDelegate`、`SceneDelegate`、`JobsOCSceneCoordinator` | 进程初始化只执行一次；窗口由当前 `UIWindowScene` 独立创建，支持会话隔离、冷 / 热 `NSUserActivity` 恢复与多窗口验证。 |
 | 导航与转场 | `JobsNavBar`、`JobsTabBarCtrl`、`JobsViewNavigator`、`JobsViewPush`、`JobsSideDrawer` | 导航栏 / TabBar、UIView 栈式 push / pop、方向性交互转场、侧滑抽屉和防重复跳转。 |
 | 数据与网络 | `JobsAPIs`、`JobsNetWorkTools`、`JobsMonitorNetwoking`、`JobsBitsMonitor`、`JobsOCWebSocket`、`SRWebSocketExtra` | API 请求层、网络状态 / 速率 / 流量监控；实例化 WebSocket 客户端统一连接生命周期、30 秒心跳与退避重连。 |
-| 用户与本机信息 | [JobsDeviceDescription](./JobsOCBaseConfigDemo/业务逻辑/功能模块/Demo@JobsDeviceDescription/README.md)、`JobsUserInfoVC` | 首页半屏菜单进入用户与设备信息；两组默认展开，可整体点击独立收起 / 展开。统一内缩卡片、条目计数、展开状态、清晰的主副文字层级及浅深主题；保留全部用户属性，第二组展示 UDID、设备名称、IMEI、系统版本和序列号。各行点击复制并弹窗，受限项只复制系统说明。 |
+| 用户与本机信息 | [JobsDeviceDescription](./JobsOCBaseConfigDemo/业务逻辑/功能模块/Demo@JobsDeviceDescription/README.md)、`JobsUserInfoVC` | 首页半屏菜单进入用户与设备信息；用户信息、本机公开信息、本次采集设备三组默认展开，可整体点击独立收起 / 展开。统一内缩卡片、条目计数、状态和浅深主题；保留全部用户属性与本机公开信息，第三组经同意接入 Pages 采集站，返回 App 自动查询 UDID 及可用字段。支持刷新、结束清除、来源标记、点击复制和十语言切换；受限或未回传编号不伪造。 |
 | Runtime 与安全 | `JobsOCRuntimeKits`、`JobsOCPatch`、`JobsCryptography`、`JobsOCOpen` | Runtime 查询 / 动态注册、受控 payload 补丁、摘要 / 编解码 / 加密、URL 打开兼容封装。 |
 | 业务组件 | `JobsOCSearcher`、`JobsOCComment`、`JobsOCCalendar`、`JobsWallet`、`JobsLuckyEnvelopeRain` | 搜索、评论、日历、卡包、红包雨等能力均可单独复用。 |
 | 工程化 | 本地能力模块、`Extra` 适配层、依赖报告、Xcode CodeSnippets、`.command` | 不改上游源码地扩展第三方能力；公开头、资源、依赖、Demo、README 与代码块一起维护。 |
@@ -405,10 +408,10 @@ Demo 源码统一放在 `JobsOCBaseConfigDemo/业务逻辑/功能模块/`，目�
 
 <font color=red>**单靠普通 App 拿不到真实 UDID、IMEI**</font>，因为 iOS 没有开放读取它们的 API。联网或发请求也不会凭空得到这两个值，普通权限弹框不能解除这个限制。
 
-- **UDID**：可另接采集服务：App 发起会话 → [**Safari**](https://www.apple.com/safari/) 打开自有 HTTPS 采集页 → 用户到“设置”确认安装 [**Profile Service**](https://developer.apple.com/library/archive/documentation/NetworkingInternet/Conceptual/iPhoneOTAConfiguration/profile-service/profile-service.html) 描述文件 → iOS 系统回传我们的后端 → App 查询会话并回填。这里需要本机明确操作，也需要后端接收、校验和返回结果；[**蒲公英**](https://www.pgyer.com/doc/view/udid)采用的也是描述文件采集方式。
+- **UDID**：已接入 [JobsDeviceInfo 采集站](https://jobs-device-info-pages.pages.dev/)：App 发起独立短期配对会话 → [**Safari**](https://www.apple.com/safari/) 打开自有 HTTPS 采集页 → 用户到“设置”确认安装 [**Profile Service**](https://developer.apple.com/library/archive/documentation/NetworkingInternet/Conceptual/iPhoneOTAConfiguration/profile-service/profile-service.html) 描述文件 → iOS 系统回传我们的后端 → App 查询会话并回填。这里需要本机明确操作，也需要后端接收、校验和返回结果；[**蒲公英**](https://www.pgyer.com/doc/view/udid)采用的也是描述文件采集方式。
 - **IMEI**：<font color=red>**不能保证同一条流程一定返回。**</font>[**Apple 旧版示例**](https://developer.apple.com/library/archive/documentation/NetworkingInternet/Conceptual/iPhoneOTAConfiguration/ConfigurationProfileExamples/ConfigurationProfileExamples.html)列过它，但不能据此保证现在每台设备都会返回。可以请用户从“设置 → 通用 → 关于本机”复制后粘贴；企业受管设备可由 [**MDM**](https://developer.apple.com/documentation/devicemanagement/deviceinformationresponse/queryresponses-data.dictionary) 服务端按设备注册方式和查询权限获取。
 
-<font color=red>**当前项目还没有接入采集页面和后端**</font>，页面仍显示、复制系统限制说明，不会用 IDFV 冒充 UDID，也不承诺“授权后两项都能拿到”。
+<font color=red>**当前已接入采集页面和后端，仍需用户在 Safari 与系统设置完成确认。**</font>本机信息保留公开 API 与系统限制说明；本次联网结果在独立第三组显示，并区分系统回传、浏览器报告、资料映射和手工补录。会话自创建起 15 分钟有效，默认请求超时 6 秒，失败保留仍有效的数据与刷新入口；编号和 Cookie 不持久化，结束清除或到期后隐藏结果。不会用 IDFV 冒充 UDID，不承诺 IMEI 必然返回，也不把配对结果作为本机身份认证。完整流程、HTTPS 根站与超时配置、离线回退和验证边界见[设备信息模块说明](./JobsOCBaseConfigDemo/业务逻辑/功能模块/Demo@JobsDeviceDescription/README.md)。
 
 `JobsOCDeviceGuard` 直接集成于主工程 `JobsOCBaseConfigDemo/OCBaseConfig/JobsMixFunc/JobsOCDeviceGuard`，并提供独立 Demo。默认只读，写探测由显式动作启用，创建的唯一临时文件立即清理并记录清理错误；组件不自动退出 App 或上传检测信息。`shouldRestrict` 仍只表示限制建议。<font color=red>**宿主已接入真实启动门禁：`AppDelegate` 在后续显式业务初始化前调用 `JobsOCDeviceGuardLaunchGate.prepare()`，默认只在 `report.isJailbroken` 为真时提前返回 `YES`；Scene 直接创建独立原生拦截窗口，不创建正常业务根页面或开屏。**</font>详细接口与流程见[启动接入说明](./JobsOCBaseConfigDemo/业务逻辑/功能模块/Demo@JobsDeviceGuardLaunch/README.md)。首次判定后冻结，后续 Scene、活动恢复与现有生命周期回调不能绕过该启动结果；启动前可配置判定策略与拦截页工厂。`suspicious`、`indeterminate`、`unsupported` 按当前策略继续启动，不构成安全证明。Demo 按钮仍只展示单次判定；登录、支付、下单及每次请求尚未逐项接入独立拦截器。
 

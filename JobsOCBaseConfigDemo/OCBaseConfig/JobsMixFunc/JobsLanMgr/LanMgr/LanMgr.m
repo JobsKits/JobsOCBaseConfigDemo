@@ -85,6 +85,27 @@ static AppLanguage _language = AppLanguageBySys;
                 /// fil-PH：表示菲律宾的菲律宾语
                 /// tl-PH：表示菲律宾的他加禄语
                 return isValue(@"fil.lproj".jobsPathForResourceWithFullName()) ? 菲律宾语_不带区域组合: 菲律宾语_菲律宾;
+            /// 藏文
+            case AppLanguageTibetan:
+                return @"bo";
+            /// 日文
+            case AppLanguageJapanese:
+                return @"ja";
+            /// 法文
+            case AppLanguageFrench:
+                return @"fr";
+            /// 西班牙文
+            case AppLanguageSpanish:
+                return @"es";
+            /// 德文
+            case AppLanguageGerman:
+                return @"de";
+            /// 俄罗斯文
+            case AppLanguageRussian:
+                return @"ru";
+            /// 韩文
+            case AppLanguageKorean:
+                return @"ko";
             /// 未匹配已知分支时执行兜底处理
             default:return NSLocale.preferredLanguages.firstObject;
         }

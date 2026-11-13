@@ -66,7 +66,9 @@ static UILongPressGestureRecognizer *JobsOCDemoSuspendLongPressGesture(UIView *v
     };return nil;
 }
 
-@interface ViewController_1 ()
+@interface ViewController_1 () {
+    BOOL _jobsSuspendTimeInitialOriginApplied;
+}
 
 /// UI
 Prop_strong()UIButton *userHeadBtn;
@@ -564,6 +566,14 @@ Prop_assign()JobsOCDemoListCellTextDisplayStrategy appliedCellTextDisplayStrateg
             }
 #endif
 
+            if (!_jobsSuspendTimeInitialOriginApplied) {
+                /// 首次挂窗后导航栏与安全区才稳定，随后保留用户拖动的位置。
+                _jobsSuspendTimeInitialOriginApplied = YES;
+                self.suspendTimeBtn.byFrame(CGRectMake(15,
+                                                       CGRectGetMaxY(self.gk_navigationBar.frame) + 12,
+                                                       110,
+                                                       66));
+            }
             self.refreshSuspendTimeButtonVisibility();
             JobsTimerMgr.shared().byResume(JobsOCDemoSuspendSpinTimerIdentifier);
         //    UIDeviceOrientation f = UIDevice.currentDevice.orientation;
@@ -792,6 +802,11 @@ Prop_assign()JobsOCDemoListCellTextDisplayStrategy appliedCellTextDisplayStrateg
         if (!self) return;
         BOOL visible = self.showsSuspendTimeButton();
         self.suspendTimeBtn.byHidden(!visible);
+        if (_tableView) {
+            [_tableView mas_updateConstraints:^(MASConstraintMaker *make) {
+                make.top.equalTo(self.gk_navigationBar.mas_bottom).offset(visible ? 90 : 0);
+            }];
+        }
         if (visible) {
             JobsTimerMgr.shared().byResume(JobsOCDemoSuspendTimeTimerIdentifier);
         }else{
@@ -2367,7 +2382,7 @@ forRowAtIndexPath:(NSIndexPath *)indexPath{
             @jobs_strongify(self)
             make.left.right.bottom.equalTo(self.view);
             /// 跟随实际导航栏下沿，避免首屏用尚未稳定的安全区高度定位。
-            make.top.equalTo(self.gk_navigationBar.mas_bottom);
+            make.top.equalTo(self.gk_navigationBar.mas_bottom).offset(self.showsSuspendTimeButton() ? 90 : 0);
         });
     }
 #if DEBUG
@@ -3753,6 +3768,13 @@ forRowAtIndexPath:(NSIndexPath *)indexPath{
         @jobs_weakify(self)
         _dataMutArr = jobsMakeMutArr(^(NSMutableArray * _Nullable data) {
             @jobs_strongify(self)
+            data.add(self.makeDatas(jobsMakeDecorationModel(^(__kindof JobsDecorationModel * _Nullable model) {
+                model.byTitle(@"ARKit · 空间实验室".jobsTr())
+                     .bySubTitle(@"Apple 增强现实 / 平面检测 / 模型放置".jobsTr())
+                     .byCls(JobsARKitDemoVC.class);
+            })).byImage([JobsIconfontManager.shared iconImageForGlyph:JobsIconfontGlyphComponent
+                                                                    size:CGSizeMake(JobsWidth(30), JobsWidth(30))
+                                                                   color:UIColor.systemTealColor]));
             data.add(self.makeDatas(jobsMakeDecorationModel(^(__kindof JobsDecorationModel * _Nullable model) {
                 model.byTitle(@"微应用 / 微程序 Bridge".jobsTr())
                      .bySubTitle(@"Native-JS 白名单、requestID 与可信页面".jobsTr())

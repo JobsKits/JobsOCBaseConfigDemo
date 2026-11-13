@@ -60,7 +60,7 @@ Prop_copy()NSString *result;
             return;
         }
         [super viewDidLoad];
-        self.byTitle(@"调试工具与环境切换");
+        self.byTitle(@"调试工具与环境切换".jobsTr());
         self.view.byBgColor(JobsSystemGroupedBackgroundColor);
         self->_result = @"本地演示数据：请求成功后展示服务器 JSON";
         self.demoTable.byHidden(NO);

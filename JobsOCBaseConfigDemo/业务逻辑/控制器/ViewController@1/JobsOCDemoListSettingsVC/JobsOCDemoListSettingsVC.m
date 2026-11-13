@@ -7,7 +7,6 @@
 
 #import "JobsOCDemoListSettingsVC.h"
 #import "AppDelegate+TabBarCtr.h"
-#import "UIViewController+BaseNavigationBar.h"
 
 static NSString *const JobsOCDemoListSettingsCellReuseIdentifier = @"JobsOCDemoListSettingsCell";
 static NSString *const JobsOCSplashEnabledUserDefaultsKey = @"com.BSports.JobsOCSplashEnabledUserDefaultsKey";
@@ -97,7 +96,7 @@ Prop_assign()BOOL shouldApplyAppEntryAfterReturning;
 @end
 
 // JOBS_PROPERTY_DSL_SETTER_DECLARATION_AUTOGEN_BEGIN JobsOCDemoListSettingsVC
-@interface JobsOCDemoListSettingsVC (JobsPropertyDSLSetterAutogen_ef46cb8a99)
+@interface JobsOCDemoListSettingsVC (JobsPropertyDSLSetterAutogen_eac4b5e7f1)
 -(void)setExpandedSettingSectionIndexSet:(NSMutableIndexSet * _Nullable)data;
 -(void)setShouldApplyAppEntryAfterReturning:(BOOL)data;
 @end
@@ -196,8 +195,7 @@ numberOfRowsInSection:(NSInteger)section{
         optionCount = self.languageTitleArr().count;
     }else{
         optionCount = self.cellTextDisplayStrategyTitleArr().count;
-    }
-    return [self.expandedSettingSectionIndexSet containsIndex:section] ? optionCount + 1 : 1;
+    };return [self.expandedSettingSectionIndexSet containsIndex:section] ? optionCount + 1 : 1;
 }
 
 -(CGFloat)tableView:(UITableView *)tableView
@@ -212,7 +210,7 @@ heightForFooterInSection:(NSInteger)section{
 
 -(CGFloat)tableView:(UITableView *)tableView
 heightForRowAtIndexPath:(NSIndexPath *)indexPath{
-    return JobsWidth(56);
+    return UITableViewAutomaticDimension;
 }
 
 -(NSString *)tableView:(UITableView *)tableView
@@ -227,20 +225,25 @@ titleForHeaderInSection:(NSInteger)section{
     cell.byBgColor(self.demoListCellBackgroundColor());
     cell.contentView.byBgColor(self.demoListCellBackgroundColor());
     cell.byTintColor(HEXCOLOR(0x1D7FF2));
+    if (indexPath.section == JobsOCDemoListSettingSectionLanguage) {
+        AppLanguage language = self.appLanguageByRow(indexPath.row - 1);
+        NSString *languageCode = indexPath.row == 0 ? @"summary" : (language == AppLanguageBySys ? @"system" : LanMgr.languageCodeByAppLanguage(language));
+        cell.byAccessibilityIdentifier([@"jobs.settings.language." stringByAppendingString:languageCode]);
+    } else {
+        cell.byAccessibilityIdentifier(nil);
+    }
     cell.byAccessoryView(nil);
     cell.byIndentationLevel(indexPath.section != JobsOCDemoListSettingSectionGeneral && indexPath.row > 0 ? 1 : 0);
     cell.byIndentationWidth(JobsWidth(20));
     if (indexPath.section != JobsOCDemoListSettingSectionGeneral && indexPath.row == 0) {
         cell.byAccessoryView(self.expansionAccessoryViewBySection(indexPath.section));
-    }
-    return cell
+    };return cell
         .byTextLabel(^(__kindof UILabel * _Nullable label) {
             label.byText(self.titleByIndexPath(indexPath))
-                .byFont(UIFontWeightRegularSize(16))
+                .byFont([UIFontMetrics.defaultMetrics scaledFontForFont:UIFontWeightRegularSize(16)])
                 .byTextCor(self.demoListPrimaryTextColor())
-                .byNumberOfLines(1)
-                .byAdjustsFontSizeToFitWidth(indexPath.section != JobsOCDemoListSettingSectionGeneral && indexPath.row == 0)
-                .byMinimumScaleFactor(indexPath.section != JobsOCDemoListSettingSectionGeneral && indexPath.row == 0 ? .72f : 1);
+                .byNumberOfLines(0)
+                .byAdjustsFontForContentSizeCategory(YES);
         })
         .byAccessoryType(self.accessoryTypeByIndexPath(indexPath))
         .bySelectionStyle(UITableViewCellSelectionStyleDefault);
@@ -288,17 +291,17 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     }
     JobsOCDemoListSettingItem item = indexPath.row;
     if (item == JobsOCDemoListSettingItemSplash) {
-        self.setJobsOCSplashEnabled(![self jobsOCSplashEnabled]());
-        ([self jobsOCSplashEnabled]() ? @"下次打开开屏".jobsTr() : @"下次关闭开屏".jobsTr()).toast();
+        self.setJobsOCSplashEnabled(!self.jobsOCSplashEnabled());
+        (self.jobsOCSplashEnabled() ? @"下次打开开屏".jobsTr() : @"下次关闭开屏".jobsTr()).toast();
     }else if (item == JobsOCDemoListSettingItemReturnBehavior){
-        BOOL enabled = ![self demoListReturnToTopAndRefreshEnabled]();
+        BOOL enabled = !self.demoListReturnToTopAndRefreshEnabled();
         self.setDemoListReturnToTopAndRefreshEnabled(enabled);
         (enabled ? @"返回主列表：回顶部并刷新".jobsTr() : @"返回主列表：保持原样".jobsTr()).toast();
     }else if (item == JobsOCDemoListSettingItemSuspendTimeButton){
-        self.setShowsSuspendTimeButton(![self showsSuspendTimeButton]());
-        ([self showsSuspendTimeButton]() ? @"悬浮时间按钮已显示".jobsTr() : @"悬浮时间按钮已隐藏".jobsTr()).toast();
+        self.setShowsSuspendTimeButton(!self.showsSuspendTimeButton());
+        (self.showsSuspendTimeButton() ? @"悬浮时间按钮已显示".jobsTr() : @"悬浮时间按钮已隐藏".jobsTr()).toast();
     }else if (item == JobsOCDemoListSettingItemTheme){
-        BOOL dark = ![self demoListDarkModeEnabled]();
+        BOOL dark = !self.demoListDarkModeEnabled();
         self.setDemoListDarkModeEnabled(dark);
         (dark ? @"主题已切换：黑夜".jobsTr() : @"主题已切换：白天".jobsTr()).toast();
     }else if (item == JobsOCDemoListSettingItemSideDrawerMode){
@@ -326,8 +329,8 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
                 .byDelegate(self)
                 .byDataSource(self)
                 .bySeparatorStyle(UITableViewCellSeparatorStyleSingleLine)
-                .byRowHeight(JobsWidth(56))
-                .byEstimatedRowHeight(0)
+                .byRowHeight(UITableViewAutomaticDimension)
+                .byEstimatedRowHeight(JobsWidth(56))
                 .byEstimatedSectionHeaderHeight(0)
                 .byEstimatedSectionFooterHeight(0)
                 .bySectionHeaderTopPadding(0)
@@ -433,6 +436,9 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
         self.updateLocalizedContent();
         self.makeNavByAlpha(1);
         self.navBar.backBtn.jobsResetBtnTitle(@"返回".jobsTr());
+        self.backBtnCategory.jobsResetBtnTitle(@"返回".jobsTr());
+        [self.backBtnCategory sizeToFit];
+        self.backBtnCategory.bySize(CGSizeMake(MAX(44, CGRectGetWidth(self.backBtnCategory.bounds)), 44));
         self.applyDemoListNavigationInterfaceStyle();
         self.applyDemoListTabBarInterfaceStyle();
         if (_tableView) {
@@ -444,7 +450,7 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
 
 -(JobsRetCorByVoidBlock _Nonnull)demoListPageBackgroundColor{
     @jobs_weakify(self)
-    return ^UIColor *_Nullable{
+    return ^UIColor *{
         @jobs_strongify(self)
         if (!self) return nil;
         return JobsSystemGroupedBackgroundColor;
@@ -453,7 +459,7 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
 
 -(JobsRetCorByVoidBlock _Nonnull)demoListNavigationBackgroundColor{
     @jobs_weakify(self)
-    return ^UIColor *_Nullable{
+    return ^UIColor *{
         @jobs_strongify(self)
         if (!self) return nil;
         return JobsSystemBackgroundColor;
@@ -462,7 +468,7 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
 
 -(JobsRetCorByVoidBlock _Nonnull)demoListPrimaryTextColor{
     @jobs_weakify(self)
-    return ^UIColor *_Nullable{
+    return ^UIColor *{
         @jobs_strongify(self)
         if (!self) return nil;
         return JobsLabelColor;
@@ -471,7 +477,7 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
 
 -(JobsRetCorByVoidBlock _Nonnull)demoListCellBackgroundColor{
     @jobs_weakify(self)
-    return ^UIColor *_Nullable{
+    return ^UIColor *{
         @jobs_strongify(self)
         if (!self) return nil;
         return JobsSecondarySystemGroupedBackgroundColor;
@@ -480,7 +486,7 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
 
 -(JobsRetCorByVoidBlock _Nonnull)demoListSeparatorColor{
     @jobs_weakify(self)
-    return ^UIColor *_Nullable{
+    return ^UIColor *{
         @jobs_strongify(self)
         if (!self) return nil;
         if (@available(iOS 13.0, *)) return UIColor.separatorColor;
@@ -588,43 +594,43 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
 
 -(JobsRetStrByVoidBlock _Nonnull)splashSwitchTitle{
     @jobs_weakify(self)
-    return ^NSString *_Nullable{
+    return ^NSString *{
         @jobs_strongify(self)
         if (!self) return nil;
-        return [self jobsOCSplashEnabled]() ? @"下次开屏：开".jobsTr() : @"下次开屏：关".jobsTr();
+        return self.jobsOCSplashEnabled() ? @"下次开屏：开".jobsTr() : @"下次开屏：关".jobsTr();
     };
 }
 
 -(JobsRetStrByVoidBlock _Nonnull)returnSwitchTitle{
     @jobs_weakify(self)
-    return ^NSString *_Nullable{
+    return ^NSString *{
         @jobs_strongify(self)
         if (!self) return nil;
-        return [self demoListReturnToTopAndRefreshEnabled]() ? @"返回：回顶部并刷新".jobsTr() : @"返回：保持原样".jobsTr();
+        return self.demoListReturnToTopAndRefreshEnabled() ? @"返回：回顶部并刷新".jobsTr() : @"返回：保持原样".jobsTr();
     };
 }
 
 -(JobsRetStrByVoidBlock _Nonnull)suspendTimeButtonSwitchTitle{
     @jobs_weakify(self)
-    return ^NSString *_Nullable{
+    return ^NSString *{
         @jobs_strongify(self)
         if (!self) return nil;
-        return [self showsSuspendTimeButton]() ? @"悬浮时间：开".jobsTr() : @"悬浮时间：关".jobsTr();
+        return self.showsSuspendTimeButton() ? @"悬浮时间：开".jobsTr() : @"悬浮时间：关".jobsTr();
     };
 }
 
 -(JobsRetStrByVoidBlock _Nonnull)themeSwitchTitle{
     @jobs_weakify(self)
-    return ^NSString *_Nullable{
+    return ^NSString *{
         @jobs_strongify(self)
         if (!self) return nil;
-        return [self demoListDarkModeEnabled]() ? @"主题切换：黑夜".jobsTr() : @"主题切换：白天".jobsTr();
+        return self.demoListDarkModeEnabled() ? @"主题切换：黑夜".jobsTr() : @"主题切换：白天".jobsTr();
     };
 }
 
 -(JobsRetStrByVoidBlock _Nonnull)deallocTipsSwitchTitle{
     @jobs_weakify(self)
-    return ^NSString *_Nullable{
+    return ^NSString *{
         @jobs_strongify(self)
         if (!self) return nil;
         return JobsControllerDeallocTipsEnabled() ? @"销毁提示：开".jobsTr() : @"销毁提示：关".jobsTr();
@@ -654,9 +660,9 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
         @jobs_strongify(self)
         if (!self) return nil;
         return @[
-            @"中文".jobsTr(),
-            @"英文".jobsTr(),
-            @"他加禄语".jobsTr()
+            @"跟随系统".jobsTr(),
+            @"简体中文", @"繁體中文", @"བོད་ཡིག", @"English",
+            @"日本語", @"Français", @"Español", @"Deutsch", @"Русский", @"한국어", @"Filipino"
         ];
     };
 }
@@ -707,17 +713,11 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     return ^AppLanguage(NSInteger row){
         @jobs_strongify(self)
         if (!self) return (AppLanguage){0};
-        switch (row) {
-            /// 处理 数值 0 分支
-            case 0:
-                return AppLanguageChineseSimplified;
-            /// 处理 数值 1 分支
-            case 1:
-                return AppLanguageEnglish;
-            /// 未匹配已知分支时执行兜底处理
-            default:
-                return AppLanguageTagalog;
-        }
+        NSArray<NSNumber *> *languages = @[@(AppLanguageBySys), @(AppLanguageChineseSimplified),
+            @(AppLanguageChineseTraditional), @(AppLanguageTibetan), @(AppLanguageEnglish),
+            @(AppLanguageJapanese), @(AppLanguageFrench), @(AppLanguageSpanish),
+            @(AppLanguageGerman), @(AppLanguageRussian), @(AppLanguageKorean), @(AppLanguageTagalog)];
+        return row >= 0 && row < languages.count ? languages[row].integerValue : AppLanguageBySys;
     };
 }
 
@@ -726,10 +726,7 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     return ^AppLanguage{
         @jobs_strongify(self)
         if (!self) return (AppLanguage){0};
-        NSString *languageCode = LanMgr.languageCodeByAppLanguage(LanMgr.language).lowercaseString;
-        if ([languageCode hasPrefix:@"zh"]) return AppLanguageChineseSimplified;
-        if ([languageCode hasPrefix:@"fil"] || [languageCode hasPrefix:@"tl"]) return AppLanguageTagalog;
-        return AppLanguageEnglish;
+        return LanMgr.language;
     };
 }
 
@@ -841,5 +838,4 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     };
 }
 // JOBS_PROPERTY_DSL_IMPLEMENTATION_AUTOGEN_END JobsOCDemoListSettingsVC
-
 @end

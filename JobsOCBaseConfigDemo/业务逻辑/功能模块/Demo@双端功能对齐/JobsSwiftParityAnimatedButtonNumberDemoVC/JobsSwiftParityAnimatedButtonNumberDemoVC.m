@@ -57,7 +57,7 @@ Prop_strong()UIButton *animatedNumberBtn;
         @jobs_strongify(self)
         if (!self) return;
         self.previewImageView.byHidden(YES);
-        self.previewTitleLab.byText(@"按钮标题数字动效");
+        self.previewTitleLab.byText(@"按钮标题数字动效".jobsTr());
         self.animatedNumberBtn.byHidden(NO);
     };
 }

@@ -248,7 +248,7 @@ JobsKey(JobsJobsOCRefresherDemoVCModernTraitsRegistrationKey)
             .byGKNavTitleColor(JobsLabelColor);
         self.view.byBgColor(JobsSystemBackgroundColor);
         self.instructionTextView
-            .byTextCor(JobsSecondaryLabelColor)
+            .byTextCor(JobsLabelColor)
             .byBgColor(JobsSecondarySystemBackgroundColor);
         self.animatorSegmentedControl
             .byTintColor(JobsLabelColor)
@@ -612,7 +612,7 @@ JobsKey(JobsJobsOCRefresherDemoVCModernTraitsRegistrationKey)
     if (!_instructionTextView) {
         _instructionTextView = jobsMakeTextView(^(__kindof UITextView * _Nullable textView) {
             textView.byFont(UIFontWeightRegularSize(13))
-                .byTextCor(JobsSecondaryLabelColor)
+                .byTextCor(JobsLabelColor)
                 .byEditable(NO)
                 .bySelectable(NO)
                 .byTextContainerInset(UIEdgeInsetsMake(JobsWidth(10),

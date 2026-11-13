@@ -211,6 +211,12 @@ Prop_strong()NSMutableArray <__kindof UIViewController *>*childVCMutArr;
  @param listContainerView 列表的容器视图
  @return list的数量
  */
+// 第三方容器按协议 selector 调用，保留原生入口再转发到 DSL。
+-(NSInteger)numberOfListsInlistContainerView:(JXCategoryListContainerView *)listContainerView{
+    JobsRetNSIntegerByJXCategoryListContainerViewBlock action = self.numberOfListsInlistContainerView;
+    return action ? action(listContainerView) : 0;
+}
+
 -(JobsRetNSIntegerByJXCategoryListContainerViewBlock _Nonnull)numberOfListsInlistContainerView{
     @jobs_weakify(self)
     return ^NSInteger(JXCategoryListContainerView * listContainerView){

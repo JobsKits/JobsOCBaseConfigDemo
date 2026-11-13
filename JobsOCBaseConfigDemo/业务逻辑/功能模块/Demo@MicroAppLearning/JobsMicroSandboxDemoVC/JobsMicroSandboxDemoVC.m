@@ -28,13 +28,13 @@ Prop_strong()UITextField *sandboxText;
 
 -(JobsRetStrByVoidBlock _Nonnull)learningTitle{
     return ^NSString *{
-        return @"沙箱 / 逻辑目录隔离";
+        return @"沙箱 / 逻辑目录隔离".jobsTr();
     };
 }
 
 -(JobsRetStrByVoidBlock _Nonnull)learningIntroduction{
     return ^NSString *{
-        return @"系统沙箱保护整个 App。这里在 App 容器内再按 appID 隔离文件访问，亲手验证 A 写入、B 不可见、../ 被拒绝。";
+        return @"系统沙箱保护整个 App。这里在 App 容器内再按 appID 隔离文件访问，亲手验证 A 写入、B 不可见、../ 被拒绝。".jobsTr();
     };
 }
 
@@ -46,23 +46,23 @@ Prop_strong()UITextField *sandboxText;
             return;
         }
         self->_sandboxStore = JobsMicroSandboxStore.new;
-        self->_sandboxText = [self learningFieldWithText:@"这是业务 A 的私有草稿" placeholder:@"输入草稿内容" identifier:@"lab.sandboxText"];
+        self->_sandboxText = [self learningFieldWithText:@"这是业务 A 的私有草稿".jobsTr() placeholder:@"输入草稿内容".jobsTr() identifier:@"lab.sandboxText"];
         self.appendLearningView(self.sandboxText);
-        self.appendLearningView([self learningButtonWithTitle:@"① 写入 A / draft.txt" identifier:@"lab.sandboxWrite" action:^(UIButton *sender) {
+        self.appendLearningView([self learningButtonWithTitle:@"① 写入 A / draft.txt".jobsTr() identifier:@"lab.sandboxWrite" action:^(UIButton *sender) {
             @jobs_strongify(self)
             NSError *error;
             BOOL ok = [self.sandboxStore writeText:self.sandboxText.text ?: @"" application:@"sandbox-A" fileName:@"draft.txt" error:&error];
-            self.reportLearningStatus(ok ? @"写入成功：Tenants/sandbox-A/draft.txt" : error.localizedDescription);
+            self.reportLearningStatus(ok ? @"写入成功：Tenants/sandbox-A/draft.txt".jobsTr() : error.localizedDescription);
         }]);
-        self.appendLearningView([self learningButtonWithTitle:@"② 读取 A / draft.txt" identifier:@"lab.sandboxRead" action:^(UIButton *sender) {
+        self.appendLearningView([self learningButtonWithTitle:@"② 读取 A / draft.txt".jobsTr() identifier:@"lab.sandboxRead" action:^(UIButton *sender) {
             @jobs_strongify(self)
             [self showSandboxForApplication:@"sandbox-A" fileName:@"draft.txt"];
         }]);
-        self.appendLearningView([self learningButtonWithTitle:@"③ 读取 B 的同名文件" identifier:@"lab.sandboxOther" action:^(UIButton *sender) {
+        self.appendLearningView([self learningButtonWithTitle:@"③ 读取 B 的同名文件".jobsTr() identifier:@"lab.sandboxOther" action:^(UIButton *sender) {
             @jobs_strongify(self)
             [self showSandboxForApplication:@"sandbox-B" fileName:@"draft.txt"];
         }]);
-        self.appendLearningView([self learningButtonWithTitle:@"④ 尝试 ../sandbox-A/draft.txt" identifier:@"lab.sandboxEscape" action:^(UIButton *sender) {
+        self.appendLearningView([self learningButtonWithTitle:@"④ 尝试 ../sandbox-A/draft.txt".jobsTr() identifier:@"lab.sandboxEscape" action:^(UIButton *sender) {
             @jobs_strongify(self)
             [self showSandboxForApplication:@"sandbox-B" fileName:@"../sandbox-A/draft.txt"];
         }]);
@@ -72,7 +72,7 @@ Prop_strong()UITextField *sandboxText;
 -(void)showSandboxForApplication:(NSString *)appID fileName:(NSString *)fileName{
     NSError *error;
     NSString *value = [self.sandboxStore readTextForApplication:appID fileName:fileName error:&error];
-    self.reportLearningStatus(value ? [NSString stringWithFormat:@"%@ 读取成功：\n%@", appID, value] : [NSString stringWithFormat:@"%@\n%@\n可返回 A 写入后重新读取。", appID, error.code == NSFileReadNoSuchFileError ? @"无数据：该业务还没有自己的文件" : error.localizedDescription]);
+    self.reportLearningStatus(value ? [NSString stringWithFormat:@"%@ 读取成功：\n%@".jobsTr(), appID, value] : [NSString stringWithFormat:@"%@\n%@\n可返回 A 写入后重新读取。".jobsTr(), appID, error.code == NSFileReadNoSuchFileError ? @"无数据：该业务还没有自己的文件".jobsTr() : error.localizedDescription]);
 }
 
 @end

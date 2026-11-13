@@ -175,7 +175,7 @@ Prop_copy()NSString *currentTitleWritingLottieName;
         @jobs_strongify(self)
         if (!self) return;
         [super viewWillDisappear:animated];
-        self.titleWritingLottieView.stop;
+        [self.titleWritingLottieView stop];
     };
 }
 #pragma mark —— lazyLoad
@@ -227,13 +227,32 @@ Prop_copy()NSString *currentTitleWritingLottieName;
         if (_titleWritingLottieView &&
             [self.currentTitleWritingLottieName isEqualToString:lottieName]) return;
         if (_titleWritingLottieView) {
-            _titleWritingLottieView.stop;
+            [_titleWritingLottieView stop];
             [_titleWritingLottieView removeFromSuperview];
             _titleWritingLottieView = nil;
         }
         self.byCurrentTitleWritingLottieName(lottieName);
         self.titleWritingLottieView.byAlpha(1);
     };
+}
+
+-(void)listDidAppear{
+    self.playTitleWritingLottie();
+#if DEBUG
+    if ([NSProcessInfo.processInfo.arguments containsObject:@"--jobs-coverage-route"]) {
+        self.view.accessibilityIdentifier = @"jobs.coverage.page.JXCategoryPopupSubVC";
+        self.view.accessibilityValue = [@"popupCategory:" stringByAppendingString:self.pageTitle ?: @""];
+    }
+#endif
+}
+
+-(void)listDidDisappear{
+    [self.titleWritingLottieView stop];
+#if DEBUG
+    if ([NSProcessInfo.processInfo.arguments containsObject:@"--jobs-coverage-route"]) {
+        self.view.accessibilityIdentifier = nil;
+    }
+#endif
 }
 
 -(jobsByVoidBlock _Nonnull)playTitleWritingLottie{
@@ -243,7 +262,7 @@ Prop_copy()NSString *currentTitleWritingLottieName;
         if (!self) return;
         self.reloadTitleWritingLottieViewIfNeeded();
         [self.view layoutIfNeeded];
-        self.titleWritingLottieView.stop;
+        [self.titleWritingLottieView stop];
         self.titleWritingLottieView.byAnimationProgress(0);
         self.titleWritingLottieView.byAlpha(1);
         [self.titleWritingLottieView playFromProgress:0
@@ -322,7 +341,7 @@ Prop_copy()NSString *currentTitleWritingLottieName;
 -(void)setPageTitle:(NSString *)pageTitle{
     _pageTitle = pageTitle.copy;
     if (!self.isViewLoaded) return;
-    _titleWritingLottieView.stop;
+    [_titleWritingLottieView stop];
     [_titleWritingLottieView removeFromSuperview];
     _titleWritingLottieView = nil;
     self.currentTitleWritingLottieName = nil;

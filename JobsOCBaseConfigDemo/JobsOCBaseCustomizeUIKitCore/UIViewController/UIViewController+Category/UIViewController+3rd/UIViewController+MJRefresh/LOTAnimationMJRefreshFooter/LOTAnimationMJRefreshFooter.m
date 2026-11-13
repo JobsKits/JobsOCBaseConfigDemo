@@ -65,7 +65,7 @@ Prop_strong()LOTAnimationView *animationView;
         @jobs_strongify(self)
         if (!self) return;
         [super placeSubviews];
-        self.stateLabel.byMj_w(self.stateLabel.mj_textWidth);
+        self.stateLabel.byWidth(self.stateLabel.mj_textWidth);
         self.stateLabel.byCenter(self.mj_w / 2.0 + 15, self.mj_h / 2.0 + 0.0);
         self.animationView.byMj_x(self.stateLabel.mj_x - OffsetBetweenStateLabelAndAnimationView - self.animationView.mj_w);
         self.animationView.byCenterY(self.stateLabel.centerY);

@@ -17,6 +17,25 @@ JobsKey(JobsUIViewLayoutSubviewsRectCornerSizeKey)
 
 @implementation UIView (DSL)
 
+-(JobsRetViewByStringBlock _Nonnull)byAccessibilityValue {
+    @jobs_weakify(self)
+    return ^__kindof UIView *(NSString *value) {
+        @jobs_strongify(self)
+        self.accessibilityValue = value;
+        return self;
+    };
+}
+
+-(JobsRetViewByBOOLBlock _Nonnull)byAccessibilityElement {
+    @jobs_weakify(self)
+    return ^__kindof UIView *(BOOL value) {
+        @jobs_strongify(self)
+        self.isAccessibilityElement = value;
+        return self;
+    };
+}
+
+
 #pragma mark —— Animation / Transition 终止动作
 +(jobsByUIViewAnimationBlock _Nonnull)jobsAnimate{
     return ^(NSTimeInterval duration, jobsByVoidBlock _Nonnull animations){

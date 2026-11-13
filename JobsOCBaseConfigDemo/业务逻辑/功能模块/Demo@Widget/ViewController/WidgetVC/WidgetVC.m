@@ -185,10 +185,10 @@ Prop_strong()UILabel *footnoteLabel;
         }
         self.previewTimeLabel.byText(NSDateFormatter.byDateFormatterWithDateFormat(@"HH:mm:ss")
                                      .byStringFromDate(NSDate.date));
-        self.previewCounterLabel.byText([NSString stringWithFormat:@"今日进度 %ld / 12",(long)self.counter]);
-        self.previewDescriptionLabel.byText(familyText);
+        self.previewCounterLabel.byText([NSString stringWithFormat:@"今日进度 %d / 12".jobsTr(),(int)self.counter]);
+        self.previewDescriptionLabel.byText(familyText.jobsTr());
         self.timelineLabel.byText([NSString stringWithFormat:@"%@ · %@",
-                                   status,
+                                   status.jobsTr(),
                                    NSDateFormatter.byDateFormatterWithDateFormat(@"HH:mm:ss")
                                        .byStringFromDate(NSDate.date)]);
     };
@@ -228,7 +228,7 @@ Prop_strong()UILabel *footnoteLabel;
                                   family:(JobsWidgetDemoFamily)family{
     @jobs_weakify(self)
     return BaseButton.jobsInit()
-        .jobsResetBtnTitle(title)
+        .jobsResetBtnTitle(title.jobsTr())
         .jobsResetBtnTitleFont(UIFontWeightSemiboldSize(14))
         .jobsResetBtnCornerRadiusValue(JobsWidth(8))
         .onClickBy(^(__unused UIButton *sender) {
@@ -272,7 +272,7 @@ Prop_strong()UILabel *footnoteLabel;
     if (!_introLabel) {
         _introLabel = jobsMakeLabel(^(__kindof UILabel * _Nullable label) {
             label
-                .byText(@"宿主联调页：切换 Widget family，修改状态，观察时间线快照如何重新排版。")
+                .byText(@"宿主联调页：切换 Widget family，修改状态，观察时间线快照如何重新排版。".jobsTr())
                 .byTextCor(UIColor.secondaryLabelColor)
                 .byFont(UIFontSystemFontOfSize(14))
                 .byNumberOfLines(0)
@@ -375,7 +375,7 @@ Prop_strong()UILabel *footnoteLabel;
     if (!_previewTitleLabel) {
         _previewTitleLabel = jobsMakeLabel(^(__kindof UILabel * _Nullable label) {
             label
-                .byText(@"演武堂 · 小组件")
+                .byText(@"演武堂 · 小组件".jobsTr())
                 .byTextCor(UIColor.whiteColor)
                 .byFont(UIFontWeightBoldSize(20))
                 .addOn(self.previewCard)
@@ -437,7 +437,7 @@ Prop_strong()UILabel *footnoteLabel;
     if (!_increaseButton) {
         @jobs_weakify(self)
         _increaseButton = BaseButton.jobsInit()
-            .jobsResetBtnTitle(@"计数 +1")
+            .jobsResetBtnTitle(@"计数 +1".jobsTr())
             .jobsResetBtnTitleCor(UIColor.whiteColor)
             .jobsResetBtnTitleFont(UIFontWeightBoldSize(16))
             .jobsResetBtnBgCor(UIColor.systemBlueColor)
@@ -460,7 +460,7 @@ Prop_strong()UILabel *footnoteLabel;
     if (!_refreshButton) {
         @jobs_weakify(self)
         _refreshButton = BaseButton.jobsInit()
-            .jobsResetBtnTitle(@"刷新时间线")
+            .jobsResetBtnTitle(@"刷新时间线".jobsTr())
             .jobsResetBtnTitleCor(UIColor.whiteColor)
             .jobsResetBtnTitleFont(UIFontWeightBoldSize(16))
             .jobsResetBtnBgCor(UIColor.systemPurpleColor)
@@ -499,7 +499,7 @@ Prop_strong()UILabel *footnoteLabel;
     if (!_footnoteLabel) {
         _footnoteLabel = jobsMakeLabel(^(__kindof UILabel * _Nullable label) {
             label
-                .byText(@"已接入真实 Widget Extension 与 App Group。真机运行宿主 App 一次后：回到系统桌面 → 长按空白处 → 点击“+”或“添加小组件” → 搜索“JobsOCBaseConfigDemo”（进入后显示“演武堂 OC 小组件”）→ 选择尺寸并添加。\n\n本页“计数 +1”和“刷新时间线”会重载桌面 Widget；iOS 不允许 App 直接弹出系统小组件库。")
+                .byText(@"已接入真实 Widget Extension 与 App Group。真机运行宿主 App 一次后：回到系统桌面 → 长按空白处 → 点击“+”或“添加小组件” → 搜索“JobsOCBaseConfigDemo”（进入后显示“演武堂 OC 小组件”）→ 选择尺寸并添加。\n\n本页“计数 +1”和“刷新时间线”会重载桌面 Widget；iOS 不允许 App 直接弹出系统小组件库。".jobsTr())
                 .byTextCor(UIColor.secondaryLabelColor)
                 .byFont(UIFontSystemFontOfSize(13))
                 .byNumberOfLines(0)

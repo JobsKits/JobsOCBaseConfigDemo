@@ -52,7 +52,7 @@
         if (!self) return;
         @"Toast 提示已显示".jobsTr().toast();
         self.previewImageView.byImage(@"text.bubble.fill".sys_img);
-        self.previewTitleLab.byText(@"Toast 已显示");
+        self.previewTitleLab.byText(@"Toast 已显示".jobsTr());
         self.updateStatus(@"Toast 能力执行完成");
     };
 }

@@ -95,7 +95,17 @@ Prop_copy()NSString *currentTitleWritingLottieName;
     };
 }
 
--(jobsByVoidBlock _Nonnull)listDidAppear{
+-(void)listDidAppear{
+    self.jobsListDidAppear();
+#if DEBUG
+    if ([NSProcessInfo.processInfo.arguments containsObject:@"--jobs-coverage-route"]) {
+        self.view.accessibilityIdentifier = @"jobs.coverage.page.JXCategoryViewVerticalShowSubBaseVC";
+        self.view.accessibilityValue = [@"verticalCategory:" stringByAppendingString:self.pageTitle ?: @""];
+    }
+#endif
+}
+
+-(jobsByVoidBlock _Nonnull)jobsListDidAppear{
     @jobs_weakify(self)
     return ^{
         @jobs_strongify(self)
@@ -116,8 +126,13 @@ Prop_copy()NSString *currentTitleWritingLottieName;
         @jobs_strongify(self)
         if (!self) return;
         if (!self.isViewLoaded) return;
-        self.titleWritingLottieView.stop;
+        [self.titleWritingLottieView stop];
         self.titleWritingLottieView.byAnimationProgress(0);
+#if DEBUG
+        if ([NSProcessInfo.processInfo.arguments containsObject:@"--jobs-coverage-route"]) {
+            self.view.accessibilityIdentifier = nil;
+        }
+#endif
     };
 }
 #pragma mark —— 一些私有方法
@@ -128,7 +143,7 @@ Prop_copy()NSString *currentTitleWritingLottieName;
         if (!self) return;
         self.reloadTitleWritingLottieViewIfNeeded();
         [self.view layoutIfNeeded];
-        self.titleWritingLottieView.stop;
+        [self.titleWritingLottieView stop];
         self.titleWritingLottieView.byAnimationProgress(0);
         self.titleWritingLottieView.byAlpha(1);
         [self.titleWritingLottieView playFromProgress:0
@@ -165,7 +180,7 @@ Prop_copy()NSString *currentTitleWritingLottieName;
         if (_titleWritingLottieView &&
             [self.currentTitleWritingLottieName isEqualToString:lottieName]) return;
         if (_titleWritingLottieView) {
-            _titleWritingLottieView.stop;
+            [_titleWritingLottieView stop];
             [_titleWritingLottieView removeFromSuperview];
             _titleWritingLottieView = nil;
         }
@@ -218,7 +233,7 @@ Prop_copy()NSString *currentTitleWritingLottieName;
 -(void)setPageTitle:(NSString *)pageTitle{
     _pageTitle = pageTitle.copy;
     if (!self.isViewLoaded) return;
-    _titleWritingLottieView.stop;
+    [_titleWritingLottieView stop];
     [_titleWritingLottieView removeFromSuperview];
     _titleWritingLottieView = nil;
     self.currentTitleWritingLottieName = nil;

@@ -291,7 +291,8 @@ Prop_assign()NSInteger demoLoadMoreCount;
 -(JobsOCCommentView *)commentView{
     if (!_commentView) {
         _commentView = [JobsOCCommentView.alloc initWithConfig:self.jobs_commentConfig()];
-        _commentView.byComments(self.commentArr)
+        _commentView.reloadWithComments(self.commentArr);
+        _commentView
             .addOn(self.view)
             .byAdd(^(MASConstraintMaker *make) {
                 if (self.popupStyle) {

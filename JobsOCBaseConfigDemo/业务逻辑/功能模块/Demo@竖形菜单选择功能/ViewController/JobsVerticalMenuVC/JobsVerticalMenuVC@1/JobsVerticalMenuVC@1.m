@@ -199,12 +199,11 @@ Prop_assign()BOOL searchMode;
         }
         /// 添加新视图控制器
         self.addChildViewController(viewController);
-        viewController.view.byFrame(self.view.bounds);
-        viewController.view.resetOriginX(self.tableView.right);
-        viewController.view.resetOriginY(self.tableView.top);
-        viewController.view.resetWidth(self.view.width - self.tableView.width);
-        viewController.view.resetHeight(self.view.height - self.tableView.top);
-        self.view.addSubview(viewController.view);
+        viewController.view.addOn(self.view).byAdd(^(MASConstraintMaker *make) {
+            make.left.equalTo(self.tableView.mas_right);
+            make.top.equalTo(self.tableView);
+            make.right.bottom.equalTo(self.view);
+        });
         [viewController didMoveToParentViewController:self];
     };
 }

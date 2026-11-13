@@ -8,6 +8,8 @@
 #import <UIKit/UIKit.h>
 #import <QuartzCore/QuartzCore.h>
 #import "JobsDeviceDescription.h"
+#import "JobsDeviceCollectionClient.h"
+#import "JobsDeviceCollectionText.h"
 
 #if __has_include(<Masonry/Masonry.h>)
 #import <Masonry/Masonry.h>

@@ -2,7 +2,7 @@
 //  JobsBtnStyleCVCell.m
 //  JobsOCBaseConfigDemo
 //
-//  Created by Jobs on 2022/6/16.
+//  Created by Jobs on 2022年6月16日，星期四.
 //
 
 #import "JobsBtnStyleCVCell.h"
@@ -125,8 +125,10 @@ AppToolsProtocol_synthesize
         @jobs_strongify(self)
         if(KindOfViewModelCls(model)){
             self.byViewModel(model);
-            if(self.viewModel.textModel.text.isHTMLString ||
-               self.viewModel.subTextModel.text.isHTMLString){
+            NSString *title = self.viewModel.textModel.text;
+            NSString *subtitle = self.viewModel.subTextModel.text;
+            if ((title.length && title.isHTMLString) ||
+                (subtitle.length && subtitle.isHTMLString)) {
                 self.webView.byJobsVisible(YES);
             }else{
                 self.button.byData(model);
@@ -134,8 +136,10 @@ AppToolsProtocol_synthesize
         }
         if(KindOfButtonModelCls(model)){
             self.byButtonModel(model);
-            if(self.buttonModel.title.isHTMLString ||
-               self.buttonModel.subTitle.isHTMLString){
+            NSString *title = self.buttonModel.title;
+            NSString *subtitle = self.buttonModel.subTitle;
+            if ((title.length && title.isHTMLString) ||
+                (subtitle.length && subtitle.isHTMLString)) {
                 self.webView.byJobsVisible(YES);
             }else{
                 self.button.byData(model);

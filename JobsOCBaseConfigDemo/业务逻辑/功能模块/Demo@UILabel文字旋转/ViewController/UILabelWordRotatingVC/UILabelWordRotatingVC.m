@@ -134,7 +134,7 @@ Prop_strong()UILabel *hintLab;
             label
                 .byText(@"文字方向：朝左".jobsTr())
                 .byFont(UIFontWeightRegularSize(JobsWidth(13)))
-                .byTextCor(JobsSecondaryLabelColor)
+                .byTextCor(JobsLabelColor)
                 .byTextAlignment(NSTextAlignmentCenter)
                 .addOn(self.view)
                 .byAdd(^(MASConstraintMaker *make) {

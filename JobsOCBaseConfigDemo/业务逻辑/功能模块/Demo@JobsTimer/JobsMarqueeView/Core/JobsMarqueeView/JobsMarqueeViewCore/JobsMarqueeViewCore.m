@@ -784,11 +784,18 @@ Prop_copy()NSString *timerIdentifier;
         button
             .byCopyCompatibilityFromButton(source)
             .jobsResetBtnTitleFont(source.titleLabel.font)
-            .jobsResetBtnBgCor(source.backgroundColor)
             .byContentHorizontalAlignment(source.contentHorizontalAlignment)
             .byContentVerticalAlignment(source.contentVerticalAlignment)
             .bySemanticContentAttribute(source.semanticContentAttribute)
             .byTintColor(source.tintColor);
+        // 新配置已包含背景；旧 backgroundColor 可能为空，不能覆盖成默认色。
+        if (@available(iOS 15.0, *)) {
+            if (!source.configuration) {
+                button.jobsResetBtnBgCor(source.backgroundColor);
+            }
+        } else {
+            button.jobsResetBtnBgCor(source.backgroundColor);
+        }
         button.titleLabel
             .byTextAlignment(source.titleLabel.textAlignment)
             .byLineBreakMode(source.titleLabel.lineBreakMode);

@@ -7,6 +7,21 @@
 
 #import "AppDelegate+TabBarCtr.h"
 
+@interface UITabBarItem (JobsAppLocalizedTitle)
+
+-(UITabBarItem *)jobs_setLocalizedTitle:(NSString *)title;
+
+@end
+
+@implementation UITabBarItem (JobsAppLocalizedTitle)
+
+-(UITabBarItem *)jobs_setLocalizedTitle:(NSString *)title{
+    self.title = title;
+    return self;
+}
+
+@end
+
 static NSString *const JobsOCDemoListUsesTabBarEntryUserDefaultsKey = @"com.BSports.JobsOCDemoListUsesTabBarEntryUserDefaultsKey";
 
 BOOL JobsOCDemoListUsesTabBarEntry(void) {
@@ -649,7 +664,7 @@ static NSMutableArray <__kindof UINavigationController *>*_navCtrMutArr = nil;
             if (index >= titleArr.count) break;
             NSString *title = titleArr[index];
             JobsTabBarItemConfig *config = AppDelegate.tabBarItemConfigMutArr[index];
-            config.vc.tabBarItem.byTitle(title);
+            [config.vc.tabBarItem jobs_setLocalizedTitle:title];
             if (index < AppDelegate.tabBarItemMutArr.count) {
                 AppDelegate.tabBarItemMutArr[index].jobsResetBtnTitle(title);
             }

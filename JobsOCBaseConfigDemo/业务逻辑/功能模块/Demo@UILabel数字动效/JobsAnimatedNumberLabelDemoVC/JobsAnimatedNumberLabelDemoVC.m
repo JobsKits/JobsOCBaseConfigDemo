@@ -6,9 +6,10 @@
 //
 
 #import "JobsAnimatedNumberLabelDemoVC.h"
-#import <math.h>
 
-@interface JobsAnimatedNumberLabelDemoVC ()
+static NSUInteger const JobsAnimatedNumberMaximumDigits = 15;
+
+@interface JobsAnimatedNumberLabelDemoVC () <UITextFieldDelegate>
 
 Prop_strong()UIView *contentView;
 Prop_strong()UILabel *valueLabel;
@@ -172,6 +173,22 @@ Prop_assign()CGFloat defaultEnd;
     };
 }
 #pragma mark —— Private
+-(BOOL)textField:(UITextField *)textField
+shouldChangeCharactersInRange:(NSRange)range
+replacementString:(NSString *)string{
+    NSString *currentText = textField.text ?: JobsEmpty;
+    if (range.location > currentText.length || range.length > currentText.length - range.location) {
+        return NO;
+    }
+    for (NSUInteger index = 0; index < string.length; index++) {
+        unichar character = [string characterAtIndex:index];
+        if (character < '0' || character > '9') {
+            return NO;
+        }
+    }
+    return currentText.length - range.length + string.length <= JobsAnimatedNumberMaximumDigits;
+}
+
 -(JobsRetStrByStrBlock _Nonnull)jobs_trimmedText{
     @jobs_weakify(self)
     return ^NSString *(NSString * text){
@@ -187,20 +204,16 @@ Prop_assign()CGFloat defaultEnd;
         @jobs_strongify(self)
         if (!self) return nil;
         NSMutableString *result = NSMutableString.string;
-        BOOL hasDot = NO;
-        BOOL hasSign = NO;
         for (NSUInteger idx = 0; idx < text.length; idx++) {
             unichar ch = [text characterAtIndex:idx];
-            if ([[NSCharacterSet decimalDigitCharacterSet] characterIsMember:ch]) {
+            if (ch >= '0' && ch <= '9') {
                 [result appendFormat:@"%C",ch];
-            }else if (ch == '.' && !hasDot) {
-                hasDot = YES;
-                [result appendString:@"."];
-            }else if (ch == '-' && !hasSign && result.length == 0) {
-                hasSign = YES;
-                [result appendString:@"-"];
+                if (result.length == JobsAnimatedNumberMaximumDigits) {
+                    break;
+                }
             }
-        };return result;
+        }
+        return result;
     };
 }
 
@@ -210,10 +223,16 @@ Prop_assign()CGFloat defaultEnd;
         @jobs_strongify(self)
         if (!self) return (BOOL){0};
         NSString *trimmed = self.jobs_trimmedText(text);
-        if (!trimmed.length) return NO;
-        NSScanner *scanner = [NSScanner scannerWithString:trimmed];
-        double value = 0;
-        return [scanner scanDouble:&value] && scanner.isAtEnd;
+        if (!trimmed.length || trimmed.length > JobsAnimatedNumberMaximumDigits) {
+            return NO;
+        }
+        for (NSUInteger index = 0; index < trimmed.length; index++) {
+            unichar character = [trimmed characterAtIndex:index];
+            if (character < '0' || character > '9') {
+                return NO;
+            }
+        }
+        return YES;
     };
 }
 
@@ -228,9 +247,7 @@ Prop_assign()CGFloat defaultEnd;
     return ^NSString *(CGFloat value){
         @jobs_strongify(self)
         if (!self) return nil;
-        if (fabs(value - llround(value)) < 0.0000001) {
-            return [NSString stringWithFormat:@"%lld",(long long)llround(value)];
-        };return [NSString stringWithFormat:@"%g",value];
+        return [NSString stringWithFormat:@"%.0f",value];
     };
 }
 
@@ -239,11 +256,12 @@ Prop_assign()CGFloat defaultEnd;
     return ^(NSString * text){
         @jobs_strongify(self)
         if (!self) return;
+        self.valueLabel.byStopAnimatedTextNumber();
         NSString *trimmed = self.jobs_trimmedText(text ?: JobsEmpty);
         if (!trimmed.length) {
             self.valueLabel.byText(self.jobs_targetTextByValue(self.defaultStart));
         }else if (self.jobs_isNumericText(trimmed)) {
-            self.valueLabel.byText(trimmed);
+            self.valueLabel.byText(self.jobs_targetTextByValue(trimmed.doubleValue));
         }
     };
 }
@@ -254,6 +272,25 @@ Prop_assign()CGFloat defaultEnd;
     NSString *filteredText = self.jobs_numericTextByFilteringText(rawText);
     if (![filteredText isEqualToString:rawText]) textField.byText(filteredText);
     if (syncLabel) self.jobs_syncStartTextToLabel(filteredText);
+}
+
+-(jobsByTextFieldBlock _Nonnull)jobs_bindInputTheme{
+    return ^(UITextField *textField){
+        if (!textField) {
+            return;
+        }
+        // 系统圆角底板和富文本占位都要跟随 App 当前主题。
+        [JobsThemeCenter.shared bindObject:textField
+                                     slot:@"AnimatedNumber.inputTheme"
+                                    apply:^(__kindof UITextField *object, JobsThemeCenter *center) {
+            object
+                .byTextCor(center.resolvedColorForKey(JobsThemeColorKeyTextPrimary))
+                .byPlaceholderColor(center.resolvedColorForKey(JobsThemeColorKeyTextSecondary))
+                .byKeyboardAppearance(center.isDarkMode ? UIKeyboardAppearanceDark : UIKeyboardAppearanceLight)
+                .byOverrideUserInterfaceStyle(center.isDarkMode ? UIUserInterfaceStyleDark : UIUserInterfaceStyleLight)
+                .byBgColor(center.resolvedColorForKey(JobsThemeColorKeyBackgroundSecondary));
+        }];
+    };
 }
 #pragma mark —— LazyLoad
 -(UIView *)contentView{
@@ -322,7 +359,8 @@ Prop_assign()CGFloat defaultEnd;
                 .byFont(UIFontWeightRegularSize(15))
                 .byTextCor(JobsLabelColor)
                 .byTextAlignment(NSTextAlignmentCenter)
-                .byKeyboardType(UIKeyboardTypeNumbersAndPunctuation)
+                .byKeyboardType(UIKeyboardTypeNumberPad)
+                .byDelegate(self)
                 .byReturnKeyType(UIReturnKeyDone)
                 .byClearButtonMode(UITextFieldViewModeWhileEditing)
                 .byBorderStyle(UITextBorderStyleRoundedRect)
@@ -336,7 +374,9 @@ Prop_assign()CGFloat defaultEnd;
                     make.height.mas_equalTo(JobsWidth(48));
                 });
         });
-    };return _startTF;
+        self.jobs_bindInputTheme(_startTF);
+    }
+    return _startTF;
 }
 
 -(UITextField *)endTF{
@@ -347,7 +387,8 @@ Prop_assign()CGFloat defaultEnd;
                 .byFont(UIFontWeightRegularSize(15))
                 .byTextCor(JobsLabelColor)
                 .byTextAlignment(NSTextAlignmentCenter)
-                .byKeyboardType(UIKeyboardTypeNumbersAndPunctuation)
+                .byKeyboardType(UIKeyboardTypeNumberPad)
+                .byDelegate(self)
                 .byReturnKeyType(UIReturnKeyDone)
                 .byClearButtonMode(UITextFieldViewModeWhileEditing)
                 .byBorderStyle(UITextBorderStyleRoundedRect)
@@ -362,7 +403,9 @@ Prop_assign()CGFloat defaultEnd;
                     make.width.equalTo(self.startTF);
                 });
         });
-    };return _endTF;
+        self.jobs_bindInputTheme(_endTF);
+    }
+    return _endTF;
 }
 
 -(UIButton *)startBtn{
@@ -371,9 +414,10 @@ Prop_assign()CGFloat defaultEnd;
         _startBtn = jobsMakeButton(^(__kindof UIButton * _Nullable button) {
             button
                 .jobsResetBtnTitle(@"启动".jobsTr())
-                .jobsResetBtnTitleCor(HEXCOLOR(0xFF375F))
+                .jobsResetBtnTitleCor(UIColor.blackColor)
                 .jobsResetBtnTitleFont(UIFontWeightRegularSize(18))
                 .jobsResetBtnBgCor(HEXCOLOR(0x34C759))
+                .jobsResetBtnCornerRadiusValue(JobsWidth(10))
                 .onClickBy(^(__kindof UIButton * _Nullable button) {
                     weak_self.jobs_startAnimatedNumber();
                 })
@@ -398,9 +442,10 @@ Prop_assign()CGFloat defaultEnd;
         _stopBtn = jobsMakeButton(^(__kindof UIButton * _Nullable button) {
             button
                 .jobsResetBtnTitle(@"停止".jobsTr())
-                .jobsResetBtnTitleCor(HEXCOLOR(0x007AFF))
+                .jobsResetBtnTitleCor(UIColor.blackColor)
                 .jobsResetBtnTitleFont(UIFontWeightRegularSize(18))
                 .jobsResetBtnBgCor(HEXCOLOR(0xFF8A1F))
+                .jobsResetBtnCornerRadiusValue(JobsWidth(10))
                 .onClickBy(^(__kindof UIButton * _Nullable button) {
                     weak_self.jobs_stopAnimatedNumber();
                 })

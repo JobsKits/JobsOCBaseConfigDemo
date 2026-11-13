@@ -201,6 +201,11 @@ Prop_strong()NSMutableArray <__kindof UIViewController *>*childVCMutArr;
     };
 }
 #pragma mark —— JXPagingViewDelegate
+-(UIView *)tableHeaderViewInPagerView:(JXPagerView *)pagerView{
+    JobsRetUIViewByJXPagerViewBlock action = self.tableHeaderViewInPagerView;
+    return action ? action(pagerView) : nil;
+}
+
 -(JobsRetUIViewByJXPagerViewBlock _Nonnull)tableHeaderViewInPagerView{
     @jobs_weakify(self)
     return ^UIView *(JXPagerView * pagerView){
@@ -226,6 +231,11 @@ mainTableViewDidScroll:(UIScrollView *)scrollView{
     [self.collectionHeaderView scrollViewDidScrollWithContentOffsetY:scrollView.contentOffset.y];
 }
 ///
+-(NSUInteger)tableHeaderViewHeightInPagerView:(JXPagerView *)pagerView{
+    JobsRetNSUIntegerByJXPagerViewBlock action = self.tableHeaderViewHeightInPagerView;
+    return action ? action(pagerView) : 0;
+}
+
 -(JobsRetNSUIntegerByJXPagerViewBlock _Nonnull)tableHeaderViewHeightInPagerView{
     @jobs_weakify(self)
     return ^NSUInteger(JXPagerView * pagerView){
@@ -238,6 +248,11 @@ mainTableViewDidScroll:(UIScrollView *)scrollView{
     };
 }
 /// JXCategoryTitleView *categoryView 的高度
+-(NSUInteger)heightForPinSectionHeaderInPagerView:(JXPagerView *)pagerView{
+    JobsRetNSUIntegerByJXPagerViewBlock action = self.heightForPinSectionHeaderInPagerView;
+    return action ? action(pagerView) : 0;
+}
+
 -(JobsRetNSUIntegerByJXPagerViewBlock _Nonnull)heightForPinSectionHeaderInPagerView{
     @jobs_weakify(self)
     return ^NSUInteger(JXPagerView * pagerView){
@@ -247,6 +262,11 @@ mainTableViewDidScroll:(UIScrollView *)scrollView{
     };
 }
 
+-(UIView *)viewForPinSectionHeaderInPagerView:(JXPagerView *)pagerView{
+    JobsRetUIViewByJXPagerViewBlock action = self.viewForPinSectionHeaderInPagerView;
+    return action ? action(pagerView) : nil;
+}
+
 -(JobsRetUIViewByJXPagerViewBlock _Nonnull)viewForPinSectionHeaderInPagerView{
     @jobs_weakify(self)
     return ^UIView *(JXPagerView * pagerView){
@@ -254,6 +274,11 @@ mainTableViewDidScroll:(UIScrollView *)scrollView{
         if (!self) return nil;
         return self.categoryView;
     };
+}
+
+-(NSInteger)numberOfListsInPagerView:(JXPagerView *)pagerView{
+    JobsRetNSIntegerByJXPagerViewBlock action = self.numberOfListsInPagerView;
+    return action ? action(pagerView) : 0;
 }
 
 -(JobsRetNSIntegerByJXPagerViewBlock _Nonnull)numberOfListsInPagerView{
@@ -273,11 +298,12 @@ mainTableViewDidScroll:(UIScrollView *)scrollView{
 -(JXPagerView *)pagerView{
     if (!_pagerView) {
         _pagerView = jobsMakeCategoryPagerView(self);
+        _pagerView.defaultSelectedIndex = 1;
         self.view.addSubview(_pagerView);
-        _pagerView.frame = CGRectMake(0,
-                                      JobsNavigationBarAndStatusBarHeight(nil) + self.getTopLineLabSize().height,
-                                      CGRectGetWidth(self.view.bounds),
-                                      CGRectGetHeight(self.view.bounds));
+        _pagerView.byAdd(^(MASConstraintMaker *make) {
+            make.top.equalTo(self.gk_navigationBar.mas_bottom);
+            make.left.right.bottom.equalTo(self.view);
+        });
         _pagerView.byPinSectionHeaderVerticalOffset(JobsWidth(0));
     };return _pagerView;
 }
@@ -300,10 +326,10 @@ mainTableViewDidScroll:(UIScrollView *)scrollView{
         _categoryView = jobsMakeCategoryTitleView(^(JXCategoryTitleView * _Nullable view) {
             @jobs_strongify(self)
             view
-                .byTitleSelectedColor(JobsWhiteColor)
-                .byTitleColor(JobsWhiteColor)
-                .byTitleFont(UIFontWeightRegularSize(JobsWidth(18)))
-                .byTitleSelectedFont(UIFontWeightRegularSize(JobsWidth(28)))
+                .byTitleSelectedColor(JobsLabelColor)
+                .byTitleColor(JobsSecondaryLabelColor)
+                .byTitleFont([UIFontMetrics.defaultMetrics scaledFontForFont:UIFontWeightRegularSize(16)])
+                .byTitleSelectedFont([UIFontMetrics.defaultMetrics scaledFontForFont:UIFontWeightSemiboldSize(22)])
                 .byTitles(self.titleMutArr)
                 .byTitleColorGradientEnabled(YES)
                 .byIndicators(jobsMakeMutArr(^(__kindof NSMutableArray * _Nullable arr) {
@@ -316,16 +342,11 @@ mainTableViewDidScroll:(UIScrollView *)scrollView{
                     }));
                 }))
                 .byDefaultSelectedIndex(1)
-                .byCellSpacing(JobsWidth(-20))
+                .byCellSpacing(JobsWidth(12))
                 .byListContainer((id<JXCategoryViewListContainer>)self.pagerView.listContainerView)
                 .byDelegate(self)
-                .byBgColor(JobsClearColor)
-                .addOn(self.view)
-                .byAdd(^(MASConstraintMaker *make) {
-                    make.top.equalTo(self.gk_navigationBar.mas_bottom).offset(0);
-                    make.left.right.equalTo(self.view);
-                    make.height.mas_equalTo(listContainerViewDefaultOffset);
-                });[self.view layoutIfNeeded];
+                .byBgColor(JobsSecondarySystemBackgroundColor)
+                .byFrame(CGRectMake(0, 0, CGRectGetWidth(self.view.bounds), listContainerViewDefaultOffset));
         });
     };return _categoryView;
 }

@@ -195,6 +195,12 @@ Prop_strong()NSMutableArray <NSString *>*titleMutArr;
  @param listContainerView 列表的容器视图
  @return list的数量
  */
+// 第三方容器按协议 selector 调用，保留原生入口再转发到 DSL。
+-(NSInteger)numberOfListsInlistContainerView:(JXCategoryListContainerView *)listContainerView{
+    JobsRetNSIntegerByJXCategoryListContainerViewBlock action = self.numberOfListsInlistContainerView;
+    return action ? action(listContainerView) : 0;
+}
+
 -(JobsRetNSIntegerByJXCategoryListContainerViewBlock _Nonnull)numberOfListsInlistContainerView{
     @jobs_weakify(self)
     return ^NSInteger(JXCategoryListContainerView * listContainerView){
@@ -245,9 +251,9 @@ ratio:(CGFloat)ratio {
 -(JXCategoryTitleView *)categoryView{
     if (!_categoryView) {
         _categoryView = JXCategoryTitleView.new;
-        _categoryView.byBgColor(JobsCyanColor);
-        _categoryView.byTitleSelectedColor(JobsRedColor);
-        _categoryView.byTitleColor(JobsRedColor);
+        _categoryView.byBgColor(JobsSecondarySystemBackgroundColor);
+        _categoryView.byTitleSelectedColor(JobsLabelColor);
+        _categoryView.byTitleColor(JobsSecondaryLabelColor);
 //        _categoryView.titleFont = UIFontWeightRegularSize(16);
 //        _categoryView.titleSelectedFont = UIFontWeightBoldSize(16);
         _categoryView.byDelegate(self);
@@ -275,7 +281,7 @@ ratio:(CGFloat)ratio {
 -(JXCategoryIndicatorLineView *)lineView{
     if (!_lineView) {
         _lineView = JXCategoryIndicatorLineView.new;
-        _lineView.byIndicatorColor(JobsWhiteColor);
+        _lineView.byIndicatorColor(JobsSystemBlueColor);
         _lineView.byIndicatorHeight(JobsWidth(4));
         _lineView.byIndicatorWidthIncrement(JobsWidth(10));
         _lineView.byVerticalMargin(0);

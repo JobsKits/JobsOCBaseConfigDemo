@@ -80,6 +80,10 @@
 #import "UINavigationController+DSL.h"
 #import "JobsSystemAPIDSLSupplement.h"
 
+#if __has_include(<lottie-ios/Lottie.h>) || __has_include("Lottie.h")
+#import "LOTAnimationView+DSL.h"
+#endif
+
 #if __has_include(<FSCalendar/FSCalendar.h>)
 #import "FSCalendar+DSL.h"
 #endif

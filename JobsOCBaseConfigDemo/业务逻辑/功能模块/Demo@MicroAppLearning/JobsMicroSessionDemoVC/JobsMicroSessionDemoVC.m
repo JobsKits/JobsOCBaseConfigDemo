@@ -33,13 +33,13 @@ Prop_assign()NSInteger readGeneration;
 
 -(JobsRetStrByVoidBlock _Nonnull)learningTitle{
     return ^NSString *{
-        return @"多账户 / 会话隔离";
+        return @"多账户 / 会话隔离".jobsTr();
     };
 }
 
 -(JobsRetStrByVoidBlock _Nonnull)learningIntroduction{
     return ^NSString *{
-        return @"两个账户各有独立 Web Cookie 仓库和原生存储目录。先写 A，再切 B 读取；退出重进后原生记录仍在，临时 Web 会话会重置。";
+        return @"两个账户各有独立 Web Cookie 仓库和原生存储目录。先写 A，再切 B 读取；退出重进后原生记录仍在，临时 Web 会话会重置。".jobsTr();
     };
 }
 
@@ -55,25 +55,25 @@ Prop_assign()NSInteger readGeneration;
             [WKWebView jobsMicroWebViewWithStore:WKWebsiteDataStore.nonPersistentDataStore handler:nil],
             [WKWebView jobsMicroWebViewWithStore:WKWebsiteDataStore.nonPersistentDataStore handler:nil]
         ];
-        self->_sessionIdentity = [self learningLabelWithText:@"当前账户：A" secondary:NO];
+        self->_sessionIdentity = [self learningLabelWithText:@"当前账户：A".jobsTr() secondary:NO];
         self.appendLearningView(self.sessionIdentity);
-        self.appendLearningView([self learningButtonWithTitle:@"切换到账户 A" identifier:@"lab.sessionA" action:^(UIButton *sender) {
+        self.appendLearningView([self learningButtonWithTitle:@"切换到账户 A".jobsTr() identifier:@"lab.sessionA" action:^(UIButton *sender) {
             @jobs_strongify(self)
             self->_currentSession = 0;
-            self.sessionIdentity.byText(@"当前账户：A");
+            self.sessionIdentity.byText(@"当前账户：A".jobsTr());
             self.readSessionSnapshot();
         }]);
-        self.appendLearningView([self learningButtonWithTitle:@"切换到账户 B" identifier:@"lab.sessionB" action:^(UIButton *sender) {
+        self.appendLearningView([self learningButtonWithTitle:@"切换到账户 B".jobsTr() identifier:@"lab.sessionB" action:^(UIButton *sender) {
             @jobs_strongify(self)
             self->_currentSession = 1;
-            self.sessionIdentity.byText(@"当前账户：B");
+            self.sessionIdentity.byText(@"当前账户：B".jobsTr());
             self.readSessionSnapshot();
         }]);
-        self.appendLearningView([self learningButtonWithTitle:@"写入当前账户 +1 / Cookie" identifier:@"lab.sessionWrite" action:^(UIButton *sender) {
+        self.appendLearningView([self learningButtonWithTitle:@"写入当前账户 +1 / Cookie".jobsTr() identifier:@"lab.sessionWrite" action:^(UIButton *sender) {
             @jobs_strongify(self)
             self.writeSessionSnapshot();
         }]);
-        self.appendLearningView([self learningButtonWithTitle:@"读取当前账户（验证隔离）" identifier:@"lab.sessionRead" action:^(UIButton *sender) {
+        self.appendLearningView([self learningButtonWithTitle:@"读取当前账户（验证隔离）".jobsTr() identifier:@"lab.sessionRead" action:^(UIButton *sender) {
             @jobs_strongify(self)
             self.readSessionSnapshot();
         }]);
@@ -124,20 +124,20 @@ Prop_assign()NSInteger readGeneration;
         }
         NSInteger generation = ++self->_readGeneration;
         NSString *account = self.sessionName();
-        NSString *count = [self.sessionStore readTextForApplication:account fileName:@"counter.txt" error:nil] ?: @"0（无数据，可点击写入）";
+        NSString *count = [self.sessionStore readTextForApplication:account fileName:@"counter.txt" error:nil] ?: @"0（无数据，可点击写入）".jobsTr();
         WKHTTPCookieStore *cookies = self.sessionWebViews[self.currentSession].configuration.websiteDataStore.httpCookieStore;
         [cookies getAllCookies:^(NSArray<NSHTTPCookie *> *allCookies) {
             @jobs_strongify(self)
             if (!self || generation != self.readGeneration) {
                 return;
             }
-            NSString *value = @"空（未写入）";
+            NSString *value = @"空（未写入）".jobsTr();
             for (NSHTTPCookie *cookie in allCookies) {
                 if ([cookie.name isEqualToString:@"learning_session"]) {
                     value = cookie.value;
                 }
             }
-            self.reportLearningStatus([NSString stringWithFormat:@"账户：%@\n原生计数：%@\nWeb Cookie：%@\n独立目录：Tenants/%@/", account, count, value, account]);
+            self.reportLearningStatus([NSString stringWithFormat:@"账户：%@\n原生计数：%@\nWeb Cookie：%@\n独立目录：Tenants/%@/".jobsTr(), account, count, value, account]);
         }];
     };
 }

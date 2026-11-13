@@ -110,6 +110,8 @@
 			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
 			membershipExceptions = (
 				"/Localized: 其他/资源文件管理/storyboard/LaunchScreen.storyboard",
+				"/Localized: 其他/资源文件管理/语言包/Localizable.strings",
+				"/Localized: 其他/资源文件管理/语言包/InfoPlist.strings",
 				"🔨Manual_Add_ThirdParty（按需引入）/弹出的日历选择页面/JobsCalenderView.m",
 				"🔨Manual_Add_ThirdParty（按需引入）/电影倒计时特效/MovieCountDown.m",
 				"🔨Manual_Add_ThirdParty（按需引入）/加密体系/加密（编码）算法/非对称加密RSA/RSAUtil.m",
@@ -380,6 +382,10 @@
 				"业务逻辑/功能模块/Demo@自定义UITableViewCell内置控件距离并添加复制按钮/View/订单详情Cell/BaiShaETProjOrderDetailsCVCell/BaiShaETProjOrderDetailsCVCell.m",
 				"业务逻辑/功能模块/Demo@自定义UITableViewCell内置控件距离并添加复制按钮/ViewController/CustomTableViewCellVC/CustomTableViewCellVC.m",
 				"业务逻辑/功能模块/Demo@App图标切换/ViewController/AppIconSwitchingVC/AppIconSwitchingVC.m",
+				"业务逻辑/功能模块/Demo@ARKit/JobsARKitDemoVC/JobsARKitDemoVC.m",
+				"业务逻辑/功能模块/Demo@ARKit/JobsARKitScene/JobsARKitScene.m",
+				"业务逻辑/功能模块/Demo@ARKit/JobsARKitText/JobsARKitText.m",
+				"业务逻辑/功能模块/Demo@ARKit/Resource/JobsARKit.json",
 				"业务逻辑/功能模块/Demo@CoreMotion/JobsCoreMotionDemoVC/JobsCoreMotionDemoVC.m",
 				"业务逻辑/功能模块/Demo@CoreTextLearning/CoreTextLearningCore/NotifiManager/NotifiManager.m",
 				"业务逻辑/功能模块/Demo@CoreTextLearning/CoreTextLearningCore/NotifiOperation/NotifiOperation.m",
@@ -457,6 +463,8 @@
 				"业务逻辑/功能模块/Demo@JobsComment/Outlines/JobsComment【OutLines 05】.png",
 				"业务逻辑/功能模块/Demo@JobsDebugPanel/JobsDebugPanelDemoVC/JobsDebugPanelDemoVC.m",
 				"业务逻辑/功能模块/Demo@JobsDebugPanel/JobsDebugPanelProbeRequest/JobsDebugPanelProbeRequest.m",
+				"业务逻辑/功能模块/Demo@JobsDeviceDescription/JobsDeviceCollectionClient/JobsDeviceCollectionClient.m",
+				"业务逻辑/功能模块/Demo@JobsDeviceDescription/JobsDeviceCollectionText/JobsDeviceCollectionText.m",
 				"业务逻辑/功能模块/Demo@JobsDeviceDescription/JobsDeviceDescription/JobsDeviceDescription.m",
 				"业务逻辑/功能模块/Demo@JobsDeviceDescription/JobsDeviceInfoItem/JobsDeviceInfoItem.m",
 				"业务逻辑/功能模块/Demo@JobsDeviceDescription/JobsUserInfoVC/JobsUserInfoVC.m",
@@ -1251,6 +1259,7 @@
 				"JobsOCBaseCustomizeUIKitCore/WKWebView/WKWebView+Extra/WKWebView+Extra.m",
 				"JobsOCBaseCustomizeUIKitCore/WKWebViewConfiguration/WKWebViewConfiguration+Extra.m",
 				"JobsOCDSL/3rd/FSCalendar+DSL/FSCalendar+DSL/FSCalendar+DSL.m",
+				"JobsOCDSL/3rd/LOTAnimationView+DSL/LOTAnimationView+DSL.m",
 				"JobsOCDSL/3rd/GKNavigationBar+DSL/GKGestureHandleConfigure/GKGestureHandleConfigure+DSL/GKGestureHandleConfigure+DSL.m",
 				"JobsOCDSL/3rd/GKNavigationBar+DSL/GKNavigationBarConfigure/GKNavigationBarConfigure+DSL/GKNavigationBarConfigure+DSL.m",
 				"JobsOCDSL/3rd/GKNavigationBar+DSL/UIViewController/UIViewController+GKNavigationBarDSL/UIViewController+GKNavigationBarDSL.m",
@@ -1330,6 +1339,8 @@
 				"JobsOCDSL/UIKit/UIView+DSLs/UIView+Gesture/UIView+Gesture/UIView+Gesture.m",
 				"JobsOCDSL/UserNotifications/UNNotificationSound+DSL/UNNotificationSound+DSL.m",
 				"OCBaseConfig/JobsBlock/Core/Tools/NSObject+CallBackInfoByBlock/NSObject+CallBackInfoByBlock.m",
+				"OCBaseConfig/JobsMixFunc/JobsNavigationTransitionMgr/JobsPresentTransitionMgr/JobsPresentTransitionMgr.m",
+				"OCBaseConfig/JobsMixFunc/JobsNavigationTransitionMgr/UIViewController+JobsPresentTransition/UIViewController+JobsPresentTransition.m",
 				"OCBaseConfig/JobsMixFunc/播放器控制层/CustomZFPlayerControlView/CustomZFPlayerControlView.m",
 				"OCBaseConfig/JobsMixFunc/播放器控制层/ZFCustomControlView/ZFCustomControlView.m",
 				"OCBaseConfig/JobsMixFunc/分享弹窗/分享弹窗.jpg",
@@ -2296,6 +2307,13 @@
 				fil,
 				"fil-PH",
 				"zh-Hant",
+				"bo",
+				"ja",
+				"fr",
+				"es",
+				"de",
+				"ru",
+				"ko",
 			);
 			mainGroup = C55C79542E16748E00B56985;
 			preferredProjectObjectVersion = 77;
@@ -2689,7 +2707,7 @@
 				INFOPLIST_KEY_NSBluetoothAlwaysUsageDescription = "用于扫描、连接并与附近的 BLE 设备交换数据。";
 				INFOPLIST_KEY_NSBluetoothPeripheralUsageDescription = "用于兼容旧系统访问附近的 BLE 设备。";
 				INFOPLIST_KEY_NSCalendarsUsageDescription = "";
-				INFOPLIST_KEY_NSCameraUsageDescription = "需要访问相机以录制视频。";
+				INFOPLIST_KEY_NSCameraUsageDescription = "需要访问相机以体验 ARKit 增强现实、检测平面和录制视频。";
 				INFOPLIST_KEY_NSContactsUsageDescription = "";
 				INFOPLIST_KEY_NSFaceIDUsageDescription = "";
 				INFOPLIST_KEY_NSHealthShareUsageDescription = "";
@@ -2792,7 +2810,7 @@
 				INFOPLIST_KEY_NSBluetoothAlwaysUsageDescription = "用于扫描、连接并与附近的 BLE 设备交换数据。";
 				INFOPLIST_KEY_NSBluetoothPeripheralUsageDescription = "用于兼容旧系统访问附近的 BLE 设备。";
 				INFOPLIST_KEY_NSCalendarsUsageDescription = "";
-				INFOPLIST_KEY_NSCameraUsageDescription = "需要访问相机以录制视频。";
+				INFOPLIST_KEY_NSCameraUsageDescription = "需要访问相机以体验 ARKit 增强现实、检测平面和录制视频。";
 				INFOPLIST_KEY_NSContactsUsageDescription = "";
 				INFOPLIST_KEY_NSFaceIDUsageDescription = "";
 				INFOPLIST_KEY_NSHealthShareUsageDescription = "";

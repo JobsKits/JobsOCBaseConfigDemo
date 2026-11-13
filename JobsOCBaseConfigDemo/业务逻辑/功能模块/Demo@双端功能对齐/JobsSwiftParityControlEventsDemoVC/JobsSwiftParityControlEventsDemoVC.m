@@ -68,7 +68,7 @@ Prop_assign()NSUInteger controlEventCount;
         @jobs_strongify(self)
         if (!self) return;
         self.previewImageView.byHidden(YES);
-        self.previewTitleLab.byText(@"TouchDown 仅响应一次\nTouchUpInside 持续累计");
+        self.previewTitleLab.byText(@"TouchDown 仅响应一次\nTouchUpInside 持续累计".jobsTr());
         self.eventBtn.byHidden(NO);
     };
 }
@@ -101,7 +101,7 @@ Prop_assign()NSUInteger controlEventCount;
     if (!_eventBtn) {
         _eventBtn = jobsMakeButton(^(__kindof UIButton * _Nullable button) {
             button
-                .jobsResetBtnTitle(@"事件接收器")
+                .jobsResetBtnTitle(@"事件接收器".jobsTr())
                 .jobsResetBtnTitleFont(UIFontWeightSemiboldSize(15))
                 .jobsResetBtnTitleCor(UIColor.whiteColor)
                 .jobsResetBtnBgCor(HEXCOLOR(0x0891B2))

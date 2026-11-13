@@ -21,11 +21,109 @@ static NSBundle *GXCardViewDemoResourceBundle(void) {
     return classBundle ?: NSBundle.mainBundle;
 }
 
+static void GXCardViewDemoStyleCell(GXCardItemDemoCell *cell, NSInteger index, NSInteger count) {
+    if (![cell viewWithTag:60113]) {
+        // 仅在宿主 Demo 中替换旧 Nib 的占位内容，保留第三方卡片与手势实现。
+        UILabel *numberLabel = cell.numberLabel;
+        UILabel *leftLabel = cell.leftLabel;
+        UILabel *rightLabel = cell.rightLabel;
+        [NSLayoutConstraint deactivateConstraints:cell.constraints];
+        for (UIView *subview in cell.subviews.copy) {
+            [subview removeFromSuperview];
+        }
+        for (UILabel *label in @[numberLabel, leftLabel, rightLabel]) {
+            [NSLayoutConstraint deactivateConstraints:label.constraints];
+            label.byBgColor(UIColor.clearColor);
+            label.byTextCor(JobsLabelColor);
+            label.byFont([UIFont preferredFontForTextStyle:UIFontTextStyleSubheadline]);
+            label.byAdjustsFontForContentSizeCategory(YES);
+        }
+        UILabel *brand = jobsMakeLabel(^(__kindof UILabel *label) {
+            label.byText(@"GXCard").byTextCor(JobsSystemBlueColor);
+            label.byFont([UIFont preferredFontForTextStyle:UIFontTextStyleHeadline]);
+            label.byAdjustsFontForContentSizeCategory(YES);
+        });
+        numberLabel.byTextCor(JobsLabelColor);
+        UIStackView *heading = jobsMakeStackView(^(__kindof UIStackView *stack) {
+            stack.byAxis(UILayoutConstraintAxisHorizontal).byAlignment(UIStackViewAlignmentCenter);
+            [stack addArrangedSubview:brand];
+            [stack addArrangedSubview:jobsMakeView(^(__kindof UIView *view) {})];
+            [stack addArrangedSubview:numberLabel];
+        });
+        UIImageView *symbol = jobsMakeImageView(^(__kindof UIImageView *view) {
+            view.byImage([UIImage systemImageNamed:@"rectangle.stack.fill"]);
+            view.byTintColor(JobsSystemBlueColor).byContentMode(UIViewContentModeScaleAspectFit);
+        });
+        [symbol mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.height.mas_equalTo(64);
+        }];
+        UILabel *title = jobsMakeLabel(^(__kindof UILabel *label) {
+            label.byText(@"GXCard 式滑动卡片堆".jobsTr()).byTextCor(JobsLabelColor);
+            label.byFont([UIFont preferredFontForTextStyle:UIFontTextStyleTitle2]);
+            label.byNumberOfLines(0).byTextAlignment(NSTextAlignmentCenter);
+            label.byAdjustsFontForContentSizeCategory(YES);
+        });
+        UILabel *detail = jobsMakeLabel(^(__kindof UILabel *label) {
+            label.byText(@"卡片式布局(探探附近/QQ配对)，可以设置卡片堆叠效果，可以设置循环效果".jobsTr());
+            label.byTextCor(JobsLabelColor);
+            label.byFont([UIFont preferredFontForTextStyle:UIFontTextStyleBody]);
+            label.byNumberOfLines(0).byTextAlignment(NSTextAlignmentCenter);
+            label.byAdjustsFontForContentSizeCategory(YES);
+        });
+        UILabel *hint = jobsMakeLabel(^(__kindof UILabel *label) {
+            label.byText(@"可拖动".jobsTr()).byTextCor(JobsLabelColor);
+            label.byFont([UIFont preferredFontForTextStyle:UIFontTextStyleSubheadline]);
+            label.byTextAlignment(NSTextAlignmentCenter).byAdjustsFontForContentSizeCategory(YES);
+        });
+        UIView *topSpace = jobsMakeView(^(__kindof UIView *view) {});
+        UIView *bottomSpace = jobsMakeView(^(__kindof UIView *view) {});
+        UIStackView *content = jobsMakeStackView(^(__kindof UIStackView *stack) {
+            stack.byAxis(UILayoutConstraintAxisVertical).bySpacing(20);
+            stack.tag = 60113;
+            [stack addArrangedSubview:heading];
+            [stack addArrangedSubview:topSpace];
+            [stack addArrangedSubview:symbol];
+            [stack addArrangedSubview:title];
+            [stack addArrangedSubview:detail];
+            [stack addArrangedSubview:hint];
+            [stack addArrangedSubview:bottomSpace];
+        });
+        content.addOn(cell).byAdd(^(MASConstraintMaker *make) {
+            make.edges.equalTo(cell).insets(UIEdgeInsetsMake(24, 24, 24, 24));
+        });
+        [topSpace mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.height.equalTo(bottomSpace);
+        }];
+        for (UILabel *label in @[leftLabel, rightLabel]) {
+            label.byTextCor(JobsSystemBlueColor).byHidden(YES).addOn(cell);
+            label.byFont([UIFont preferredFontForTextStyle:UIFontTextStyleHeadline]);
+        }
+        leftLabel.byText(@"右".jobsTr()).byAdd(^(MASConstraintMaker *make) {
+            make.leading.equalTo(cell).offset(24);
+            make.top.equalTo(cell).offset(70);
+        });
+        rightLabel.byText(@"左".jobsTr()).byAdd(^(MASConstraintMaker *make) {
+            make.trailing.equalTo(cell).offset(-24);
+            make.top.equalTo(cell).offset(70);
+        });
+    }
+    cell.byBgColor(JobsSecondarySystemGroupedBackgroundColor);
+    cell.layer.byCornerRadius(24).byBorderWidth(0);
+    cell.layer.byShadowColor(UIColor.blackColor.CGColor)
+        .byShadowOpacity(0.08)
+        .byShadowOffset(CGSizeMake(0, 8))
+        .byShadowRadius(18);
+    cell.numberLabel.byText([NSString stringWithFormat:@"%02ld / %ld", (long)index + 1, (long)count]);
+    cell.leftLabel.byHidden(YES);
+    cell.rightLabel.byHidden(YES);
+}
+
 @interface GXCardViewDemoVC ()
 
 /// UI
 //@property(nonatomic,weak)IBOutlet GXCardView *cardView;
 Prop_strong()GXCardView *cardView;
+Prop_strong()UIStackView *actionsStack;
 Prop_assign()NSInteger cellCount;
 
 @end
@@ -191,16 +289,14 @@ Prop_assign()NSInteger cellCount;
             //        self.viewModel.textModel.text = @"GXCardViewDemo".jobsTr();
             .byTextModelBlock(^(__kindof UITextModel * _Nullable data) {
                 data
-                    .byText(data.attributedTitle.string)
+                    .byAttributedTitle(nil)
+                    .byText(@"GXCard 式滑动卡片堆".jobsTr())
                     .byFont(UIFontWeightRegularSize(16));
             })
-            // 使用原则：底图有 + 底色有 = 优先使用底图数据
-            // 以下2个属性的设置，涉及到的UI结论 请参阅父类（BaseViewController）的私有方法：-(void)setBackGround
-            // self.viewModel.bgImage = @"内部招聘导航栏背景图".img;
-            .byBgCor(RGBA_COLOR(255, 238, 221, 1))
-            //    self.viewModel.bgImage = @"启动页SLOGAN".img;
-            .byNavBgCor(RGBA_COLOR(255, 238, 221, 1))
-            .byNavBgImage(@"导航栏左侧底图".img);    self.cellCount = 10;
+            .byBgCor(JobsSecondarySystemBackgroundColor)
+            .byNavBgCor(JobsSystemBackgroundColor)
+            .byNavBgImage(nil);
+        self.cellCount = 10;
     };
 }
 
@@ -216,7 +312,9 @@ Prop_assign()NSInteger cellCount;
         if (!self) return;
         [super viewDidLoad];
         self.makeNavByAlpha(1);
-        self.view.byBgColor(JobsSystemBackgroundColor);
+        self.byGKNavTitle(@"GXCard 式滑动卡片堆".jobsTr());
+        self.view.byBgColor(JobsSecondarySystemBackgroundColor);
+        self.actionsStack.byAlpha(1);
         self.cardView.byAlpha(1);
     };
 }
@@ -311,21 +409,12 @@ Prop_assign()NSInteger cellCount;
 - (GXCardViewCell *)cardView:(GXCardView *)cardView
            cellForRowAtIndex:(NSInteger)index {
     GXCardItemDemoCell *cell = [cardView dequeueReusableCellWithIdentifier:@"GXCardViewCell"];
-    cell.byBgColor(JobsYellowColor);
-    cell.numberLabel.byText([NSString stringWithFormat:@"%ld", (long)index]);
-    cell.leftLabel.byHidden(YES);
-    cell.rightLabel.byHidden(YES);
-    cell.layer.byCornerRadius(12.0);
+    GXCardViewDemoStyleCell(cell, index, self.cellCount);
     return cell;
 }
 
--(JobsRetNSIntegerByUITableViewBlock _Nonnull)numberOfCountInCardView{
-    @jobs_weakify(self)
-    return ^NSInteger(UITableView * cardView){
-        @jobs_strongify(self)
-        if (!self) return (NSInteger){0};
-        return self.cellCount;
-    };
+-(NSInteger)numberOfCountInCardView:(GXCardView *)cardView{
+    return self.cellCount;
 }
 #pragma mark —— GXCardViewDelegate
 - (void)cardView:(GXCardView *)cardView
@@ -397,6 +486,58 @@ didRemoveLastCell:(GXCardViewCell *)cell
     };
 }
 #pragma mark —— lazyLoad
+-(UIStackView *)actionsStack{
+    if (!_actionsStack) {
+        @jobs_weakify(self)
+        UIButton *left = UIButton.initByType(UIButtonTypeSystem)
+            .byTitle(@"左".jobsTr())
+            .byTitleCor(JobsLabelColor);
+        UIButton *reset = UIButton.initByType(UIButtonTypeSystem)
+            .byTitle(@"重置".jobsTr())
+            .byTitleCor(JobsLabelColor);
+        UIButton *right = UIButton.initByType(UIButtonTypeSystem)
+            .byTitle(@"右".jobsTr())
+            .byTitleCor(UIColor.whiteColor);
+        left.byAddTarget(self, @selector(leftButtonClick:), UIControlEventTouchUpInside);
+        right.byAddTarget(self, @selector(rightButtonClick:), UIControlEventTouchUpInside);
+        reset.onJobsTap(^(__kindof UIControl *control) {
+            @jobs_strongify(self)
+            if (!self) return;
+            self.byCellCount(10);
+            [self.cardView reloadDataAnimated:YES];
+        });
+        left.byBgColor(JobsSecondarySystemGroupedBackgroundColor);
+        reset.byBgColor(JobsSecondarySystemGroupedBackgroundColor);
+        right.byBgColor(JobsSystemIndigoColor);
+        left.accessibilityIdentifier = @"jobs.gxcard.left";
+        reset.accessibilityIdentifier = @"jobs.gxcard.reset";
+        right.accessibilityIdentifier = @"jobs.gxcard.right";
+        for (UIButton *button in @[left, reset, right]) {
+            button.layer.byCornerRadius(14);
+            button.byTitleFont([UIFont preferredFontForTextStyle:UIFontTextStyleHeadline]);
+            button.titleLabel.byAdjustsFontForContentSizeCategory(YES);
+            [button mas_makeConstraints:^(MASConstraintMaker *make) {
+                make.height.greaterThanOrEqualTo(@50);
+            }];
+        }
+        _actionsStack = jobsMakeStackView(^(__kindof UIStackView *stack) {
+            stack.byAxis(UILayoutConstraintAxisHorizontal);
+            stack.byDistribution(UIStackViewDistributionFillEqually).bySpacing(12);
+            [stack addArrangedSubview:left];
+            [stack addArrangedSubview:reset];
+            [stack addArrangedSubview:right];
+        }).addOn(self.view).byAdd(^(MASConstraintMaker *make) {
+            make.centerX.equalTo(self.view);
+            make.width.equalTo(self.view).offset(-48).priorityHigh();
+            make.width.lessThanOrEqualTo(@480);
+            make.leading.greaterThanOrEqualTo(self.view).offset(24);
+            make.trailing.lessThanOrEqualTo(self.view).offset(-24);
+            make.bottom.lessThanOrEqualTo(self.view.mas_safeAreaLayoutGuideBottom).offset(-24);
+        });
+    }
+    return _actionsStack;
+}
+
 -(GXCardView *)cardView{
     if (!_cardView) {
         _cardView = GXCardView.new
@@ -415,7 +556,15 @@ didRemoveLastCell:(GXCardViewCell *)cell
             })
             .addOn(self.view)
             .byAdd(^(MASConstraintMaker *make) {
-                make.edges.equalTo(self.view);
+                make.centerX.equalTo(self.view);
+                make.width.equalTo(self.view).offset(-48).priorityHigh();
+                make.width.lessThanOrEqualTo(@480);
+                make.leading.greaterThanOrEqualTo(self.view).offset(24);
+                make.trailing.lessThanOrEqualTo(self.view).offset(-24);
+                make.top.equalTo(self.view).offset(JobsNavigationBarAndStatusBarHeight(nil) + 40);
+                make.height.equalTo(self.view).multipliedBy(0.58).priorityHigh();
+                make.height.lessThanOrEqualTo(@560);
+                make.bottom.equalTo(self.actionsStack.mas_top).offset(-36);
             });
     }
 #if DEBUG

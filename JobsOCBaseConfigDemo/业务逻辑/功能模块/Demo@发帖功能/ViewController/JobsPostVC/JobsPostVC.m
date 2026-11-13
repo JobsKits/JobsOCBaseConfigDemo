@@ -11,7 +11,6 @@
 @interface JobsPostVC (){
 
     CGFloat JobsPostDelViewHeight;
-    BOOL postDeleteVisible;
 }
 /// UI
 Prop_strong()HXPhotoView *postPhotoView; // 展示选择的图片
@@ -37,7 +36,7 @@ Prop_strong()UITextModel *postTextModel;
 @end
 
 // JOBS_PROPERTY_DSL_SETTER_DECLARATION_AUTOGEN_BEGIN JobsPostVC
-@interface JobsPostVC (JobsPropertyDSLSetterAutogen_e78d1e9e6a)
+@interface JobsPostVC (JobsPropertyDSLSetterAutogen_20e58142c1)
 -(void)setFd_interactivePopDisabled:(BOOL)data;
 -(void)setHistoryPhotoDataArr:(NSArray <HXPhotoModel *>* _Nullable)data;
 -(void)setInputDataString:(NSString * _Nullable)data;
@@ -91,6 +90,7 @@ Prop_strong()UITextModel *postTextModel;
             .byNavBgCor(RGBA_COLOR(255, 238, 221, 1))
             .byNavBgImage(@"导航栏左侧底图".img);
         {
+            JobsPostDelViewHeight = JobsPostDelView.viewSizeByModel(nil).height;
             if (!JobsOCCoverageGestureProbeEnabled()) {
                 self.byHistoryPhotoDataArr([self.photoManager getLocalModelsInFileWithAddData:YES]);
                 if (isValue(((JobsUserModel *)JobsUserModel.jobsSharedManager()).postDraftURLStr)) {
@@ -149,15 +149,7 @@ Prop_strong()UITextModel *postTextModel;
     return ^{
         @jobs_strongify(self)
         if (!self) return;
-        [super viewWillLayoutSubviews];
-        CGFloat deleteHeight = JobsWidth(50) + self.view.safeAreaInsets.bottom;
-        if (_postDelView && JobsPostDelViewHeight != deleteHeight) {
-            JobsPostDelViewHeight = deleteHeight;
-            _postDelView.byUpdate(^(MASConstraintMaker *make) {
-                make.height.mas_equalTo(deleteHeight);
-                make.bottom.equalTo(self.view).offset(self->postDeleteVisible ? 0 : deleteHeight);
-            });
-        }
+            [super viewWillLayoutSubviews];
         //    if (!self.historyPhotoDataArr.count) {
         //        HXPhotoSubViewCell *cell = (HXPhotoSubViewCell *)[self.postPhotoView.collectionView cellForItemAtIndexPath:[NSIndexPath indexPathForItem:0 inSection:0]];
         //        if (cell) {
@@ -401,17 +393,11 @@ currentDeleteModel:(HXPhotoModel *)model
 - (void)photoView:(HXPhotoView *)photoView
 gestureRecognizerBegan:(UILongPressGestureRecognizer *)longPgr
         indexPath:(NSIndexPath *)indexPath{
-    JobsPostDelView *deleteView = self.postDelView;
-    self.view.byLayoutIfNeeded();
-    postDeleteVisible = YES;
-    deleteView.byUpdate(^(MASConstraintMaker *make) {
-        make.bottom.equalTo(self.view);
-    });
     @jobs_weakify(self)
     UIView.jobsAnimate(0.25f,
         ^{
         @jobs_strongify(self)
-        self.view.byLayoutIfNeeded();
+        self.postDelView.byY(JobsMainScreen_HEIGHT() - self->JobsPostDelViewHeight);
     });
 }
 
@@ -419,26 +405,22 @@ gestureRecognizerBegan:(UILongPressGestureRecognizer *)longPgr
 gestureRecognizerChange:(UILongPressGestureRecognizer *)longPgr
         indexPath:(NSIndexPath *)indexPath {
     CGPoint point = [longPgr locationInView:self.view];
-    self.postDelView.jobsRichViewByModel(@(CGRectContainsPoint(self.postDelView.frame, point)));
+    self.postDelView.jobsRichViewByModel(@(point.y >= self.postDelView.hx_y));
 }
 
 - (void)photoView:(HXPhotoView *)photoView
 gestureRecognizerEnded:(UILongPressGestureRecognizer *)longPgr
         indexPath:(NSIndexPath *)indexPath {
     CGPoint point = [longPgr locationInView:self.view];
-    self.byNeedDeleteItem(CGRectContainsPoint(self.postDelView.frame, point));
-    if (self.needDeleteItem) {
+    self.byNeedDeleteItem(point.y >= self.postDelView.y);
+    if (point.y >= self.postDelView.y) {
         [self.postPhotoView deleteModelWithIndex:indexPath.item];
     }
-    postDeleteVisible = NO;
-    self.postDelView.byUpdate(^(MASConstraintMaker *make) {
-        make.bottom.equalTo(self.view).offset(self->JobsPostDelViewHeight);
-    });
     @jobs_weakify(self)
     UIView.jobsAnimateWithCompletion(0.25f,
         ^{
         @jobs_strongify(self)
-        self.view.byLayoutIfNeeded();
+        self.postDelView.byY(JobsMainScreen_HEIGHT());
     },
         ^(BOOL finished) {
         @jobs_strongify(self)
@@ -463,8 +445,8 @@ gestureRecognizerEnded:(UILongPressGestureRecognizer *)longPgr
                 .addOn(self.view)
                 .byAdd(^(MASConstraintMaker *make) {
                     make.top.equalTo(self.gk_navigationBar.mas_bottom).offset(JobsWidth(10));
-                    make.left.equalTo(self.view.mas_safeAreaLayoutGuideLeft);
-                    make.right.equalTo(self.view.mas_safeAreaLayoutGuideRight);
+                    make.left.equalTo(self.view).offset(JobsWidth(0));
+                    make.right.equalTo(self.view).offset(JobsWidth(-0));
                     make.height.mas_equalTo(JobsWidth(101));
                 });
         });
@@ -480,10 +462,9 @@ gestureRecognizerEnded:(UILongPressGestureRecognizer *)longPgr
             .byOuterCamera(YES)
             .byPreviewShowDeleteButton(YES);
         _postPhotoView.addOn(self.view).byAdd(^(MASConstraintMaker *make) {
-            make.left.equalTo(self.view.mas_safeAreaLayoutGuideLeft).offset(JobsWidth(10));
-            make.right.equalTo(self.view.mas_safeAreaLayoutGuideRight).offset(-JobsWidth(10));
+            make.left.equalTo(self.view).offset(JobsWidth(10));
             make.top.equalTo(self.tipsLab.mas_bottom).offset(JobsWidth(20));
-            make.height.mas_equalTo(JobsWidth(600));
+            make.size.mas_equalTo(CGSizeMake(JobsMainScreen_WIDTH() - JobsWidth(10) * 2, JobsWidth(600)));
         });
     };return _postPhotoView;
 }
@@ -516,17 +497,12 @@ gestureRecognizerEnded:(UILongPressGestureRecognizer *)longPgr
 
 -(JobsPostDelView *)postDelView{
     if (!_postDelView) {
-        JobsPostDelViewHeight = JobsWidth(50) + self.view.safeAreaInsets.bottom;
         _postDelView = JobsPostDelView.new;
-        _postDelView.addOn(self.view).byAdd(^(MASConstraintMaker *make) {
-            make.left.equalTo(self.view.mas_safeAreaLayoutGuideLeft);
-            make.right.equalTo(self.view.mas_safeAreaLayoutGuideRight);
-            make.height.mas_equalTo(self->JobsPostDelViewHeight);
-            make.bottom.equalTo(self.view).offset(self->JobsPostDelViewHeight);
-        });
-        _postDelView.jobsRichViewByModel(nil);
-    }
-    return _postDelView;
+        self.view.addSubview(_postDelView);
+        _postDelView
+            .byFrame(JobsPostDelView.viewFrameByModel(nil))
+            .jobsRichViewByModel(nil);
+    };return _postDelView;
 }
 
 -(UILabel *)tipsLab{
@@ -535,16 +511,17 @@ gestureRecognizerEnded:(UILongPressGestureRecognizer *)longPgr
         _tipsLab = jobsMakeLabel(^(__kindof UILabel * _Nullable label) {
             @jobs_strongify(self)
             label
-                .byTextCor(RGB_SAMECOLOR(173))
-                .byFont(UIFontWeightBoldSize(1))
+                .byTextCor(JobsSecondaryLabelColor)
+                .byFont([UIFontMetrics.defaultMetrics scaledFontForFont:UIFontWeightRegularSize(13)])
+                .byAdjustsFontForContentSizeCategory(YES)
                 .byNumberOfLines(0)
                 .byText(@"1、内容不允许出现纯数字，英文字母；".jobsTr()
                         .add(JobsNewline)
                         .add(@"2、图片/视频(图片最多9张/仅上传一段视频，大小不超100M)。".jobsTr()))
                 .addOn(self.view)
                 .byAdd(^(MASConstraintMaker *make) {
-                    make.left.equalTo(self.view.mas_safeAreaLayoutGuideLeft).offset(JobsWidth(14));
-                    make.right.lessThanOrEqualTo(self.view.mas_safeAreaLayoutGuideRight).offset(-JobsWidth(14));
+                    make.left.equalTo(self.view).offset(JobsWidth(14));
+                    make.right.equalTo(self.view).offset(-JobsWidth(14));
                     make.top.equalTo(self.jobsTextView.mas_bottom).offset(JobsWidth(11));
                 })
             .makeLabelByShowingType(UILabelShowingType_03);
@@ -653,5 +630,4 @@ gestureRecognizerEnded:(UILongPressGestureRecognizer *)longPgr
     };
 }
 // JOBS_PROPERTY_DSL_IMPLEMENTATION_AUTOGEN_END JobsPostVC
-
 @end

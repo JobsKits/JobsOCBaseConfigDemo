@@ -45,8 +45,8 @@ UILocationProtocol_synthesize
     return ^__kindof UICollectionViewCell *_Nullable(GoodsClassModel *_Nullable model) {
         @jobs_strongify(self)
         self.dataModel = model;
-        self.logoImgView.byAlpha(1);
-        self.nameLabel.byAlpha(1);
+        if (_logoImgView) _logoImgView.hidden = YES;
+        if (_nameLabel) _nameLabel.hidden = YES;
         self.btn.byAlpha(1);
         return self;
     };
@@ -118,9 +118,13 @@ UILocationProtocol_synthesize
             .jobsResetImagePadding(self.dataModel.imagePadding)// JobsWidth(5)
             .jobsResetBtnImage(self.dataModel.normalImage)
             .jobsResetBtnBgImage(self.dataModel.backgroundImage)
-            .jobsResetBtnBgCor(self.dataModel.baseBackgroundColor)
-            .jobsResetBtnTitleCor(self.dataModel.titleCor)// HEXCOLOR(0xC4C4C4)
-            .jobsResetBtnTitleFont(self.dataModel.titleFont)// UIFontWeightRegularSize(12)
+            .jobsResetBtnBgCor(self.dataModel.baseBackgroundColor ?: HEXCOLOR(0x175CD3))
+            .jobsResetBtnTitleCor(self.dataModel.titleCor ?: JobsWhiteColor)// HEXCOLOR(0xC4C4C4)
+            .jobsResetBtnTitleFont([UIFontMetrics.defaultMetrics scaledFontForFont:self.dataModel.titleFont ?: UIFontWeightRegularSize(13)])
+            .byTitleLabel(^(UILabel *label) {
+                label.byNumberOfLines(0);
+                label.adjustsFontForContentSizeCategory = YES;
+            })// UIFontWeightRegularSize(12)
             .onClickBy(^(UIButton *x){
                 @jobs_strongify(self)
                 x.bySelected(!x.selected);
@@ -135,13 +139,12 @@ UILocationProtocol_synthesize
             })
             .addOn(self.contentView)
             .byAdd(^(MASConstraintMaker *make) {
-                make.height.mas_equalTo(JobsWidth(12));
-                make.centerX.equalTo(self.contentView);
-                make.bottom.equalTo(self.contentView).offset(JobsWidth(-5));
+                make.edges.equalTo(self.contentView).insets(UIEdgeInsetsMake(JobsWidth(8), JobsWidth(2), JobsWidth(8), JobsWidth(2)));
+                make.height.mas_greaterThanOrEqualTo(JobsWidth(44));
             });
     }
     _btn
-        .jobsResetBtnTitle(self.dataModel.title)
+        .jobsResetBtnTitle(self.dataModel.title.length ? self.dataModel.title : (self.dataModel.name ?: @""))
         .makeBtnTitleByShowingType(UILabelShowingType_03)
         .bySelected(self.dataModel.jobsSelected);
     JobsOCCoveragePrepareIndexedLongPressButton(_btn, @"jobs.coverage.longPress.TreeClassItemCell.btn");

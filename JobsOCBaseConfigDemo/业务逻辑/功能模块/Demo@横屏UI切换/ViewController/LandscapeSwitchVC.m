@@ -317,16 +317,20 @@ minimumInteritemSpacingForSectionAtIndex:(NSInteger)section{
                 data1
                     .byTitle(title)
                     .bySubTitle(subTitle)
-                    .byTitleCor(JobsRedColor)
-                    .bySubTitleCor(JobsRedColor);
+                    .byTitleCor(JobsLabelColor)
+                    .byTitleFont([UIFontMetrics.defaultMetrics scaledFontForFont:UIFontWeightSemiboldSize(15)])
+                    .bySubTitleCor(JobsSecondaryLabelColor)
+                    .bySubTitleFont([UIFontMetrics.defaultMetrics scaledFontForFont:UIFontWeightRegularSize(12)])
+                    .byBgCor(JobsSecondarySystemBackgroundColor)
+                    .byBaseBackgroundColor(JobsSecondarySystemBackgroundColor);
                 data1.textModel = jobsMakeTextModel(^(__kindof UITextModel * _Nullable data2) {
                     data2.byText(title)
-                         .byTextCor(JobsRedColor)
+                         .byTextCor(JobsLabelColor)
                          .byTextAlignment(NSTextAlignmentCenter);
                 });
                 data1.subTextModel = jobsMakeTextModel(^(__kindof UITextModel * _Nullable data2) {
                     data2.bySubText(subTitle)
-                         .bySubTextCor(JobsRedColor)
+                         .bySubTextCor(JobsSecondaryLabelColor)
                          .bySubTextAlignment(NSTextAlignmentCenter);
                 });
                 data1.jobsBlock = ^id(id param){
@@ -346,16 +350,20 @@ minimumInteritemSpacingForSectionAtIndex:(NSInteger)section{
                 data1
                     .byTitle(title)
                     .bySubTitle(subTitle)
-                    .byTitleCor(JobsRedColor)
-                    .bySubTitleCor(JobsRedColor);
+                    .byTitleCor(JobsLabelColor)
+                    .byTitleFont([UIFontMetrics.defaultMetrics scaledFontForFont:UIFontWeightSemiboldSize(15)])
+                    .bySubTitleCor(JobsSecondaryLabelColor)
+                    .bySubTitleFont([UIFontMetrics.defaultMetrics scaledFontForFont:UIFontWeightRegularSize(12)])
+                    .byBgCor(JobsSecondarySystemBackgroundColor)
+                    .byBaseBackgroundColor(JobsSecondarySystemBackgroundColor);
                 data1.textModel = jobsMakeTextModel(^(__kindof UITextModel * _Nullable data2) {
                     data2.byText(title)
-                         .byTextCor(JobsRedColor)
+                         .byTextCor(JobsLabelColor)
                          .byTextAlignment(NSTextAlignmentCenter);
                 });
                 data1.subTextModel = jobsMakeTextModel(^(__kindof UITextModel * _Nullable data2) {
                     data2.bySubText(subTitle)
-                         .bySubTextCor(JobsRedColor)
+                         .bySubTextCor(JobsSecondaryLabelColor)
                          .bySubTextAlignment(NSTextAlignmentCenter);
                 });
                 data1.jobsBlock = ^id(id param){
@@ -374,16 +382,20 @@ minimumInteritemSpacingForSectionAtIndex:(NSInteger)section{
                 data
                     .byTitle(title)
                     .bySubTitle(subTitle)
-                    .byTitleCor(JobsRedColor)
-                    .bySubTitleCor(JobsRedColor);
+                    .byTitleCor(JobsLabelColor)
+                    .byTitleFont([UIFontMetrics.defaultMetrics scaledFontForFont:UIFontWeightSemiboldSize(15)])
+                    .bySubTitleCor(JobsSecondaryLabelColor)
+                    .bySubTitleFont([UIFontMetrics.defaultMetrics scaledFontForFont:UIFontWeightRegularSize(12)])
+                    .byBgCor(JobsSecondarySystemBackgroundColor)
+                    .byBaseBackgroundColor(JobsSecondarySystemBackgroundColor);
                 data.textModel = jobsMakeTextModel(^(__kindof UITextModel * _Nullable data2) {
                     data2.byText(title)
-                         .byTextCor(JobsRedColor)
+                         .byTextCor(JobsLabelColor)
                          .byTextAlignment(NSTextAlignmentCenter);
                 });
                 data.subTextModel = jobsMakeTextModel(^(__kindof UITextModel * _Nullable data2) {
                     data2.bySubText(subTitle)
-                         .bySubTextCor(JobsRedColor)
+                         .bySubTextCor(JobsSecondaryLabelColor)
                          .bySubTextAlignment(NSTextAlignmentCenter);
                 });
                 data.jobsBlock = ^id(id param){
@@ -400,16 +412,20 @@ minimumInteritemSpacingForSectionAtIndex:(NSInteger)section{
                 data1
                     .byTitle(title)
                     .bySubTitle(subTitle)
-                    .byTitleCor(JobsRedColor)
-                    .bySubTitleCor(JobsRedColor);
+                    .byTitleCor(JobsLabelColor)
+                    .byTitleFont([UIFontMetrics.defaultMetrics scaledFontForFont:UIFontWeightSemiboldSize(15)])
+                    .bySubTitleCor(JobsSecondaryLabelColor)
+                    .bySubTitleFont([UIFontMetrics.defaultMetrics scaledFontForFont:UIFontWeightRegularSize(12)])
+                    .byBgCor(JobsSecondarySystemBackgroundColor)
+                    .byBaseBackgroundColor(JobsSecondarySystemBackgroundColor);
                 data1.textModel = jobsMakeTextModel(^(__kindof UITextModel * _Nullable data2) {
                     data2.byText(title)
-                         .byTextCor(JobsRedColor)
+                         .byTextCor(JobsLabelColor)
                          .byTextAlignment(NSTextAlignmentCenter);
                 });
                 data1.subTextModel = jobsMakeTextModel(^(__kindof UITextModel * _Nullable data2) {
                     data2.bySubText(subTitle)
-                         .bySubTextCor(JobsRedColor)
+                         .bySubTextCor(JobsSecondaryLabelColor)
                          .bySubTextAlignment(NSTextAlignmentCenter);
                 });
                 data1.jobsBlock = ^id(id param){
@@ -428,16 +444,20 @@ minimumInteritemSpacingForSectionAtIndex:(NSInteger)section{
                 data1
                     .byTitle(title)
                     .bySubTitle(subTitle)
-                    .byTitleCor(JobsRedColor)
-                    .bySubTitleCor(JobsRedColor);
+                    .byTitleCor(JobsLabelColor)
+                    .byTitleFont([UIFontMetrics.defaultMetrics scaledFontForFont:UIFontWeightSemiboldSize(15)])
+                    .bySubTitleCor(JobsSecondaryLabelColor)
+                    .bySubTitleFont([UIFontMetrics.defaultMetrics scaledFontForFont:UIFontWeightRegularSize(12)])
+                    .byBgCor(JobsSecondarySystemBackgroundColor)
+                    .byBaseBackgroundColor(JobsSecondarySystemBackgroundColor);
                 data1.textModel = jobsMakeTextModel(^(__kindof UITextModel * _Nullable data2) {
                     data2.byText(title)
-                         .byTextCor(JobsRedColor)
+                         .byTextCor(JobsLabelColor)
                          .byTextAlignment(NSTextAlignmentCenter);
                 });
                 data1.subTextModel = jobsMakeTextModel(^(__kindof UITextModel * _Nullable data2) {
                     data2.bySubText(subTitle)
-                         .bySubTextCor(JobsRedColor)
+                         .bySubTextCor(JobsSecondaryLabelColor)
                          .bySubTextAlignment(NSTextAlignmentCenter);
                 });
                 data1.jobsBlock = ^id(id param){
@@ -456,16 +476,20 @@ minimumInteritemSpacingForSectionAtIndex:(NSInteger)section{
                 data1
                     .byTitle(title)
                     .bySubTitle(subTitle)
-                    .byTitleCor(JobsRedColor)
-                    .bySubTitleCor(JobsRedColor);
+                    .byTitleCor(JobsLabelColor)
+                    .byTitleFont([UIFontMetrics.defaultMetrics scaledFontForFont:UIFontWeightSemiboldSize(15)])
+                    .bySubTitleCor(JobsSecondaryLabelColor)
+                    .bySubTitleFont([UIFontMetrics.defaultMetrics scaledFontForFont:UIFontWeightRegularSize(12)])
+                    .byBgCor(JobsSecondarySystemBackgroundColor)
+                    .byBaseBackgroundColor(JobsSecondarySystemBackgroundColor);
                 data1.textModel = jobsMakeTextModel(^(__kindof UITextModel * _Nullable data2) {
                     data2.byText(title)
-                         .byTextCor(JobsRedColor)
+                         .byTextCor(JobsLabelColor)
                          .byTextAlignment(NSTextAlignmentCenter);
                 });
                 data1.subTextModel = jobsMakeTextModel(^(__kindof UITextModel * _Nullable data2) {
                     data2.bySubText(subTitle)
-                         .bySubTextCor(JobsRedColor)
+                         .bySubTextCor(JobsSecondaryLabelColor)
                          .bySubTextAlignment(NSTextAlignmentCenter);
                 });
                 data1.jobsBlock = ^id(id param) {
