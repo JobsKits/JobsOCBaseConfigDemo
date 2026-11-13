@@ -664,6 +664,7 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
 -(ZFCustomControlView *)fullControlView{
     if (!_fullControlView) {
         _fullControlView = ZFCustomControlView.new;
+        _fullControlView.player = self.player;
     };return _fullControlView;
 }
 #pragma mark —— 暂时用不到的

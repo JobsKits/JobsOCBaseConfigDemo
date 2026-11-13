@@ -740,6 +740,7 @@ JobsKey(JobsJobsOCRootFoldTableCellModernTraitsRegistrationKey)
         static dispatch_once_t onceToken;
         dispatch_once(&onceToken, ^{
             symbolNames = @{
+                @"JobsARKitDemoVC": @"arkit",
                 @"JobsSwiftParityMomentsPreviewDemoVC": @"photo.on.rectangle.angled",
                 @"JobsSwiftParityThrottleDebounceDemoVC": @"hare.fill",
                 @"JobsSwiftParityTaskCenterDemoVC": @"checkmark.circle.fill",

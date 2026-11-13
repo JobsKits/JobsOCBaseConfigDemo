@@ -168,7 +168,11 @@ Prop_strong()UIButton *demoBtn;
             .jobsResetBtnTitle(self.demoTitle())
             .jobsResetBtnImage(@"Lock".img)
             .jobsResetBtnTitleCor(JobsWhiteColor)
-            .jobsResetBtnTitleFont(UIFontWeightRegularSize(14))
+            .jobsResetBtnTitleFont([UIFontMetrics.defaultMetrics scaledFontForFont:UIFontWeightRegularSize(14)])
+            .byTitleLabel(^(UILabel *label) {
+                label.byNumberOfLines(0);
+                label.adjustsFontForContentSizeCategory = YES;
+            })
             .byImageView(^(UIImageView *imageView) {
                 imageView.setLayerBy(jobsMakeLocationModel(^(__kindof JobsLocationModel * _Nullable model) {
                     model
@@ -179,14 +183,14 @@ Prop_strong()UIButton *demoBtn;
             })
             .makeBtnTitleByShowingType(UILabelShowingType_03)
             .jobsResetImagePlacement_Padding(self.imagePlacement,JobsWidth(8))
-            .byBgColor(JobsCyanColor)
+            .byBgColor(HEXCOLOR(0x175CD3))
             .addOn(self.previewView)
             .byAdd(^(MASConstraintMaker *make) {
                 @jobs_strongify(self)
                 make.center.equalTo(self.previewView);
                 make.left.greaterThanOrEqualTo(self.previewView).offset(JobsWidth(16));
                 make.right.lessThanOrEqualTo(self.previewView).offset(-JobsWidth(16));
-                make.height.mas_equalTo(JobsWidth(50));
+                make.height.mas_greaterThanOrEqualTo(JobsWidth(64));
             });
     };return _demoBtn;
 }

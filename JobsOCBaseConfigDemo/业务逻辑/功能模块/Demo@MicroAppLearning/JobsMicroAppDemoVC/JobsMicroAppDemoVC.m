@@ -30,13 +30,13 @@ Prop_strong()JobsMicroSandboxStore *draftStore;
 
 -(JobsRetStrByVoidBlock _Nonnull)learningTitle{
     return ^NSString *{
-        return @"微应用 / Native-JS Bridge";
+        return @"微应用 / Native-JS Bridge".jobsTr();
     };
 }
 
 -(JobsRetStrByVoidBlock _Nonnull)learningIntroduction{
     return ^NSString *{
-        return @"同一个宿主加载独立 HTML 业务包。JS 只能读取宿主信息或提交 1–140 字草稿；保存按钮会真正写入固定逻辑沙箱。";
+        return @"同一个宿主加载独立 HTML 业务包。JS 只能读取宿主信息或提交 1–140 字草稿；保存按钮会真正写入固定逻辑沙箱。".jobsTr();
     };
 }
 
@@ -65,19 +65,19 @@ Prop_strong()JobsMicroSandboxStore *draftStore;
             }
         }];
         self.appendLearningWebView(self.microWebView);
-        self.appendLearningView([self learningButtonWithTitle:@"① JS 调用允许的 getHostInfo" identifier:@"lab.bridgeAllowed" action:^(UIButton *sender) {
+        self.appendLearningView([self learningButtonWithTitle:@"① JS 调用允许的 getHostInfo".jobsTr() identifier:@"lab.bridgeAllowed" action:^(UIButton *sender) {
             @jobs_strongify(self)
             [self.microWebView evaluateJavaScript:@"window.callHost('getHostInfo')" completionHandler:nil];
         }]);
-        self.appendLearningView([self learningButtonWithTitle:@"② JS 调用未授权 forbidden" identifier:@"lab.bridgeDenied" action:^(UIButton *sender) {
+        self.appendLearningView([self learningButtonWithTitle:@"② JS 调用未授权 forbidden".jobsTr() identifier:@"lab.bridgeDenied" action:^(UIButton *sender) {
             @jobs_strongify(self)
             [self.microWebView evaluateJavaScript:@"window.callHost('forbidden')" completionHandler:nil];
         }]);
-        self.appendLearningView([self learningButtonWithTitle:@"③ JS 提交错误草稿参数" identifier:@"lab.bridgeInvalid" action:^(UIButton *sender) {
+        self.appendLearningView([self learningButtonWithTitle:@"③ JS 提交错误草稿参数".jobsTr() identifier:@"lab.bridgeInvalid" action:^(UIButton *sender) {
             @jobs_strongify(self)
             [self.microWebView evaluateJavaScript:@"window.callHost('saveDraft',{text:42})" completionHandler:nil];
         }]);
-        self.appendLearningView([self learningButtonWithTitle:@"重新加载业务包" identifier:@"lab.reload" action:^(UIButton *sender) {
+        self.appendLearningView([self learningButtonWithTitle:@"重新加载业务包".jobsTr() identifier:@"lab.reload" action:^(UIButton *sender) {
             @jobs_strongify(self)
             self.reloadMicroPackage();
         }]);
@@ -93,12 +93,12 @@ Prop_strong()JobsMicroSandboxStore *draftStore;
             return;
         }
         if (!self.microEntryURL || ![NSFileManager.defaultManager isReadableFileAtPath:self.microEntryURL.path]) {
-            self.reportLearningStatus(@"业务包为空或未打包。点击重新加载，检查 JobsMicroLearning.bundle 的 target membership。");
+            self.reportLearningStatus(@"业务包为空或未打包。点击重新加载，检查 JobsMicroLearning.bundle 的 target membership。".jobsTr());
             return;
         }
         [self configureLearningWebView:self.microWebView localEntryURL:self.microEntryURL];
         [self.microWebView loadFileURL:self.microEntryURL allowingReadAccessToURL:self.microEntryURL.URLByDeletingLastPathComponent];
-        self.reportLearningStatus(@"已加载本地微应用包 appID=learning.bridge，等待 JS 调用。");
+        self.reportLearningStatus(@"已加载本地微应用包 appID=learning.bridge，等待 JS 调用。".jobsTr());
     };
 }
 
@@ -109,11 +109,11 @@ Prop_strong()JobsMicroSandboxStore *draftStore;
     NSURL *source = message.frameInfo.request.URL;
     BOOL trusted = message.webView == self.microWebView && message.frameInfo.isMainFrame && source.isFileURL && [source.URLByStandardizingPath.path isEqualToString:self.microEntryURL.URLByStandardizingPath.path];
     if (!trusted || !requestID.length || requestID.length > 64 || !command.length) {
-        self.reportLearningStatus(@"已拒绝：来源或消息格式不合法。");
+        self.reportLearningStatus(@"已拒绝：来源或消息格式不合法。".jobsTr());
         return;
     }
     BOOL allowed = NO;
-    NSString *result = @"已拒绝：能力不在白名单";
+    NSString *result = @"已拒绝：能力不在白名单".jobsTr();
     BOOL validEnvelope = YES;
     for (NSString *key in body) {
         if (![@[@"id", @"command", @"payload"] containsObject:key]) {
@@ -122,10 +122,10 @@ Prop_strong()JobsMicroSandboxStore *draftStore;
         }
     }
     if (!validEnvelope) {
-        result = @"已拒绝：消息包含未定义字段";
+        result = @"已拒绝：消息包含未定义字段".jobsTr();
     } else if ([command isEqualToString:@"getHostInfo"]) {
         allowed = YES;
-        result = @"Native 已响应：Jobs iOS 宿主 / API v1";
+        result = @"Native 已响应：Jobs iOS 宿主 / API v1".jobsTr();
     } else if ([command isEqualToString:@"saveDraft"]) {
         NSDictionary *payload = [body[@"payload"] isKindOfClass:NSDictionary.class] ? body[@"payload"] : nil;
         NSString *text = [payload[@"text"] isKindOfClass:NSString.class] ? payload[@"text"] : nil;
@@ -137,12 +137,12 @@ Prop_strong()JobsMicroSandboxStore *draftStore;
             *stop = count > 140;
         }];
         if (payload.count != 1 || count == 0 || count > 140) {
-            result = @"已拒绝：草稿必须为 1–140 字文本。";
+            result = @"已拒绝：草稿必须为 1–140 字文本。".jobsTr();
         } else {
             // 路径由宿主固定；网页不能指定文件名或其它租户目录。
             NSError *error;
             allowed = [self.draftStore writeText:text application:@"microapp" fileName:@"draft.txt" error:&error];
-            result = allowed ? @"Bridge 成功：草稿已写入 microapp 命名空间。" : [NSString stringWithFormat:@"Bridge 写入失败：%@", error.localizedDescription];
+            result = allowed ? @"Bridge 成功：草稿已写入 microapp 命名空间。".jobsTr() : [NSString stringWithFormat:@"Bridge 写入失败：%@".jobsTr(), error.localizedDescription];
         }
     }
     NSDictionary *response = @{@"id":requestID, @"ok":@(allowed), @"result":result};
@@ -159,7 +159,7 @@ Prop_strong()JobsMicroSandboxStore *draftStore;
 }
 
 -(void)webView:(WKWebView *)webView didFailNavigation:(WKNavigation *)navigation withError:(NSError *)error{
-    self.reportLearningStatus([NSString stringWithFormat:@"加载失败：%@。可点击重新加载。", error.localizedDescription]);
+    self.reportLearningStatus([NSString stringWithFormat:@"加载失败：%@。可点击重新加载。".jobsTr(), error.localizedDescription]);
 }
 
 -(void)webView:(WKWebView *)webView didFinishNavigation:(WKNavigation *)navigation{
@@ -168,6 +168,7 @@ Prop_strong()JobsMicroSandboxStore *draftStore;
 }
 
 -(void)dealloc{
+    JobsRemoveNotification(_microWebView);
     [_microWebView.configuration.userContentController removeScriptMessageHandlerForName:@"jobsMicro"];
 }
 

@@ -115,4 +115,6 @@ GEM_HOME="$jobs_pod_test_prefix/opt/cocoapods/libexec" \
 
 测试不安装依赖：网络单元测试使用假请求；归档测试复用真实 CocoaPods Request、下载器和系统 tar，但 Git / curl 是本地替身；挂载测试在临时工程执行真实 Podfile 顶部代码，不运行安装 hook 或真实安装。验证结果为网络 23 项 / 101 断言、归档 39 项、Podfile 挂载 10 项 / 160 断言。测试通过不替代新电脑上 `pod install` 的联网与工程集成验收。
 
+**终端配色保护：** 独立运行时，在支持完整保存与恢复配色的交互终端中临时使用黑底白字及统一强调色；正常结束、失败或可捕获中断后恢复进入前的配色，不修改终端全局偏好或 Shell 启动配置。不支持完整保护、无交互终端、`NO_COLOR`、既有纯文本模式和 Sourcetree 场景不切换配色，并沿用纯文本输出约定。强制终止（如 `kill -9`）无法由脚本自身保证恢复，请使用运行时显示的独立恢复入口。
+
 <a id="🔚" href="#前言" style="font-size:17px; color:green; font-weight:bold;">我是有底线的➤点我回到首页</a>

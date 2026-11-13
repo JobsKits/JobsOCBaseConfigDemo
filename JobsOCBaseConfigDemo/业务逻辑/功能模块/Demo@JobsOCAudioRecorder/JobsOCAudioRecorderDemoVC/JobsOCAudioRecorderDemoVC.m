@@ -25,6 +25,7 @@ Prop_strong()JobsOCAudioRecordButton *recordButton;
 Prop_strong()UIView *longButtonOuterRingView;
 Prop_strong()UIButton *longButton;
 Prop_strong()UITableView *tableView;
+Prop_strong()UIButton *emptyRecordingsButton;
 Prop_strong()UIAlertController *messageAlertController;
 Prop_copy()NSArray<JobsOCAudioRecording *> *recordings;
 Prop_assign()BOOL permissionGranted;
@@ -227,6 +228,7 @@ Prop_assign()BOOL permissionGranted;
         if (!self) return;
         self.byRecordings(((JobsOCAudioRecordingStore *)JobsOCAudioRecordingStore.shared()).recordings());
         [self.tableView reloadData];
+        self.tableView.byBackgroundView(self.recordings.count ? nil : self.emptyRecordingsButton);
     };
 }
 -(jobsByStrBlock _Nonnull)show{
@@ -259,8 +261,8 @@ Prop_assign()BOOL permissionGranted;
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:identifier];
     if (!cell) cell = [UITableViewCell.alloc initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:identifier];
     JobsOCAudioRecording *item = self.recordings[indexPath.row];
-    cell.textLabel.byText(item.mode == JobsOCAudioRecordingModeLong ? @"长时间录音" : @"短暂录音");
-    cell.detailTextLabel.byText([NSString stringWithFormat:@"%.1f 秒 · %.1f KB · %@",item.duration,item.fileSize / 1024.0,item.url.lastPathComponent]);return cell;
+    cell.textLabel.byText(item.mode == JobsOCAudioRecordingModeLong ? @"长时间录音".jobsTr() : @"短暂录音".jobsTr());
+    cell.detailTextLabel.byText([NSString stringWithFormat:@"%.1f 秒 · %.1f KB · %@".jobsTr(),item.duration,item.fileSize / 1024.0,item.url.lastPathComponent]);return cell;
 }
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{[tableView deselectRowAtIndexPath:indexPath animated:YES];NSError *error;[((JobsOCAudioPlayerEngine *)JobsOCAudioPlayerEngine.shared()) toggleURL:self.recordings[indexPath.row].url error:&error];if (error) self.show(error.localizedDescription);}
 -(void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)style forRowAtIndexPath:(NSIndexPath *)indexPath{if (style != UITableViewCellEditingStyleDelete) return;(((JobsOCAudioPlayerEngine *)JobsOCAudioPlayerEngine.shared())).jobsStop();NSError *error;[((JobsOCAudioRecordingStore *)JobsOCAudioRecordingStore.shared()) deleteRecording:self.recordings[indexPath.row] error:&error];error ? self.show(error.localizedDescription) : self.reloadRecordings();}
@@ -276,7 +278,7 @@ Prop_assign()BOOL permissionGranted;
 
 -(UISegmentedControl *)modeControl{
     if (!_modeControl) {
-        _modeControl = [UISegmentedControl.alloc initWithItems:@[@"短暂录音",@"长时间录音"]];
+        _modeControl = [UISegmentedControl.alloc initWithItems:@[@"短暂录音".jobsTr(), @"长时间录音".jobsTr()]];
         _modeControl.bySelectedSegmentIndex(0);
         [_modeControl addTarget:self action:@selector(modeChanged) forControlEvents:UIControlEventValueChanged];
     };return _modeControl;
@@ -417,6 +419,28 @@ Prop_assign()BOOL permissionGranted;
             .byDelegate(self)
             .byBgColor(UIColor.clearColor);
     };return _tableView;
+}
+
+-(UIButton *)emptyRecordingsButton{
+    if (!_emptyRecordingsButton) {
+        @jobs_weakify(self)
+        _emptyRecordingsButton = UIButton.initByButtonModel(jobsMakeButtonModel(^(__kindof UIButtonModel *data) {
+            data
+                .byTitle(@"暂无录音，轻点重新加载".jobsTr())
+                .byTitleCor(JobsSecondaryLabelColor)
+                .byTitleFont([UIFontMetrics.defaultMetrics scaledFontForFont:UIFontWeightRegularSize(16)])
+                .byNormalImage(@"暂无数据".img)
+                .byImagePlacement(NSDirectionalRectEdgeTop)
+                .byImagePadding(16)
+                .byBaseBackgroundColor(JobsClearColor)
+                .byOnClickBlock(^(UIButton *button) {
+                    @jobs_strongify(self)
+                    self.reloadRecordings();
+                });
+        }));
+        _emptyRecordingsButton.byAccessibilityIdentifier(@"jobs.audio.reloadEmptyRecordings");
+    }
+    return _emptyRecordingsButton;
 }
 
 -(UIAlertController *)messageAlertController{

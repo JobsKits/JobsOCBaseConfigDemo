@@ -26,6 +26,8 @@
 #endif
 
 #define Demos_h
+
+#import "JobsARKitDemoVC.h"
 /// 相关功能模块组测试控制器
 #import "JobsProgressVC.h"
 #import "A_VC.h"

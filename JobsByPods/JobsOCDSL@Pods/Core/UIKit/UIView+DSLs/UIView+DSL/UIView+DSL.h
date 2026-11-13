@@ -227,6 +227,8 @@ Prop_assign()CGSize layoutSubviewsRectCornerSize;
 -(JobsRetViewByNSIntegerBlock _Nonnull)byTintAdjustmentMode;
 #pragma mark —— Semantics / RTL
 -(JobsRetViewByStringBlock _Nonnull)byAccessibilityIdentifier;
+-(JobsRetViewByStringBlock _Nonnull)byAccessibilityValue;
+-(JobsRetViewByBOOLBlock _Nonnull)byAccessibilityElement;
 -(JobsRetViewByNSIntegerBlock _Nonnull)bySemanticContentAttribute;
 #pragma mark —— Layout behaviors
 -(JobsRetViewByBOOLBlock _Nonnull)byAutoresizesSubviews;

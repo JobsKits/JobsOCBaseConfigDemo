@@ -28,6 +28,22 @@ Prop_strong()NSArray<UILabel *> *sectionActionLabels;
 Prop_strong()NSArray<UIImageView *> *sectionChevronViews;
 Prop_strong()NSMutableIndexSet *collapsedSections;
 Prop_strong()UIView *infoSurfaceView;
+Prop_strong()JobsDeviceCollectionClient *collectionClient;
+Prop_strong()NSArray<JobsDeviceInfoItem *> *collectionItems;
+Prop_strong()UIView *collectionPanel;
+Prop_strong()UILabel *collectionStatusLabel;
+Prop_strong()NSArray<UIButton *> *collectionButtons;
+Prop_strong()NSTimer *collectionTimer;
+Prop_copy()NSString *collectionStatusKey;
+Prop_assign()BOOL collectionVisible;
+Prop_assign()BOOL collectionDeletionUnconfirmed;
+
+-(JobsRetStrByStrBlock _Nonnull)collectionText;
+-(jobsByVoidBlock _Nonnull)refreshCollection;
+-(jobsByVoidBlock _Nonnull)renderCollection;
+-(jobsByVoidBlock _Nonnull)startCollection;
+-(jobsByVoidBlock _Nonnull)openCollectionPage;
+-(jobsByVoidBlock _Nonnull)scheduleCollectionRefresh;
 
 -(jobsByVoidBlock _Nonnull)reloadInfo;
 -(jobsByLabelBlock _Nonnull)bindSecondaryTextColor;
@@ -60,6 +76,12 @@ Prop_strong()UIView *infoSurfaceView;
     self.makeNavByAlpha(1);
     self.view.byBgColor(JobsUserInfoPageColor());
     self.tableView.byShow(self);
+    [NSNotificationCenter.defaultCenter addObserver:self selector:@selector(collectionDidBecomeActive:) name:UIApplicationDidBecomeActiveNotification object:nil];
+    [NSNotificationCenter.defaultCenter addObserver:self selector:@selector(collectionWillResignActive:) name:UIApplicationWillResignActiveNotification object:nil];
+    [NSNotificationCenter.defaultCenter addObserver:self selector:@selector(collectionLanguageDidChange:) name:语言切换 object:nil];
+    [NSUserDefaults.standardUserDefaults removeObjectForKey:@"JobsDeviceCollection.language"];
+    self.collectionStatusKey = @"idle";
+    self.renderCollection();
     [JobsThemeCenter.shared bindObject:self
                                  slot:@"jobs.userInfo.theme"
                                 apply:^(__kindof NSObject *object, JobsThemeCenter *center) {
@@ -70,10 +92,16 @@ Prop_strong()UIView *infoSurfaceView;
         if (controller->_tableView) {
             controller->_tableView.byBgColor(JobsUserInfoPageColor());
         }
-        for (NSInteger section = 0; section < 2; section++) {
+        for (NSInteger section = 0; section < 3; section++) {
             controller.refreshSectionHeader(section);
         }
+        controller->_collectionPanel.byBgColor(JobsUserInfoPageColor());
+        controller->_collectionStatusLabel.byTextCor([center.resolvedColorForKey(JobsThemeColorKeyTextSecondary) colorWithAlphaComponent:1]);
+        for (UIButton *button in controller->_collectionButtons) {
+            button.jobsResetBtnTitleCor(JobsLabelColor).jobsResetBtnBgCor(JobsUserInfoCardColor());
+        }
         if (controller.isViewLoaded && controller.view.window) {
+
             [controller.tableView reloadData];
         }
     }];
@@ -82,6 +110,48 @@ Prop_strong()UIView *infoSurfaceView;
 -(void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
     self.reloadInfo();
+}
+
+-(void)collectionLanguageDidChange:(NSNotification *)notification {
+    self.viewModel.byTextModelBlock(^(__kindof UITextModel *model) {
+        model.byText(@"用户与设备信息".jobsTr());
+    });
+    self.reloadInfo();
+    self.renderCollection();
+}
+
+-(void)viewDidAppear:(BOOL)animated {
+    [super viewDidAppear:animated];
+    self.collectionVisible = YES;
+    self.refreshCollection();
+}
+
+-(void)viewWillDisappear:(BOOL)animated {
+    [super viewWillDisappear:animated];
+    self.collectionVisible = NO;
+    [self.collectionTimer invalidate];
+    self.collectionTimer = nil;
+    self.collectionClient.cancelPendingRequest();
+}
+
+-(void)dealloc {
+    [NSNotificationCenter.defaultCenter removeObserver:self];
+    [_collectionTimer invalidate];
+    if (_collectionClient) {
+        _collectionClient.cancelPendingRequest();
+    }
+}
+
+-(void)collectionDidBecomeActive:(NSNotification *)notification {
+    if (self.collectionVisible && self.view.window) {
+        self.refreshCollection();
+    }
+}
+
+-(void)collectionWillResignActive:(NSNotification *)notification {
+    [self.collectionTimer invalidate];
+    self.collectionTimer = nil;
+    self.collectionClient.cancelPendingRequest();
 }
 
 #pragma mark —— 数据与分组
@@ -113,14 +183,14 @@ Prop_strong()UIView *infoSurfaceView;
 }
 
 -(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-    return 2;
+    return 3;
 }
 
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     if ([self.collapsedSections containsIndex:section]) {
         return 0;
     }
-    return section == 0 ? MAX(1, self.userInfoItems.count) : self.deviceInfoItems.count;
+    return section == 0 ? MAX(1, self.userInfoItems.count) : (section == 1 ? self.deviceInfoItems.count : MAX(1, self.collectionItems.count));
 }
 
 -(UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {
@@ -134,7 +204,7 @@ Prop_strong()UIView *infoSurfaceView;
 }
 
 -(NSString *)tableView:(UITableView *)tableView titleForFooterInSection:(NSInteger)section {
-    if ([self.collapsedSections containsIndex:section]) {
+    if (section == 2 || [self.collapsedSections containsIndex:section]) {
         return nil;
     }
     return section == 0
@@ -143,9 +213,22 @@ Prop_strong()UIView *infoSurfaceView;
 }
 
 -(CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section {
+    if (section == 2) {
+        CGFloat width = MAX(1, CGRectGetWidth(tableView.bounds) - 32);
+        CGFloat textWidth = MAX(1, width - 24);
+        NSString *text = self.collectionStatusLabel.text ?: @"";
+        UIFont *font = self.collectionStatusLabel.font;
+        CGRect bounds = [text boundingRectWithSize:CGSizeMake(textWidth, CGFLOAT_MAX)
+                                          options:NSStringDrawingUsesLineFragmentOrigin | NSStringDrawingUsesFontLeading
+                                       attributes:@{NSFontAttributeName:font}
+                                          context:nil];
+        CGFloat buttonHeight = MAX(48, ceil([UIFontMetrics.defaultMetrics scaledValueForValue:48]));
+        return ceil(CGRectGetHeight(bounds)) + buttonHeight * 4 + 72;
+    }
     if ([self.collapsedSections containsIndex:section]) {
         return 16;
     }
+
     CGFloat width = MAX(1, CGRectGetWidth(tableView.bounds) - 64);
     UIFont *font = [UIFontMetrics.defaultMetrics scaledFontForFont:UIFontWeightRegularSize(13)];
     CGRect bounds = [[self tableView:tableView titleForFooterInSection:section]
@@ -157,7 +240,30 @@ Prop_strong()UIView *infoSurfaceView;
 }
 
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    BOOL empty = indexPath.section == 0 && !self.userInfoItems.count;
+    BOOL empty = (indexPath.section == 0 && !self.userInfoItems.count) || (indexPath.section == 2 && !self.collectionItems.count);
+    if (indexPath.section == 2) {
+        JobsDeviceInfoItem *item = self.collectionItems.count ? self.collectionItems[indexPath.row] : nil;
+        UITableViewCell *cell = UITableViewCell.cellStyleSubtitleByTableView(tableView);
+        cell.byTextLabel(^(__kindof UILabel *label) {
+                label.byText(item ? item.title : self.collectionText(@"empty"))
+                    .byFont([UIFontMetrics.defaultMetrics scaledFontForFont:UIFontWeightSemiboldSize(16)])
+                    .byNumberOfLines(0)
+                    .byTextCor(JobsLabelColor);
+            })
+            .byDetailTextLabel(^(__kindof UILabel *label) {
+                label.byText(item ? item.value : self.collectionText(@"refresh"))
+                    .byFont([UIFontMetrics.defaultMetrics scaledFontForFont:UIFontWeightRegularSize(14)])
+                    .byNumberOfLines(0);
+                self.bindSecondaryTextColor(label);
+            })
+            .byBackgroundConfiguration(jobsMakeClearConfiguration(^(__kindof UIBackgroundConfiguration *configuration) {
+                configuration.byBackgroundColor(JobsUserInfoCardColor());
+            }))
+            .byBgColor(JobsUserInfoCardColor())
+            .byAccessibilityIdentifier(@"jobs.deviceCollection.result");
+        cell.contentView.byBgColor(JobsUserInfoCardColor());
+        return cell;
+    }
     NSString *title = empty ? @"暂无用户信息".jobsTr() : (indexPath.section == 0
         ? self.userInfoItems[indexPath.row].textModel.text : self.deviceInfoItems[indexPath.row].title);
     NSString *value = empty ? @"轻点重新加载".jobsTr() : (indexPath.section == 0
@@ -228,7 +334,7 @@ Prop_strong()UIView *infoSurfaceView;
     @jobs_weakify(self)
     return ^(NSInteger section) {
         @jobs_strongify(self)
-        if (!self || section < 0 || section > 1) {
+        if (!self || section < 0 || section > 2) {
             return;
         }
         // 状态、分组头与行布局原子更新，避免显式或隐式动画绘出接缝中间态。
@@ -254,17 +360,17 @@ Prop_strong()UIView *infoSurfaceView;
     @jobs_weakify(self)
     return ^(NSInteger section) {
         @jobs_strongify(self)
-        if (!self || section < 0 || section > 1) {
+        if (!self || section < 0 || section > 2) {
             return;
         }
         // 先完成三个数组的创建，再配置它们，避免懒加载互相重入。
         (void)self.sectionHeaderViews;
         BOOL collapsed = [self.collapsedSections containsIndex:section];
-        NSString *title = section == 0 ? @"用户信息".jobsTr() : @"本机信息".jobsTr();
-        NSString *action = collapsed ? @"展开".jobsTr() : @"收起".jobsTr();
-        NSUInteger count = section == 0 ? self.userInfoItems.count : self.deviceInfoItems.count;
+        NSString *title = section == 0 ? @"用户信息".jobsTr() : (section == 1 ? @"本机信息".jobsTr() : self.collectionText(@"section"));
+        NSString *action = section == 2 ? self.collectionText(collapsed ? @"expand" : @"collapse") : (collapsed ? @"展开".jobsTr() : @"收起".jobsTr());
+        NSUInteger count = section == 0 ? self.userInfoItems.count : (section == 1 ? self.deviceInfoItems.count : self.collectionItems.count);
         self.sectionTitleLabels[section].byText(title).byTextCor(JobsLabelColor);
-        self.sectionCountLabels[section].byText([NSString stringWithFormat:@"%lu 项", (unsigned long)count]);
+        self.sectionCountLabels[section].byText([NSString stringWithFormat:section == 2 ? self.collectionText(@"count") : @"%lu 项", (unsigned long)count]);
         self.bindSecondaryTextColor(self.sectionCountLabels[section]);
         self.sectionActionLabels[section].byText(action);
         self.sectionChevronViews[section].byImage((collapsed ? @"chevron.down" : @"chevron.up").sys_img);
@@ -277,7 +383,7 @@ Prop_strong()UIView *infoSurfaceView;
             layer.byMaskedCorners(corners);
         });
         self.sectionHeaderButtons[section]
-            .byAccessibilityLabel([NSString stringWithFormat:@"%@，%lu 项，%@，轻点%@", title, (unsigned long)count, collapsed ? @"已折叠" : @"已展开", action]);
+            .byAccessibilityLabel([NSString stringWithFormat:section == 2 ? self.collectionText(@"header") : @"%@，%lu 项，%@，轻点%@", title, (unsigned long)count, section == 2 ? self.collectionText(collapsed ? @"collapsed" : @"expanded") : (collapsed ? @"已折叠" : @"已展开"), action]);
     };
 }
 
@@ -335,7 +441,7 @@ Prop_strong()UIView *infoSurfaceView;
         NSMutableArray<UILabel *> *actions = jobsMakeMutArr(^(__kindof NSMutableArray * _Nullable items) {});
         NSMutableArray<UIImageView *> *chevrons = jobsMakeMutArr(^(__kindof NSMutableArray * _Nullable items) {});
         @jobs_weakify(self)
-        for (NSInteger section = 0; section < 2; section++) {
+        for (NSInteger section = 0; section < 3; section++) {
             UIView *header = jobsMakeView(^(__kindof UIView * _Nullable view) {
                 view.byBgColor(JobsUserInfoCardColor()).byCornerRadius(12).byClipsToBounds(YES);
             });
@@ -404,6 +510,33 @@ Prop_strong()UIView *infoSurfaceView;
 #pragma mark —— 点击复制
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
+    if (indexPath.section == 2) {
+        if (!self.collectionClient.session) {
+            self.renderCollection();
+            self.refreshCollection();
+            return;
+        }
+        if (!self.collectionItems.count) {
+            self.refreshCollection();
+            return;
+        }
+        JobsDeviceInfoItem *item = self.collectionItems[indexPath.row];
+        if (!item.restricted && !self.presentedViewController) {
+            jobsMakePasteboard(^(__kindof UIPasteboard *pasteboard) {
+                pasteboard.byString(item.value);
+            });
+            JobsAlertModel *model = jobsMakeAlertModel(^(__kindof JobsAlertModel *model) {
+                model.byAlertControllerTitle(self.collectionText(@"copy"))
+                    .byMessage([NSString stringWithFormat:self.collectionText(@"copied"), item.title])
+                    .byPreferredStyle(UIAlertControllerStyleAlert)
+                    .byAlertActionTitle(self.collectionText(@"ok"))
+                    .byAlertActionStyle(UIAlertActionStyleDefault);
+            });
+            self.comingToPresentVC(JobsMakeAlertControllerBy(model).add(JobsMakeAlertActionBy(model)));
+        }
+        return;
+    }
+
     if (indexPath.section == 0 && !self.userInfoItems.count) {
         self.reloadInfo();
         return;
@@ -428,6 +561,307 @@ Prop_strong()UIView *infoSurfaceView;
             .byAlertActionStyle(UIAlertActionStyleDefault);
     });
     self.comingToPresentVC(JobsMakeAlertControllerBy(alertModel).add(JobsMakeAlertActionBy(alertModel)));
+}
+
+#pragma mark —— 联网采集
+-(JobsRetStrByStrBlock _Nonnull)collectionText {
+    @jobs_weakify(self)
+    return ^NSString *(NSString *key) {
+        @jobs_strongify(self)
+        if (!self) {
+            return @"";
+        }
+        NSString *language = LanMgr.languageCodeByAppLanguage(LanMgr.language);
+        return [JobsDeviceCollectionText text:key language:language ?: @"en"];
+    };
+}
+
+-(JobsDeviceCollectionClient *)collectionClient {
+    if (!_collectionClient) {
+        _collectionClient = JobsDeviceCollectionClient.new;
+    }
+    return _collectionClient;
+}
+
+-(jobsByVoidBlock _Nonnull)renderCollection {
+    @jobs_weakify(self)
+    return ^{
+        @jobs_strongify(self)
+        if (!self) {
+            return;
+        }
+        (void)self.collectionPanel;
+        NSDictionary *session = self.collectionClient.session;
+        NSDictionary *device = [session[@"device"] isKindOfClass:NSDictionary.class] ? session[@"device"] : @{};
+        NSDictionary *sources = [device[@"fieldSources"] isKindOfClass:NSDictionary.class] ? device[@"fieldSources"] : @{};
+        NSArray *keys = @[@"udid", @"imei", @"imei2", @"iccid", @"meid", @"modelName", @"osVersion", @"serial", @"modelNumber", @"seid", @"product", @"version"];
+        NSDictionary *titles = @{@"udid": @"UDID", @"imei": @"IMEI", @"imei2": @"IMEI2", @"iccid": @"ICCID", @"meid": @"MEID", @"seid": @"SEID"};
+        NSMutableArray *items = NSMutableArray.new;
+        if (device.count) {
+            for (NSString *key in keys) {
+                NSString *value = [device[key] isKindOfClass:NSString.class] ? device[key] : @"";
+                if (value.length > 200 || [value rangeOfCharacterFromSet:NSCharacterSet.controlCharacterSet].location != NSNotFound) {
+                    value = @"";
+                }
+                if ([key isEqual:@"udid"] && [value rangeOfString:@"^(?:[0-9a-fA-F]{40}|[0-9a-fA-F]{8}-[0-9a-fA-F]{16})$" options:NSRegularExpressionSearch].location == NSNotFound) {
+                    value = @"";
+                }
+                if (([key isEqual:@"imei"] || [key isEqual:@"imei2"]) && [value rangeOfString:@"^[0-9]{15}$" options:NSRegularExpressionSearch].location == NSNotFound) {
+                    value = @"";
+                }
+                NSString *source = [sources[key] isKindOfClass:NSString.class] ? sources[key] : @"";
+                NSString *sourceKey = @{@"profile": @"profile", @"manual": @"manual", @"derived": @"derived", @"browser": @"browserSource", @"browser-hint": @"browserSource", @"selected": @"manual"}[source] ?: @"unknown";
+                NSString *title = titles[key] ?: self.collectionText(key);
+                if (value.length) {
+                    title = [NSString stringWithFormat:@"%@ · %@", title, self.collectionText(sourceKey)];
+                }
+                [items addObject:[JobsDeviceInfoItem itemWithTitle:title value:value.length ? value : self.collectionText(@"missing") restricted:!value.length]];
+            }
+        }
+        self.collectionItems = items.copy;
+        NSString *status = self.collectionText(self.collectionStatusKey ?: @"idle");
+        if (session) {
+            status = [status stringByAppendingFormat:@"\n%@", [NSString stringWithFormat:self.collectionText(@"expiry"), session[@"expiresAt"]]];
+        }
+        self.collectionStatusLabel.byText([status stringByAppendingFormat:@"\n%@", self.collectionText(@"note")]);
+        BOOL waiting = [session[@"state"] isEqual:@"waiting"];
+        NSArray *buttonKeys = @[(waiting && self.collectionClient.browserURL) ? @"continue" : @"collect", @"refresh", @"clear"];
+        for (NSUInteger index = 0; index < self.collectionButtons.count; index++) {
+            self.collectionButtons[index]
+                .jobsResetBtnTitle(self.collectionText(buttonKeys[index]))
+                .byAccessibilityLabel(self.collectionText(buttonKeys[index]))
+                .byEnabled(!self.collectionClient.loading);
+        }
+        if (self->_tableView && self.view.window) {
+            [self.tableView reloadData];
+        }
+    };
+}
+
+-(jobsByVoidBlock _Nonnull)refreshCollection {
+    @jobs_weakify(self)
+    return ^{
+        @jobs_strongify(self)
+        if (!self || self.collectionClient.loading) {
+            return;
+        }
+        BOOL hadSession = self.collectionItems.count || [self.collectionStatusKey isEqual:@"waiting"];
+        self.collectionStatusKey = @"loading";
+        [self.collectionClient requestCreatingPair:NO completion:^(NSDictionary *session, NSError *error) {
+            @jobs_strongify(self)
+            if (!self) {
+                return;
+            }
+            if (error) {
+                self.collectionStatusKey = error.code == 429 ? @"rateLimited" : @"network";
+            } else if (!session) {
+                self.collectionStatusKey = self.collectionDeletionUnconfirmed ? @"clearFailed" : (hadSession ? @"expired" : @"idle");
+            } else if ([session[@"state"] isEqual:@"received"]) {
+                NSDictionary *device = [session[@"device"] isKindOfClass:NSDictionary.class] ? session[@"device"] : @{};
+                NSString *udid = [device[@"udid"] isKindOfClass:NSString.class] ? device[@"udid"] : @"";
+                BOOL validUDID = [udid rangeOfString:@"^(?:[0-9a-fA-F]{40}|[0-9a-fA-F]{8}-[0-9a-fA-F]{16})$" options:NSRegularExpressionSearch].location != NSNotFound;
+                self.collectionStatusKey = [session[@"verification"] isEqual:@"browser-reported"] ? @"browser" : (validUDID ? @"received" : @"missingUDID");
+            } else {
+                self.collectionStatusKey = [session[@"callbackError"] isKindOfClass:NSDictionary.class] ? @"callback" : @"waiting";
+            }
+            self.renderCollection();
+            self.scheduleCollectionRefresh();
+        }];
+        self.renderCollection();
+    };
+}
+
+-(jobsByVoidBlock _Nonnull)scheduleCollectionRefresh {
+    @jobs_weakify(self)
+    return ^{
+        @jobs_strongify(self)
+        if (!self) {
+            return;
+        }
+        [self.collectionTimer invalidate];
+        self.collectionTimer = nil;
+        NSDictionary *session = self.collectionClient.session;
+        if (!self.collectionVisible || UIApplication.sharedApplication.applicationState != UIApplicationStateActive || !session) {
+            return;
+        }
+        // 前台等待时短轮询；已收到结果也定时检查到期，不让旧编号无限显示。
+        NSTimeInterval interval = 3;
+        if ([session[@"state"] isEqual:@"received"]) {
+            NSISO8601DateFormatter *formatter = NSISO8601DateFormatter.new;
+            formatter.formatOptions = NSISO8601DateFormatWithInternetDateTime | NSISO8601DateFormatWithFractionalSeconds;
+            NSDate *date = [formatter dateFromString:session[@"expiresAt"]];
+            if (!date) {
+                formatter.formatOptions = NSISO8601DateFormatWithInternetDateTime;
+                date = [formatter dateFromString:session[@"expiresAt"]];
+            }
+            interval = MAX(1, date.timeIntervalSinceNow + 0.1);
+        }
+        self.collectionTimer = [NSTimer scheduledTimerWithTimeInterval:interval repeats:NO block:^(NSTimer *timer) {
+            @jobs_strongify(self)
+            if (!self) {
+                return;
+            }
+            if ([self.collectionClient.session[@"state"] isEqual:@"received"]) {
+                self.renderCollection();
+                self.scheduleCollectionRefresh();
+            } else {
+                self.refreshCollection();
+            }
+        }];
+    };
+}
+
+-(jobsByVoidBlock _Nonnull)startCollection {
+    @jobs_weakify(self)
+    return ^{
+        @jobs_strongify(self)
+        if (!self || self.presentedViewController || self.collectionClient.loading) {
+            return;
+        }
+        if ([self.collectionClient.session[@"state"] isEqual:@"waiting"] && self.collectionClient.browserURL) {
+            self.openCollectionPage();
+            return;
+        }
+        JobsAlertModel *model = jobsMakeAlertModel(^(__kindof JobsAlertModel *model) {
+            NSString *consent = [self.collectionText(@"consent") stringByReplacingOccurrencesOfString:@"jobs-device-info-pages.pages.dev" withString:self.collectionClient.siteURL.host];
+            model.byAlertControllerTitle(self.collectionText(@"consentTitle"))
+                .byMessage([consent stringByAppendingFormat:@"\n%@", self.collectionClient.siteURL.absoluteString])
+                .byPreferredStyle(UIAlertControllerStyleAlert)
+                .byAlertActionTitle(self.collectionText(@"agree"))
+                .byAlertActionStyle(UIAlertActionStyleDefault)
+                .byAlertActionBlock(^(__unused UIAlertAction *action) {
+                    @jobs_strongify(self)
+                    if (!self) {
+                        return;
+                    }
+                    self.collectionStatusKey = @"loading";
+                    [self.collectionTimer invalidate];
+                    [self.collectionClient requestCreatingPair:YES completion:^(NSDictionary *session, NSError *error) {
+                        @jobs_strongify(self)
+                        if (!self) {
+                            return;
+                        }
+                        self.collectionStatusKey = error ? (error.code == 429 ? @"rateLimited" : @"network") : @"waiting";
+                        if (!error) {
+                            self.collectionDeletionUnconfirmed = NO;
+                        }
+                        self.renderCollection();
+                        if (!error && self.collectionVisible) {
+                            self.openCollectionPage();
+                        }
+                        self.scheduleCollectionRefresh();
+                    }];
+                    self.renderCollection();
+                });
+        });
+        JobsAlertModel *cancel = jobsMakeAlertModel(^(__kindof JobsAlertModel *model) {
+            model.byAlertActionTitle(self.collectionText(@"cancel")).byAlertActionStyle(UIAlertActionStyleCancel);
+        });
+        self.comingToPresentVC(JobsMakeAlertControllerBy(model).add(JobsMakeAlertActionBy(cancel)).add(JobsMakeAlertActionBy(model)));
+    };
+}
+
+-(jobsByVoidBlock _Nonnull)openCollectionPage {
+    @jobs_weakify(self)
+    return ^{
+        @jobs_strongify(self)
+        if (!self) {
+            return;
+        }
+        NSURL *url = self.collectionClient.browserURL;
+        if (!url) {
+            return;
+        }
+        [UIApplication.sharedApplication openURL:url options:@{} completionHandler:^(BOOL success) {
+            dispatch_async(dispatch_get_main_queue(), ^{
+                @jobs_strongify(self)
+                if (!self) {
+                    return;
+                }
+                if (!success) {
+                    self.collectionStatusKey = @"openFailed";
+                    self.renderCollection();
+                }
+            });
+        }];
+    };
+}
+
+-(UIView *)tableView:(UITableView *)tableView viewForFooterInSection:(NSInteger)section {
+    return section == 2 ? self.collectionPanel : nil;
+}
+
+-(UILabel *)collectionStatusLabel {
+    if (!_collectionStatusLabel) {
+        _collectionStatusLabel = jobsMakeLabel(^(__kindof UILabel *label) {
+            label.byFont([UIFontMetrics.defaultMetrics scaledFontForFont:UIFontWeightRegularSize(13)])
+                .byNumberOfLines(0)
+                .byAdjustsFontForContentSizeCategory(YES);
+        });
+        self.bindSecondaryTextColor(_collectionStatusLabel);
+    }
+    return _collectionStatusLabel;
+}
+
+-(UIView *)collectionPanel {
+    if (!_collectionPanel) {
+        _collectionPanel = jobsMakeView(^(__kindof UIView *view) {
+            view.byBgColor(JobsUserInfoPageColor());
+        });
+        self.collectionStatusLabel.addOn(_collectionPanel).byAdd(^(MASConstraintMaker *make) {
+            make.top.equalTo(self->_collectionPanel).offset(12);
+            make.leading.equalTo(self->_collectionPanel).offset(12);
+            make.trailing.equalTo(self->_collectionPanel).offset(-12);
+        });
+        NSMutableArray *buttons = NSMutableArray.new;
+        @jobs_weakify(self)
+        UIButton *previous = nil;
+        for (NSUInteger index = 0; index < 3; index++) {
+            UIButton *button = jobsMakeButton(^(__kindof UIButton *button) {
+                button.jobsResetBtnTitleCor(JobsLabelColor)
+                    .jobsResetBtnTitleFont([UIFontMetrics.defaultMetrics scaledFontForFont:UIFontWeightSemiboldSize(15)])
+                    .jobsResetBtnBgCor(JobsUserInfoCardColor())
+                    .jobsResetBtnCornerRadiusValue(10)
+                    .onClickBy(^(__unused UIButton *sender) {
+                        @jobs_strongify(self)
+                        if (!self) {
+                            return;
+                        }
+                        if (index == 0) {
+                            self.startCollection();
+                        } else if (index == 1) {
+                            self.refreshCollection();
+                        } else if (index == 2) {
+                            [self.collectionTimer invalidate];
+                            self.collectionDeletionUnconfirmed = YES;
+                            self.collectionStatusKey = @"clearFailed";
+                            [self.collectionClient clearRemotely:YES completion:^(BOOL cleared) {
+                                @jobs_strongify(self)
+                                if (!self) {
+                                    return;
+                                }
+                                self.collectionStatusKey = cleared ? @"clearDone" : @"clearFailed";
+                                self.collectionDeletionUnconfirmed = !cleared;
+                                self.renderCollection();
+                            }];
+                            self.renderCollection();
+
+                        }
+                    });
+            });
+            button.titleLabel.byNumberOfLines(0).byTextAlignment(NSTextAlignmentCenter);
+            button.addOn(_collectionPanel).byAdd(^(MASConstraintMaker *make) {
+                make.leading.equalTo(self->_collectionPanel).offset(12);
+                make.trailing.equalTo(self->_collectionPanel).offset(-12);
+                make.top.equalTo(previous ? previous.mas_bottom : self.collectionStatusLabel.mas_bottom).offset(10);
+                make.height.mas_equalTo(MAX(48, ceil([UIFontMetrics.defaultMetrics scaledValueForValue:48])));
+            });
+            previous = button;
+            [buttons addObject:button];
+        }
+        _collectionButtons = buttons.copy;
+    }
+    return _collectionPanel;
 }
 
 @end

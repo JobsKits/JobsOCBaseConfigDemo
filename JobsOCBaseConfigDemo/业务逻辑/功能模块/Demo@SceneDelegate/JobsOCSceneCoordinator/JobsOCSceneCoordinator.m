@@ -71,10 +71,11 @@ static NSString *const JobsOCSceneCoordinatorSourceSessionUserInfoKey = @"source
         dispatch_once(&onceToken, ^{
             formatter = jobsMakeDateFormatter(^(__kindof NSDateFormatter *_Nullable dateFormatter) {
                 dateFormatter
-                    .byLocale([NSLocale localeWithLocaleIdentifier:@"zh_Hans_CN"])
                     .byDateFormat(@"HH:mm:ss.SSS");
             });
-        });return formatter;
+        });
+        NSString *languageCode = LanMgr.languageCodeByAppLanguage(LanMgr.language);
+        return formatter.byLocale([NSLocale localeWithLocaleIdentifier:languageCode ?: @"en"]);
     };
 }
 
@@ -82,7 +83,7 @@ static NSString *const JobsOCSceneCoordinatorSourceSessionUserInfoKey = @"source
                              sourceSession:(UISceneSession *)sourceSession{
     return NSUserActivity
         .initByActivityType(self.jobsActivityType())
-        .byTitle(@"SceneDelegate 多场景 Demo")
+        .byTitle(@"SceneDelegate 多场景 Demo".jobsTr())
         .byTargetContentIdentifier(self.jobsActivityType())
         .byUserInfo(@{
             JobsOCSceneCoordinatorCounterUserInfoKey: @(counter),

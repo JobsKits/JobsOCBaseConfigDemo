@@ -55,11 +55,15 @@ Prop_strong()BaseButton *sendBtn;
     return ^(NSString *_Nullable string){
         @jobs_strongify(self)
         if (isValue(string)) {
-            self.sendBtn.byUserInteractionEnabled(YES);
+            self.sendBtn
+                .jobsResetBtnBgImage(RGBA_COLOR(23, 92, 211, 1).jobsImage())
+                .byUserInteractionEnabled(YES);
             if (self.sendBtn) self.sendBtn.byEnabled(YES);
             self.imgView.byImage(@"输入框有值".img);
         }else{
-            self.sendBtn.byUserInteractionEnabled(NO);
+            self.sendBtn
+                .jobsResetBtnBgImage(UIColor.systemGray5Color.jobsImage())
+                .byUserInteractionEnabled(NO);
             if (self.sendBtn) self.sendBtn.byEnabled(NO);
             self.imgView.byImage(@"输入框无值".img);
         }
@@ -99,8 +103,8 @@ Prop_strong()BaseButton *sendBtn;
     if (!_sendBtn) {
         @jobs_weakify(self)
         _sendBtn = BaseButton.jobsInit()
-            .jobsResetBtnBgImage(JobsCyanColor.jobsImage())
-            .jobsResetBtnTitleCor(JobsWhiteColor)
+            .jobsResetBtnBgImage(UIColor.systemGray5Color.jobsImage())
+            .jobsResetBtnTitleCor(UIColor.whiteColor)
             .jobsResetBtnTitleFont(UIFontWeightBoldSize(JobsWidth(12)))
             .jobsResetBtnTitle(@"发送".jobsTr())
             .jobsResetBtnCornerRadiusValue(JobsWidth(3))
@@ -108,7 +112,7 @@ Prop_strong()BaseButton *sendBtn;
                 @jobs_strongify(self)
                 BOOL selected = !x.selected;
                 x
-                    .jobsResetBtnBgImage(JobsLightGrayColor.jobsImage())
+                    .jobsResetBtnBgImage(UIColor.systemGray5Color.jobsImage())
                     .bySelected(selected);
                 if (self.objBlock) self.objBlock(x);
                 [self endEditing:YES];
@@ -123,7 +127,7 @@ Prop_strong()BaseButton *sendBtn;
                 JobsOCCoverageLongPressDelivered(data);
                 JobsLog(@"");
             })
-            .disabledStateTitleColorBy(JobsWhiteColor)
+            .disabledStateTitleColorBy(JobsSecondaryLabelColor)
             .bgColorBy(JobsSystemBackgroundColor)
             .addOn(self)
             .byAdd(^(MASConstraintMaker *make) {

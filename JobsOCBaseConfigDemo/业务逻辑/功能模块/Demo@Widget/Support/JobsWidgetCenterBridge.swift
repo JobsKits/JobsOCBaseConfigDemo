@@ -20,6 +20,13 @@ final class JobsWidgetCenterBridge: NSObject {
         UserDefaults(suiteName: appGroupIdentifier) ?? .standard
     }
 
+    @objc(updateLanguage:strings:)
+    class func updateLanguage(_ languageCode: String, strings: [String: String]) {
+        defaults.set(languageCode, forKey: "jobs.widget.languageCode")
+        defaults.set(strings, forKey: "jobs.widget.localizedStrings")
+        reloadTimelines()
+    }
+
     @objc(counter)
     class func counter() -> Int {
         let value = defaults.integer(forKey: counterKey)

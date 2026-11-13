@@ -217,4 +217,6 @@ flowchart TD
 - `ruby ./Tests/init_workflow_test.rb/init_workflow_test.rb` 覆盖依赖链、锁及状态校验；`ruby ./Tests/interaction_test.rb/interaction_test.rb` 使用伪终端验证普通选择、精确 `YES`、旧版本重建及自动化写入保护。全部安装器使用假命令，不执行真实包安装、`pod install` 或构建；该结果不替代实际工程验收。
 - `ruby ./Tests/network_regression.rb/network_regression.rb` 验证网络选路、代理与旁路保留、完整 Git 来源匹配、引导安装来源、失败传播及子进程环境隔离；使用假命令，不执行真实联网或工具安装。
 
+**终端配色保护：** 独立运行时，在支持完整保存与恢复配色的交互终端中临时使用黑底白字及统一强调色；正常结束、失败或可捕获中断后恢复进入前的配色，不修改终端全局偏好或 Shell 启动配置。不支持完整保护、无交互终端、`NO_COLOR`、既有纯文本模式和 Sourcetree 场景不切换配色，并沿用纯文本输出约定。强制终止（如 `kill -9`）无法由脚本自身保证恢复，请使用运行时显示的独立恢复入口。
+
 <a id="🔚" href="#前言" style="font-size:17px; color:green; font-weight:bold;">我是有底线的➤点我回到首页</a>

@@ -127,7 +127,7 @@
     return ^(NSString * text){
         @jobs_strongify(self)
         if (!self) return;
-        self.statusLab.byText([NSString stringWithFormat:@"状态：%@",text]);
+        self.statusLab.byText([NSString stringWithFormat:@"状态：%@".jobsTr(),text.jobsTr()]);
     };
 }
 #pragma mark —— LazyLoad
@@ -166,8 +166,9 @@
             label
                 .byText(self.demoDescription().jobsTr())
                 .byNumberOfLines(0)
-                .byFont(UIFontWeightRegularSize(14))
-                .byTextCor(UIColor.secondaryLabelColor);
+                .byFont([UIFontMetrics.defaultMetrics scaledFontForFont:UIFontWeightRegularSize(15)])
+                .byAdjustsFontForContentSizeCategory(YES)
+                .byTextCor(JobsSecondaryLabelColor);
         });
         _introLab
             .addOn(self.contentView)
@@ -241,21 +242,23 @@
         _primaryActionBtn = jobsMakeButton(^(__kindof UIButton * _Nullable button) {
             button
                 .jobsResetBtnTitle(self.primaryActionTitle().jobsTr())
-                .jobsResetBtnTitleFont(UIFontWeightSemiboldSize(16))
+                .jobsResetBtnTitleFont([UIFontMetrics.defaultMetrics scaledFontForFont:UIFontWeightSemiboldSize(16)])
+                .makeNewLineShows(YES)
                 .jobsResetBtnTitleCor(UIColor.whiteColor)
                 .jobsResetBtnBgCor(UIColor.systemBlueColor)
                 .jobsResetBtnCornerRadiusValue(JobsWidth(10))
                 .onClickBy(^(__kindof UIButton * _Nullable button) {
-                    [weak_self performPrimaryAction];
+                    weak_self.performPrimaryAction();
                 })
-                .byClipsToBounds(YES);
+                .byClipsToBounds(YES)
+                .byAccessibilityIdentifier(@"jobs.parity.primaryAction");
         });
         _primaryActionBtn
             .addOn(self.contentView)
             .byAdd(^(MASConstraintMaker *make) {
                 make.top.equalTo(self.previewView.mas_bottom).offset(JobsWidth(14));
                 make.left.right.equalTo(self.contentView).inset(JobsWidth(18));
-                make.height.mas_equalTo(JobsWidth(48));
+                make.height.mas_greaterThanOrEqualTo([UIFontMetrics.defaultMetrics scaledValueForValue:48]);
             });
     };return _primaryActionBtn;
 }
@@ -264,21 +267,31 @@
     if (!_statusLab) {
         _statusLab = jobsMakeLabel(^(__kindof UILabel * _Nullable label) {
             label
-                .byText(@"状态：等待操作")
+                .byText(@"状态：等待操作".jobsTr())
                 .byNumberOfLines(0)
-                .byFont(UIFontWeightRegularSize(13))
-                .byTextCor(UIColor.secondaryLabelColor)
-                .byBgColor(UIColor.tertiarySystemGroupedBackgroundColor)
+                .byFont([UIFontMetrics.defaultMetrics scaledFontForFont:UIFontWeightRegularSize(14)])
+                .byAdjustsFontForContentSizeCategory(YES)
+                .byTextCor(JobsLabelColor)
+                .byAccessibilityIdentifier(@"jobs.parity.status");
+        });
+        UIView *statusContainer = jobsMakeView(^(UIView *view) {
+            view
+                .byBgColor(JobsSecondarySystemBackgroundColor)
                 .byCornerRadius(JobsWidth(10))
                 .byClipsToBounds(YES);
         });
-        _statusLab
+        statusContainer
             .addOn(self.contentView)
             .byAdd(^(MASConstraintMaker *make) {
                 make.top.equalTo(self.primaryActionBtn.mas_bottom).offset(JobsWidth(12));
                 make.left.right.equalTo(self.contentView).inset(JobsWidth(18));
-                make.height.mas_greaterThanOrEqualTo(JobsWidth(72));
                 make.bottom.equalTo(self.contentView).inset(JobsWidth(30));
+            });
+        _statusLab
+            .addOn(statusContainer)
+            .byAdd(^(MASConstraintMaker *make) {
+                make.edges.equalTo(statusContainer).inset(JobsWidth(14));
+                make.height.mas_greaterThanOrEqualTo(JobsWidth(44));
             });
     };return _statusLab;
 }

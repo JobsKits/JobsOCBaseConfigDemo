@@ -1,0 +1,8 @@
+/* Jobs App localized permission purpose strings. */
+"CFBundleDisplayName" = "OCDemo";
+"NSPhotoLibraryUsageDescription" = "L’accès à la photothèque permet d’y enregistrer les vidéos capturées.";
+"NSBluetoothAlwaysUsageDescription" = "Permet de rechercher les appareils BLE à proximité, de s’y connecter et d’échanger des données avec eux.";
+"NSCameraUsageDescription" = "La caméra permet de détecter les surfaces réelles, de placer des modèles AR et d’enregistrer des vidéos.";
+"NSBluetoothPeripheralUsageDescription" = "Permet l’accès aux appareils BLE à proximité sur les anciennes versions du système.";
+"NSPhotoLibraryAddUsageDescription" = "Permet d’ajouter des captures d’écran, des images ou des vidéos à la photothèque.";
+"NSMicrophoneUsageDescription" = "Le microphone permet d’enregistrer et de gérer les fichiers audio locaux.";

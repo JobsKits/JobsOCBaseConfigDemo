@@ -9,6 +9,10 @@
 
 @interface YTKNetworkStudyVC ()
 
+Prop_strong()UILabel *studyStatusLabel;
+Prop_strong()UIButton *reloadStudyButton;
+
+
 @end
 
 // JOBS_LOCAL_PROPERTY_DSL_DECLARATION_AUTOGEN_BEGIN YTKNetworkConfig
@@ -98,6 +102,8 @@
         [super viewDidLoad];
         self.view.byBgColor(JobsSystemBackgroundColor);
         self.makeNavByAlpha(1);
+        self.studyStatusLabel.byAlpha(1);
+        self.reloadStudyButton.byAlpha(1);
     };
 }
 
@@ -112,6 +118,44 @@
         @jobs_strongify(self)
         if (!self) return;
         [super viewWillAppear:animated];
+        self.reloadStudyRequests();
+    };
+}
+
+-(void)viewDidAppear:(BOOL)animated{
+    jobsByBOOLBlock action = ((jobsByBOOLBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(YTKNetworkStudyVC.class, @selector(jobsViewDidAppear)))(self, @selector(jobsViewDidAppear));
+    if (action) action(animated);
+}
+
+-(jobsByBOOLBlock _Nonnull)jobsViewDidAppear{
+    @jobs_weakify(self)
+    return ^(BOOL animated){
+        @jobs_strongify(self)
+        if (!self) return;
+        [super viewDidAppear:animated];
+    };
+}
+
+-(void)viewWillDisappear:(BOOL)animated{
+    jobsByBOOLBlock action = ((jobsByBOOLBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(YTKNetworkStudyVC.class, @selector(jobsViewWillDisappear)))(self, @selector(jobsViewWillDisappear));
+    if (action) action(animated);
+}
+
+-(jobsByBOOLBlock _Nonnull)jobsViewWillDisappear{
+    @jobs_weakify(self)
+    return ^(BOOL animated){
+        @jobs_strongify(self)
+        if (!self) return;
+        [super viewWillDisappear:animated];
+    };
+}
+
+-(jobsByVoidBlock _Nonnull)reloadStudyRequests{
+    @jobs_weakify(self)
+    return ^{
+        @jobs_strongify(self)
+        if (!self) return;
+        self.studyStatusLabel.byText([NSString stringWithFormat:@"%@ 请求中...".jobsTr(), @"YTKNetwork"]);
         @jobs_weakify(self)
         /// 普通的单个请求
         self.loadCacheData(^(JobsResponseModel *_Nullable responseModel) {
@@ -144,33 +188,6 @@
     };
 }
 
--(void)viewDidAppear:(BOOL)animated{
-    jobsByBOOLBlock action = ((jobsByBOOLBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(YTKNetworkStudyVC.class, @selector(jobsViewDidAppear)))(self, @selector(jobsViewDidAppear));
-    if (action) action(animated);
-}
-
--(jobsByBOOLBlock _Nonnull)jobsViewDidAppear{
-    @jobs_weakify(self)
-    return ^(BOOL animated){
-        @jobs_strongify(self)
-        if (!self) return;
-        [super viewDidAppear:animated];
-    };
-}
-
--(void)viewWillDisappear:(BOOL)animated{
-    jobsByBOOLBlock action = ((jobsByBOOLBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(YTKNetworkStudyVC.class, @selector(jobsViewWillDisappear)))(self, @selector(jobsViewWillDisappear));
-    if (action) action(animated);
-}
-
--(jobsByBOOLBlock _Nonnull)jobsViewWillDisappear{
-    @jobs_weakify(self)
-    return ^(BOOL animated){
-        @jobs_strongify(self)
-        if (!self) return;
-        [super viewWillDisappear:animated];
-    };
-}
 #pragma mark —— YTKChainRequestDelegate
 -(void)chainRequestFinished:(YTKChainRequest *)chainRequest{
     ((((JobsYTKChainSuccessBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(YTKNetworkStudyVC.class, @selector(chainRequestFinished)))(self, @selector(chainRequestFinished))))(chainRequest);
@@ -180,6 +197,7 @@
     return ^(YTKChainRequest * chainRequest){
         @jobs_strongify(self)
         if (!self) return;
+        self.studyStatusLabel.byText([NSString stringWithFormat:@"%@ 请求成功".jobsTr(), @"YTKNetwork"]);
         JobsLog(@"all requests are done");
     //    chainRequest.requestArray;
     //    chainRequest.requestAccessories;
@@ -195,9 +213,54 @@
         failedBaseRequest:(YTKBaseRequest*)request{
     JobsResponseModel *responseModel = JobsResponseModel.byData(request.responseObject);
     self.jobsHandelNoSuccess(request);
+    self.studyStatusLabel.byText([NSString stringWithFormat:@"%@ 请求失败".jobsTr(), @"YTKNetwork"]);
     JobsLog(@"请求失败");
 }
 #pragma mark —— lazyLoad
+
+-(UILabel *)studyStatusLabel{
+    if (!_studyStatusLabel) {
+        @jobs_weakify(self)
+        _studyStatusLabel = jobsMakeLabel(^(__kindof UILabel * _Nullable label) {
+            @jobs_strongify(self)
+            label
+                .byText(@"这里显示请求结果".jobsTr())
+                .byFont([UIFontMetrics.defaultMetrics scaledFontForFont:UIFontWeightRegularSize(17)])
+                .byTextCor(JobsLabelColor)
+                .byNumberOfLines(0)
+                .addOn(self.view)
+                .byAdd(^(MASConstraintMaker *make) {
+                    make.top.equalTo(self.gk_navigationBar.mas_bottom).offset(JobsWidth(28));
+                    make.left.right.equalTo(self.view).inset(JobsWidth(24));
+                });
+            label.adjustsFontForContentSizeCategory = YES;
+        });
+    }
+    return _studyStatusLabel;
+}
+
+-(UIButton *)reloadStudyButton{
+    if (!_reloadStudyButton) {
+        @jobs_weakify(self)
+        _reloadStudyButton = UIButton.jobsInit()
+            .jobsResetBtnTitle(@"重新获取".jobsTr())
+            .jobsResetBtnTitleFont([UIFontMetrics.defaultMetrics scaledFontForFont:UIFontWeightSemiboldSize(16)])
+            .jobsResetBtnTitleCor(UIColor.whiteColor)
+            .jobsResetBtnBgCor(RGBA_COLOR(23, 92, 211, 1))
+            .jobsResetBtnCornerRadiusValue(JobsWidth(12))
+            .onClickBy(^(__unused UIButton *button) {
+                @jobs_strongify(self)
+                self.reloadStudyRequests();
+            })
+            .addOn(self.view)
+            .byAdd(^(MASConstraintMaker *make) {
+                make.top.equalTo(self.studyStatusLabel.mas_bottom).offset(JobsWidth(24));
+                make.left.right.equalTo(self.studyStatusLabel);
+                make.height.mas_greaterThanOrEqualTo(JobsWidth(48));
+            });
+    }
+    return _reloadStudyButton;
+}
 
 @end
 

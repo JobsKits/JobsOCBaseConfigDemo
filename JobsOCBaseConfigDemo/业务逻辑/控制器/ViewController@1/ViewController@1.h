@@ -8,6 +8,7 @@
 #import <UIKit/UIKit.h>
 #import "Demos.h"
 #import "JobsUserInfoVC.h"
+#import "JobsARKitDemoVC.h"
 #import "JobsMicroAppDemoVC.h"
 #import "JobsMicroSessionDemoVC.h"
 #import "JobsMicroPlatformDemoVC.h"

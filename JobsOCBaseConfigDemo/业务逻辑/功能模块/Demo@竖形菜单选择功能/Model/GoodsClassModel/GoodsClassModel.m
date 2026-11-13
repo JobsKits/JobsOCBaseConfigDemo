@@ -9,6 +9,16 @@
 
 @implementation GoodsClassModel
 
+// 分类数据创建时就保证文字子模型可用，避免首次渲染调用空 Block。
+-(instancetype)init{
+    self = [super init];
+    if (self) {
+        self.textModel = jobsMakeTextModel(nil);
+        self.subTextModel = jobsMakeTextModel(nil);
+    }
+    return self;
+}
+
 #define JOBS_GOODS_CLASS_STRING_DSL(_selector_, _property_) \
 -(JobsRetGoodsClassModelByStrBlock _Nonnull)_selector_{ \
     @jobs_weakify(self) \

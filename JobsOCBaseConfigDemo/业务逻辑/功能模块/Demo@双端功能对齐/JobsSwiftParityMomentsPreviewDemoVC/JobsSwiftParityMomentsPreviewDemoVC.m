@@ -201,11 +201,17 @@ Prop_assign()JobsOCCommentMode commentMode;
         self
             .byGKNavBackgroundColor(JobsSystemBackgroundColor)
             .byGKNavTitleColor(primaryTextColor);
-        self.gk_navMainTitleLab.byTextCor(primaryTextColor);
-        self.gk_navSubTitleLab.byTextCor(secondaryTextColor);
-        self.backBtnCategory
-            .jobsResetBtnTitleCor(primaryTextColor)
-            .byTintColor(primaryTextColor);
+        if (self.gk_navMainTitleLab) {
+            self.gk_navMainTitleLab.byTextCor(primaryTextColor);
+        }
+        if (self.gk_navSubTitleLab) {
+            self.gk_navSubTitleLab.byTextCor(secondaryTextColor);
+        }
+        if (self.backBtnCategory) {
+            self.backBtnCategory
+                .jobsResetBtnTitleCor(primaryTextColor)
+                .byTintColor(primaryTextColor);
+        }
         self.jobs_endLikeByButton(self.activeLikeBtn);
         [self.momentsTableView reloadData];
     };
@@ -330,7 +336,9 @@ Prop_assign()JobsOCCommentMode commentMode;
     @jobs_weakify(self)
     return ^(UIButton * button){
         @jobs_strongify(self)
-        if (!self) return;
+        if (!self || !button) {
+            return;
+        }
         button.byFuseBubbleStop();
         [button byFusePressScaleStop:YES
                            duration:0.22

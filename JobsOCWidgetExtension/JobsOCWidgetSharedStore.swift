@@ -19,6 +19,18 @@ enum JobsOCWidgetSharedStore {
         UserDefaults(suiteName: appGroupIdentifier) ?? .standard
     }
 
+    static var languageCode: String {
+        defaults.string(forKey: "jobs.widget.languageCode") ?? Locale.preferredLanguages.first ?? "en"
+    }
+
+    static var localizedStrings: [String: String] {
+        defaults.dictionary(forKey: "jobs.widget.localizedStrings") as? [String: String] ?? [:]
+    }
+
+    static func text(_ key: String, fallback: String) -> String {
+        localizedStrings[key] ?? fallback
+    }
+
     static var counter: Int {
         let value = defaults.integer(forKey: counterKey)
         return value > 0 ? value : defaultCounter

@@ -52,7 +52,7 @@
         if (!self) return;
         JobsOCOpenResult result = @"https://www.apple.com".jobs_open();
         self.previewImageView.byImage(@"arrow.up.right.square".sys_img);
-        self.previewTitleLab.byText(@"JobsOpen：打开 https://www.apple.com");
+        self.previewTitleLab.byText(@"JobsOpen：打开 https://www.apple.com".jobsTr());
         self.updateStatus(result == JobsOCOpenResultOpened ? @"JobsOpen 已受理" : @"JobsOpen 无法打开目标");
     };
 }

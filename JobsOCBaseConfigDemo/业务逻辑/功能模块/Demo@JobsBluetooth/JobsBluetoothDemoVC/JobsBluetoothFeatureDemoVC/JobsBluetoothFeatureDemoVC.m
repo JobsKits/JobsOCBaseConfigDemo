@@ -45,7 +45,7 @@ Prop_strong()JobsBluetoothManager *bluetoothManager;
         if (!self) return;
         [super loadView];
         self.viewModel.byTextModelBlock(^(__kindof UITextModel * _Nullable data) {
-            data.byText(self.featureTitle)
+            data.byText(self.featureTitle.jobsTr())
                 .byFont(UIFontWeightRegularSize(16));
         });
     };
@@ -64,6 +64,10 @@ Prop_strong()JobsBluetoothManager *bluetoothManager;
         [super viewDidLoad];
         self.view.byBgColor(JobsSystemBackgroundColor);
         self.makeNavByAlpha(1);
+        self.viewModel.byTextModelBlock(^(UITextModel *data) {
+            data.byText(self.featureTitle.jobsTr());
+        });
+        self.gk_navTitleViewBy(self.viewModel);
         self.descriptionLabel.byVisible(YES);
         self.executeButton.byVisible(YES);
         self.logTextView.byVisible(YES);
@@ -143,7 +147,8 @@ Prop_strong()JobsBluetoothManager *bluetoothManager;
     if (!_descriptionLabel) {
         _descriptionLabel = jobsMakeLabel(^(__kindof UILabel * _Nullable label) {
             label.byText([NSString stringWithFormat:@"当前演示：%@\n默认启用 Mock Transport，可在模拟器直接验证点击链路和数据回调。".jobsTr(), self.featureTitle])
-                .byFont(UIFontWeightRegularSize(15))
+                .byFont([UIFontMetrics.defaultMetrics scaledFontForFont:UIFontWeightRegularSize(15)])
+                .byAdjustsFontForContentSizeCategory(YES)
                 .byNumberOfLines(0)
                 .byTextCor(JobsLabelColor)
                 .addOn(self.view)
@@ -162,7 +167,9 @@ Prop_strong()JobsBluetoothManager *bluetoothManager;
             button.jobsResetBtnTitle([NSString stringWithFormat:@"执行 %@".jobsTr(), self.featureTitle])
                 .jobsResetBtnTitleCor(JobsWhiteColor)
                 .jobsResetBtnTitleFont(UIFontWeightBoldSize(16))
-                .jobsResetBtnBgCor(HEXCOLOR(0x007AFF))
+                .jobsResetBtnBgCor(HEXCOLOR(0x175CD3))
+                .jobsResetBtnCornerRadiusValue(JobsWidth(10))
+                .makeNewLineShows(YES)
                 .onClickBy(^(__kindof UIButton * _Nullable button) {
                     weak_self.runFeature();
                 })
@@ -174,7 +181,7 @@ Prop_strong()JobsBluetoothManager *bluetoothManager;
                 .byAdd(^(MASConstraintMaker *make) {
                     make.top.equalTo(self.descriptionLabel.mas_bottom).offset(JobsWidth(16));
                     make.left.right.equalTo(self.view).inset(JobsWidth(20));
-                    make.height.mas_equalTo(JobsWidth(48));
+                    make.height.mas_greaterThanOrEqualTo([UIFontMetrics.defaultMetrics scaledValueForValue:48]);
                 });
         });
     };return _executeButton;

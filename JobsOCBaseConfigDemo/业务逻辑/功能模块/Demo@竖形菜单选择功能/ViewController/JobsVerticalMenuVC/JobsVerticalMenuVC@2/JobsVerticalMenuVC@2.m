@@ -238,7 +238,9 @@ Prop_assign()BOOL searchMode;
         return jobsMakeMutArr(^(__kindof NSMutableArray * _Nullable data) {
             @jobs_strongify(self)
             data.add(jobsMakeViewModel(^(__kindof UIViewModel * _Nullable data1) {
-                data1.textModel.byText(@"收藏".jobsTr());
+                data1.byTextModelBlock(^(__kindof UITextModel * _Nullable textModel) {
+                    textModel.byText(@"收藏".jobsTr());
+                });
             }))
             .addBy(self.makePopViewDataMutArr());
         });;
@@ -252,22 +254,34 @@ Prop_assign()BOOL searchMode;
         if (!self) return nil;
        return jobsMakeMutArr(^(__kindof NSMutableArray <__kindof UIViewModel *>* _Nullable data) {
            data.add(jobsMakeViewModel(^(__kindof UIViewModel * _Nullable data1) {
-               data1.textModel.byText(@"收藏".jobsTr());
+               data1.byTextModelBlock(^(__kindof UITextModel * _Nullable textModel) {
+                   textModel.byText(@"收藏".jobsTr());
+               });
            }))
            .add(jobsMakeViewModel(^(__kindof UIViewModel * _Nullable data1) {
-               data1.textModel.byText(@"真人".jobsTr());
+               data1.byTextModelBlock(^(__kindof UITextModel * _Nullable textModel) {
+                   textModel.byText(@"真人".jobsTr());
+               });
            }))
            .add(jobsMakeViewModel(^(__kindof UIViewModel * _Nullable data1) {
-               data1.textModel.byText(@"体育".jobsTr());
+               data1.byTextModelBlock(^(__kindof UITextModel * _Nullable textModel) {
+                   textModel.byText(@"体育".jobsTr());
+               });
            }))
            .add(jobsMakeViewModel(^(__kindof UIViewModel * _Nullable data1) {
-               data1.textModel.byText(@"电子".jobsTr());
+               data1.byTextModelBlock(^(__kindof UITextModel * _Nullable textModel) {
+                   textModel.byText(@"电子".jobsTr());
+               });
            }))
            .add(jobsMakeViewModel(^(__kindof UIViewModel * _Nullable data1) {
-               data1.textModel.byText(@"棋牌".jobsTr());
+               data1.byTextModelBlock(^(__kindof UITextModel * _Nullable textModel) {
+                   textModel.byText(@"棋牌".jobsTr());
+               });
            }))
            .add(jobsMakeViewModel(^(__kindof UIViewModel * _Nullable data1) {
-               data1.textModel.byText(@"彩票".jobsTr());
+               data1.byTextModelBlock(^(__kindof UITextModel * _Nullable textModel) {
+                   textModel.byText(@"彩票".jobsTr());
+               });
            }));
        });
     };
@@ -397,7 +411,9 @@ numberOfRowsInSection:(NSInteger)section{
     return LeftCell.cellStyleDefaultByTableView(tableView)
         .jobsRichElementsTableViewCellBy(jobsMakeViewModel(^(__kindof UIViewModel * _Nullable viewModel) {
             @jobs_strongify(self)
-            viewModel.textModel.byText(self.titleMutArr[indexPath.row].textModel.text);
+            viewModel.byTextModelBlock(^(__kindof UITextModel * _Nullable textModel) {
+                textModel.byText(self.titleMutArr[indexPath.row].textModel.text);
+            });
         }));
 }
 
@@ -478,7 +494,7 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
 - (CGSize)collectionView:(__kindof UICollectionView *)collectionView
                   layout:(UICollectionViewLayout *)collectionViewLayout
 referenceSizeForHeaderInSection:(NSInteger)section{
-    return CGSizeMake(self.collectionView.width, JobsWidth(40.f));
+    return CGSizeMake(CGRectGetWidth(collectionView.bounds), JobsWidth(40.f));
 }
 
 - (CGSize)collectionView:(__kindof UICollectionView *)collectionView
@@ -490,7 +506,7 @@ referenceSizeForFooterInSection:(NSInteger)section{
 - (CGSize)collectionView:(__kindof UICollectionView *)collectionView
                   layout:(UICollectionViewLayout *)collectionViewLayout
   sizeForItemAtIndexPath:(NSIndexPath *)indexPath{
-    return CGSizeMake(self.collectionView.width,
+    return CGSizeMake(CGRectGetWidth(collectionView.bounds),
                       self.getCellHeight((NSMutableArray <NSObject *>*)[self.rightDataArray objectAtIndex:indexPath.section].childrenList));
 }
 
@@ -577,11 +593,20 @@ referenceSizeForFooterInSection:(NSInteger)section{
 //            .registerCollectionElementKindSectionHeaderClass(UICollectionReusableView.class,@"")
 //            .registerCollectionElementKindSectionFooterClass(UICollectionReusableView.class,@"")
             .byAlwaysBounceVertical(YES);
-        _collectionView.byFrame(CGRectMake(self.tableView.right,self.tableView.top,
-                                           JobsMainScreen_WIDTH() - self.tableView.width,self.tableView.height + EditBtnHeight));
+        [_collectionView registerClass:UICollectionReusableView.class
+              forSupplementaryViewOfKind:UICollectionElementKindSectionHeader
+                     withReuseIdentifier:UICollectionReusableView.class.description];
+        [_collectionView registerClass:UICollectionReusableView.class
+              forSupplementaryViewOfKind:UICollectionElementKindSectionFooter
+                     withReuseIdentifier:UICollectionReusableView.class.description];
         _collectionView
             .byBgColor(JobsSecondarySystemBackgroundColor)
-            .addOn(self.view);
+            .addOn(self.view)
+            .byAdd(^(MASConstraintMaker *make) {
+                make.left.equalTo(self.tableView.mas_right);
+                make.top.equalTo(self.tableView);
+                make.right.bottom.equalTo(self.view);
+            });
     };return _collectionView;
 }
 

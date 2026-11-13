@@ -6,8 +6,27 @@
 //
 
 #import "AppDelegate+UIApplicationDelegate.h"
+#import "../../../业务逻辑/功能模块/Demo@Widget/Support/JobsWidgetCenterBridge.h"
 
 //#import "AppDelegate+UISceneSessionLifeCycle.h"
+
+// Widget Extension 独立运行，通过 App Group 接收宿主的全局语言快照。
+static void JobsSyncWidgetLanguage(void) {
+    NSArray<NSString *> *keys = @[
+        @"演武堂 · 小组件",
+        @"今日进度 %d / 12",
+        @"宿主 Demo 更新后，桌面时间线会同步刷新。",
+        @"长按桌面可编辑或移除小组件",
+        @"最近同步 %@",
+        @"在手机桌面查看当前时间和 Demo 进度。"
+    ];
+    NSMutableDictionary<NSString *, NSString *> *strings = NSMutableDictionary.dictionary;
+    for (NSString *key in keys) {
+        strings[key] = key.jobsTr();
+    }
+    NSString *languageCode = LanMgr.languageCodeByAppLanguage(LanMgr.language);
+    [JobsWidgetCenterBridge updateLanguage:languageCode ?: @"en" strings:strings];
+}
 
 @implementation AppDelegate (UIApplicationDelegate)
 
@@ -29,6 +48,13 @@ didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     self.localNotifications();
     self.launchFunc2();
     AppDelegate.launchFunc1();
+    JobsSyncWidgetLanguage();
+    [NSNotificationCenter.defaultCenter addObserverForName:语言切换
+                                                    object:nil
+                                                     queue:NSOperationQueue.mainQueue
+                                                usingBlock:^(__unused NSNotification *notification) {
+        JobsSyncWidgetLanguage();
+    }];
     // 当前最低部署版本为 iOS 16.6，窗口统一交给 SceneDelegate。
     return YES;
 }

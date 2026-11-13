@@ -343,13 +343,14 @@ JobsOCCalendarValueDSL(byJobsReloadDataAfterBoundsChange, jobsReloadDataAfterBou
         self.byJobsVisibleDates(NSArray.array);
         self.byScrollEnabled(YES);
         self.byAdjustsBoundingRectWhenChangingMonths(YES);
+        // 配置 setter 会刷新日历，先安装标题与日期单元。
+        self.jobsInstallSubviews();
         self.byScope(JobsOCCalendarScopeMonth);
         self.byPlaceholderType(JobsOCCalendarPlaceholderTypeFillSixRows);
         self.byJobsAutomaticallyInvalidateLayoutOnBoundsChange(YES);
         self.byJobsReloadDataAfterBoundsChange(YES);
         self.byJobsLastStableBoundsSize(CGSizeZero);
         self.byClipsToBounds(YES);
-        self.jobsInstallSubviews();
         self.jobsInstallGestureRecognizers();
         [self reloadData];
     };

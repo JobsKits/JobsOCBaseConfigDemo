@@ -59,4 +59,8 @@ ruby ScriptsByPods/jobs_pods_stability_audit.rb/Tests/run_regression.rb/run_regr
 
 回归脚本在临时目录构造真实 CocoaPods fixtures，确认重复 IMP、依赖环、同模块公开头重名、新私有引用、不同字节同名资源、helper 漂移/消失和隐私理由/资源遗漏会非零失败，并验证精确 baseline 不会吸收新私有引用。H03 定向复现 TimerMgr 同机制的兄弟 DSL 头被误列为 Project：根聚合导入失败，补实际 public pattern 后通过；实现文件仅导入私有 Entry 不误报，真正公开导入 private Entry 会失败，注释与合法公开 Support 头保持原边界。H03 即使被写入结构例外仍拒绝。回归退出码 0。编译、链接、XCTest 和整体工程验收由[**编译回归脚本**](../jobs_pods_stability_verify.rb/README.md)另行完成。
 
+<!-- jobs-language-terminal-style-v1 -->
+
+**终端配色保护：** `jobs_pods_stability_audit.rb` 直接运行时，在可可靠保存与恢复配色的交互终端中临时使用黑底白字和统一强调色；正常退出、失败及可捕获中断后恢复进入前的配色，保留原业务清理和退出状态。导入本文件不接管终端；无法可靠保护、纯文本模式或无交互终端时按纯文本约定降级。运行中另行修改的颜色会保留并报告冲突，强制终止后可按运行提示使用独立恢复入口。 此实现保留原解释器选项和预载状态；无可用 fork、Windows 或预载多线程时不重启脚本，以纯文本继续。
+
 <a id="🔚" href="#前言" style="font-size:17px; color:green; font-weight:bold;">我是有底线的➤点我回到首页</a>

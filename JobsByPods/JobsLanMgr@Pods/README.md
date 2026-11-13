@@ -51,6 +51,8 @@
 补充描述：JobsLanMgr provides language utilities and block helpers for Jobs projects, including NSString, NSBundle, NSObject categories, and other support classes.
 
 
+全局语言由 App 设置统一选择：跟随系统、简体中文、繁体中文、藏文、英文、日文、法文、西班牙文、德文、俄罗斯文、韩文，保留既有菲律宾语。`AppLanguage` 旧枚举值保持不变，新语种追加，避免已有语言偏好被错读。页面通过 `LanMgr.languageCodeByAppLanguage(...)` 与 `LanMgr.localStringByKey(...)` 消费当前语言，切换后沿用现有全局语言通知刷新。
+
 ## <span id="jobs-toc-heading-2" data-jobs-toc="v2">一、Pod 定位 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a></span><!-- jobs-toc:heading-end -->
 
 | 项目 | 内容 |

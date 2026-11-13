@@ -16,7 +16,7 @@ struct JobsOCHomeWidget: Widget {
             JobsOCHomeWidgetView(entry: entry)
         }
         .configurationDisplayName("演武堂 OC 小组件")
-        .description("在手机桌面查看当前时间和 OC Demo 进度。")
+        .description(JobsOCWidgetSharedStore.text("在手机桌面查看当前时间和 Demo 进度。", fallback: "View the time and demo progress on your Home Screen."))
         .supportedFamilies([
             .systemSmall,
             .systemMedium,

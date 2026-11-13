@@ -59,7 +59,7 @@ Prop_assign()NSUInteger taskGeneration;
         self.taskGeneration += 1;
         NSUInteger generation = self.taskGeneration;
         self.previewImageView.byImage(@"checklist".sys_img);
-        self.previewTitleLab.byText(@"任务 A → 任务 B → 汇总任务");
+        self.previewTitleLab.byText(@"任务 A → 任务 B → 汇总任务".jobsTr());
         self.updateStatus(@"TaskCenter 正在执行依赖链");
         NSBlockOperation *taskA = [NSBlockOperation blockOperationWithBlock:^{
             JobsLog(@"TaskCenter[%lu]：任务 A 完成",(unsigned long)generation);

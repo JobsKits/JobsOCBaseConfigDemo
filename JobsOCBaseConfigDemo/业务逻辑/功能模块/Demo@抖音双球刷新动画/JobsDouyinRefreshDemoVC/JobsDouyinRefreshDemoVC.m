@@ -264,7 +264,7 @@ Prop_assign()NSUInteger refreshGeneration;
     if (!_startBtn) {
         @jobs_weakify(self)
         _startBtn = [self makeControlButtonWithTitle:@"开始 / 继续"
-                                              color:JobsGreenColor
+                                              color:HEXCOLOR(0x18794E)
                                              action:^(__kindof UIButton * _Nullable button) {
             weak_self.startRefreshAnimation();
         }];
@@ -283,7 +283,7 @@ Prop_assign()NSUInteger refreshGeneration;
     if (!_pauseBtn) {
         @jobs_weakify(self)
         _pauseBtn = [self makeControlButtonWithTitle:@"暂停"
-                                              color:JobsOrangeColor
+                                              color:HEXCOLOR(0x9A6700)
                                              action:^(__kindof UIButton * _Nullable button) {
             weak_self.pauseRefreshAnimation();
         }];
@@ -301,7 +301,7 @@ Prop_assign()NSUInteger refreshGeneration;
     if (!_stopBtn) {
         @jobs_weakify(self)
         _stopBtn = [self makeControlButtonWithTitle:@"停止"
-                                             color:JobsRedColor
+                                             color:HEXCOLOR(0xB42318)
                                             action:^(__kindof UIButton * _Nullable button) {
             weak_self.stopRefreshAnimation();
         }];
@@ -321,7 +321,7 @@ Prop_assign()NSUInteger refreshGeneration;
     if (!_simulateBtn) {
         @jobs_weakify(self)
         _simulateBtn = [self makeControlButtonWithTitle:@"模拟一次 2 秒刷新"
-                                                 color:JobsBlueColor
+                                                 color:HEXCOLOR(0x175CD3)
                                                 action:^(__kindof UIButton * _Nullable button) {
             weak_self.beginSimulatedRefresh();
         }];
@@ -342,9 +342,11 @@ Prop_assign()NSUInteger refreshGeneration;
     return jobsMakeButton(^(__kindof UIButton * _Nullable button) {
         button
             .jobsResetBtnTitle(title.jobsTr())
-            .jobsResetBtnTitleCor(JobsWhiteColor)
+            .jobsResetBtnTitleCor(UIColor.whiteColor)
             .jobsResetBtnTitleFont(UIFontWeightSemiboldSize(15))
             .jobsResetBtnBgCor(color)
+            .jobsResetBtnCornerRadiusValue(JobsWidth(10))
+            .makeNewLineShows(YES)
             .onClickBy(action)
             .byLayer(^(__kindof CALayer * _Nullable layer) {
                 layer

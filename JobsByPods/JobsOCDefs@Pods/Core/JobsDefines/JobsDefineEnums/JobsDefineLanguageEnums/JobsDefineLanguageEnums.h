@@ -16,7 +16,14 @@ typedef NS_ENUM(NSInteger, AppLanguage) {
     AppLanguageChineseSimplified, // zh-Hans：简体中文
     AppLanguageChineseTraditional,// zh-Hant：繁体中文
     AppLanguageEnglish,           // en：标准英语
-    AppLanguageTagalog            // tl：菲律宾他加禄语
+    AppLanguageTagalog,           // fil：菲律宾他加禄语，保留已有持久化值
+    AppLanguageTibetan,           // bo：藏文
+    AppLanguageJapanese,          // ja：日文
+    AppLanguageFrench,            // fr：法文
+    AppLanguageSpanish,           // es：西班牙文
+    AppLanguageGerman,            // de：德文
+    AppLanguageRussian,           // ru：俄罗斯文
+    AppLanguageKorean             // ko：韩文
 };
 #endif/* APP_LANGUAGE_ENUM_DEFINED */
 /// HTTP语言

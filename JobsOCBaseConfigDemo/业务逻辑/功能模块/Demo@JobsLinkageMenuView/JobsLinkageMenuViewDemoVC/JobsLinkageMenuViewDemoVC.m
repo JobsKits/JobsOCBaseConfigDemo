@@ -214,7 +214,9 @@ Prop_strong()NSArray<NSString *> *menuTitles;
     return ^{
         @jobs_strongify(self)
         if (!self) return;
-        self.linkageView.byRemove();
+        if (self.linkageView) {
+            self.linkageView.byRemove();
+        }
         self.byLinkageView(nil);
         JobsLinkageMenuViewConfig *config = JobsLinkageMenuViewConfig.new;
         config.byDEFAULT_MENU_ITEM_HEIGHT(JobsWidth(78));

@@ -12,11 +12,40 @@ input,button{min-height:44px;max-width:100%;border:1px solid #888;border-radius:
 input{flex:1 1 10rem;min-width:0;background:var(--paper);color:var(--ink)}
 button{flex:0 1 auto;background:#144d8e;color:white;white-space:normal;overflow-wrap:anywhere}
 pre{white-space:pre-wrap;overflow-wrap:anywhere;font:0.875em/1.5 ui-monospace,monospace;margin:12px 0 0}
-</style></head><body><h3>独立业务包 · learning.bridge</h3><p>网页渲染 UI，宿主只开放白名单能力。草稿保存后会由 Native 写入固定命名空间。</p>
+</style></head><body><h3 data-jobs-i18n="独立业务包 · learning.bridge">独立业务包 · learning.bridge</h3><p data-jobs-i18n="网页渲染 UI，宿主只开放白名单能力。草稿保存后会由 Native 写入固定命名空间。">网页渲染 UI，宿主只开放白名单能力。草稿保存后会由 Native 写入固定命名空间。</p>
 <form class="draft-form" onsubmit="event.preventDefault();callHost('saveDraft',{text:document.getElementById('draft').value})">
-<input id="draft" maxlength="140" value="来自微应用的草稿" aria-label="微应用草稿"><button type="submit">保存草稿</button>
-</form><pre id="result" role="status">等待调用宿主…</pre><script>
+<input id="draft" maxlength="140" value="来自微应用的草稿" aria-label="微应用草稿" data-jobs-i18n-aria="微应用草稿" data-jobs-i18n-value="来自微应用的草稿" data-jobs-previous-value="来自微应用的草稿"><button type="submit" data-jobs-i18n="保存草稿">保存草稿</button>
+</form><pre id="result" role="status" data-jobs-i18n="等待调用宿主…">等待调用宿主…</pre><script>
+// Jobs-owned lesson UI only; API names, URLs, and user drafts are never translated.
+window.jobsT = key => window.jobsWebLocalization?.strings?.[key] ?? key;
+window.jobsTF = (key, ...values) => {
+  let i = 0;
+  return window.jobsT(key).replace(/%@|%d/g, () => String(values[i++] ?? ''));
+};
+window.jobsSetLocalization = payload => {
+  window.jobsWebLocalization = payload;
+  document.documentElement.lang = payload.language || 'en';
+  document.querySelectorAll('[data-jobs-i18n]').forEach(el => {
+    el.textContent = window.jobsT(el.dataset.jobsI18n);
+  });
+  document.querySelectorAll('[data-jobs-i18n-aria]').forEach(el => {
+    el.setAttribute('aria-label', window.jobsT(el.dataset.jobsI18nAria));
+  });
+  document.querySelectorAll('[data-jobs-i18n-value]').forEach(el => {
+    const next = window.jobsT(el.dataset.jobsI18nValue);
+    if (el.dataset.jobsPreviousValue === undefined || el.value === el.dataset.jobsPreviousValue) {
+      el.value = next;
+    }
+    el.dataset.jobsPreviousValue = next;
+  });
+  window.jobsRenderLocalized?.();
+};
+document.addEventListener('DOMContentLoaded', () => {
+  if (window.jobsWebLocalization) window.jobsSetLocalization(window.jobsWebLocalization);
+});
+
+
 let requestSequence=0;
-window.callHost=(command,payload={})=>{const id='request-'+(++requestSequence);document.querySelector('#result').textContent='JS → Native: '+command;if(!window.webkit?.messageHandlers?.jobsMicro){document.querySelector('#result').textContent='需要 Jobs iOS 宿主';return;}window.webkit.messageHandlers.jobsMicro.postMessage({id,command,payload});};
+window.callHost=(command,payload={})=>{const id='request-'+(++requestSequence);document.querySelector('#result').removeAttribute('data-jobs-i18n');document.querySelector('#result').textContent='JS → Native: '+command;if(!window.webkit?.messageHandlers?.jobsMicro){document.querySelector('#result').dataset.jobsI18n='需要 Jobs iOS 宿主';document.querySelector('#result').textContent=jobsT('需要 Jobs iOS 宿主');return;}window.webkit.messageHandlers.jobsMicro.postMessage({id,command,payload});};
 window.jobsReceive=response=>{document.querySelector('#result').textContent=JSON.stringify(response,null,2);};
 </script></body></html>

@@ -159,4 +159,8 @@ ruby pod_boundary_audit.rb \
 - 是否真正写入源码，取决于你是否带上 `--fix-safe-core-support-imports`，以及是否启用 `--dry-run`。
 - 如果你希望继续推进“把误放在 `Support` 里的公共基类提到 `Core`”，还需要在报告基础上做第二轮结构整理。
 
+<!-- jobs-language-terminal-style-v1 -->
+
+**终端配色保护：** `pod_boundary_audit.rb` 直接运行时，在可可靠保存与恢复配色的交互终端中临时使用黑底白字和统一强调色；正常退出、失败及可捕获中断后恢复进入前的配色，保留原业务清理和退出状态。导入本文件不接管终端；无法可靠保护、纯文本模式或无交互终端时按纯文本约定降级。运行中另行修改的颜色会保留并报告冲突，强制终止后可按运行提示使用独立恢复入口。 此实现保留原解释器选项和预载状态；无可用 fork、Windows 或预载多线程时不重启脚本，以纯文本继续。
+
 <a id="🔚" href="#前言" style="font-size:17px; color:green; font-weight:bold;">我是有底线的➤点我回到首页</a>

@@ -27,7 +27,7 @@ Prop_strong()VideoModel_Core *core_data;
     return ^__kindof JobsVideoTBVCell *_Nullable(VideoModel_Core *_Nullable model){
         @jobs_strongify(self)
         if (!self) return nil;
-        [self setData:model];
+        [self setCore_data:model];
         return self;
     };
 }
@@ -77,8 +77,9 @@ Prop_strong()VideoModel_Core *core_data;
             self.byData((VideoModel_Core *)model);
             self.label.byText([NSString stringWithFormat:@"%ld",(long)self.index]);
             self.rotation.byAlpha(1);
+            NSString *coverURL = self.core_data.videoImg;
             self.coverImageView
-                    .imageURL(self.core_data.videoImg.jobsURL())
+                    .imageURL(coverURL.length ? coverURL.jobsURL() : nil)
                     .placeholderImage(@"视频封面".img)
                     .options(self.jobsMakeSDWebImageOptions())
                     .completed(^(UIImage * _Nullable image,

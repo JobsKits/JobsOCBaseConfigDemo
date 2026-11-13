@@ -511,8 +511,9 @@ gestureRecognizerEnded:(UILongPressGestureRecognizer *)longPgr
         _tipsLab = jobsMakeLabel(^(__kindof UILabel * _Nullable label) {
             @jobs_strongify(self)
             label
-                .byTextCor(RGB_SAMECOLOR(173))
-                .byFont(UIFontWeightBoldSize(1))
+                .byTextCor(JobsSecondaryLabelColor)
+                .byFont([UIFontMetrics.defaultMetrics scaledFontForFont:UIFontWeightRegularSize(13)])
+                .byAdjustsFontForContentSizeCategory(YES)
                 .byNumberOfLines(0)
                 .byText(@"1、内容不允许出现纯数字，英文字母；".jobsTr()
                         .add(JobsNewline)
@@ -520,6 +521,7 @@ gestureRecognizerEnded:(UILongPressGestureRecognizer *)longPgr
                 .addOn(self.view)
                 .byAdd(^(MASConstraintMaker *make) {
                     make.left.equalTo(self.view).offset(JobsWidth(14));
+                    make.right.equalTo(self.view).offset(-JobsWidth(14));
                     make.top.equalTo(self.jobsTextView.mas_bottom).offset(JobsWidth(11));
                 })
             .makeLabelByShowingType(UILabelShowingType_03);

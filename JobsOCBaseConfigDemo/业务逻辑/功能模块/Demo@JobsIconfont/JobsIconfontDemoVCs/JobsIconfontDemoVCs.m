@@ -302,7 +302,7 @@ Prop_strong()NSArray <JobsIconfontRemoteAsset>*assets;
                                              result.isCacheHit ? @"缓存命中" : @"网络返回"]);
                     break;
                 case JobsIconfontLoadStageFailure:
-                    self.statusLabel.byText(@"URL 无效或网络失败｜继续显示框架内置兜底图");
+                    self.statusLabel.byText(@"URL 无效或网络失败｜继续显示框架内置兜底图".jobsTr());
                     break;
             }
         }];
@@ -358,7 +358,7 @@ Prop_strong()NSArray <JobsIconfontRemoteAsset>*assets;
 -(UILabel *)statusLabel{
     if (!_statusLabel) {
         _statusLabel = jobsMakeLabel(^(UILabel *object){})
-            .byText(@"等待加载")
+            .byText(@"等待加载".jobsTr())
             .byFont(UIFontWeightMediumSize(14))
             .byTextCor(JobsSecondaryLabelColor)
             .byTextAlignment(NSTextAlignmentCenter)
@@ -376,7 +376,7 @@ Prop_strong()NSArray <JobsIconfontRemoteAsset>*assets;
     if (!_reloadButton) {
         @jobs_weakify(self)
         _reloadButton = UIButton.new
-            .byTitle(@"普通重载")
+            .byTitle(@"普通重载".jobsTr())
             .byTitleCor(UIColor.whiteColor)
             .jobsResetBtnBgCor(UIColor.systemBlueColor)
             .jobsResetBtnCornerRadiusValue(JobsWidth(10))
@@ -396,7 +396,7 @@ Prop_strong()NSArray <JobsIconfontRemoteAsset>*assets;
     if (!_forceReloadButton) {
         @jobs_weakify(self)
         _forceReloadButton = UIButton.new
-            .byTitle(@"忽略缓存重载")
+            .byTitle(@"忽略缓存重载".jobsTr())
             .byTitleCor(UIColor.whiteColor)
             .jobsResetBtnBgCor(UIColor.systemOrangeColor)
             .jobsResetBtnCornerRadiusValue(JobsWidth(10))
@@ -449,7 +449,7 @@ Prop_strong()UILabel *stateLabel;
         if (!self) return;
         [super prepareForReuse];
         self.iconView.byCancelJobsIconfontLoad();
-        self.stateLabel.byText(@"已取消旧任务");
+        self.stateLabel.byText(@"已取消旧任务".jobsTr());
     };
 }
 
@@ -466,7 +466,7 @@ Prop_strong()UILabel *stateLabel;
         @jobs_strongify(self)
         switch (result.stage) {
             case JobsIconfontLoadStagePlaceholder:
-                self.stateLabel.byText(@"本地占位图");
+                self.stateLabel.byText(@"本地占位图".jobsTr());
                 break;
             case JobsIconfontLoadStageSuccess:
                 self.stateLabel.byText([NSString stringWithFormat:@"%@｜%@",
@@ -474,7 +474,7 @@ Prop_strong()UILabel *stateLabel;
                                         result.isCacheHit ? @"缓存" : @"网络"]);
                 break;
             case JobsIconfontLoadStageFailure:
-                self.stateLabel.byText(@"失败兜底");
+                self.stateLabel.byText(@"失败兜底".jobsTr());
                 break;
         }
     }];return self;
@@ -660,7 +660,7 @@ Prop_assign()BOOL automaticSecondLoadPending;
     return ^(UIButton * sender){
         @jobs_strongify(self)
         if (!self) return;
-        self.statusLabel.byText(@"正在统一清理缓存…");
+        self.statusLabel.byText(@"正在统一清理缓存…".jobsTr());
         @jobs_weakify(self)
         (JobsIconfontManager.shared).clearImageCache(^{
             @jobs_strongify(self)
@@ -722,7 +722,7 @@ Prop_assign()BOOL automaticSecondLoadPending;
 -(UILabel *)statusLabel{
     if (!_statusLabel) {
         _statusLabel = jobsMakeLabel(^(UILabel *object){})
-            .byText(@"首次加载准备中")
+            .byText(@"首次加载准备中".jobsTr())
             .byFont(UIFontWeightMediumSize(15))
             .byTextCor(JobsLabelColor)
             .byTextAlignment(NSTextAlignmentCenter)
@@ -740,7 +740,7 @@ Prop_assign()BOOL automaticSecondLoadPending;
     if (!_clearButton) {
         @jobs_weakify(self)
         _clearButton = UIButton.new
-            .byTitle(@"清空缓存并自动重载")
+            .byTitle(@"清空缓存并自动重载".jobsTr())
             .byTitleCor(UIColor.whiteColor)
             .jobsResetBtnBgCor(UIColor.systemRedColor)
             .jobsResetBtnCornerRadiusValue(JobsWidth(10))
@@ -828,7 +828,7 @@ heightForRowAtIndexPath:(NSIndexPath *)indexPath{
                 .byFont(UIFontWeightSemiboldSize(16));
         })
         .byDetailTextLabel(^(__kindof UILabel * _Nullable label) {
-            label.byText(@"语义枚举 → UILabel / UIButton / UIImage")
+            label.byText(@"语义枚举 → UILabel / UIButton / UIImage".jobsTr())
                 .byFont(UIFontWeightRegularSize(12));
         });
 }
@@ -907,7 +907,7 @@ Prop_strong()UILabel *fallbackLabel;
 -(UILabel *)sampleLabel{
     if (!_sampleLabel) {
         _sampleLabel = jobsMakeLabel(^(UILabel *object){})
-            .byText(@"阿里妈妈·智造字\nAI 让设计更有温度\n012345678")
+            .byText(@"阿里妈妈·智造字\nAI 让设计更有温度\n012345678".jobsTr())
             .byTextCor(JobsLabelColor)
             .byTextAlignment(NSTextAlignmentCenter)
             .byNumberOfLines(0)
@@ -924,7 +924,7 @@ Prop_strong()UILabel *fallbackLabel;
 -(UILabel *)sizeLabel{
     if (!_sizeLabel) {
         _sizeLabel = jobsMakeLabel(^(UILabel *object){})
-            .byText(@"字号：34")
+            .byText(@"字号：34".jobsTr())
             .byFont(UIFontWeightMediumSize(14))
             .byTextCor(JobsSecondaryLabelColor)
             .byTextAlignment(NSTextAlignmentCenter)
@@ -956,7 +956,7 @@ Prop_strong()UILabel *fallbackLabel;
 -(UILabel *)fallbackLabel{
     if (!_fallbackLabel) {
         _fallbackLabel = jobsMakeLabel(^(UILabel *object){})
-            .byText(@"字体缺失时，JobsIconfont 自动回退系统字体")
+            .byText(@"字体缺失时，JobsIconfont 自动回退系统字体".jobsTr())
             .byFont(UIFontWeightRegularSize(14))
             .byTextCor(JobsTertiaryLabelColor)
             .byTextAlignment(NSTextAlignmentCenter)

@@ -1,0 +1,8 @@
+/* Jobs App localized permission purpose strings. */
+"CFBundleDisplayName" = "OCDemo";
+"NSPhotoLibraryUsageDescription" = "ཕབ་ལེན་བྱས་པའི་བརྙན་ཉར་ཆེད་པར་མཛོད་ཀློག་ལེན་དགོས།";
+"NSBluetoothAlwaysUsageDescription" = "ཉེ་འཁོར་ BLE སྒྲིག་ཆས་བཤེར་འབེབས། འབྲེལ་མཐུད་དང་གཞི་གྲངས་བརྗེ་རེས་ལ་སྤྱོད།";
+"NSCameraUsageDescription" = "ངོས་སྙོམས་དངོས་བརྟག་པ། AR དཔེ་གཟུགས་འཇོག་པ་དང་བརྙན་ཕབ་ལེན་ཆེད་པར་ཆས་སྤྱོད་དགོས།";
+"NSBluetoothPeripheralUsageDescription" = "མ་ལག་ཐོན་རིམ་རྙིང་པ་དང་མཐུན་སྒྲིག་བྱས་ནས་ཉེ་འཁོར་ BLE སྒྲིག་ཆས་ཀློག་ལེན་ལ་སྤྱོད།";
+"NSPhotoLibraryAddUsageDescription" = "བརྙན་ཡོལ་པར། པར་རིས་སམ་བརྙན་པར་མཛོད་ནང་སྣོན་དགོས།";
+"NSMicrophoneUsageDescription" = "རང་སའི་སྒྲ་ཕབ་ལེན་དང་དོ་དམ་ཆེད་སྐད་སྦུག་སྤྱོད་དགོས།";

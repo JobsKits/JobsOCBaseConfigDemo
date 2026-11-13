@@ -14,6 +14,7 @@
 Prop_assign()CGFloat itemHeight; // 一个cell 的高度
 Prop_assign()NSInteger columns; // 一行有多少列
 Prop_assign()NSInteger rowCount; // 一共有都是行
+Prop_strong()UIButton *emptyReloadButton;
 Prop_strong()NSMutableArray <GoodsClassModel *>*dataArray; // 总共有多少个cell
 
 @end
@@ -76,7 +77,8 @@ JOBS_THREE_CLASS_CELL_CGFLOAT_DSL(byMinimumInteritemSpacing, minimumInteritemSpa
     return ^__kindof UICollectionViewCell *_Nullable(id _Nullable model) {
         @jobs_strongify(self)
         self.dataArray = model;
-        if (self.dataArray) self.collectionView.reloadDatas();
+        self.collectionView.reloadDatas();
+        self.collectionView.backgroundView = self.dataArray.count ? nil : self.emptyReloadButton;
         return self;
     };
 }
@@ -143,13 +145,6 @@ didSelectItemAtIndexPath:(NSIndexPath *)indexPath{
                 .bySectionInset(UIEdgeInsetsMake(self.sectionInsetTop, self.sectionInsetLeft, self.sectionInsetBottom, self.sectionInsetRight));// section 内边距
         }))
         .registerCollectionViewCellClass(self.cellCls, @"")// 注册 cell，放在 dataLink 之前更稳
-        /// 配置空数据视图
-        .showEmptyViewBy(FMMaintenanceView
-                         .BySize(FMMaintenanceView.viewSizeByModel(nil))/// 设置空态视图尺寸
-                         .JobsRichViewByModel2(nil)/// 绑定空态视图数据模型
-                         .JobsBlock1(^(id  _Nullable data) {
-                             // 空态视图点击 / 回调事件，当前暂无处理
-                         }))
         .dataLink(self)// 绑定数据源和代理
         .byScrollEnabled(NO)// 禁止 UICollectionView 自身滚动
         .byContentInset(UIEdgeInsetsMake(JobsWidth(10), 0, 0, 0))/// 设置内容内边距
@@ -166,6 +161,38 @@ didSelectItemAtIndexPath:(NSIndexPath *)indexPath{
         /// 添加到 contentView
         self.contentView.addSubview(_collectionView);
     };return _collectionView;
+}
+
+-(void)layoutSubviews{
+    [super layoutSubviews];
+    if (_collectionView) {
+        _collectionView.byFrame(CGRectInset(self.contentView.bounds, JobsWidth(8.76), 0));
+        UICollectionViewFlowLayout *layout = (UICollectionViewFlowLayout *)_collectionView.collectionViewLayout;
+        CGFloat availableWidth = CGRectGetWidth(_collectionView.bounds) - self.sectionInsetLeft - self.sectionInsetRight;
+        CGFloat spacing = self.minimumInteritemSpacing * (self.columns - 1);
+        CGSize itemSize = CGSizeMake(MAX(JobsWidth(44), floor((availableWidth - spacing) / self.columns)), self.itemHeight);
+        if (!CGSizeEqualToSize(layout.itemSize, itemSize)) {
+            layout.byItemSize(itemSize);
+            [layout invalidateLayout];
+        }
+    }
+}
+
+-(UIButton *)emptyReloadButton{
+    if (!_emptyReloadButton) {
+        @jobs_weakify(self)
+        _emptyReloadButton = UIButton.jobsInit()
+            .jobsResetBtnTitle(@"暂无数据".jobsTr())
+            .jobsResetBtnImage(@"暂无数据".img)
+            .jobsResetImagePlacement(NSDirectionalRectEdgeTop)
+            .jobsResetBtnTitleCor(JobsSecondaryLabelColor)
+            .jobsResetBtnTitleFont([UIFontMetrics.defaultMetrics scaledFontForFont:UIFontWeightRegularSize(14)])
+            .onClickBy(^(UIButton *button) {
+                @jobs_strongify(self)
+                [self.collectionView reloadData];
+            });
+    }
+    return _emptyReloadButton;
 }
 
 -(CGFloat)sectionInsetTop{

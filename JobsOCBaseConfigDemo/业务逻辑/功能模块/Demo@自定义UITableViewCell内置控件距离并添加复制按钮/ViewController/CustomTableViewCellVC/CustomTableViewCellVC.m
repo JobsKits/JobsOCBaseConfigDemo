@@ -155,6 +155,7 @@ minimumInteritemSpacingForSectionAtIndex:(NSInteger)section{
         _collectionView = UICollectionView.initByLayout(self.jobsVerticalLayout())
             .dataLink(self)
             .registerCollectionViewClass()
+            .registerCollectionViewCellClass(BaiShaETProjOrderDetailsCVCell.class, @"")
             .byShowsVerticalScrollIndicator(NO);
         _collectionView
             .byBgColor(JobsSecondarySystemBackgroundColor)
@@ -174,28 +175,52 @@ minimumInteritemSpacingForSectionAtIndex:(NSInteger)section{
             data.add(jobsMakeViewModel(^(__kindof UIViewModel * _Nullable data1) {
                 data1.jobsDataMutArr = jobsMakeMutArr(^(__kindof NSMutableArray * _Nullable data2) {
                     data2.add(jobsMakeViewModel(^(__kindof UIViewModel * _Nullable data3) {
-                        data3.textModel.byText(@"存款金额".jobsTr());
-                        data3.subTextModel.byText(@"10,000.00".jobsTr());
+                        data3.byTextModelBlock(^(__kindof UITextModel * _Nullable textModel) {
+                            textModel.byText(@"存款金额".jobsTr());
+                        });
+                        data3.bySubTextModelBlock(^(__kindof UITextModel * _Nullable textModel) {
+                            textModel.byText(@"10,000.00".jobsTr());
+                        });
                     }))
                     .add(jobsMakeViewModel(^(__kindof UIViewModel * _Nullable data3) {
-                        data3.textModel.byText(@"存款方式".jobsTr());
-                        data3.subTextModel.byText(@"虛擬幣充值".jobsTr());
+                        data3.byTextModelBlock(^(__kindof UITextModel * _Nullable textModel) {
+                            textModel.byText(@"存款方式".jobsTr());
+                        });
+                        data3.bySubTextModelBlock(^(__kindof UITextModel * _Nullable textModel) {
+                            textModel.byText(@"虛擬幣充值".jobsTr());
+                        });
                     }))
                     .add(jobsMakeViewModel(^(__kindof UIViewModel * _Nullable data3) {
-                        data3.textModel.byText(@"訂單編號".jobsTr());
-                        data3.subTextModel.byText(@"YSF2025022302644565964".jobsTr());
+                        data3.byTextModelBlock(^(__kindof UITextModel * _Nullable textModel) {
+                            textModel.byText(@"訂單編號".jobsTr());
+                        });
+                        data3.bySubTextModelBlock(^(__kindof UITextModel * _Nullable textModel) {
+                            textModel.byText(@"YSF2025022302644565964".jobsTr());
+                        });
                     }))
                     .add(jobsMakeViewModel(^(__kindof UIViewModel * _Nullable data3) {
-                        data3.textModel.byText(@"轉賬姓名".jobsTr());
-                        data3.subTextModel.byText(@"張三 ".jobsTr());
+                        data3.byTextModelBlock(^(__kindof UITextModel * _Nullable textModel) {
+                            textModel.byText(@"轉賬姓名".jobsTr());
+                        });
+                        data3.bySubTextModelBlock(^(__kindof UITextModel * _Nullable textModel) {
+                            textModel.byText(@"張三 ".jobsTr());
+                        });
                     }))
                     .add(jobsMakeViewModel(^(__kindof UIViewModel * _Nullable data3) {
-                        data3.textModel.byText(@"銀行賬號".jobsTr());
-                        data3.subTextModel.byText(@"6230 5822 0031 5762 430".jobsTr());
+                        data3.byTextModelBlock(^(__kindof UITextModel * _Nullable textModel) {
+                            textModel.byText(@"銀行賬號".jobsTr());
+                        });
+                        data3.bySubTextModelBlock(^(__kindof UITextModel * _Nullable textModel) {
+                            textModel.byText(@"6230 5822 0031 5762 430".jobsTr());
+                        });
                     }))
                     .add(jobsMakeViewModel(^(__kindof UIViewModel * _Nullable data3) {
-                        data3.textModel.byText(@"轉賬地址".jobsTr());
-                        data3.subTextModel.byText(@"中國平安銀行".jobsTr());
+                        data3.byTextModelBlock(^(__kindof UITextModel * _Nullable textModel) {
+                            textModel.byText(@"轉賬地址".jobsTr());
+                        });
+                        data3.bySubTextModelBlock(^(__kindof UITextModel * _Nullable textModel) {
+                            textModel.byText(@"中國平安銀行".jobsTr());
+                        });
                     }));
                 });
             }));

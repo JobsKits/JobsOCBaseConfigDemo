@@ -93,6 +93,8 @@ Demo 源码位于 `JobsOCBaseConfigDemo/业务逻辑/功能模块/Demo@功能名
 
 OC 侧核心调用思想是：`JobsMake` 创建对象，`JobsOCDSL` / `JobsModelDSL` 配置属性，`UIView+DSL` / `Masonry+DSL` 完成父视图装配和约束，依赖真实 `frame` 的效果放到约束刷新之后。
 
+`Demo@ARKit` 用 [**ARKit**](https://developer.apple.com/documentation/arkit) 的世界追踪、平面检测、射线查询与锚点配合 [**SceneKit**](https://developer.apple.com/documentation/scenekit) 展示模型；无相机的三维预览明确标注为渲染演示。页面复用十语言教学文本和宿主主题中心，语言只由 App 设置中的全局选择控制，`UIView+DSL` 的 `byAccessibilityElement(...)`、`byAccessibilityValue(...)` 用于暴露真实模型数量、旋转角度和缩放状态，不合成检测结果。
+
 ## <span id="jobs-toc-heading-2" data-jobs-toc="v2">一、基础原则 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a></span><!-- jobs-toc:heading-end -->
 
 - UI 创建优先使用 Jobs 自建 Pod 的公开聚合头和 `jobsMakeXXX`；业务代码不穿透到 Pod 私有目录。

@@ -218,15 +218,15 @@ Prop_strong()UILabel *tipLab;
         return @[
             [self demoButtonWithTitle:@"轮播图 · 活动一".jobsTr()
                              subTitle:@"fillBounds + PageControl".jobsTr()
-                                color:HEXCOLOR(0x2F80ED)
+                                color:HEXCOLOR(0x175CD3)
                                   tag:100],
             [self demoButtonWithTitle:@"轮播图 · 活动二".jobsTr()
                              subTitle:@"支持手动拖拽后恢复".jobsTr()
-                                color:HEXCOLOR(0x27AE60)
+                                color:HEXCOLOR(0x18794E)
                                   tag:101],
             [self demoButtonWithTitle:@"轮播图 · 活动三".jobsTr()
                              subTitle:@"一屏一页间隔滚动".jobsTr()
-                                color:HEXCOLOR(0x9B51E0)
+                                color:HEXCOLOR(0x6938EF)
                                   tag:102]
         ];
     };
@@ -240,7 +240,7 @@ Prop_strong()UILabel *tipLab;
     return jobsMakeButton(^(__kindof UIButton * _Nullable button) {
         button
             .jobsResetBtnTitle(subTitle.length ? [NSString stringWithFormat:@"%@\n%@", title.jobsTr(), subTitle.jobsTr()] : title.jobsTr())
-            .jobsResetBtnTitleCor(JobsWhiteColor)
+            .jobsResetBtnTitleCor(UIColor.whiteColor)
             .jobsResetBtnTitleFont(subTitle.length ? UIFontWeightRegularSize(13) : UIFontWeightMediumSize(15))
             .jobsResetBtnBgCor(color)
             .jobsResetBtnCornerRadiusValue(JobsWidth(8))
@@ -318,7 +318,7 @@ Prop_strong()UILabel *tipLab;
                                                 topView:self.tipLab
                                               topOffset:JobsWidth(14)];
         _leftContinuousMarquee = (((JobsMarqueeView.alloc.init.byDirection(JobsMarqueeDirectionLeft)).byContinuousWithSpeed(42)).byItemSizeMode(JobsMarqueeItemSizeModeFitContent)).byDataSourceButtons([self noticeButtonsWithPrefix:@"向左连续"
-                                                                               color:HEXCOLOR(0xF2994A)
+                                                                               color:HEXCOLOR(0x9A580B)
                                                                                count:4]);
         _leftContinuousMarquee.byBgColor(JobsSecondarySystemBackgroundColor)
             .byCornerRadius(JobsWidth(8))
@@ -338,7 +338,7 @@ Prop_strong()UILabel *tipLab;
                                                 topView:self.leftContinuousMarquee
                                               topOffset:JobsWidth(16)];
         _topFrequencyMarquee = (((JobsMarqueeView.alloc.init.byDirection(JobsMarqueeDirectionTop)).byFrequencyWithInterval(1.2)).byItemSizeMode(JobsMarqueeItemSizeModeFillBounds)).byDataSourceButtons([self noticeButtonsWithPrefix:@"向上翻页"
-                                                                             color:HEXCOLOR(0x56CCF2)
+                                                                             color:HEXCOLOR(0x006B75)
                                                                              count:3]);
         _topFrequencyMarquee.byBgColor(JobsSecondarySystemBackgroundColor)
             .byCornerRadius(JobsWidth(8))
@@ -373,7 +373,7 @@ Prop_strong()UILabel *tipLab;
                                                 topView:self.bannerMarquee
                                               topOffset:JobsWidth(16)];
         _rightContinuousMarquee = (((JobsMarqueeView.alloc.init.byDirection(JobsMarqueeDirectionRight)).byContinuousWithSpeed(36)).byItemSizeMode(JobsMarqueeItemSizeModeFitContent)).byDataSourceButtons([self noticeButtonsWithPrefix:@"向右连续"
-                                                                                color:HEXCOLOR(0xEB5757)
+                                                                                color:HEXCOLOR(0xB42318)
                                                                                 count:4]);
         _rightContinuousMarquee.byBgColor(JobsSecondarySystemBackgroundColor)
             .byCornerRadius(JobsWidth(8))

@@ -20,6 +20,8 @@ NS_ASSUME_NONNULL_BEGIN
 +(JobsRetNSIntegerByVoidBlock _Nonnull)jobsCounter;
 +(jobsByNSIntegerBlock _Nonnull)jobsSaveCounter;
 +(jobsByVoidBlock _Nonnull)jobsReloadTimelines;
++(void)updateLanguage:(NSString *)languageCode
+               strings:(NSDictionary<NSString *, NSString *> *)strings;
 
 @end
 

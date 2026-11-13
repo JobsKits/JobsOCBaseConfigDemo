@@ -116,6 +116,19 @@ didSelectItemAtIndexPath:(NSIndexPath *)indexPath{
                       backgroundColor:(UIColor *)backgroundColor{
     return jobsMakeViewModel(^(__kindof UIViewModel * _Nullable model) {
         model.byTitle(title.jobsTr())
+            .byTextModelBlock(^(UITextModel *textModel) {
+                textModel
+                    .byText(title.jobsTr())
+                    .byTextCor(UIColor.whiteColor)
+                    .byFont(UIFontWeightSemiboldSize(16));
+            })
+            .bySubTextModelBlock(^(UITextModel *textModel) {
+                textModel
+                    .bySubText(@"按钮铺满整个 UICollectionViewCell".jobsTr())
+                    .bySubTextCor(UIColor.whiteColor)
+                    .bySubFont(UIFontWeightRegularSize(13));
+            })
+            .byBgCor(backgroundColor)
             .bySubTitle(@"按钮铺满整个 UICollectionViewCell".jobsTr())
             .byTitleCor(JobsWhiteColor)
             .bySubTitleCor(JobsWhiteColor.colorWithAlphaComponentBy(0.78))

@@ -81,7 +81,7 @@ heightForRowAtIndexPath:(NSIndexPath *)indexPath{
                                              JobsWidth(6),
                                              JobsWidth(16)))
         .bySelectionStyle(UITableViewCellSelectionStyleDefault)
-        .JobsRichViewByModel2(self.demoArr[indexPath.row]);
+        .jobsRichElementsTableViewCellBy(self.demoArr[indexPath.row]);
     if (JobsOCCoverageGestureProbeEnabled()) {
         UIButton *receiver = JobsOCCoverageUniqueButtonInView(cell.contentView);
         if (receiver) {
@@ -113,6 +113,19 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
                       backgroundColor:(UIColor *)backgroundColor{
     return jobsMakeViewModel(^(__kindof UIViewModel * _Nullable model) {
         model.byTitle(title.jobsTr())
+            .byTextModelBlock(^(UITextModel *textModel) {
+                textModel
+                    .byText(title.jobsTr())
+                    .byTextCor(UIColor.whiteColor)
+                    .byFont(UIFontWeightSemiboldSize(16));
+            })
+            .bySubTextModelBlock(^(UITextModel *textModel) {
+                textModel
+                    .bySubText(@"按钮铺满整个 UITableViewCell".jobsTr())
+                    .bySubTextCor(UIColor.whiteColor)
+                    .bySubFont(UIFontWeightRegularSize(13));
+            })
+            .byBgCor(backgroundColor)
             .bySubTitle(@"按钮铺满整个 UITableViewCell".jobsTr())
             .byTitleCor(JobsWhiteColor)
             .bySubTitleCor(JobsWhiteColor.colorWithAlphaComponentBy(0.78))

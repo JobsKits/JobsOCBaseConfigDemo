@@ -1,0 +1,8 @@
+/* Jobs App localized permission purpose strings. */
+"CFBundleDisplayName" = "OCDemo";
+"NSPhotoLibraryUsageDescription" = "需要訪問相冊以保存錄制視頻。";
+"NSBluetoothAlwaysUsageDescription" = "用於掃描、連接並與附近的 BLE 設備交換數據。";
+"NSCameraUsageDescription" = "需要訪問相機以檢測真實平面、放置 AR 模型及錄制視頻。";
+"NSBluetoothPeripheralUsageDescription" = "用於兼容舊系統訪問附近的 BLE 設備。";
+"NSPhotoLibraryAddUsageDescription" = "需要添加截圖、圖片或視頻到相冊。";
+"NSMicrophoneUsageDescription" = "需要訪問麥克風以錄制和管理本地音頻。";

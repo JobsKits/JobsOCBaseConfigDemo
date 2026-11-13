@@ -35,13 +35,13 @@ Prop_assign()NSInteger catalogGeneration;
 
 -(JobsRetStrByVoidBlock _Nonnull)learningTitle{
     return ^NSString *{
-        return @"mPaaS / 平台适配教学";
+        return @"mPaaS / 平台适配教学".jobsTr();
     };
 }
 
 -(JobsRetStrByVoidBlock _Nonnull)learningIntroduction{
     return ^NSString *{
-        return @"未接商用 SDK。这里用“能力协议 + 服务端目录 + appID 白名单路由”学习 mPaaS 的分层；API 失败立即回退本地。";
+        return @"未接商用 SDK。这里用“能力协议 + 服务端目录 + appID 白名单路由”学习 mPaaS 的分层；API 失败立即回退本地。".jobsTr();
     };
 }
 
@@ -54,15 +54,15 @@ Prop_assign()NSInteger catalogGeneration;
         }
         self->_platformProvider = JobsMicroPlatformProvider.new;
         self->_platformApps = JobsMicroPlatformProvider.localCatalog();
-        self->_platformURL = [self learningFieldWithText:@"https://example.invalid/api/microapps" placeholder:@"自有 HTTPS 目录 API" identifier:@"lab.mpaasURL"];
+        self->_platformURL = [self learningFieldWithText:@"https://example.invalid/api/microapps" placeholder:@"自有 HTTPS 目录 API".jobsTr() identifier:@"lab.mpaasURL"];
         self->_platformCatalog = [self learningLabelWithText:@"" secondary:NO];
         self.appendLearningView(self.platformURL);
         self.appendLearningView(self.platformCatalog);
-        self.appendLearningView([self learningButtonWithTitle:@"刷新平台目录 / 重试 API" identifier:@"lab.reload" action:^(UIButton *sender) {
+        self.appendLearningView([self learningButtonWithTitle:@"刷新平台目录 / 重试 API".jobsTr() identifier:@"lab.reload" action:^(UIButton *sender) {
             @jobs_strongify(self)
             self.refreshPlatformCatalog();
         }]);
-        self.appendLearningView([self learningButtonWithTitle:@"按 appID 打开目录第一项" identifier:@"lab.mpaasOpen" action:^(UIButton *sender) {
+        self.appendLearningView([self learningButtonWithTitle:@"按 appID 打开目录第一项".jobsTr() identifier:@"lab.mpaasOpen" action:^(UIButton *sender) {
             @jobs_strongify(self)
             self.openFirstPlatformApp();
         }]);
@@ -82,7 +82,7 @@ Prop_assign()NSInteger catalogGeneration;
         for (NSDictionary *app in self.platformApps) {
             [lines addObject:[NSString stringWithFormat:@"%@ · %@ · v%@", app[@"name"], app[@"appId"], app[@"version"]]];
         }
-        self.platformCatalog.byText(lines.count ? [lines componentsJoinedByString:@"\n\n"] : @"暂无微应用\n点击“刷新平台目录 / 重试 API”重新加载。");
+        self.platformCatalog.byText(lines.count ? [lines componentsJoinedByString:@"\n\n"] : @"暂无微应用\n点击“刷新平台目录 / 重试 API”重新加载。".jobsTr());
     };
 }
 
@@ -95,11 +95,11 @@ Prop_assign()NSInteger catalogGeneration;
         }
         NSURL *URL = [NSURL URLWithString:self.platformURL.text];
         if (![URL.scheme.lowercaseString isEqualToString:@"https"] || !URL.host.length || URL.user.length || URL.password.length) {
-            self.reportLearningStatus(@"目录地址必须是有效 HTTPS URL。请修改后重试。");
+            self.reportLearningStatus(@"目录地址必须是有效 HTTPS URL。请修改后重试。".jobsTr());
             return;
         }
         NSInteger generation = ++self->_catalogGeneration;
-        self.reportLearningStatus(@"正在请求 API；当前可先体验本地目录。超时 1.5 秒。");
+        self.reportLearningStatus(@"正在请求 API；当前可先体验本地目录。超时 1.5 秒。".jobsTr());
         [self.platformProvider fetchCatalogFromURL:URL completion:^(id payload) {
             @jobs_strongify(self)
             if (!self || generation != self.catalogGeneration) {
@@ -108,7 +108,7 @@ Prop_assign()NSInteger catalogGeneration;
             NSDictionary *result = payload;
             self->_platformApps = result[@"apps"];
             self.renderPlatformCatalog();
-            self.reportLearningStatus([NSString stringWithFormat:@"目录来源：%@\n共 %lu 项；可按 appID 打开。", result[@"source"], (unsigned long)self.platformApps.count]);
+            self.reportLearningStatus([NSString stringWithFormat:@"目录来源：%@\n共 %lu 项；可按 appID 打开。".jobsTr(), result[@"source"], (unsigned long)self.platformApps.count]);
         }];
     };
 }
@@ -124,7 +124,7 @@ Prop_assign()NSInteger catalogGeneration;
         NSDictionary *routes = @{@"learning.bridge":JobsMicroAppDemoVC.class, @"learning.sandbox":JobsMicroSandboxDemoVC.class, @"learning.pwa":JobsMicroPWADemoVC.class};
         Class controllerClass = routes[appID ?: @""];
         if (!controllerClass) {
-            self.reportLearningStatus(@"目录为空，或 appID 不在宿主路由白名单。请刷新目录。");
+            self.reportLearningStatus(@"目录为空，或 appID 不在宿主路由白名单。请刷新目录。".jobsTr());
             return;
         }
         [self.navigationController pushViewController:[controllerClass new] animated:YES];
