@@ -1,6 +1,6 @@
 {
   "schema": 1,
-  "reviewed_at": "2026-11-05",
+  "reviewed_at": "2026-11-17",
   "expected_pods": [
     "AFSecurityPolicyExtra",
     "BRPickerViewExtra",
@@ -89,6 +89,7 @@
     "JobsProgressBar",
     "JobsRandomUtils",
     "JobsRichTextUtils",
+    "JobsRustOCR",
     "JobsScreenCapture",
     "JobsStringUtils",
     "JobsSuspend",
@@ -544,6 +545,11 @@
       "sha256": "f280e1072bd74adcbc6515a5d485dbb2e0648cf41fd235af39f2d0b78111a603",
       "normalized_sha256": "9ba2e89eb0beec06b770b319d027c0548861d851852e5efa5a2e2c51f80fc1d8",
       "reason": "本轮逐Pod真实求值与构建采用的现有helper指纹；19个版本均显式记录，任何新增/行为变化必须复审。"
+    },
+    "JobsByPods/JobsRustOCR@Pods/JobsPodspecKit.rb": {
+      "sha256": "0659eb2913eb35cc072435a79b48e68da01c0de1292b36841fec1aaa59997670",
+      "normalized_sha256": "9ba2e89eb0beec06b770b319d027c0548861d851852e5efa5a2e2c51f80fc1d8",
+      "reason": "JobsRustOCR 新增自有 Pod；helper 与已审阅 JobsOCDefs 仅模块名不同，完整归一化字节一致，无新增行为。"
     },
     "JobsByPods/JobsScreenCapture@Pods/JobsPodspecKit.rb": {
       "sha256": "adeb92ae287e92057dc07d4ea318c6d02ef42ea416f357c73a83b8d400207a51",
