@@ -176,6 +176,8 @@ JobsOCVideoRecorderVC *vc = [JobsOCVideoRecorderVC.alloc initWithConfig:config];
 
 ## <span id="jobs-toc-heading-15" data-jobs-toc="v2">十、运行合同与失败边界 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a></span><!-- jobs-toc:heading-end -->
 
+- 采样、writer 启动与清理的功能 Block 显式使用 `self->_latestVideoFormatDescription` / `self->_latestAudioFormatDescription`，仍在原同步域管理 CF 资源，不改变 retain / release 次数。
+
 - 录制状态与 CMFormatDescription retain/release 在同一同步域；开始、停止、丢弃和采样不能同时更换 writer 或释放 format。finishing 期间不能开始新录制。
 - 完成回调核对创建它的 writer；取消或切换后旧完成不能修改新会话。实际录制时长使用单调时钟，权限完成后只有页面在窗口且 App 活跃才启动采集。
 - 页面退出、进入后台会停止采集并丢弃在途录制；dealloc 直接释放 CF 资源。需真机完成快速开始/停止、后台、权限晚到和完成/取消竞争回归。
@@ -207,7 +209,7 @@ JobsOCVideoRecorderVC *vc = [JobsOCVideoRecorderVC.alloc initWithConfig:config];
 
 ## <span id="jobs-toc-heading-17" data-jobs-toc="v2">十二、本轮单元验证 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a></span><!-- jobs-toc:heading-end -->
 
-当前结果：**Debug / Release 单 Pod 编译、Debug Stability 回归已完成；整体验收记录见根 [JobsByPods升级实施与编译验证.md](<../../JobsByPods升级实施与编译验证.md>)**。生产源码、测试源码、资源与工程配置的指纹一致且命令真实退出成功，才可复用对应验证记录。
+当前结果：**Debug / Release 单 Pod 编译、Debug Stability 回归已完成；整体验收记录见根 [JobsByPods升级实施与编译验证.md](<../../项目相关报告/JobsByPods升级实施与编译验证.md>)**。生产源码、测试源码、资源与工程配置的指纹一致且命令真实退出成功，才可复用对应验证记录。
 
 生产行为与边界按上述核心契约验收；逐 Pod 编译与独立行为回归分别记录结果。
 
@@ -215,14 +217,14 @@ JobsOCVideoRecorderVC *vc = [JobsOCVideoRecorderVC.alloc initWithConfig:config];
 
 ```shell
 cd ../..
-ruby ScriptsByPods/jobs_pods_stability_verify.rb/jobs_pods_stability_verify.rb \
+ruby ScriptsByPods/自动化测试相关脚本/jobs_pods_stability_verify.rb/jobs_pods_stability_verify.rb \
   --phase pods --pod JobsOCVideoRecorder
 ```
 
 当前 podspec 显式提供 `Stability` test_spec。`Tests/` 与测试 fixture 只进入测试目标；真实行为断言通过后再回填结果。指定可用模拟器 UDID：
 
 ```shell
-ruby ScriptsByPods/jobs_pods_stability_verify.rb/jobs_pods_stability_verify.rb \
+ruby ScriptsByPods/自动化测试相关脚本/jobs_pods_stability_verify.rb/jobs_pods_stability_verify.rb \
   --phase tests --pod JobsOCVideoRecorder --simulator '<UDID>'
 ```
 

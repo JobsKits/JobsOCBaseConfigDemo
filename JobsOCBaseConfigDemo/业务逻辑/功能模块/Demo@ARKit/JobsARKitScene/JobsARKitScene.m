@@ -43,6 +43,12 @@ Prop_assign(readwrite) BOOL previewing;
 Prop_assign() BOOL visible;
 Prop_assign() BOOL started;
 Prop_assign() BOOL trackingReady;
+Prop_assign(readwrite) NSUInteger selectedModelIndex;
+Prop_strong() NSMutableArray<SCNNode *> *previewModels;
+Prop_assign() NSTimeInterval lastPlacementUpdate;
+Prop_assign() BOOL lastPlacementReady;
+Prop_assign() NSUInteger requestGeneration;
+Prop_assign() BOOL wantsAR;
 Prop_copy() NSString *lastStatus;
 
 @end
@@ -52,11 +58,15 @@ Prop_copy() NSString *lastStatus;
 -(instancetype)init {
     self = [super init];
     if (self) {
+        _modelIndex = NSNotFound;
+        _selectedModelIndex = NSNotFound;
+        _previewModels = [NSMutableArray array];
         _objects = [NSMutableDictionary dictionary];
         _anchors = [NSMutableDictionary dictionary];
         _planes = [NSMutableSet set];
         _arView = jobsMakeARSCNView();
         _arView.scene = [SCNScene scene];
+        _arView.backgroundColor = [UIColor colorWithRed:0.055 green:0.09 blue:0.14 alpha:1];
         _arView.delegate = self;
         _arView.session.delegate = self;
         _arView.automaticallyUpdatesLighting = YES;
@@ -86,7 +96,9 @@ Prop_copy() NSString *lastStatus;
 
 -(void)resume {
     self.visible = YES;
-    if (self.started && !self.previewing) {
+    BOOL cameraRestored = [self.lastStatus isEqualToString:@"cameraDenied"] &&
+        [AVCaptureDevice authorizationStatusForMediaType:AVMediaTypeVideo] == AVAuthorizationStatusAuthorized;
+    if (!self.previewing && (self.started || cameraRestored || self.wantsAR)) {
         [self start];
     } else {
         [self publish:self.previewing ? @"previewNotice" : self.lastStatus];
@@ -94,6 +106,7 @@ Prop_copy() NSString *lastStatus;
 }
 
 -(void)pause {
+    self.requestGeneration += 1;
     self.visible = NO;
     self.trackingReady = NO;
     [self.arView.session pause];
@@ -103,6 +116,14 @@ Prop_copy() NSString *lastStatus;
 -(void)start {
     if (!self.visible) {
         return;
+    }
+    self.wantsAR = YES;
+    NSUInteger generation = ++self.requestGeneration;
+    if (self.previewing) {
+        self.previewing = NO;
+        self.started = NO;
+        [self clear];
+        [self.planes removeAllObjects];
     }
     if (!ARWorldTrackingConfiguration.isSupported) {
         [self publish:@"unsupported"];
@@ -114,7 +135,7 @@ Prop_copy() NSString *lastStatus;
         [AVCaptureDevice requestAccessForMediaType:AVMediaTypeVideo completionHandler:^(BOOL granted) {
             dispatch_async(dispatch_get_main_queue(), ^{
                 @jobs_strongify(self)
-                if (!self || !self.visible) {
+                if (!self || !self.visible || !self.wantsAR || self.previewing || generation != self.requestGeneration) {
                     return;
                 }
                 if (granted) {
@@ -140,6 +161,8 @@ Prop_copy() NSString *lastStatus;
 }
 
 -(void)showPreview {
+    self.requestGeneration += 1;
+    self.wantsAR = NO;
     [self.arView.session pause];
     [self clear];
     [self.planes removeAllObjects];
@@ -164,6 +187,7 @@ Prop_copy() NSString *lastStatus;
     floor.reflectivity = 0.12;
     floor.firstMaterial.diffuse.contents = [UIColor colorWithWhite:0.16 alpha:1];
     [self.previewView.scene.rootNode addChildNode:jobsMakeSCNNode(floor)];
+    [self updatePreviewLayout];
     [self publish:@"previewNotice"];
 }
 
@@ -205,18 +229,24 @@ Prop_copy() NSString *lastStatus;
 }
 
 -(void)placeAtPoint:(CGPoint)point {
+    if (self.modelIndex >= 3) {
+        [self publish:self.lastStatus];
+        return;
+    }
     if (self.previewing) {
         SCNNode *model = [self modelNode];
-        NSUInteger count = self.objects.count;
-        model.position = count == 0 ? SCNVector3Zero : SCNVector3Make(((NSInteger)count % 3 - 1) * 0.18, 0, -((NSInteger)count / 3 + 1) * 0.18);
         [self.previewView.scene.rootNode addChildNode:model];
         self.objects[NSUUID.UUID] = model;
+        [self.previewModels addObject:model];
         self.selectedNode = model;
+        self.selectedModelIndex = self.modelIndex;
+        [self updatePreviewLayout];
         [self publish:@"previewNotice"];
         return;
     }
-    if (!self.started || !self.trackingReady) {
-        [self publish:self.started ? @"scanning" : @"ready"];
+    ARCamera *camera = self.arView.session.currentFrame.camera;
+    if (!self.visible || !self.started || !self.trackingReady || !camera || camera.trackingState != ARTrackingStateNormal) {
+        [self publish:self.lastStatus];
         return;
     }
     ARRaycastQuery *query = [self.arView raycastQueryFromPoint:point allowingTarget:ARRaycastTargetExistingPlaneGeometry alignment:ARRaycastTargetAlignmentHorizontal];
@@ -231,6 +261,7 @@ Prop_copy() NSString *lastStatus;
     self.objects[anchor.identifier] = model;
     self.anchors[anchor.identifier] = anchor;
     self.selectedNode = model;
+    self.selectedModelIndex = self.modelIndex;
     [self.arView.session addAnchor:anchor];
     [self publish:@"placed"];
 }
@@ -244,7 +275,14 @@ Prop_copy() NSString *lastStatus;
     }
     [self.anchors removeAllObjects];
     [self.objects removeAllObjects];
+    [self.previewModels removeAllObjects];
     self.selectedNode = nil;
+    self.modelIndex = NSNotFound;
+    self.selectedModelIndex = NSNotFound;
+    self.lastPlacementReady = NO;
+    if (self.previewing && self.previewView) {
+        [self updatePreviewLayout];
+    }
     [self publish:self.previewing ? @"previewNotice" : @"empty"];
 }
 
@@ -282,7 +320,76 @@ Prop_copy() NSString *lastStatus;
     }
     CGFloat scale = MIN(2.5, MAX(0.4, self.selectedNode.scale.x * factor));
     self.selectedNode.scale = SCNVector3Make(scale, scale, scale);
+    if (self.previewing) {
+        [self updatePreviewLayout];
+    }
     [self publish:self.lastStatus];
+}
+
+
+-(BOOL)canPlaceAtCenter {
+    if (self.modelIndex >= 3) {
+        return NO;
+    }
+    if (self.previewing) {
+        return YES;
+    }
+    ARCamera *camera = self.arView.session.currentFrame.camera;
+    if (!self.visible || !self.started || !self.trackingReady || camera.trackingState != ARTrackingStateNormal || !camera) {
+        return NO;
+    }
+    CGRect bounds = self.arView.bounds;
+    if (CGRectIsEmpty(bounds)) {
+        return NO;
+    }
+    CGPoint center = CGPointMake(CGRectGetMidX(bounds), CGRectGetMidY(bounds));
+    ARRaycastQuery *query = [self.arView raycastQueryFromPoint:center
+                                             allowingTarget:ARRaycastTargetExistingPlaneGeometry
+                                                  alignment:ARRaycastTargetAlignmentHorizontal];
+    return query && [self.arView.session raycast:query].count > 0;
+}
+
+-(void)updatePreviewLayout {
+    NSUInteger count = self.previewModels.count;
+    NSUInteger columns = MIN(3, MAX(1, count));
+    NSUInteger rows = MAX(1, (count + columns - 1) / columns);
+    CGFloat maximumScale = 1;
+    for (SCNNode *model in self.previewModels) {
+        maximumScale = MAX(maximumScale, model.scale.x);
+    }
+    CGFloat horizontalSpacing = 0.32 * maximumScale;
+    CGFloat depthSpacing = 0.36 * maximumScale;
+    for (NSUInteger index = 0; index < count; index++) {
+        NSUInteger row = index / columns;
+        NSUInteger rowCount = MIN(columns, count - row * columns);
+        CGFloat x = ((CGFloat)(index % columns) - ((CGFloat)rowCount - 1) / 2) * horizontalSpacing;
+        self.previewModels[index].position = SCNVector3Make(x, 0, -(CGFloat)row * depthSpacing);
+    }
+    CGFloat width = columns * horizontalSpacing;
+    CGFloat depth = (rows - 1) * depthSpacing;
+    CGFloat targetZ = -depth / 2;
+    CGFloat distance = MAX(0.6, width * 1.1 + depth * 0.7);
+    SCNNode *camera = self.previewView.pointOfView;
+    camera.camera.fieldOfView = 45;
+    camera.camera.zFar = MAX(100, distance * 4);
+    camera.position = SCNVector3Make(0, 0.12 * maximumScale + distance * 0.9, targetZ + distance);
+    [camera lookAt:SCNVector3Make(0, 0.12 * maximumScale, targetZ)];
+}
+
+-(void)session:(ARSession *)session didUpdateFrame:(ARFrame *)frame {
+    if (frame.timestamp - self.lastPlacementUpdate < 0.2) {
+        return;
+    }
+    self.lastPlacementUpdate = frame.timestamp;
+    dispatch_async(dispatch_get_main_queue(), ^{
+        if (!self.previewing && self.visible && self.started) {
+            BOOL ready = self.canPlaceAtCenter;
+            if (ready != self.lastPlacementReady) {
+                self.lastPlacementReady = ready;
+                [self publish:self.lastStatus];
+            }
+        }
+    });
 }
 
 -(NSString *)selectionDescription {
@@ -352,6 +459,7 @@ Prop_copy() NSString *lastStatus;
         SCNNode *model = self.objects[anchor.identifier];
         if (model == self.selectedNode) {
             self.selectedNode = nil;
+            self.selectedModelIndex = NSNotFound;
         }
         [self.objects removeObjectForKey:anchor.identifier];
         [self.anchors removeObjectForKey:anchor.identifier];

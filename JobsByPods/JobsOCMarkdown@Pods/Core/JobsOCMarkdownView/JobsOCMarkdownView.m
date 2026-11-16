@@ -300,7 +300,7 @@ decisionHandler:(void (^)(WKNavigationActionPolicy))decisionHandler{
     return ^WKWebView *{
         @jobs_strongify(self)
         if (!self) return nil;
-        if (!_webView) {
+        if (!self->_webView) {
             WKUserContentController *contentController = jobsMakeUserContentController(^(WKUserContentController *object){});
             WKWebViewConfiguration *configuration = jobsMakeWebViewConfiguration(^(WKWebViewConfiguration * _Nullable data) {
                 data
@@ -310,18 +310,18 @@ decisionHandler:(void (^)(WKNavigationActionPolicy))decisionHandler{
                     })
                     .byAllowsInlineMediaPlayback(YES);
             });
-            _webView = [[WKWebView alloc] initWithFrame:CGRectZero configuration:configuration]
+            self->_webView = [[WKWebView alloc] initWithFrame:CGRectZero configuration:configuration]
                 .byNavigationDelegate(self)
                 .byUIDelegate(self)
                 .byAllowsBackForwardNavigationGestures(YES);
-            _webView.scrollView.byBgColor(UIColor.systemBackgroundColor);
-            _webView.scrollView.byContentInsetAdjustmentBehavior(UIScrollViewContentInsetAdjustmentNever);
-            _webView.byAddTo(self, ^(MASConstraintMaker *make) {
+            self->_webView.scrollView.byBgColor(UIColor.systemBackgroundColor);
+            self->_webView.scrollView.byContentInsetAdjustmentBehavior(UIScrollViewContentInsetAdjustmentNever);
+            self->_webView.byAddTo(self, ^(MASConstraintMaker *make) {
                 make.edges.equalTo(self);
             });
             [contentController addScriptMessageHandler:JobsOCMarkdownWeakMessageHandler.alloc.initWithTarget(self)
                                                   name:@"jobsMarkdown"];
-        };return _webView;
+        };return self->_webView;
     };
 }
 

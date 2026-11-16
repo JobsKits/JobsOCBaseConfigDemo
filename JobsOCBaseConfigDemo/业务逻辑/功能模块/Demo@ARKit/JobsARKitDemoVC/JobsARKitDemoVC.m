@@ -15,6 +15,10 @@ Prop_strong() UIStackView *content;
 Prop_strong() UIView *sceneHost;
 Prop_strong() UILabel *statusLabel;
 Prop_strong() UILabel *countLabel;
+Prop_strong() UILabel *stepsLabel;
+Prop_strong() UILabel *pendingLabel;
+Prop_strong() UILabel *currentLabel;
+Prop_strong() UILabel *crosshairLabel;
 Prop_strong() NSMutableDictionary<NSString *, UILabel *> *textLabels;
 Prop_strong() NSMutableDictionary<NSString *, UIButton *> *buttons;
 Prop_copy() NSString *statusKey;
@@ -30,6 +34,7 @@ Prop_assign() NSUInteger modelCount;
     self.textLabels = [NSMutableDictionary dictionary];
     self.buttons = [NSMutableDictionary dictionary];
     [NSUserDefaults.standardUserDefaults removeObjectForKey:@"JobsARKit.language"];
+    [NSUserDefaults.standardUserDefaults removeObjectForKey:@"JobsARKit.appearance"];
     self.statusKey = @"ready";
     self.laboratory = [JobsARKitScene new];
     @jobs_weakify(self)
@@ -47,11 +52,8 @@ Prop_assign() NSUInteger modelCount;
     self.view.byBgColor(JobsSystemBackgroundColor);
     self.makeNavByAlpha(1);
     [self buildContent];
-    self.laboratory.modelIndex = 2;
     [self.laboratory showPreview];
-    [self.laboratory placeAtPoint:CGPointZero];
     [self renderText];
-    [self applySavedAppearance];
     [NSNotificationCenter.defaultCenter addObserver:self selector:@selector(didBecomeActive:) name:UIApplicationDidBecomeActiveNotification object:nil];
     [NSNotificationCenter.defaultCenter addObserver:self selector:@selector(didEnterBackground:) name:UIApplicationDidEnterBackgroundNotification object:nil];
     [NSNotificationCenter.defaultCenter addObserver:self selector:@selector(themeDidChange:) name:JobsThemeDidChangeNotification object:nil];
@@ -64,7 +66,6 @@ Prop_assign() NSUInteger modelCount;
 
 -(void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
-    [self applySavedAppearance];
     [self.laboratory resume];
 }
 
@@ -172,7 +173,7 @@ Prop_assign() NSUInteger modelCount;
         @jobs_strongify(self)
         stack
             .byAxis(UILayoutConstraintAxisVertical)
-            .bySpacing(14)
+            .bySpacing(12)
             .byAlignment(UIStackViewAlignmentFill)
             .addOn(self.scroll)
             .byAdd(^(MASConstraintMaker *make) {
@@ -180,11 +181,18 @@ Prop_assign() NSUInteger modelCount;
                 make.width.equalTo(self.scroll).offset(-36);
             });
     });
-    [self labelForKey:@"title" size:30].byFont(UIFontWeightBoldSize(30));
-    self.content
-        .byAddArrangedSubview(self.textLabels[@"title"])
-        .byAddArrangedSubview([self labelForKey:@"intro" size:15])
-        .byAddArrangedSubview([self rowForKeys:@[@"theme"]]);
+    [self labelForKey:@"title" size:26].byFont(UIFontWeightBoldSize(26));
+    self.stepsLabel = [self labelForKey:@"stepsPreview" size:14];
+    self.statusLabel = [self labelForKey:@"status" size:15];
+    self.statusLabel.byAccessibilityIdentifier(@"jobs.arkit.status");
+    self.pendingLabel = [self labelForKey:@"pendingNone" size:16];
+    self.pendingLabel
+        .byFont(UIFontWeightSemiboldSize(16))
+        .byAccessibilityIdentifier(@"jobs.arkit.pending");
+    self.currentLabel = [self labelForKey:@"currentEmpty" size:14];
+    self.currentLabel.byAccessibilityIdentifier(@"jobs.arkit.current");
+    self.countLabel = [self labelForKey:@"counts" size:12];
+    self.countLabel.byAccessibilityIdentifier(@"jobs.arkit.counts");
     self.sceneHost = jobsMakeView(^(__kindof UIView *host) {
         host
             .byBgColor(RGB_COLOR(14, 23, 36))
@@ -193,26 +201,46 @@ Prop_assign() NSUInteger modelCount;
             .byAccessibilityElement(YES)
             .byAccessibilityIdentifier(@"jobs.arkit.scene")
             .byAdd(^(MASConstraintMaker *make) {
-                make.height.equalTo(@300);
+                make.height.equalTo(@260);
+            });
+    });
+    self.crosshairLabel = jobsMakeLabel(^(__kindof UILabel *label) {
+        @jobs_strongify(self)
+        label
+            .byText(@"＋")
+            .byFont(UIFontWeightRegularSize(34))
+            .byTextColor(JobsWhiteColor)
+            .byTextAlignment(NSTextAlignmentCenter)
+            .byLayer(^(__kindof CALayer *layer) {
+                layer.byZPosition(2);
+            })
+            .addOn(self.sceneHost)
+            .byAdd(^(MASConstraintMaker *make) {
+                make.center.equalTo(self.sceneHost);
+                make.size.mas_equalTo(CGSizeMake(44, 44));
             });
     });
     UITapGestureRecognizer *tap = jobsMakeTapGesture(nil);
     [tap addTarget:self action:@selector(tappedScene:)];
     self.sceneHost.byAddGestureRecognizer(tap);
-    self.statusLabel = [self labelForKey:@"status" size:14];
-    self.statusLabel.byAccessibilityIdentifier(@"jobs.arkit.status");
-    self.countLabel = [self labelForKey:@"counts" size:12];
-    self.countLabel.byAccessibilityIdentifier(@"jobs.arkit.counts");
     self.content
-        .byAddArrangedSubview(self.sceneHost)
-        .byAddArrangedSubview(self.statusLabel)
-        .byAddArrangedSubview(self.countLabel)
-        .byAddArrangedSubview([self rowForKeys:@[@"start", @"preview"]])
+        .byAddArrangedSubview(self.textLabels[@"title"])
+        .byAddArrangedSubview([self rowForKeys:@[@"preview", @"start"]])
+        .byAddArrangedSubview(self.stepsLabel)
+        .byAddArrangedSubview(self.pendingLabel)
         .byAddArrangedSubview([self rowForKeys:@[@"cube", @"sphere", @"robot"]])
+        .byAddArrangedSubview(self.statusLabel)
+        .byAddArrangedSubview([self rowForKeys:@[@"place"]])
+        .byAddArrangedSubview(self.sceneHost)
+        .byAddArrangedSubview(self.currentLabel)
+        .byAddArrangedSubview([self labelForKey:@"adjustTitle" size:16])
+        .byAddArrangedSubview([self labelForKey:@"adjustGuide" size:14])
         .byAddArrangedSubview([self rowForKeys:@[@"smaller", @"rotate", @"larger"]])
         .byAddArrangedSubview([self rowForKeys:@[@"clear", @"reset"]])
+        .byAddArrangedSubview(self.countLabel)
         .byAddArrangedSubview([self rowForKeys:@[@"retry", @"settings"]])
-        .byAddArrangedSubview([self labelForKey:@"guide" size:15])
+        .byAddArrangedSubview([self labelForKey:@"aboutTitle" size:18])
+        .byAddArrangedSubview([self labelForKey:@"intro" size:15])
         .byAddArrangedSubview([self labelForKey:@"pipeline" size:14]);
     [self attachScene];
 }
@@ -223,7 +251,9 @@ Prop_assign() NSUInteger modelCount;
         return;
     }
     for (UIView *view in self.sceneHost.subviews) {
-        view.byRemoveFromSuperview();
+        if (view != self.crosshairLabel) {
+            view.byRemoveFromSuperview();
+        }
     }
     scene.addOn(self.sceneHost).byAdd(^(MASConstraintMaker *make) {
         make.edges.equalTo(self.sceneHost);
@@ -242,8 +272,8 @@ Prop_assign() NSUInteger modelCount;
     }
     for (NSString *key in self.buttons) {
         self.buttons[key]
-            .jobsResetBtnTitle([self text:key])
-            .byAccessibilityLabel([self text:key]);
+            .jobsResetBtnTitle([self buttonTextForKey:key])
+            .byAccessibilityLabel([self buttonTextForKey:key]);
     }
     self.byTitle([self text:@"title"]);
     self.byGKNavTitle([self text:@"title"]);
@@ -254,13 +284,74 @@ Prop_assign() NSUInteger modelCount;
     [self refreshModelSelection];
 }
 
+-(NSString *)buttonTextForKey:(NSString *)key {
+    if ([key isEqualToString:@"preview"]) {
+        return [self text:@"modePreview"];
+    }
+    if ([key isEqualToString:@"start"]) {
+        return [self text:@"modeAR"];
+    }
+    if ([key isEqualToString:@"place"]) {
+        return [self text:self.laboratory.previewing ? @"addPreview" : @"placeAR"];
+    }
+    if ([key isEqualToString:@"reset"]) {
+        return [self text:self.laboratory.previewing ? @"resetPractice" : @"resetAR"];
+    }
+    if ([key isEqualToString:@"retry"]) {
+        return [self text:@"scanAgain"];
+    }
+    return [self text:key];
+}
+
+-(NSString *)currentGuideKey {
+    if (self.laboratory.previewing) {
+        return self.modelCount ? @"guidePreviewReady" : @"guidePreviewEmpty";
+    }
+    NSDictionary<NSString *, NSString *> *guides = @{
+        @"unsupported": @"guideUnsupported", @"cameraDenied": @"guideCameraDenied",
+        @"trackingInitializing": @"guideInitializing", @"relocalizing": @"guideInitializing",
+        @"limited": @"guideInitializing", @"trackingMotion": @"guideMotion",
+        @"trackingFeatures": @"guideFeatures", @"interrupted": @"guideInterrupted",
+        @"failed": @"guideFailed", @"paused": @"guidePaused", @"ready": @"guideStart"
+    };
+    if (guides[self.statusKey]) {
+        return guides[self.statusKey];
+    }
+    if (self.laboratory.canPlaceAtCenter) {
+        return @"guidePlaceReady";
+    }
+    return self.planeCount ? @"guideAim" : @"guideScanning";
+}
+
 -(void)renderStatus {
-    self.statusLabel.byText([self text:self.statusKey]);
-    self.countLabel.byText([NSString stringWithFormat:@"%@  %lu / %lu", [self text:@"counts"], (unsigned long)self.planeCount, (unsigned long)self.modelCount]);
+    BOOL previewing = self.laboratory.previewing;
+    BOOL selected = self.laboratory.modelIndex < 3;
+    BOOL hasCurrentModel = self.laboratory.selectedModelIndex < 3;
+    NSArray *models = @[@"cube", @"sphere", @"robot"];
+    self.stepsLabel.byText([self text:previewing ? @"stepsPreview" : @"stepsAR"]);
+    self.statusLabel.byText([self text:[self currentGuideKey]]);
+    self.pendingLabel.byText(selected
+        ? [NSString stringWithFormat:[self text:@"pendingModel"], [self text:models[self.laboratory.modelIndex]]]
+        : [self text:@"pendingNone"]);
+    self.currentLabel.byText(hasCurrentModel
+        ? [NSString stringWithFormat:[self text:@"currentModel"], [self text:models[self.laboratory.selectedModelIndex]]]
+        : [self text:@"currentEmpty"]);
+    self.countLabel.byText(previewing
+        ? [NSString stringWithFormat:[self text:@"previewCount"], (unsigned long)self.modelCount]
+        : [NSString stringWithFormat:[self text:@"realCount"], (unsigned long)self.planeCount, (unsigned long)self.modelCount]);
     self.countLabel.byAccessibilityValue([NSString stringWithFormat:@"planes:%lu;models:%lu", (unsigned long)self.planeCount, (unsigned long)self.modelCount]);
     self.sceneHost.byAccessibilityValue(self.laboratory.selectionDescription);
+    self.crosshairLabel
+        .byTextColor(self.laboratory.canPlaceAtCenter ? RGB_COLOR(56, 224, 181) : JobsWhiteColor)
+        .byHidden(previewing);
+    self.buttons[@"place"].byEnabled(self.laboratory.canPlaceAtCenter);
+    for (NSString *key in @[@"smaller", @"rotate", @"larger", @"clear"]) {
+        self.buttons[key].byEnabled(hasCurrentModel);
+    }
     BOOL denied = [self.statusKey isEqualToString:@"cameraDenied"];
     self.buttons[@"settings"].byHidden(!denied);
+    self.buttons[@"retry"].byHidden(previewing || [self.statusKey isEqualToString:@"unsupported"]);
+    [self refreshModelSelection];
 }
 
 -(void)refreshModelSelection {
@@ -277,22 +368,34 @@ Prop_assign() NSUInteger modelCount;
     UIColor *background = center.resolvedColorForKey(JobsThemeColorKeyBackgroundTertiary);
     NSArray *models = @[@"cube", @"sphere", @"robot"];
     for (NSString *key in self.buttons) {
-        BOOL selected = [models containsObject:key] && [models indexOfObject:key] == self.laboratory.modelIndex;
-        // UIButtonConfiguration 会保存文字 transformer 的颜色；主题变更时重建该配置。
-        self.buttons[key]
-            .jobsResetBtnTitleCor(selected ? JobsWhiteColor : foreground)
-            .jobsResetBtnBgCor(selected ? RGB_COLOR(16, 125, 109) : background)
-            .jobsResetBtnTitle([self text:key])
+        UIButton *button = self.buttons[key];
+        BOOL selected = ([models containsObject:key] && [models indexOfObject:key] == self.laboratory.modelIndex)
+            || ([key isEqualToString:@"preview"] && self.laboratory.previewing)
+            || ([key isEqualToString:@"start"] && !self.laboratory.previewing);
+        BOOL primary = [key isEqualToString:@"place"];
+        button
+            .jobsResetBtnTitleCor((selected || (primary && button.jobs_isEnabled)) ? JobsWhiteColor : foreground)
+            .jobsResetBtnBgCor((selected || (primary && button.jobs_isEnabled)) ? RGB_COLOR(16, 125, 109) : background)
+            .jobsResetBtnTitle([self buttonTextForKey:key])
+            .byAccessibilityLabel([self buttonTextForKey:key])
             .bySetNeedsUpdateConfiguration()
-            .byUpdateConfiguration();
+            .byUpdateConfiguration()
+            .byAlpha(button.jobs_isEnabled ? 1 : 0.45);
     }
 }
 
 -(void)performAction:(NSString *)key {
     if ([key isEqualToString:@"start"] || [key isEqualToString:@"retry"]) {
-        [self.laboratory start];
+        if (self.laboratory.previewing || [key isEqualToString:@"retry"]) {
+            [self.laboratory start];
+        }
     } else if ([key isEqualToString:@"preview"]) {
-        [self.laboratory showPreview];
+        if (!self.laboratory.previewing) {
+            [self.laboratory showPreview];
+        }
+    } else if ([key isEqualToString:@"place"]) {
+        CGRect bounds = self.laboratory.view.bounds;
+        [self.laboratory placeAtPoint:CGPointMake(CGRectGetMidX(bounds), CGRectGetMidY(bounds))];
     } else if ([key isEqualToString:@"reset"]) {
         [self.laboratory reset];
     } else if ([key isEqualToString:@"clear"]) {
@@ -303,10 +406,8 @@ Prop_assign() NSUInteger modelCount;
         [self.laboratory resizeBy:[key isEqualToString:@"smaller"] ? 0.8 : 1.25];
     } else if ([@[@"cube", @"sphere", @"robot"] containsObject:key]) {
         self.laboratory.modelIndex = [@[@"cube", @"sphere", @"robot"] indexOfObject:key];
-        [self refreshModelSelection];
+        [self renderStatus];
 
-    } else if ([key isEqualToString:@"theme"]) {
-        [self chooseAppearance];
     } else if ([key isEqualToString:@"settings"]) {
         [UIApplication.sharedApplication openURL:[NSURL URLWithString:UIApplicationOpenSettingsURLString] options:@{} completionHandler:nil];
     }
@@ -316,56 +417,5 @@ Prop_assign() NSUInteger modelCount;
     [self renderText];
 }
 
--(void)chooseAppearance {
-    @jobs_weakify(self)
-    JobsAlertModel *model = jobsMakeAlertModel(^(JobsAlertModel *item) {
-        item.byAlertControllerTitle([self text:@"theme"]).byPreferredStyle(UIAlertControllerStyleAlert);
-    });
-    UIAlertController *alert = JobsMakeAlertControllerBy(model);
-    NSArray *keys = @[@"system", @"light", @"dark"];
-    for (NSUInteger index = 0; index < keys.count; index++) {
-        JobsAlertModel *item = jobsMakeAlertModel(^(JobsAlertModel *item) {
-            item.byAlertActionTitle([self text:keys[index]])
-                .byAlertActionBlock(^(__unused UIAlertAction *action) {
-                    @jobs_strongify(self)
-                    if (!self) {
-                        return;
-                    }
-                    [NSUserDefaults.standardUserDefaults setInteger:index forKey:@"JobsARKit.appearance"];
-                    [self applySavedAppearance];
-                });
-        });
-        alert.add(JobsMakeAlertActionBy(item));
-    }
-    JobsAlertModel *cancel = jobsMakeAlertModel(^(JobsAlertModel *item) {
-        item.byAlertActionTitle([self text:@"cancel"]).byAlertActionStyle(UIAlertActionStyleCancel);
-    });
-    self.comingToPresentVC(alert.add(JobsMakeAlertActionBy(cancel)));
-}
-
--(void)applySavedAppearance {
-    if (![NSUserDefaults.standardUserDefaults objectForKey:@"JobsARKit.appearance"]) {
-        return;
-    }
-    NSInteger appearance = [NSUserDefaults.standardUserDefaults integerForKey:@"JobsARKit.appearance"];
-    UIUserInterfaceStyle style = appearance == 1 ? UIUserInterfaceStyleLight : (appearance == 2 ? UIUserInterfaceStyleDark : UIUserInterfaceStyleUnspecified);
-    UIUserInterfaceStyle systemStyle = self.view.window.windowScene.traitCollection.userInterfaceStyle;
-    JobsThemeCenter.shared.setStyle((style == UIUserInterfaceStyleDark || (style == UIUserInterfaceStyleUnspecified && systemStyle == UIUserInterfaceStyleDark)) ? JobsThemeStyleDark : JobsThemeStyleLight);
-    for (UIScene *scene in UIApplication.sharedApplication.connectedScenes) {
-        if ([scene isKindOfClass:UIWindowScene.class]) {
-            for (UIWindow *window in ((UIWindowScene *)scene).windows) {
-                window.byOverrideUserInterfaceStyle(style);
-            }
-        }
-    }
-    [self refreshButtonAppearance];
-}
-
--(void)traitCollectionDidChange:(UITraitCollection *)previousTraitCollection {
-    [super traitCollectionDidChange:previousTraitCollection];
-    if ([NSUserDefaults.standardUserDefaults integerForKey:@"JobsARKit.appearance"] == 0 && self.viewIfLoaded.window) {
-        [self applySavedAppearance];
-    }
-}
 
 @end

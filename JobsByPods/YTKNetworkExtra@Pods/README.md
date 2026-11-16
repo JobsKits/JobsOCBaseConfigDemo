@@ -218,6 +218,8 @@ pod install --no-repo-update
 
 ## <span id="jobs-toc-heading-21" data-jobs-toc="v2">十一、运行合同与失败边界 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a></span><!-- jobs-toc:heading-end -->
 
+- 请求头与参数 getter 的功能 Block 在弱引用提升并判空后，通过 `self->_customHTTPHeader` / `self->_parameters` 访问可变缓存，保留原有配置回调及可变副本语义。
+
 - 原始请求 helper 使用 YTK 最终 URL、requestTimeoutInterval 与 allowsCellularAccess；配置 Block 可以继续显式覆写最终请求属性。请求参数和 header 保存为独立可变副本，避免 copy 将 NSMutableDictionary 变成不可变字典。
 - `responseModel` 绑定当前 `responseObject`，请求对象复用后重新生成；手动设置模型仅对当前响应有效。Header 日志不输出 Authorization 等完整内容。
 
@@ -238,7 +240,7 @@ pod install --no-repo-update
 
 ## <span id="jobs-toc-heading-23" data-jobs-toc="v2">十三、本轮单元验证 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a></span><!-- jobs-toc:heading-end -->
 
-历史结果：**清理动画附件之前的 Debug / Release 单 Pod 编译见根 [JobsByPods升级实施与编译验证.md](<../../JobsByPods升级实施与编译验证.md>)；本 Pod 无独立 Stability 回归**。源码或公开头变化后，旧指纹对应的记录不能作为当前编译结果，需刷新安装映射并重新验证。
+历史结果：**清理动画附件之前的 Debug / Release 单 Pod 编译见根 [JobsByPods升级实施与编译验证.md](<../../项目相关报告/JobsByPods升级实施与编译验证.md>)；本 Pod 无独立 Stability 回归**。源码或公开头变化后，旧指纹对应的记录不能作为当前编译结果，需刷新安装映射并重新验证。
 
 生产行为与边界按上述核心契约验收；逐 Pod 编译与独立行为回归分别记录结果。
 
@@ -246,7 +248,7 @@ pod install --no-repo-update
 
 ```shell
 cd ../..
-ruby ScriptsByPods/jobs_pods_stability_verify.rb/jobs_pods_stability_verify.rb \
+ruby ScriptsByPods/自动化测试相关脚本/jobs_pods_stability_verify.rb/jobs_pods_stability_verify.rb \
   --phase pods --pod YTKNetworkExtra
 ```
 

@@ -88,10 +88,8 @@ JobsKey(_titleAttributedDataMutArr)
 }
 #pragma mark —— @property(nonatomic,strong,nullable)NSAttributedString *attributedText API_AVAILABLE(ios(6.0));
 JobsKey(_attributedText)
--(NSAttributedString *)attributedText{
-    JobsRetAttributedStringByVoidBlock action = ((JobsRetAttributedStringByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(UITextField.class, @selector(jobsAttributedText)))(self, @selector(jobsAttributedText));
-    return action ? action() : nil;
-}
+// UIKit owns attributedText. The explicit Jobs helper below remains available for model-based rich text.
+
 
 -(JobsRetAttributedStringByVoidBlock _Nonnull)jobsAttributedText{
     @jobs_weakify(self)

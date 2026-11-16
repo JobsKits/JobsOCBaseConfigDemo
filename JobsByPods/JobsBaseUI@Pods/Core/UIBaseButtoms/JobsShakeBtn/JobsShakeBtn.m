@@ -60,7 +60,7 @@ Prop_strong()CAKeyframeAnimation *anim;
             self.titleLabel.byHeight(self.height - self.titleLabel.y);
         }
         self.titleLabel.byTextAlignment(NSTextAlignmentCenter);
-        [self bringSubviewToFront:_iconBtn];
+        [self bringSubviewToFront:self->_iconBtn];
     };
 }
 #pragma mark —— BaseViewProtocol

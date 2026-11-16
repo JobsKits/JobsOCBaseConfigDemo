@@ -67,7 +67,6 @@
 		1367FE9E27F6821172EED101 /* JobsOCBaseConfigDemoUITests.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = JobsOCBaseConfigDemoUITests.m; sourceTree = "<group>"; };
 		1543A3E456101B7CD8614053 /* JobsAPIsStabilityTests.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = JobsAPIsStabilityTests.h; sourceTree = "<group>"; };
 		155F66597CA9EBE6149DB0FB /* JobsImageNumberViewStabilityTests.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = JobsImageNumberViewStabilityTests.h; sourceTree = "<group>"; };
-		16E4EC0F0982AFF0E95E52E3 /* command_timeout_regression.rb */ = {isa = PBXFileReference; lastKnownFileType = text.script.ruby; path = command_timeout_regression.rb; sourceTree = "<group>"; };
 		17B426B0AB52B510CF71A5D4 /* JobsOCSplashStabilityTests.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = JobsOCSplashStabilityTests.h; sourceTree = "<group>"; };
 		186923021EE019B5C0627D59 /* JobsWindowSelectionTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = JobsWindowSelectionTests.m; sourceTree = "<group>"; };
 		189769FD2850186DD36727EC /* run_regression.rb */ = {isa = PBXFileReference; lastKnownFileType = text.script.ruby; path = run_regression.rb; sourceTree = "<group>"; };
@@ -82,21 +81,17 @@
 		22A2C98BA60DCA9FB2B9A08C /* JobsRandomUtilsStabilityTests.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = JobsRandomUtilsStabilityTests.h; sourceTree = "<group>"; };
 		27F667EB859B4DC3250541AF /* JobsAudioSessionFixture.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = JobsAudioSessionFixture.h; sourceTree = "<group>"; };
 		286ECD64DC96CA018A6BA7C5 /* JobsOCDSLAnimatedNumberStabilityTests.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = JobsOCDSLAnimatedNumberStabilityTests.h; sourceTree = "<group>"; };
+		2878F02F869EC256676A8370 /* Pods-JobsOCBaseConfigDemo.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-JobsOCBaseConfigDemo.debug.xcconfig"; path = "Target Support Files/Pods-JobsOCBaseConfigDemo/Pods-JobsOCBaseConfigDemo.debug.xcconfig"; sourceTree = "<group>"; };
 		29B35FCECA5CB9D93EC9A419 /* JobsUIKitRegistrationTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = JobsUIKitRegistrationTests.m; sourceTree = "<group>"; };
 		29ECB606BF5007B2DD499B66 /* JobsMarqueeViewStabilityTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = JobsMarqueeViewStabilityTests.m; sourceTree = "<group>"; };
-		2A076D057E38C78EC6205863 /* run_regression.rb */ = {isa = PBXFileReference; lastKnownFileType = text.script.ruby; path = run_regression.rb; sourceTree = "<group>"; };
 		334CF99DDFCA3454B0232D2C /* JobsSplashCacheFixture.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = JobsSplashCacheFixture.h; sourceTree = "<group>"; };
 		39E4F12DEB9E15E064236DFE /* JobsBitsMonitorStabilityTests.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = JobsBitsMonitorStabilityTests.h; sourceTree = "<group>"; };
 		3DA0276AA08762B091F13358 /* JobsWebSocketTransportFixture.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = JobsWebSocketTransportFixture.m; sourceTree = "<group>"; };
 		3E9CE02B8D328768BC3127D0 /* JobsSplashCacheFixture.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = JobsSplashCacheFixture.m; sourceTree = "<group>"; };
-		3F3D20303C40AA5BD57A2AF8 /* download_fallback_test.rb */ = {isa = PBXFileReference; lastKnownFileType = text.script.ruby; path = download_fallback_test.rb; sourceTree = "<group>"; };
 		400AA28482F87448FED0D820 /* JobsOCBaseConfigDemoTests.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = JobsOCBaseConfigDemoTests.h; sourceTree = "<group>"; };
-		41CA20F7C64CAD591CA348F4 /* interaction_test.rb */ = {isa = PBXFileReference; lastKnownFileType = text.script.ruby; path = interaction_test.rb; sourceTree = "<group>"; };
-		43B737A21C7B618951576749 /* 【MacOS@Xcode】🫘当前工程Pod Install.command */ = {isa = PBXFileReference; lastKnownFileType = text.script.sh; path = "【MacOS@Xcode】🫘当前工程Pod Install.command"; sourceTree = "<group>"; };
 		44BC740467D384013526C3D1 /* JobsStringUtilsStabilityTests.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = JobsStringUtilsStabilityTests.h; sourceTree = "<group>"; };
 		44DC6A848D569C29C2CB5EF0 /* JobsOCBaseConfigDemoUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = JobsOCBaseConfigDemoUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		4529089AA706C002F0F9FB1A /* JobsDebugJSONTests.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = JobsDebugJSONTests.h; sourceTree = "<group>"; };
-		45561155E42DA93B850E03C1 /* run_regression.rb */ = {isa = PBXFileReference; explicitFileType = text.script.ruby; includeInIndex = 1; path = run_regression.rb; sourceTree = "<group>"; };
 		458F94FE9BA926402212C66D /* JobsIconfontLifecycleTests.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = JobsIconfontLifecycleTests.h; sourceTree = "<group>"; };
 		492DD0A0B1E18AB4DBBD444D /* JobsWindowSceneFixture.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = JobsWindowSceneFixture.m; sourceTree = "<group>"; };
 		4BF6726C4256394395A84503 /* JobsCrashLogImportStabilityTests.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = JobsCrashLogImportStabilityTests.h; sourceTree = "<group>"; };
@@ -104,7 +99,6 @@
 		4E67AB066610E033B9E2B096 /* JobsBluetoothWriteFixture.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = JobsBluetoothWriteFixture.m; sourceTree = "<group>"; };
 		4E73D98706C3FB947FA865B9 /* JobsAppToolsResetTests.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = JobsAppToolsResetTests.h; sourceTree = "<group>"; };
 		4F1526265B0EC95C83895D5A /* JobsCipherCompatibilityTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = JobsCipherCompatibilityTests.m; sourceTree = "<group>"; };
-		4FFB531127B2F21FEB939651 /* source_fingerprint_regression.rb */ = {isa = PBXFileReference; lastKnownFileType = text.script.ruby; path = source_fingerprint_regression.rb; sourceTree = "<group>"; };
 		543936FD0EE594863059221E /* JobsAudioRecorderInitializationFixture.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = JobsAudioRecorderInitializationFixture.h; sourceTree = "<group>"; };
 		5441B0628BF3E1F87FA895BD /* JobsImageRotationStabilityTests.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = JobsImageRotationStabilityTests.h; sourceTree = "<group>"; };
 		54629834A5C91E9A8BEE5D24 /* JobsAudioPlayerInitializationFixture.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = JobsAudioPlayerInitializationFixture.h; sourceTree = "<group>"; };
@@ -112,39 +106,30 @@
 		560A5B08BF5F0091A74E2A64 /* JobsUIKitRegistrationTests.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = JobsUIKitRegistrationTests.h; sourceTree = "<group>"; };
 		5712AB0C41A940E9BB6A2D92 /* JobsNavigationTransitionTestContext.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = JobsNavigationTransitionTestContext.m; sourceTree = "<group>"; };
 		5776D5356BEE10B0FB2E7FD0 /* JobsNavigationTransitionMgrStabilityTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = JobsNavigationTransitionMgrStabilityTests.m; sourceTree = "<group>"; };
-		594933B4948AE4FF64FEFD8B /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		59A1AAA5D361D2B03E281525 /* JobsOCSnowflakeStabilityTests.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = JobsOCSnowflakeStabilityTests.h; sourceTree = "<group>"; };
 		5BDE06DB5F3067ECBC9DC988 /* JobsRuntimeSafetyTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = JobsRuntimeSafetyTests.m; sourceTree = "<group>"; };
 		5C07B4BF400BC7367305831F /* JobsOCDeviceGuardLaunchTests.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = JobsOCDeviceGuardLaunchTests.m; sourceTree = "<group>"; };
 		5E45EF6D849F063352EFCDB9 /* JobsCrashLogImportStabilityTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = JobsCrashLogImportStabilityTests.m; sourceTree = "<group>"; };
-		5F17F2C414BA27464AB88C7A /* interaction_test.rb */ = {isa = PBXFileReference; lastKnownFileType = text.script.ruby; path = interaction_test.rb; sourceTree = "<group>"; };
 		5F47A9EA9B4BE3DF68BE2CC9 /* JobsTimeUtilsStabilityTests.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = JobsTimeUtilsStabilityTests.h; sourceTree = "<group>"; };
-		60A66C7F36C98A5D39A5B467 /* Pods-JobsOCBaseConfigDemo.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-JobsOCBaseConfigDemo.debug.xcconfig"; path = "Target Support Files/Pods-JobsOCBaseConfigDemo/Pods-JobsOCBaseConfigDemo.debug.xcconfig"; sourceTree = "<group>"; };
-		60D8D1D9D60600D20CE6AB6F /* Pods-JobsOCBaseConfigDemo.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-JobsOCBaseConfigDemo.release.xcconfig"; path = "Target Support Files/Pods-JobsOCBaseConfigDemo/Pods-JobsOCBaseConfigDemo.release.xcconfig"; sourceTree = "<group>"; };
 		610E572E7941213B2B93C7E2 /* JobsRandomUtilsStabilityTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = JobsRandomUtilsStabilityTests.m; sourceTree = "<group>"; };
 		61E245587D03FEC7ABB18E86 /* JobsOCDSLAnimatedNumberStabilityTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = JobsOCDSLAnimatedNumberStabilityTests.m; sourceTree = "<group>"; };
 		625BB5ED08102021E018ECB1 /* JobsOCVideoRecorderStabilityTests.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = JobsOCVideoRecorderStabilityTests.h; sourceTree = "<group>"; };
 		666DCE5FA233CAC3E70DA8BC /* JobsClockViewStabilityTests.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = JobsClockViewStabilityTests.h; sourceTree = "<group>"; };
 		66B4FE7E81542141B88349A1 /* JobsAudioPlayerInitializationFixture.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = JobsAudioPlayerInitializationFixture.m; sourceTree = "<group>"; };
 		676D93E9E1D9102A2FA8E406 /* JobsAudioRecorderInitializationFixture.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = JobsAudioRecorderInitializationFixture.m; sourceTree = "<group>"; };
-		68A0E69F27DACF5D83847C0A /* README.md */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		6A3007B2B2FF14BAD24A3DF7 /* JobsOCSnowflakeStabilityTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = JobsOCSnowflakeStabilityTests.m; sourceTree = "<group>"; };
-		6A3D75C49E28B512466A23E4 /* 【MacOS】🌐CocoaPods源自动选择.command */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.script.sh; path = "【MacOS】🌐CocoaPods源自动选择.command"; sourceTree = "<group>"; };
 		6B1799FC715786C9A6F88CBD /* JobsIconfontLifecycleTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = JobsIconfontLifecycleTests.m; sourceTree = "<group>"; };
 		6BB9CF0BD7CA09D7C97D274E /* JobsTimerMgrStabilityTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = JobsTimerMgrStabilityTests.m; sourceTree = "<group>"; };
 		6BCD2DBC9937A9BF4B268221 /* JobsWebSocketTransportFixture.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = JobsWebSocketTransportFixture.h; sourceTree = "<group>"; };
 		6FA64A4296D4686434676B6B /* JobsOCAudioRecorderStabilityTests.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = JobsOCAudioRecorderStabilityTests.h; sourceTree = "<group>"; };
 		722F28FC26DAD9BFACF8D0B1 /* JobsTimerMgrStabilityTests.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = JobsTimerMgrStabilityTests.h; sourceTree = "<group>"; };
 		73FD69F732814DB44AD4351F /* JobsPatchRollbackTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = JobsPatchRollbackTests.m; sourceTree = "<group>"; };
-		75DF9AF56FF67DA0CE1F36FC /* interaction_workflow_test.rb */ = {isa = PBXFileReference; lastKnownFileType = text.script.ruby; path = interaction_workflow_test.rb; sourceTree = "<group>"; };
 		7C2D86E23A275B966B6D904D /* run_regression.rb */ = {isa = PBXFileReference; lastKnownFileType = text.script.ruby; path = run_regression.rb; sourceTree = "<group>"; };
 		7C72B88868A5CE3C52C7306B /* JobsBluetoothWriteFixture.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = JobsBluetoothWriteFixture.h; sourceTree = "<group>"; };
 		7D562EC79FE1119826B10590 /* JobsBluetoothStabilityTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = JobsBluetoothStabilityTests.m; sourceTree = "<group>"; };
 		7DAE99CCAFB66EB1EE976A6C /* FMDatabaseExtraStabilityTests.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FMDatabaseExtraStabilityTests.h; sourceTree = "<group>"; };
 		8335DBFAB3164BD2B8EC70B3 /* JobsOCWebSocketStabilityTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = JobsOCWebSocketStabilityTests.m; sourceTree = "<group>"; };
-		85D6CE91AF6B8623BCD15917 /* host_entitlements_regression.rb */ = {isa = PBXFileReference; lastKnownFileType = text.script.ruby; path = host_entitlements_regression.rb; sourceTree = "<group>"; };
 		88F9B3FDD13FB5385CBCD618 /* run_regression.rb */ = {isa = PBXFileReference; lastKnownFileType = text.script.ruby; path = run_regression.rb; sourceTree = "<group>"; };
-		8A3D52505EA813FD0F524A9C /* 【MacOS@Xcode】🫘当前工程Pod Update.command */ = {isa = PBXFileReference; lastKnownFileType = text.script.sh; path = "【MacOS@Xcode】🫘当前工程Pod Update.command"; sourceTree = "<group>"; };
 		8BE50CD48ED0F8E1339C35AD /* JobsImageCodeViewStabilityTests.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = JobsImageCodeViewStabilityTests.h; sourceTree = "<group>"; };
 		8BE608D790F4B9DDF11D6090 /* Pods_JobsOCBaseConfigDemo.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_JobsOCBaseConfigDemo.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		8D478CD9DD3B0E38CD0B42DB /* selection_regression.rb */ = {isa = PBXFileReference; lastKnownFileType = text.script.ruby; path = selection_regression.rb; sourceTree = "<group>"; };
@@ -160,16 +145,13 @@
 		93E2A01E9486C0D38D8D2CA2 /* JobsOCBaseConfigDemoTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = JobsOCBaseConfigDemoTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		94E9260C149E702448FA1094 /* JobsOCKeyboardMgrStabilityTests.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = JobsOCKeyboardMgrStabilityTests.h; sourceTree = "<group>"; };
 		95F58B3764FB5ABECD7A4AD3 /* JobsWindowSelectionTests.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = JobsWindowSelectionTests.h; sourceTree = "<group>"; };
-		96E608816F0265DF818012C0 /* test_phase_regression.rb */ = {isa = PBXFileReference; lastKnownFileType = text.script.ruby; path = test_phase_regression.rb; sourceTree = "<group>"; };
 		9759099B9C95A948319208B1 /* dependency_regression.rb */ = {isa = PBXFileReference; lastKnownFileType = text.script.ruby; path = dependency_regression.rb; sourceTree = "<group>"; };
 		97D645B72ED43A41425A0AD4 /* JobsOCNumberStepperStabilityTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = JobsOCNumberStepperStabilityTests.m; sourceTree = "<group>"; };
 		9983148F9B89CAFD12D81B1F /* JobsImageNumberViewStabilityTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = JobsImageNumberViewStabilityTests.m; sourceTree = "<group>"; };
 		9BDAD980824C170C34619FAC /* JobsNavigationTransitionTestContext.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = JobsNavigationTransitionTestContext.h; sourceTree = "<group>"; };
 		9FE1A59BC7F9DD29154B7406 /* JobsAPIUploadConstraintFixture.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = JobsAPIUploadConstraintFixture.h; sourceTree = "<group>"; };
 		A047F564A08691D8296E21E6 /* JobsUploadingProgressViewStabilityTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = JobsUploadingProgressViewStabilityTests.m; sourceTree = "<group>"; };
-		A09FFE4C24C13E862BAD704B /* init_workflow_test.rb */ = {isa = PBXFileReference; lastKnownFileType = text.script.ruby; path = init_workflow_test.rb; sourceTree = "<group>"; };
 		A11796DDED39AC30E03B1D69 /* JobsOCUILabelScrollingStabilityTests.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = JobsOCUILabelScrollingStabilityTests.h; sourceTree = "<group>"; };
-		A3D248E33674D379D387BEB0 /* readme_results_regression.rb */ = {isa = PBXFileReference; lastKnownFileType = text.script.ruby; path = readme_results_regression.rb; sourceTree = "<group>"; };
 		A4EB726B72F4DD46C2D17D06 /* JobsAPIRequestConstraintFixture.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = JobsAPIRequestConstraintFixture.m; sourceTree = "<group>"; };
 		A54CDBA5502B98A2D1E5D410 /* JobsProgressBarStabilityTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = JobsProgressBarStabilityTests.m; sourceTree = "<group>"; };
 		A5514E78E46BCE65DD8CDBBC /* run_regression.rb */ = {isa = PBXFileReference; lastKnownFileType = text.script.ruby; path = run_regression.rb; sourceTree = "<group>"; };
@@ -182,15 +164,19 @@
 		B2134F682151D813FFFD64EA /* JobsOCKeyboardMgrStabilityTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = JobsOCKeyboardMgrStabilityTests.m; sourceTree = "<group>"; };
 		B26B083958C9DDF9D32A6B58 /* JobsImageCodeViewStabilityTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = JobsImageCodeViewStabilityTests.m; sourceTree = "<group>"; };
 		B53DD71881343065993521D3 /* JobsCipherCompatibilityTests.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = JobsCipherCompatibilityTests.h; sourceTree = "<group>"; };
-		B6E8582AA199E12A278AA5EA /* pod_batch_regression.rb */ = {isa = PBXFileReference; lastKnownFileType = text.script.ruby; path = pod_batch_regression.rb; sourceTree = "<group>"; };
 		B8C0B2C484C58B0DABEF50B2 /* JobsModelTimestampTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = JobsModelTimestampTests.m; sourceTree = "<group>"; };
 		BBF923DDFD0D6EDE07B7A2CE /* JobsCallbackLifecycleTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = JobsCallbackLifecycleTests.m; sourceTree = "<group>"; };
-		BC249555E7BC8CD51781B6D8 /* jobs_cocoapods_source.rb/jobs_cocoapods_source.rb */ = {isa = PBXFileReference; explicitFileType = text.script.ruby; includeInIndex = 1; path = jobs_cocoapods_source.rb/jobs_cocoapods_source.rb; sourceTree = "<group>"; };
+		BC23F37683B7F66536BE5CDF /* JobsCrashCrawler.xcodeproj */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = "wrapper.pb-project"; path = "ScriptsByPods/自动化测试相关脚本/【MacOS】🧪iOS自动巡检.command/Runner/JobsCrashCrawler.xcodeproj"; sourceTree = SOURCE_ROOT; };
 		BF23009E0431F05AE9C9C1AA /* JobsOCBaseConfigDemoUITests.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = JobsOCBaseConfigDemoUITests.h; sourceTree = "<group>"; };
 		C014C3F3A2E31F113CB64462 /* JobsProgressBarStabilityTests.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = JobsProgressBarStabilityTests.h; sourceTree = "<group>"; };
 		C02A930824319AAE25205397 /* JobsOCSkeletonViewStabilityTests.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = JobsOCSkeletonViewStabilityTests.h; sourceTree = "<group>"; };
 		C401DA937BD6B1FE00808367 /* JobsModelTimestampTests.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = JobsModelTimestampTests.h; sourceTree = "<group>"; };
 		C50913B32F85D89000F261DA /* JobsOCBaseConfigDemo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = JobsOCBaseConfigDemo.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		C5DD47E830A963CA00DD0A97 /* JobsCrashCrawler.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; path = JobsCrashCrawler.xcodeproj; sourceTree = "<group>"; };
+		C5DD480830A963CA00DD0A97 /* JobsCrashCrawler.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; path = JobsCrashCrawler.xcodeproj; sourceTree = "<group>"; };
+		C5DD482A30A963CA00DD0A97 /* JobsCrashCrawler.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; path = JobsCrashCrawler.xcodeproj; sourceTree = "<group>"; };
+		C5DD535230A963CA00DD0A97 /* JobsCrashCrawler.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; path = JobsCrashCrawler.xcodeproj; sourceTree = "<group>"; };
+		C5DD537730A963CA00DD0A97 /* JobsCrashCrawler.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; path = JobsCrashCrawler.xcodeproj; sourceTree = "<group>"; };
 		C5E5D48581F2B340FFFF01E0 /* JobsAPIRequestProtocolFixture.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = JobsAPIRequestProtocolFixture.h; sourceTree = "<group>"; };
 		C8D382144B293D99B3D5C2AE /* JobsSplashTransferTaskFixture.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = JobsSplashTransferTaskFixture.m; sourceTree = "<group>"; };
 		C920BD66667884C72A4E65C3 /* JobsOCBaseConfigDemoTests.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = JobsOCBaseConfigDemoTests.m; sourceTree = "<group>"; };
@@ -208,7 +194,6 @@
 		D47957DF9CEBCC6AFB79A12D /* JobsOCBaseConfigDemoUITestsLaunchTests.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = JobsOCBaseConfigDemoUITestsLaunchTests.h; sourceTree = "<group>"; };
 		D514C1408B7D4363EE4B06E3 /* JobsImageRotationStabilityTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = JobsImageRotationStabilityTests.m; sourceTree = "<group>"; };
 		D7D21B4DE2B5747817DA4B73 /* JobsNetWorkToolsStabilityTests.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = JobsNetWorkToolsStabilityTests.h; sourceTree = "<group>"; };
-		D887A9ADD5CC5326105687C3 /* run_regression.command */ = {isa = PBXFileReference; lastKnownFileType = text.script.sh; path = run_regression.command; sourceTree = "<group>"; };
 		D8DF07329270900417B62510 /* JobsBluetoothStabilityTests.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = JobsBluetoothStabilityTests.h; sourceTree = "<group>"; };
 		D9B78BB968B1FB12E3043D43 /* JobsOCDeviceGuardLaunchTests.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = JobsOCDeviceGuardLaunchTests.h; sourceTree = "<group>"; };
 		D9F567213D718B089627C5DD /* JobsRuntimeSafetyTests.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = JobsRuntimeSafetyTests.h; sourceTree = "<group>"; };
@@ -217,13 +202,10 @@
 		DE1CA9248C8171F070C73526 /* JobsCallbackLifecycleTests.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = JobsCallbackLifecycleTests.h; sourceTree = "<group>"; };
 		DF843CD7A7723392A8589227 /* JobsPatchRollbackTests.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = JobsPatchRollbackTests.h; sourceTree = "<group>"; };
 		E36D285931F9CA122401C59D /* JobsNavigationTransitionMgrStabilityTests.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = JobsNavigationTransitionMgrStabilityTests.h; sourceTree = "<group>"; };
-		E4722D855C4D5F6293007CB7 /* run_regression.rb */ = {isa = PBXFileReference; lastKnownFileType = text.script.ruby; path = run_regression.rb; sourceTree = "<group>"; };
 		E48477B8B2ED9FCC32493F48 /* run_regression.rb */ = {isa = PBXFileReference; lastKnownFileType = text.script.ruby; path = run_regression.rb; sourceTree = "<group>"; };
 		E498396727CEDB87CAE0F4CE /* MJRefreshExtraStabilityTests.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MJRefreshExtraStabilityTests.h; sourceTree = "<group>"; };
-		E4A095E380B950B0A9E98229 /* network_test.rb */ = {isa = PBXFileReference; lastKnownFileType = text.script.ruby; path = network_test.rb; sourceTree = "<group>"; };
 		EB57E09256C2E6208FADC6F8 /* JobsOCMarkdownStabilityTests.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = JobsOCMarkdownStabilityTests.h; sourceTree = "<group>"; };
 		ECD6F7BDF34CB74F09D4009C /* JobsCrashSignalRecorderTests.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = JobsCrashSignalRecorderTests.c; sourceTree = "<group>"; };
-		ED10AE40F7B2388AF3BC23C6 /* podfile_integration_test.rb */ = {isa = PBXFileReference; lastKnownFileType = text.script.ruby; path = podfile_integration_test.rb; sourceTree = "<group>"; };
 		EFA34B139E2C7154BD122FD6 /* JobsRichTextUtilsStabilityTests.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = JobsRichTextUtilsStabilityTests.h; sourceTree = "<group>"; };
 		F1E919EEB983089E1095311E /* JobsWindowSceneFixture.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = JobsWindowSceneFixture.h; sourceTree = "<group>"; };
 		F20000042F22000100C0DE01 /* JobsOCWidgetExtension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = JobsOCWidgetExtension.appex; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -231,32 +213,82 @@
 		F5E95B32FB7879CB32C0D189 /* JobsKeychainIdentityTests.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = JobsKeychainIdentityTests.h; sourceTree = "<group>"; };
 		F6530A2C0D71C6784CC59879 /* FileFolderHandleToolStabilityTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = FileFolderHandleToolStabilityTests.m; sourceTree = "<group>"; };
 		F7E5BAB9F6D18383D6366F08 /* JobsRegistrationFixtureCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = JobsRegistrationFixtureCell.xib; sourceTree = "<group>"; };
-		F90100012026110300000001 /* 【MacOS】🧪iOS自动巡检.command */ = {isa = PBXFileReference; lastKnownFileType = folder; name = "【MacOS】🧪iOS自动巡检.command"; path = "ScriptsByDevTools/【MacOS】🧪iOS自动巡检.command"; sourceTree = SOURCE_ROOT; };
-		F9357B018609AD4F404345C4 /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		F9E99EFF7C21CBF52C6FB8FD /* JobsClassLifecycleTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = JobsClassLifecycleTests.m; sourceTree = "<group>"; };
 		FBE90C683EC9124A96792771 /* JobsOCExcelStabilityTests.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = JobsOCExcelStabilityTests.h; sourceTree = "<group>"; };
 		FC95D42786A4EFBAF7F53CCA /* JobsBioKitStabilityTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = JobsBioKitStabilityTests.m; sourceTree = "<group>"; };
 		FD88D73D63326DDA5845DB29 /* run_regression.rb */ = {isa = PBXFileReference; lastKnownFileType = text.script.ruby; path = run_regression.rb; sourceTree = "<group>"; };
 		FE8E77987930D17D5B9111D9 /* JobsAPIRequestProtocolFixture.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = JobsAPIRequestProtocolFixture.m; sourceTree = "<group>"; };
+		FEB5A76B145481E5A94BBC3D /* Pods-JobsOCBaseConfigDemo.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-JobsOCBaseConfigDemo.release.xcconfig"; path = "Target Support Files/Pods-JobsOCBaseConfigDemo/Pods-JobsOCBaseConfigDemo.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
 		C50913CA2F85D89100F261DA /* Exceptions for "JobsOCBaseConfigDemo" folder in "JobsOCBaseConfigDemo" target */ = {
 			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
 			membershipExceptions = (
+				"其他/配置info.plist/Info.plist.bak",
+				"其他/配置info.plist/README.md",
 				"其他/iOS模拟器/iOS模拟器.md",
+				"其他/JobsConfig.xcconfig",
 				"其他/libs/Json文件/【MacOS】Mock.command",
 				"业务逻辑/功能模块/Demo@抽奖轮盘/ViewController/LuckyDiskDemoVC/LuckyDiskDemoVC.PNG",
 				"业务逻辑/功能模块/Demo@发帖功能/发帖.png",
-				"业务逻辑/功能模块/Demo@Flutter/README.md",
-				"业务逻辑/功能模块/Demo@JobsDeviceDescription/README.md",
+				"业务逻辑/功能模块/Demo@设置手势密码/设置手势密码.png",
+				"业务逻辑/功能模块/Demo@竖形菜单选择功能/View/弹框样式_10/弹框样式_10.png",
+				"业务逻辑/功能模块/Demo@竖形菜单选择功能/View/FMGameCVCell/FMGameCVCell_1.png",
+				"业务逻辑/功能模块/Demo@竖形菜单选择功能/View/FMGameCVCell/FMGameCVCell_2.png",
+				"业务逻辑/功能模块/Demo@自定义UITableViewCell内置控件距离并添加复制按钮/View/订单详情Cell/订单详情Cell01.png",
+				"业务逻辑/功能模块/Demo@自定义UITableViewCell内置控件距离并添加复制按钮/View/订单详情Cell/订单详情Cell02.png",
 				"业务逻辑/功能模块/Demo@ARKit/README.md",
+				"业务逻辑/功能模块/Demo@Flutter/README.md",
+				"业务逻辑/功能模块/Demo@JobsComment/Outlines/JobsComment【OutLines 01】.png",
+				"业务逻辑/功能模块/Demo@JobsComment/Outlines/JobsComment【OutLines 02】.png",
+				"业务逻辑/功能模块/Demo@JobsComment/Outlines/JobsComment【OutLines 03】.png",
+				"业务逻辑/功能模块/Demo@JobsComment/Outlines/JobsComment【OutLines 04】.png",
+				"业务逻辑/功能模块/Demo@JobsComment/Outlines/JobsComment【OutLines 05】.png",
+				"业务逻辑/功能模块/Demo@JobsDeviceDescription/README.md",
 				"业务逻辑/功能模块/Demo@JobsDeviceGuardLaunch/README.md",
+				"业务逻辑/功能模块/Demo@JobsIM/JobsIMComponent/JobsIMCore/Outlines/JobsIM【Outlines 01】.png",
+				"业务逻辑/功能模块/Demo@JobsIM/JobsIMComponent/JobsIMCore/Outlines/JobsIM【Outlines 02】.png",
+				"业务逻辑/功能模块/Demo@JobsIM/JobsIMComponent/JobsIMCore/Outlines/JobsIM【Outlines 03】.png",
+				"业务逻辑/功能模块/Demo@JobsIM/JobsIMComponent/JobsIMCore/Outlines/JobsIM【Outlines 04】.png",
+				"业务逻辑/功能模块/Demo@JobsIM/JobsIMComponent/JobsIMCore/Outlines/JobsIM【Outlines 05】.png",
+				"业务逻辑/功能模块/Demo@JobsIM/JobsIMComponent/JobsIMCore/Outlines/JobsIM【Outlines 06】.png",
+				"业务逻辑/功能模块/Demo@JobsIM/JobsIMComponent/JobsIMCore/Outlines/JobsIM【Outlines 07】.png",
+				"业务逻辑/功能模块/Demo@JobsIM/JobsIMComponent/JobsIMCore/Outlines/JobsIM【Outlines 08】.png",
+				"业务逻辑/功能模块/Demo@JobsIM/JobsIMComponent/JobsIMCore/Outlines/JobsIM【Outlines 09】.png",
+				"业务逻辑/功能模块/Demo@JobsIM/JobsIMComponent/JobsIMCore/Outlines/JobsIM【Outlines 10】.png",
+				"业务逻辑/功能模块/Demo@JobsIM/JobsIMComponent/JobsIMCore/Outlines/JobsIM【Outlines 11】.png",
+				"业务逻辑/功能模块/Demo@JobsIM/JobsIMComponent/JobsIMCore/Outlines/JobsIM【Outlines 12】.png",
+				"业务逻辑/功能模块/Demo@JXCategoryView垂直表达/JXCategoryView垂直表达.png",
+				"业务逻辑/功能模块/Demo@JXCategoryView下拉headerView变大/View/BaiShaETProjChoiceStadiumView/BaiShaETProjChoiceStadiumView.png",
+				"业务逻辑/功能模块/Demo@JXCategoryView下拉headerView变大/View/BaiShaETProjCollectionHeaderView/BaiShaETProjCollectionHeaderView.png",
+				"业务逻辑/功能模块/Demo@JXCategoryView下拉headerView变大/View/BaiShaETProjVIPSubCVCell/BaiShaETProjVIPSubCVCell_01/BaiShaETProjVIPSubCVCell_01.png",
+				"业务逻辑/功能模块/Demo@JXCategoryView下拉headerView变大/View/BaiShaETProjVIPSubCVCell/BaiShaETProjVIPSubCVCell_02/BaiShaETProjVIPSubCVCell_02.png",
+				"业务逻辑/功能模块/Demo@JXCategoryView下拉headerView变大/View/BaiShaETProjVIPSubCVCell/BaiShaETProjVIPSubCVCell_03/BaiShaETProjVIPSubCVCell_03.png",
+				"业务逻辑/功能模块/Demo@JXCategoryView下拉headerView变大/View/BaiShaETProjVIPSubCVCell/BaiShaETProjVIPSubCVCell_04/BaiShaETProjVIPSubCVCell_04.png",
+				"业务逻辑/功能模块/Demo@JXCategoryView下拉headerView变大/View/BaiShaETProjVIPSubCVCell/BaiShaETProjVIPSubCVCell_05/BaiShaETProjVIPSubCVCell_05.png",
+				"业务逻辑/功能模块/Demo@Masonry的应用与实践/MSMineView2/MSMineView2.jpg",
+				"业务逻辑/功能模块/Demo@OC动态添加类、方法列表、属性列表/objc_msgSend执行流程-消息发送.png",
+				"业务逻辑/功能模块/Demo@OC动态添加类、方法列表、属性列表/objc_property_attribute_t.png",
+				"业务逻辑/功能模块/Demo@Progress/Outlines/Progress【OutLines】.png",
+				"业务逻辑/功能模块/Demo@UICollectionView实现重叠的卡包效果/View/BaiShaETProjBankAccMgmtCVCell.png",
+				"业务逻辑/功能模块/Demo@UITableViewCell的折叠效果/View/MSCommentView/MSCommentView.jpg",
+				"业务逻辑/功能模块/Demo@UITableViewCellEditorVC/View/MsgEditBoardView/MsgEditBoardView.png",
+				"业务逻辑/功能模块/Demo@UITableViewCellEditorVC/ViewController/消息详情页/消息详情页.png",
+				"业务逻辑/功能模块/Demo@Widget/assets/image-20240622130013733.png",
+				"业务逻辑/功能模块/Demo@Widget/assets/image-20240622130050640.png",
+				"业务逻辑/功能模块/Demo@Widget/assets/image-20240622130146666.png",
+				"业务逻辑/功能模块/Demo@Widget/assets/image-20240622130338752.png",
+				"业务逻辑/Common/☀️业务模块中公用的View/自定义弹框/全局统一的下拉选择器改为屏幕中部弹出的列表/PopListBaseView/全局统一的下拉选择器改为屏幕中部弹出的列表.jpg",
 				"业务逻辑/Common/☀️业务模块中公用的View/自定义视图/维护/维护.png",
 				"业务逻辑/Common/App工具类/3rd/JhtBanner（卡片式滑动效果）/README.md",
+				"业务逻辑/Common/App工具类/3rd/JobsShareView/分享弹窗.jpg",
 				"业务逻辑/Common/App工具类/3rd/WMZBanner/README.md",
 				"业务逻辑/Common/App工具类/UIKits+3rd/NSObject/NSObject+LiveChat/NSObject+LiveChat.m",
 				"业务逻辑/Common/App工具类/UIKits+3rd/NSObject/NSObject+MyAppTools/README.md",
+				"业务逻辑/控制器/ViewController@1/JobsOCRecentDemosVC/README.md",
+				"业务逻辑/控制器/ViewController@1/JobsOCWorldClockVC/README.md",
+				"业务逻辑/Common/BaseUI/MSMineView6CVCell/MSMineView6CVCell.jpg",
 				Info.plist,
 			);
 			target = C50913B22F85D89000F261DA /* JobsOCBaseConfigDemo */;
@@ -271,6 +303,13 @@
 /* End PBXFileSystemSynchronizedBuildFileExceptionSet section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
+		339D118F3B6C9408C88A7CA7 /* ScriptsByPods */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			exceptions = (
+			);
+			path = ScriptsByPods;
+			sourceTree = "<group>";
+		};
 		C50913B52F85D89000F261DA /* JobsOCBaseConfigDemo */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
 			exceptions = (
@@ -285,6 +324,13 @@
 				F20000072F22000100C0DE01 /* Exceptions for "JobsOCWidgetExtension" folder in "JobsOCWidgetExtension" target */,
 			);
 			path = JobsOCWidgetExtension;
+			sourceTree = "<group>";
+		};
+		F71515152026111500000001 /* 项目相关报告 */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			exceptions = (
+			);
+			path = "项目相关报告";
 			sourceTree = "<group>";
 		};
 /* End PBXFileSystemSynchronizedRootGroup section */
@@ -329,15 +375,6 @@
 				ABE76678F4D55C544E7E9EE0 /* JobsOCVideoRecorderStabilityTests.m */,
 			);
 			path = JobsOCVideoRecorderStabilityTests;
-			sourceTree = "<group>";
-		};
-		011427A4E99B3BCA01548ABC /* Tests */ = {
-			isa = PBXGroup;
-			children = (
-				1893136365BA054C63A91104 /* init_workflow_test.rb */,
-				C88781A11C752CCC13A59CA5 /* interaction_test.rb */,
-			);
-			path = Tests;
 			sourceTree = "<group>";
 		};
 		05B0A314A7854BDCB282BA12 /* JobsNetWorkTools@Pods */ = {
@@ -395,13 +432,6 @@
 			path = "JobsByPods/JobsRichTextUtils@Pods/Tests";
 			sourceTree = "<group>";
 		};
-		09A16D4B15428A356F3EC335 /* Tests */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Tests;
-			sourceTree = "<group>";
-		};
 		0AB296950C5ACE0E32AF6A2B /* JobsMarqueeViewStabilityTests */ = {
 			isa = PBXGroup;
 			children = (
@@ -409,23 +439,6 @@
 				29ECB606BF5007B2DD499B66 /* JobsMarqueeViewStabilityTests.m */,
 			);
 			path = JobsMarqueeViewStabilityTests;
-			sourceTree = "<group>";
-		};
-		0C166C58F7AD7A87407FA733 /* 【MacOS@Xcode】🫘当前工程Pod Install.command */ = {
-			isa = PBXGroup;
-			children = (
-				43B737A21C7B618951576749 /* 【MacOS@Xcode】🫘当前工程Pod Install.command */,
-				594933B4948AE4FF64FEFD8B /* README.md */,
-			);
-			path = "【MacOS@Xcode】🫘当前工程Pod Install.command";
-			sourceTree = "<group>";
-		};
-		0E50D19FB6E45C539D1A5070 /* run_regression.rb */ = {
-			isa = PBXGroup;
-			children = (
-				2A076D057E38C78EC6205863 /* run_regression.rb */,
-			);
-			path = run_regression.rb;
 			sourceTree = "<group>";
 		};
 		0E6C9AA069C82473BEF660D1 /* JobsOCKeyboardMgrStabilityTests */ = {
@@ -445,14 +458,6 @@
 			path = JobsCrashSignalRecorderTests;
 			sourceTree = "<group>";
 		};
-		13CAFA86B1EAC68E89AF9C16 /* pod_batch_regression.rb */ = {
-			isa = PBXGroup;
-			children = (
-				B6E8582AA199E12A278AA5EA /* pod_batch_regression.rb */,
-			);
-			path = pod_batch_regression.rb;
-			sourceTree = "<group>";
-		};
 		14C1FD23ADF5739AC8DC6841 /* JobsOCNumberStepperStabilityTests */ = {
 			isa = PBXGroup;
 			children = (
@@ -460,14 +465,6 @@
 				97D645B72ED43A41425A0AD4 /* JobsOCNumberStepperStabilityTests.m */,
 			);
 			path = JobsOCNumberStepperStabilityTests;
-			sourceTree = "<group>";
-		};
-		14E969C3C45832CD0FCDC6AD /* Tests */ = {
-			isa = PBXGroup;
-			children = (
-				DF6748AC9E87410835C61024 /* interaction_test.rb */,
-			);
-			path = Tests;
 			sourceTree = "<group>";
 		};
 		170260C02818E42CEE918C4A /* JobsDebugJSONTests */ = {
@@ -497,14 +494,6 @@
 			path = MJRefreshExtraStabilityTests;
 			sourceTree = "<group>";
 		};
-		1893136365BA054C63A91104 /* init_workflow_test.rb */ = {
-			isa = PBXGroup;
-			children = (
-				A09FFE4C24C13E862BAD704B /* init_workflow_test.rb */,
-			);
-			path = init_workflow_test.rb;
-			sourceTree = "<group>";
-		};
 		193664F3253176A531CDAF0E /* JobsImageNumberViewStabilityTests */ = {
 			isa = PBXGroup;
 			children = (
@@ -532,20 +521,6 @@
 			path = "JobsByPods/JobsImageRotation@Pods/Tests";
 			sourceTree = "<group>";
 		};
-		1CA60326530AB351726BBEAD /* ScriptsByPods */ = {
-			isa = PBXGroup;
-			children = (
-				A9E07C5807F33A6FA8902279 /* jobs_pods_stability_audit.rb */,
-				65EC875131B43A51869B7B2E /* jobs_pods_stability_verify.rb */,
-				44B21102B2719155030C3B0E /* 【MacOS】codegraph_init.command */,
-				E4419DC1D5625EDFDA528DD8 /* 【MacOS】🌐CocoaPods源自动选择.command */,
-				DD259F86090BC2E3CBF4BBCC /* 【MacOS】🌐CocoaPods网络适配.command */,
-				EE5EA7024E2AE91CD7500DC5 /* 【MacOS】📦Pod Install离线保护.command */,
-				BF98D235931CB663AF35FF56 /* 【MacOS】🔍查询Xcode工程依赖关系.command */,
-			);
-			path = ScriptsByPods;
-			sourceTree = "<group>";
-		};
 		1DBC1C544EC71508122D65AB /* JobsMarqueeView@Pods */ = {
 			isa = PBXGroup;
 			children = (
@@ -553,14 +528,6 @@
 			);
 			name = "JobsMarqueeView@Pods";
 			path = "JobsByPods/JobsMarqueeView@Pods/Tests";
-			sourceTree = "<group>";
-		};
-		1E2522DA428A7BCDBC42103B /* interaction_workflow_test.rb */ = {
-			isa = PBXGroup;
-			children = (
-				75DF9AF56FF67DA0CE1F36FC /* interaction_workflow_test.rb */,
-			);
-			path = interaction_workflow_test.rb;
 			sourceTree = "<group>";
 		};
 		26B1FB22E4C3BD9BD4957CED /* JobsModel@Pods */ = {
@@ -571,14 +538,6 @@
 			);
 			name = "JobsModel@Pods";
 			path = "JobsByPods/JobsModel@Pods/Tests";
-			sourceTree = "<group>";
-		};
-		2A32BE83ABCD51F0506F4540 /* source_fingerprint_regression.rb */ = {
-			isa = PBXGroup;
-			children = (
-				4FFB531127B2F21FEB939651 /* source_fingerprint_regression.rb */,
-			);
-			path = source_fingerprint_regression.rb;
 			sourceTree = "<group>";
 		};
 		2B2D5D901B32ED9B0EA682E3 /* JobsOCMarkdownStabilityTests */ = {
@@ -624,16 +583,6 @@
 			);
 			name = "JobsOCRefresher@Pods";
 			path = "JobsByPods/JobsOCRefresher@Pods/Tests";
-			sourceTree = "<group>";
-		};
-		339D118F3B6C9408C88A7CA7 /* ScriptsByPods */ = {
-			isa = PBXGroup;
-			children = (
-				0C166C58F7AD7A87407FA733 /* 【MacOS@Xcode】🫘当前工程Pod Install.command */,
-				9A008C36BD89E754781A7D3C /* 【MacOS@Xcode】🫘当前工程Pod Update.command */,
-				C6C1BD0B1B3593D0ED842845 /* 【MacOS】🌐CocoaPods源自动选择.command */,
-			);
-			path = ScriptsByPods;
 			sourceTree = "<group>";
 		};
 		34C892A0A47C124DC4D24C95 /* JobsStringUtils@Pods */ = {
@@ -713,14 +662,6 @@
 			path = JobsBaseUIKeychain;
 			sourceTree = "<group>";
 		};
-		44B21102B2719155030C3B0E /* 【MacOS】codegraph_init.command */ = {
-			isa = PBXGroup;
-			children = (
-				011427A4E99B3BCA01548ABC /* Tests */,
-			);
-			path = "【MacOS】codegraph_init.command";
-			sourceTree = "<group>";
-		};
 		465264471B52E05D16C566E9 /* JobsOCDeviceGuard@Pods */ = {
 			isa = PBXGroup;
 			children = (
@@ -776,14 +717,6 @@
 			);
 			name = "FMDatabaseExtra@Pods";
 			path = "JobsByPods/FMDatabaseExtra@Pods/Tests";
-			sourceTree = "<group>";
-		};
-		5075F4C61F1C0DF7F1D41D1B /* Tests */ = {
-			isa = PBXGroup;
-			children = (
-				0E50D19FB6E45C539D1A5070 /* run_regression.rb */,
-			);
-			path = Tests;
 			sourceTree = "<group>";
 		};
 		51E44EC6A9B8CEAB61F77C24 /* CI回归测试 */ = {
@@ -905,23 +838,6 @@
 			path = JobsBitsMonitorStabilityTests;
 			sourceTree = "<group>";
 		};
-		65E832B8522D394C11592E76 /* JobsAppIconRibbon@Pods */ = {
-			isa = PBXGroup;
-			children = (
-				E4722D855C4D5F6293007CB7 /* run_regression.rb */,
-			);
-			name = "JobsAppIconRibbon@Pods";
-			path = "JobsByPods/JobsAppIconRibbon@Pods/Tests";
-			sourceTree = "<group>";
-		};
-		65EC875131B43A51869B7B2E /* jobs_pods_stability_verify.rb */ = {
-			isa = PBXGroup;
-			children = (
-				FD077455FAE5AFB8A8ED10FD /* Tests */,
-			);
-			path = jobs_pods_stability_verify.rb;
-			sourceTree = "<group>";
-		};
 		66F0CBFB135CA5A8E87BFF42 /* JobsOCRefresherStabilityTests */ = {
 			isa = PBXGroup;
 			children = (
@@ -990,14 +906,6 @@
 			path = "JobsByPods/JobsOCUILabelScrolling@Pods/Tests";
 			sourceTree = "<group>";
 		};
-		74FFD5A8343BE95C82418CD3 /* host_entitlements_regression.rb */ = {
-			isa = PBXGroup;
-			children = (
-				85D6CE91AF6B8623BCD15917 /* host_entitlements_regression.rb */,
-			);
-			path = host_entitlements_regression.rb;
-			sourceTree = "<group>";
-		};
 		768FA869F83DA130BFC22842 /* JobsOCUILabelScrollingStabilityTests */ = {
 			isa = PBXGroup;
 			children = (
@@ -1049,7 +957,6 @@
 				4FD6C5AF5FB718998D687696 /* FMDatabaseExtra@Pods */,
 				49E41918E764B43AD73AD39C /* FileFolderHandleTool@Pods */,
 				6D41F9049928F8667C0F8ED7 /* JobsAPIs@Pods */,
-				65E832B8522D394C11592E76 /* JobsAppIconRibbon@Pods */,
 				5D5ECB1700581936DC9C7352 /* JobsAppTools@Pods */,
 				4D40005D0470156669F797CE /* JobsBaseUI@Pods */,
 				96C207604B604956EE254C1D /* JobsBioKit@Pods */,
@@ -1212,7 +1119,6 @@
 				51E44EC6A9B8CEAB61F77C24 /* CI回归测试 */,
 				7DF5612868A83488F0392429 /* Pods稳定性测试 */,
 				D80F30F047B0D0A2C521BF0C /* 测试宿主支持 */,
-				D518ADEAA6579CB073758C68 /* 脚本回归 */,
 			);
 			name = "自动化测试";
 			sourceTree = "<group>";
@@ -1270,40 +1176,6 @@
 			path = "JobsByPods/JobsBioKit@Pods/Tests";
 			sourceTree = "<group>";
 		};
-		96CC2E588232BDDC827332F5 /* podfile_integration_test.rb */ = {
-			isa = PBXGroup;
-			children = (
-				ED10AE40F7B2388AF3BC23C6 /* podfile_integration_test.rb */,
-			);
-			path = podfile_integration_test.rb;
-			sourceTree = "<group>";
-		};
-		9A008C36BD89E754781A7D3C /* 【MacOS@Xcode】🫘当前工程Pod Update.command */ = {
-			isa = PBXGroup;
-			children = (
-				8A3D52505EA813FD0F524A9C /* 【MacOS@Xcode】🫘当前工程Pod Update.command */,
-				F9357B018609AD4F404345C4 /* README.md */,
-			);
-			path = "【MacOS@Xcode】🫘当前工程Pod Update.command";
-			sourceTree = "<group>";
-		};
-		9C3130CB59CB7FCDEBD084C7 /* ScriptsByDevTools */ = {
-			isa = PBXGroup;
-			children = (
-				B648FBDCC92C9EC0C951A38F /* gitee_snapshot.command */,
-				F90100012026110300000001 /* 【MacOS】🧪iOS自动巡检.command */,
-			);
-			path = ScriptsByDevTools;
-			sourceTree = "<group>";
-		};
-		9D64E5A6C7AB4B724F55143A /* download_fallback_test.rb */ = {
-			isa = PBXGroup;
-			children = (
-				3F3D20303C40AA5BD57A2AF8 /* download_fallback_test.rb */,
-			);
-			path = download_fallback_test.rb;
-			sourceTree = "<group>";
-		};
 		9E49D4BD15DCCEA71E3AC5B6 /* UIBaseTextFieldDSLStabilityTests */ = {
 			isa = PBXGroup;
 			children = (
@@ -1322,14 +1194,6 @@
 			path = "JobsByPods/JobsOCKeyboardMgr@Pods/Tests";
 			sourceTree = "<group>";
 		};
-		A2F54AC2717189639A3810C1 /* Tests */ = {
-			isa = PBXGroup;
-			children = (
-				F392F860560A6DFBE269EE3A /* run_regression.rb */,
-			);
-			path = Tests;
-			sourceTree = "<group>";
-		};
 		A5A5869A8428968518B856B6 /* SimulatorPods */ = {
 			isa = PBXGroup;
 			children = (
@@ -1346,14 +1210,6 @@
 			);
 			name = "JobsOCVideoRecorder@Pods";
 			path = "JobsByPods/JobsOCVideoRecorder@Pods/Tests";
-			sourceTree = "<group>";
-		};
-		A9E07C5807F33A6FA8902279 /* jobs_pods_stability_audit.rb */ = {
-			isa = PBXGroup;
-			children = (
-				5075F4C61F1C0DF7F1D41D1B /* Tests */,
-			);
-			path = jobs_pods_stability_audit.rb;
 			sourceTree = "<group>";
 		};
 		AB00C36D82BFBBAFA5EC82DD /* JobsBioKitStabilityTests */ = {
@@ -1392,16 +1248,6 @@
 			path = "JobsByPods/MJRefreshExtra@Pods/Tests";
 			sourceTree = "<group>";
 		};
-		B097431FA2946CFBA066B9D4 /* Tests */ = {
-			isa = PBXGroup;
-			children = (
-				9D64E5A6C7AB4B724F55143A /* download_fallback_test.rb */,
-				FE5415D3DB17D5779CB579FE /* network_test.rb */,
-				96CC2E588232BDDC827332F5 /* podfile_integration_test.rb */,
-			);
-			path = Tests;
-			sourceTree = "<group>";
-		};
 		B3ADBA07341E20C732985D33 /* JobsAppToolsResetTests */ = {
 			isa = PBXGroup;
 			children = (
@@ -1409,22 +1255,6 @@
 				0F6D531ACCE737E06C108EAA /* JobsAppToolsResetTests.m */,
 			);
 			path = JobsAppToolsResetTests;
-			sourceTree = "<group>";
-		};
-		B648FBDCC92C9EC0C951A38F /* gitee_snapshot.command */ = {
-			isa = PBXGroup;
-			children = (
-				E958986F801D1CC79DBB4F14 /* Tests */,
-			);
-			path = gitee_snapshot.command;
-			sourceTree = "<group>";
-		};
-		B979C619055AE2B53945FB56 /* command_timeout_regression.rb */ = {
-			isa = PBXGroup;
-			children = (
-				16E4EC0F0982AFF0E95E52E3 /* command_timeout_regression.rb */,
-			);
-			path = command_timeout_regression.rb;
 			sourceTree = "<group>";
 		};
 		BAD642E74D0BAF469EF88F20 /* JobsBitsMonitor@Pods */ = {
@@ -1473,14 +1303,6 @@
 			path = JobsOCDeviceGuardTests;
 			sourceTree = "<group>";
 		};
-		BF98D235931CB663AF35FF56 /* 【MacOS】🔍查询Xcode工程依赖关系.command */ = {
-			isa = PBXGroup;
-			children = (
-				14E969C3C45832CD0FCDC6AD /* Tests */,
-			);
-			path = "【MacOS】🔍查询Xcode工程依赖关系.command";
-			sourceTree = "<group>";
-		};
 		C0CA1E0174A86AE25EB6328C /* JobsNetWorkToolsStabilityTests */ = {
 			isa = PBXGroup;
 			children = (
@@ -1506,14 +1328,6 @@
 			);
 			name = "JobsClockView@Pods";
 			path = "JobsByPods/JobsClockView@Pods/Tests";
-			sourceTree = "<group>";
-		};
-		C24FABD9808FAEEB2DF7472F /* Tests */ = {
-			isa = PBXGroup;
-			children = (
-				1E2522DA428A7BCDBC42103B /* interaction_workflow_test.rb */,
-			);
-			path = Tests;
 			sourceTree = "<group>";
 		};
 		C252F32AF5862828350D84FA /* JobsWindowSceneFixture */ = {
@@ -1546,13 +1360,15 @@
 		C50913AA2F85D89000F261DA = {
 			isa = PBXGroup;
 			children = (
-				339D118F3B6C9408C88A7CA7 /* ScriptsByPods */,
+				F71515152026111500000001 /* 项目相关报告 */,
 				C50913B52F85D89000F261DA /* JobsOCBaseConfigDemo */,
 				F20000082F22000100C0DE01 /* JobsOCWidgetExtension */,
+				339D118F3B6C9408C88A7CA7 /* ScriptsByPods */,
 				C50913B42F85D89000F261DA /* Products */,
 				EA4E9321151D073227FB210E /* Pods */,
 				93091DF3A4BAECE6B7AEAD38 /* Frameworks */,
 				90CC8887322BCF0A0015632F /* 自动化测试 */,
+				C5DD338430A963C900DD0A97 /* Recovered References */,
 			);
 			sourceTree = "<group>";
 		};
@@ -1567,6 +1383,56 @@
 			name = Products;
 			sourceTree = "<group>";
 		};
+		C5C5B1D230A8734F00ADF875 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		C5DD338430A963C900DD0A97 /* Recovered References */ = {
+			isa = PBXGroup;
+			children = (
+				BC23F37683B7F66536BE5CDF /* JobsCrashCrawler.xcodeproj */,
+			);
+			name = "Recovered References";
+			sourceTree = "<group>";
+		};
+		C5DD541330A963CA00DD0A97 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		C5DD541530A963CA00DD0A97 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		C5DD541730A963CA00DD0A97 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		C5DD541930A963CA00DD0A97 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		C5DD541B30A963CA00DD0A97 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
 		C6871BC4DF2BFE0CB8205233 /* JobsProgressBar@Pods */ = {
 			isa = PBXGroup;
 			children = (
@@ -1576,17 +1442,6 @@
 			path = "JobsByPods/JobsProgressBar@Pods/Tests";
 			sourceTree = "<group>";
 		};
-		C6C1BD0B1B3593D0ED842845 /* 【MacOS】🌐CocoaPods源自动选择.command */ = {
-			isa = PBXGroup;
-			children = (
-				6A3D75C49E28B512466A23E4 /* 【MacOS】🌐CocoaPods源自动选择.command */,
-				BC249555E7BC8CD51781B6D8 /* jobs_cocoapods_source.rb/jobs_cocoapods_source.rb */,
-				68A0E69F27DACF5D83847C0A /* README.md */,
-				09A16D4B15428A356F3EC335 /* Tests */,
-			);
-			path = "【MacOS】🌐CocoaPods源自动选择.command";
-			sourceTree = "<group>";
-		};
 		C7CE19F6B9D555AC783662C7 /* JobsClockViewStabilityTests */ = {
 			isa = PBXGroup;
 			children = (
@@ -1594,14 +1449,6 @@
 				048CBC99450E0B7EB86DD829 /* JobsClockViewStabilityTests.m */,
 			);
 			path = JobsClockViewStabilityTests;
-			sourceTree = "<group>";
-		};
-		C88781A11C752CCC13A59CA5 /* interaction_test.rb */ = {
-			isa = PBXGroup;
-			children = (
-				5F17F2C414BA27464AB88C7A /* interaction_test.rb */,
-			);
-			path = interaction_test.rb;
 			sourceTree = "<group>";
 		};
 		C8A0B5484D6328E5C7F1189E /* JobsNavigationTransitionMgr@Pods */ = {
@@ -1640,15 +1487,6 @@
 			path = JobsBluetoothStabilityTests;
 			sourceTree = "<group>";
 		};
-		D518ADEAA6579CB073758C68 /* 脚本回归 */ = {
-			isa = PBXGroup;
-			children = (
-				9C3130CB59CB7FCDEBD084C7 /* ScriptsByDevTools */,
-				1CA60326530AB351726BBEAD /* ScriptsByPods */,
-			);
-			name = "脚本回归";
-			sourceTree = "<group>";
-		};
 		D5951CB3933EC4224CA81D76 /* JobsOCWebSocketStabilityTests */ = {
 			isa = PBXGroup;
 			children = (
@@ -1674,14 +1512,6 @@
 			);
 			name = "JobsOCPatch@Pods";
 			path = "JobsByPods/JobsOCPatch@Pods/Tests";
-			sourceTree = "<group>";
-		};
-		D72214B5D468650B2A029673 /* readme_results_regression.rb */ = {
-			isa = PBXGroup;
-			children = (
-				A3D248E33674D379D387BEB0 /* readme_results_regression.rb */,
-			);
-			path = readme_results_regression.rb;
 			sourceTree = "<group>";
 		};
 		D80F30F047B0D0A2C521BF0C /* 测试宿主支持 */ = {
@@ -1731,22 +1561,6 @@
 			path = JobsOCBaseConfigDemoTests;
 			sourceTree = "<group>";
 		};
-		DD259F86090BC2E3CBF4BBCC /* 【MacOS】🌐CocoaPods网络适配.command */ = {
-			isa = PBXGroup;
-			children = (
-				B097431FA2946CFBA066B9D4 /* Tests */,
-			);
-			path = "【MacOS】🌐CocoaPods网络适配.command";
-			sourceTree = "<group>";
-		};
-		DF6748AC9E87410835C61024 /* interaction_test.rb */ = {
-			isa = PBXGroup;
-			children = (
-				41CA20F7C64CAD591CA348F4 /* interaction_test.rb */,
-			);
-			path = interaction_test.rb;
-			sourceTree = "<group>";
-		};
 		E1D228BEAB1C1887E8C79A81 /* JobsPodsStabilitySceneDelegate */ = {
 			isa = PBXGroup;
 			children = (
@@ -1754,14 +1568,6 @@
 				A5A1F4DC3D238E782F9EDD62 /* JobsPodsStabilitySceneDelegate.m */,
 			);
 			path = JobsPodsStabilitySceneDelegate;
-			sourceTree = "<group>";
-		};
-		E4419DC1D5625EDFDA528DD8 /* 【MacOS】🌐CocoaPods源自动选择.command */ = {
-			isa = PBXGroup;
-			children = (
-				A2F54AC2717189639A3810C1 /* Tests */,
-			);
-			path = "【MacOS】🌐CocoaPods源自动选择.command";
 			sourceTree = "<group>";
 		};
 		E5636AE38029F8977A099AAF /* JobsCrashLogImportStabilityTests */ = {
@@ -1789,19 +1595,11 @@
 			path = JobsIconfontLifecycleTests;
 			sourceTree = "<group>";
 		};
-		E958986F801D1CC79DBB4F14 /* Tests */ = {
-			isa = PBXGroup;
-			children = (
-				D887A9ADD5CC5326105687C3 /* run_regression.command */,
-			);
-			path = Tests;
-			sourceTree = "<group>";
-		};
 		EA4E9321151D073227FB210E /* Pods */ = {
 			isa = PBXGroup;
 			children = (
-				60A66C7F36C98A5D39A5B467 /* Pods-JobsOCBaseConfigDemo.debug.xcconfig */,
-				60D8D1D9D60600D20CE6AB6F /* Pods-JobsOCBaseConfigDemo.release.xcconfig */,
+				2878F02F869EC256676A8370 /* Pods-JobsOCBaseConfigDemo.debug.xcconfig */,
+				FEB5A76B145481E5A94BBC3D /* Pods-JobsOCBaseConfigDemo.release.xcconfig */,
 			);
 			path = Pods;
 			sourceTree = "<group>";
@@ -1822,30 +1620,6 @@
 			);
 			name = "JobsDeviceInfo@Pods";
 			path = "JobsByPods/JobsDeviceInfo@Pods/Tests";
-			sourceTree = "<group>";
-		};
-		EE5EA7024E2AE91CD7500DC5 /* 【MacOS】📦Pod Install离线保护.command */ = {
-			isa = PBXGroup;
-			children = (
-				C24FABD9808FAEEB2DF7472F /* Tests */,
-			);
-			path = "【MacOS】📦Pod Install离线保护.command";
-			sourceTree = "<group>";
-		};
-		EFB20EF51F1BE2FC96B1B07D /* test_phase_regression.rb */ = {
-			isa = PBXGroup;
-			children = (
-				96E608816F0265DF818012C0 /* test_phase_regression.rb */,
-			);
-			path = test_phase_regression.rb;
-			sourceTree = "<group>";
-		};
-		F392F860560A6DFBE269EE3A /* run_regression.rb */ = {
-			isa = PBXGroup;
-			children = (
-				45561155E42DA93B850E03C1 /* run_regression.rb */,
-			);
-			path = run_regression.rb;
 			sourceTree = "<group>";
 		};
 		F3F4DD0BF112DD343A5FEAF4 /* JobsSplashCacheFixture */ = {
@@ -1903,27 +1677,6 @@
 			);
 			name = "JobsOCTools@Pods";
 			path = "JobsByPods/JobsOCTools@Pods/Tests";
-			sourceTree = "<group>";
-		};
-		FD077455FAE5AFB8A8ED10FD /* Tests */ = {
-			isa = PBXGroup;
-			children = (
-				B979C619055AE2B53945FB56 /* command_timeout_regression.rb */,
-				74FFD5A8343BE95C82418CD3 /* host_entitlements_regression.rb */,
-				13CAFA86B1EAC68E89AF9C16 /* pod_batch_regression.rb */,
-				D72214B5D468650B2A029673 /* readme_results_regression.rb */,
-				2A32BE83ABCD51F0506F4540 /* source_fingerprint_regression.rb */,
-				EFB20EF51F1BE2FC96B1B07D /* test_phase_regression.rb */,
-			);
-			path = Tests;
-			sourceTree = "<group>";
-		};
-		FE5415D3DB17D5779CB579FE /* network_test.rb */ = {
-			isa = PBXGroup;
-			children = (
-				E4A095E380B950B0A9E98229 /* network_test.rb */,
-			);
-			path = network_test.rb;
 			sourceTree = "<group>";
 		};
 		FE6CD3D804A77AA71354F58F /* JobsDebug@Pods */ = {
@@ -2049,19 +1802,45 @@
 				"fil-PH",
 				fil,
 				"zh-Hant",
-				"bo",
-				"ja",
-				"fr",
-				"es",
-				"de",
-				"ru",
-				"ko",
+				bo,
+				ja,
+				fr,
+				es,
+				de,
+				ru,
+				ko,
 			);
 			mainGroup = C50913AA2F85D89000F261DA;
 			minimizedProjectReferenceProxies = 1;
 			preferredProjectObjectVersion = 77;
 			productRefGroup = C50913B42F85D89000F261DA /* Products */;
 			projectDirPath = "";
+			projectReferences = (
+				{
+					ProductGroup = C5DD541330A963CA00DD0A97 /* Products */;
+					ProjectRef = C5DD482A30A963CA00DD0A97 /* JobsCrashCrawler.xcodeproj */;
+				},
+				{
+					ProductGroup = C5DD541930A963CA00DD0A97 /* Products */;
+					ProjectRef = C5DD47E830A963CA00DD0A97 /* JobsCrashCrawler.xcodeproj */;
+				},
+				{
+					ProductGroup = C5DD541B30A963CA00DD0A97 /* Products */;
+					ProjectRef = C5DD535230A963CA00DD0A97 /* JobsCrashCrawler.xcodeproj */;
+				},
+				{
+					ProductGroup = C5DD541730A963CA00DD0A97 /* Products */;
+					ProjectRef = C5DD537730A963CA00DD0A97 /* JobsCrashCrawler.xcodeproj */;
+				},
+				{
+					ProductGroup = C5DD541530A963CA00DD0A97 /* Products */;
+					ProjectRef = C5DD480830A963CA00DD0A97 /* JobsCrashCrawler.xcodeproj */;
+				},
+				{
+					ProductGroup = C5C5B1D230A8734F00ADF875 /* Products */;
+					ProjectRef = BC23F37683B7F66536BE5CDF /* JobsCrashCrawler.xcodeproj */;
+				},
+			);
 			projectRoot = "";
 			targets = (
 				C50913B22F85D89000F261DA /* JobsOCBaseConfigDemo */,
@@ -2111,12 +1890,8 @@
 			);
 			inputFileListPaths = (
 			);
-			inputPaths = (
-			);
 			name = "[CP] Embed Pods Frameworks";
 			outputFileListPaths = (
-			);
-			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -2132,7 +1907,7 @@
 			inputFileListPaths = (
 			);
 			inputPaths = (
-				"$(SRCROOT)/ScriptsByDevTools/save_device_ipa_after_build.command/save_device_ipa_after_build.command",
+				"$(SRCROOT)/ScriptsByPods/自动化测试相关脚本/save_device_ipa_after_build.command/save_device_ipa_after_build.command",
 			);
 			name = "Save Build IPA";
 			outputFileListPaths = (
@@ -2142,7 +1917,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/zsh;
-			shellScript = "/bin/zsh \"${SRCROOT}/ScriptsByDevTools/save_device_ipa_after_build.command/save_device_ipa_after_build.command\"\n";
+			shellScript = "/bin/zsh \"${SRCROOT}/ScriptsByPods/自动化测试相关脚本/save_device_ipa_after_build.command/save_device_ipa_after_build.command\"\n";
 			showEnvVarsInLog = 0;
 		};
 		B8C185EA73EE1F17275B1FA8 /* [CP] Check Pods Manifest.lock */ = {
@@ -2195,12 +1970,8 @@
 			);
 			inputFileListPaths = (
 			);
-			inputPaths = (
-			);
 			name = "[CP] Copy Pods Resources";
 			outputFileListPaths = (
-			);
-			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -2361,14 +2132,14 @@
 		};
 		C50913CC2F85D89100F261DA /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 60A66C7F36C98A5D39A5B467 /* Pods-JobsOCBaseConfigDemo.debug.xcconfig */;
+			baseConfigurationReference = 2878F02F869EC256676A8370 /* Pods-JobsOCBaseConfigDemo.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_ALTERNATE_APPICON_NAMES = "AlternateIcon1 AlternateIcon2 AlternateIcon3 AlternateIcon4 AlternateIcon5";
 				ASSETCATALOG_COMPILER_APPICON_NAME = "JobsAppIconRibbon-Debug";
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = YES;
 				CLANG_ENABLE_MODULES = YES;
-				CODE_SIGN_ENTITLEMENTS = JobsOCBaseConfigDemo/JobsOCBaseConfigDemo.entitlements;
+				CODE_SIGN_ENTITLEMENTS = "JobsOCBaseConfigDemo/其他/JobsOCBaseConfigDemo.entitlements";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = K5692KLW75;
@@ -2380,7 +2151,7 @@
 				INFOPLIST_KEY_CFBundleDisplayName = OCDemo;
 				INFOPLIST_KEY_NSBluetoothAlwaysUsageDescription = "用于扫描、连接并与附近的 BLE 设备交换数据。";
 				INFOPLIST_KEY_NSBluetoothPeripheralUsageDescription = "用于兼容旧系统访问附近的 BLE 设备。";
-				INFOPLIST_KEY_NSCameraUsageDescription = "需要访问相机以检测真实平面、放置 AR 模型及录制视频。";
+				INFOPLIST_KEY_NSCameraUsageDescription = "需要访问相机以拍照识别文字、检测真实平面、放置 AR 模型及录制视频。";
 				INFOPLIST_KEY_NSMicrophoneUsageDescription = "需要访问麦克风以录制和管理本地音频。";
 				INFOPLIST_KEY_NSPhotoLibraryAddUsageDescription = "需要添加截图、图片或视频到相册。";
 				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "需要访问相册以保存录制视频。";
@@ -2398,7 +2169,7 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				STRING_CATALOG_GENERATE_SYMBOLS = YES;
 				SWIFT_EMIT_LOC_STRINGS = YES;
-				SWIFT_OBJC_BRIDGING_HEADER = "JobsOCBaseConfigDemo/JobsOCBaseConfigDemo-Bridging-Header.h";
+				SWIFT_OBJC_BRIDGING_HEADER = "JobsOCBaseConfigDemo/Headers/JobsOCBaseConfigDemo-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 6.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -2407,14 +2178,14 @@
 		};
 		C50913CD2F85D89100F261DA /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 60D8D1D9D60600D20CE6AB6F /* Pods-JobsOCBaseConfigDemo.release.xcconfig */;
+			baseConfigurationReference = FEB5A76B145481E5A94BBC3D /* Pods-JobsOCBaseConfigDemo.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_ALTERNATE_APPICON_NAMES = "AlternateIcon1 AlternateIcon2 AlternateIcon3 AlternateIcon4 AlternateIcon5";
 				ASSETCATALOG_COMPILER_APPICON_NAME = "JobsAppIconRibbon-Release";
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = YES;
 				CLANG_ENABLE_MODULES = YES;
-				CODE_SIGN_ENTITLEMENTS = JobsOCBaseConfigDemo/JobsOCBaseConfigDemo.entitlements;
+				CODE_SIGN_ENTITLEMENTS = "JobsOCBaseConfigDemo/其他/JobsOCBaseConfigDemo.entitlements";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = K5692KLW75;
@@ -2426,7 +2197,7 @@
 				INFOPLIST_KEY_CFBundleDisplayName = OCDemo;
 				INFOPLIST_KEY_NSBluetoothAlwaysUsageDescription = "用于扫描、连接并与附近的 BLE 设备交换数据。";
 				INFOPLIST_KEY_NSBluetoothPeripheralUsageDescription = "用于兼容旧系统访问附近的 BLE 设备。";
-				INFOPLIST_KEY_NSCameraUsageDescription = "需要访问相机以检测真实平面、放置 AR 模型及录制视频。";
+				INFOPLIST_KEY_NSCameraUsageDescription = "需要访问相机以拍照识别文字、检测真实平面、放置 AR 模型及录制视频。";
 				INFOPLIST_KEY_NSMicrophoneUsageDescription = "需要访问麦克风以录制和管理本地音频。";
 				INFOPLIST_KEY_NSPhotoLibraryAddUsageDescription = "需要添加截图、图片或视频到相册。";
 				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "需要访问相册以保存录制视频。";
@@ -2444,7 +2215,7 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				STRING_CATALOG_GENERATE_SYMBOLS = YES;
 				SWIFT_EMIT_LOC_STRINGS = YES;
-				SWIFT_OBJC_BRIDGING_HEADER = "JobsOCBaseConfigDemo/JobsOCBaseConfigDemo-Bridging-Header.h";
+				SWIFT_OBJC_BRIDGING_HEADER = "JobsOCBaseConfigDemo/Headers/JobsOCBaseConfigDemo-Bridging-Header.h";
 				SWIFT_VERSION = 6.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};

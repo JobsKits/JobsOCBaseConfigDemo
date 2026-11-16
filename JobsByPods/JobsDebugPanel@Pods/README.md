@@ -51,6 +51,8 @@
 
 7、Demo、调试页、环境页、导航、表格和弹窗读取宿主 `JobsThemeCenter` 的有效主题；已打开页面在 `JobsThemeDidChangeNotification` 到达时立即刷新。宿主当前提供白天 / 黑夜两种主题；系统与 App 自选主题不一致时仍以 App 为准。
 
+独占输入界面可调用 `JobsDebugPanelManager.sharedPanel.byFloatingEntrySuppressionOwner(self)` 暂停浮层及调试页展示，退出时传入 `nil`。抑制期间摇动、窗口和前后台刷新均不会恢复入口，也不改写长按隐藏状态；解除后按进入前的隐藏规则恢复。该状态只在内存中保留，owner 为弱引用。
+
 ## <span id="jobs-toc-heading-3" data-jobs-toc="v2">二、目录与公开边界 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a></span><!-- jobs-toc:heading-end -->
 
 ```text
@@ -245,7 +247,7 @@ OC 老工程迁移只复制源码、资源、公开入口与说明到主工程�
 
 ## <span id="jobs-toc-heading-14" data-jobs-toc="v2">十一、本轮单元验证 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a></span><!-- jobs-toc:heading-end -->
 
-已有 Debug / Release 单 Pod 编译记录见根 [JobsByPods升级实施与编译验证.md](<../../JobsByPods升级实施与编译验证.md>)；本 Pod 无独立 Stability 回归。生产源码、测试源码、资源与工程配置的指纹一致且命令真实退出成功，才可复用对应验证记录；首屏导航与列表位置仍需按第九章完成宿主运行验收，既有编译记录不代表当前改动已通过验证。
+已有 Debug / Release 单 Pod 编译记录见根 [JobsByPods升级实施与编译验证.md](<../../项目相关报告/JobsByPods升级实施与编译验证.md>)；本 Pod 无独立 Stability 回归。生产源码、测试源码、资源与工程配置的指纹一致且命令真实退出成功，才可复用对应验证记录；首屏导航与列表位置仍需按第九章完成宿主运行验收，既有编译记录不代表当前改动已通过验证。
 
 生产行为与边界按上述核心契约验收；逐 Pod 编译与独立行为回归分别记录结果。
 
@@ -253,7 +255,7 @@ OC 老工程迁移只复制源码、资源、公开入口与说明到主工程�
 
 ```shell
 cd ../..
-ruby ScriptsByPods/jobs_pods_stability_verify.rb/jobs_pods_stability_verify.rb \
+ruby ScriptsByPods/自动化测试相关脚本/jobs_pods_stability_verify.rb/jobs_pods_stability_verify.rb \
   --phase pods --pod JobsDebugPanel
 ```
 

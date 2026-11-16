@@ -41,6 +41,7 @@ deletion, and clear-history support for Jobs projects.
   spec.dependency 'JobsBlock'
   spec.dependency 'JobsBaseUI'
   spec.dependency 'JobsMakes'
+  spec.dependency 'JobsLanMgr'
   spec.dependency 'JobsOCDSL'
   spec.dependency 'JobsOCDefs'
 
@@ -48,5 +49,11 @@ deletion, and clear-history support for Jobs projects.
   JobsPodspecKitForJobsOCSearcher.apply_standard_xcconfig(spec)
 
   spec.resource_bundles = (spec.attributes_hash['resource_bundles'] || {}).merge('JobsOCSearcherPrivacy' => ['Resource/PrivacyInfo.xcprivacy'])
+
+  spec.test_spec 'Stability' do |test_spec|
+    test_spec.source_files = 'Tests/**/*.{h,m,mm}'
+    test_spec.frameworks = 'XCTest'
+    test_spec.requires_app_host = true
+  end
 
 end

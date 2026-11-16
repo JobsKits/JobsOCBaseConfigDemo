@@ -333,7 +333,7 @@ JobsOCCalendarValueDSL(byJobsReloadDataAfterBoundsChange, jobsReloadDataAfterBou
         self.jobsDayFormatter.byLocale(NSLocale.currentLocale);
         self.jobsDayFormatter.byDateFormat(@"dd");
         self.byToday(self.jobsStartOfDayByDate(NSDate.date));
-        _currentPage = self.jobsStartOfMonthByDate(self.today);
+        self->_currentPage = self.jobsStartOfMonthByDate(self.today);
         self.byMinimumDate(self.jobsStartOfDayByDate([NSDate distantPast]));
         self.byMaximumDate(self.jobsStartOfDayByDate([NSDate distantFuture]));
         self.byJobsMutableSelectedDates(NSMutableArray.array);

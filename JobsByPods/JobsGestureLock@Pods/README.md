@@ -170,6 +170,8 @@ pod install --no-repo-update
 
 ## <span id="jobs-toc-heading-15" data-jobs-toc="v2">九、风险说明 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a></span><!-- jobs-toc:heading-end -->
 
+- 页面初始化 Block 在弱引用提升并判空后，通过 `self->_xxx` 配置头像、状态标签、锁视图和操作按钮，避免隐式捕获页面。
+
 - 只有 podspec 指定的公开头进入外部 API 边界；新增 import 时要确认不会把私有实现细节暴露给外部。
 - `JobsGestureLockVC` 的页面基座固定为 `BaseViewController`；不要降级成裸 `UIViewController`，否则应用层 Demo 访问 `viewModel`、导航配置或主题能力时会失去运行时契约。
 - 默认节点不读取 128px 椭圆位图作为点尺寸；只有调用方显式注入 `node*Image` / `indicator*Image` 时才进入自定义图片分支。
@@ -247,7 +249,7 @@ pod install --no-repo-update
 
 ## <span id="jobs-toc-heading-23" data-jobs-toc="v2">十三、本轮单元验证 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a></span><!-- jobs-toc:heading-end -->
 
-当前结果：**Debug / Release 单 Pod 编译已完成；本 Pod 无独立 Stability 回归；整体验收记录见根 [JobsByPods升级实施与编译验证.md](<../../JobsByPods升级实施与编译验证.md>)**。生产源码、测试源码、资源与工程配置的指纹一致且命令真实退出成功，才可复用对应验证记录。
+当前结果：**Debug / Release 单 Pod 编译已完成；本 Pod 无独立 Stability 回归；整体验收记录见根 [JobsByPods升级实施与编译验证.md](<../../项目相关报告/JobsByPods升级实施与编译验证.md>)**。生产源码、测试源码、资源与工程配置的指纹一致且命令真实退出成功，才可复用对应验证记录。
 
 该 Pod 维持既有内核，纳入统一逐 Pod 和主工程编译；没有以新增代码数量作为升级验收依据。
 
@@ -255,7 +257,7 @@ pod install --no-repo-update
 
 ```shell
 cd ../..
-ruby ScriptsByPods/jobs_pods_stability_verify.rb/jobs_pods_stability_verify.rb \
+ruby ScriptsByPods/自动化测试相关脚本/jobs_pods_stability_verify.rb/jobs_pods_stability_verify.rb \
   --phase pods --pod JobsGestureLock
 ```
 

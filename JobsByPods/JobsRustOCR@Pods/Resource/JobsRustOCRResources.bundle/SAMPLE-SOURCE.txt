@@ -1,0 +1,8 @@
+sample.png is scan.png from datalab-to/indra/examples/samples.
+Indra commit: ca81e18f7403435a3545c8c8ae9c4a1cecdd32a4.
+Source: OmniParseBench multiling_finepdfs-images_kor_Hang_07603024-p1.
+Dataset: https://huggingface.co/datasets/HuggingFaceFW/finepdfs
+License: ODC-BY 1.0.
+Upstream notes: https://github.com/datalab-to/indra/blob/main/examples/samples/README.md
+Full dataset license notes: https://huggingface.co/datasets/datalab-to/omni_parse_bench/tree/main/licenses
+The Rust implementation is inspired by Indra OCR; model and dataset licenses remain separate.

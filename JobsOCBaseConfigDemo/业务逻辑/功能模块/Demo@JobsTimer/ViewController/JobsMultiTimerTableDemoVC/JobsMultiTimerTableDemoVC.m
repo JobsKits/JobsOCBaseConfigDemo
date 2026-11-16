@@ -174,7 +174,7 @@ Prop_assign()BOOL wisdomListVisible;
         @jobs_strongify(self)
         if (!self) return;
         self.byWisdomListVisible(NO);
-        _wisdomOverlayView.byHidden(YES);
+        self->_wisdomOverlayView.byHidden(YES);
     };
 }
 

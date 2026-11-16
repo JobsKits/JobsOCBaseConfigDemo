@@ -56,6 +56,9 @@ Prop_strong()UIViewModel *subTitleModel;
     @jobs_weakify(self)
     return ^(id _Nullable model) {
         @jobs_strongify(self)
+        if (!self) {
+            return;
+        }
         self.byTitleModel(nil);
         self.bySubTitleModel(nil);
         if ([model isKindOfClass:NSArray.class]) {
@@ -70,8 +73,8 @@ Prop_strong()UIViewModel *subTitleModel;
             self.byTitleModel(model);
         }
         self.byViewModel(self.titleModel);
-        if (self.titleModel || _titleBtn) self.titleBtn.byAlpha(self.titleModel ? 1 : 0);
-        if (self.subTitleModel || _subTitleBtn) self.subTitleBtn.byAlpha(self.subTitleModel ? 1 : 0);
+        if (self.titleModel || self->_titleBtn) self.titleBtn.byAlpha(self.titleModel ? 1 : 0);
+        if (self.subTitleModel || self->_subTitleBtn) self.subTitleBtn.byAlpha(self.subTitleModel ? 1 : 0);
     };
 }
 #pragma mark —— 一些公共方法

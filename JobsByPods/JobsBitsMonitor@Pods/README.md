@@ -230,7 +230,7 @@ pod install --no-repo-update
 
 ## <span id="jobs-toc-heading-23" data-jobs-toc="v2">十三、本轮单元验证 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a></span><!-- jobs-toc:heading-end -->
 
-当前结果：**Debug / Release 单 Pod 编译、Debug Stability 回归已完成；整体验收记录见根 [JobsByPods升级实施与编译验证.md](<../../JobsByPods升级实施与编译验证.md>)**。生产源码、测试源码、资源与工程配置的指纹一致且命令真实退出成功，才可复用对应验证记录。
+当前结果：**Debug / Release 单 Pod 编译、Debug Stability 回归已完成；整体验收记录见根 [JobsByPods升级实施与编译验证.md](<../../项目相关报告/JobsByPods升级实施与编译验证.md>)**。生产源码、测试源码、资源与工程配置的指纹一致且命令真实退出成功，才可复用对应验证记录。
 
 生产行为与边界按上述核心契约验收；逐 Pod 编译与独立行为回归分别记录结果。
 
@@ -238,14 +238,14 @@ pod install --no-repo-update
 
 ```shell
 cd ../..
-ruby ScriptsByPods/jobs_pods_stability_verify.rb/jobs_pods_stability_verify.rb \
+ruby ScriptsByPods/自动化测试相关脚本/jobs_pods_stability_verify.rb/jobs_pods_stability_verify.rb \
   --phase pods --pod JobsBitsMonitor
 ```
 
 当前 podspec 显式提供 `Stability` test_spec。[独立 XCTest](<./Tests/JobsBitsMonitorStabilityTests/JobsBitsMonitorStabilityTests.m>) 真实构造普通与富文本 Label，等待实际定时刷新，移除第一个后确认其 controller / label / monitor 释放、已有 timer 取消、取消前捕获的原生 NSTimer 无效和迟到 tick 安全，第二个继续刷新；另对两个风格分别进行 100 轮真实 controller 持有 / 释放验证。测试只通过 KVC 检查当前私有 monitor 的身份和已创建 timer 终态，不替换采样器、语言管理或 UI 基类。此内核生命周期回归不冒充 100 次可见页面 push/pop、present/dismiss 集成压力测试。
 
 ```shell
-ruby ScriptsByPods/jobs_pods_stability_verify.rb/jobs_pods_stability_verify.rb \
+ruby ScriptsByPods/自动化测试相关脚本/jobs_pods_stability_verify.rb/jobs_pods_stability_verify.rb \
   --phase tests --pod JobsBitsMonitor --simulator '<UDID>'
 ```
 

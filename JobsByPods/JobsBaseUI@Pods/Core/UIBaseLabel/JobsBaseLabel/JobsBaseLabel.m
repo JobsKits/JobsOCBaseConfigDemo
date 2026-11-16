@@ -95,7 +95,7 @@ static dispatch_once_t static_baseLabelOnceToken;
     return ^UIImageView *{
         @jobs_strongify(self)
         if (!self) return nil;
-        return _bgImageView;
+        return self->_bgImageView;
     };
 }
 
@@ -104,7 +104,7 @@ static dispatch_once_t static_baseLabelOnceToken;
     return ^BaseLabel *{
         @jobs_strongify(self)
         if (!self) return nil;
-        return _label;
+        return self->_label;
     };
 }
 #pragma mark —— BaseViewProtocol

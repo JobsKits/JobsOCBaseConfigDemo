@@ -104,9 +104,9 @@ AppToolsProtocol_synthesize
     return ^CGFloat{
         @jobs_strongify(self)
         if (!self) return (CGFloat){0};
-        if (_jobsWidth == 0 && !jobsZeroSizeValue(self.jobsSize)) {
-            _jobsWidth = self.jobsSize.width;
-        };return _jobsWidth;
+        if (self->_jobsWidth == 0 && !jobsZeroSizeValue(self.jobsSize)) {
+            self->_jobsWidth = self.jobsSize.width;
+        };return self->_jobsWidth;
     };
 }
 
@@ -120,9 +120,9 @@ AppToolsProtocol_synthesize
     return ^CGFloat{
         @jobs_strongify(self)
         if (!self) return (CGFloat){0};
-        if (_jobsHeight == 0 && !jobsZeroSizeValue(self.jobsSize)) {
-            _jobsHeight = self.jobsSize.height;
-        };return _jobsHeight;
+        if (self->_jobsHeight == 0 && !jobsZeroSizeValue(self.jobsSize)) {
+            self->_jobsHeight = self.jobsSize.height;
+        };return self->_jobsHeight;
     };
 }
 
@@ -264,8 +264,8 @@ AppToolsProtocol_synthesize
     return ^NSAttributedString *_Nullable{
         @jobs_strongify(self)
         if (!self) return nil;
-        if(!_selectedAttributedText){
-        };return _selectedAttributedText;
+        if(!self->_selectedAttributedText){
+        };return self->_selectedAttributedText;
     };
 }
 

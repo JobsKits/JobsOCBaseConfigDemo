@@ -220,7 +220,7 @@ static dispatch_once_t static_jobsAppDoorOnceToken;
         self.jobsAppDoorContentView.图片从小放大();
         self.logoContentView.图片从小放大();
         self.customerServiceBtn.图片从小放大();
-        if (_player) {
+        if (self->_player) {
             self.volumeBtn.图片从小放大();
             self.volumePanelView.byVisible(NO);
             self.jobs_installVolumeDismissGestureIfNeeded();
@@ -362,7 +362,7 @@ static dispatch_once_t static_jobsAppDoorOnceToken;
     return ^UIView *{
         @jobs_strongify(self)
         if (!self) return nil;
-        if (self.currentPage.integerValue == CurrentPage_ForgotCode && _forgotCodeContentView) return _forgotCodeContentView;
+        if (self.currentPage.integerValue == CurrentPage_ForgotCode && self->_forgotCodeContentView) return self->_forgotCodeContentView;
         return self.jobsAppDoorContentView;
     };
 }
@@ -421,7 +421,7 @@ static dispatch_once_t static_jobsAppDoorOnceToken;
     return ^{
         @jobs_strongify(self)
         if (!self) return;
-        if (![self jobs_isVideoDoorMode]() || !_player) return;
+        if (![self jobs_isVideoDoorMode]() || !self->_player) return;
         if (!self.player.currentPlayerManager.isPlaying) {
             [self.player.currentPlayerManager play];
         }
@@ -455,8 +455,8 @@ static dispatch_once_t static_jobsAppDoorOnceToken;
         @jobs_strongify(self)
         if (!self) return;
         (void)notification;
-        if (![self jobs_isVideoDoorMode]() || !_player) return;
-        id<ZFPlayerMediaPlayback> currentPlayerManager = _player.currentPlayerManager;
+        if (![self jobs_isVideoDoorMode]() || !self->_player) return;
+        id<ZFPlayerMediaPlayback> currentPlayerManager = self->_player.currentPlayerManager;
         self.byVideoPausedByApplicationState(currentPlayerManager.isPlaying);
         if (self.videoPausedByApplicationState) currentPlayerManager.pause;
     };
@@ -485,9 +485,9 @@ static dispatch_once_t static_jobsAppDoorOnceToken;
     return ^{
         @jobs_strongify(self)
         if (!self) return;
-        if (_volumeDismissTapGesture) return;
+        if (self->_volumeDismissTapGesture) return;
         @jobs_weakify(self)
-        _volumeDismissTapGesture = (jobsMakeTapGesture(^(UITapGestureRecognizer * _Nullable gesture) {
+        self->_volumeDismissTapGesture = (jobsMakeTapGesture(^(UITapGestureRecognizer * _Nullable gesture) {
             @jobs_strongify(self)
             gesture
                 .byCancelsTouchesInView(NO)
@@ -496,7 +496,7 @@ static dispatch_once_t static_jobsAppDoorOnceToken;
             @jobs_strongify(self)
             [self jobs_volumeDismissTap:(UITapGestureRecognizer *)gesture];
         });
-        self.view.addGesture(_volumeDismissTapGesture);
+        self.view.addGesture(self->_volumeDismissTapGesture);
     };
 }
 
@@ -538,12 +538,12 @@ static dispatch_once_t static_jobsAppDoorOnceToken;
             return 0;
         }
 #if TARGET_OS_SIMULATOR
-        id<ZFPlayerMediaPlayback> currentPlayerManager = _player.currentPlayerManager;
+        id<ZFPlayerMediaPlayback> currentPlayerManager = self->_player.currentPlayerManager;
         float volume = 1;
         if (currentPlayerManager) {
             volume = currentPlayerManager.volume;
-        } else if (_playerManager) {
-            volume = _playerManager.volume;
+        } else if (self->_playerManager) {
+            volume = self->_playerManager.volume;
         }
 #else
         float volume = AVAudioSession.sharedInstance.outputVolume;
@@ -579,14 +579,14 @@ static dispatch_once_t static_jobsAppDoorOnceToken;
         // 真机交由原生 MPVolumeView 调系统音量，播放器不再叠加第二层衰减。
         volume = 1;
 #endif
-        id<ZFPlayerMediaPlayback> currentPlayerManager = _player.currentPlayerManager;
+        id<ZFPlayerMediaPlayback> currentPlayerManager = self->_player.currentPlayerManager;
         if (currentPlayerManager) {
             ((NSObject *)currentPlayerManager).byMuted(NO);
             ((NSObject *)currentPlayerManager).byVolume(volume);
         }
-        if (_playerManager && _playerManager != currentPlayerManager) {
-            _playerManager.byMuted(NO);
-            _playerManager.byVolume(volume);
+        if (self->_playerManager && self->_playerManager != currentPlayerManager) {
+            self->_playerManager.byMuted(NO);
+            self->_playerManager.byVolume(volume);
         }
         self.jobs_updateVolumePercentText();
     };
@@ -602,7 +602,7 @@ static dispatch_once_t static_jobsAppDoorOnceToken;
     return ^(UIGestureRecognizer * gesture){
         @jobs_strongify(self)
         if (!self) return;
-        if (!self.volumePanelShowing || !_volumePanelView) return;
+        if (!self.volumePanelShowing || !self->_volumePanelView) return;
         CGPoint point = [gesture locationInView:self.volumePanelView];
         CGRect sliderFrame = self.volumeSlider.frame;
         CGRect sliderHitFrame = CGRectMake(0,
@@ -623,8 +623,8 @@ static dispatch_once_t static_jobsAppDoorOnceToken;
         NSInteger percent = (NSInteger)(MAX(0, MIN(1, volume)) * 100.0f + 0.5f);
         self.volumePercentLab.byText([NSString stringWithFormat:@"%ld%%",(long)percent]);
 #if DEBUG
-        if (_volumePanelView && [NSProcessInfo.processInfo.arguments containsObject:@"--jobs-coverage-route"]) {
-            _volumePanelView.accessibilityValue = self.volumePercentLab.text;
+        if (self->_volumePanelView && [NSProcessInfo.processInfo.arguments containsObject:@"--jobs-coverage-route"]) {
+            self->_volumePanelView.accessibilityValue = self.volumePercentLab.text;
         }
 #endif
     };
@@ -747,7 +747,7 @@ static dispatch_once_t static_jobsAppDoorOnceToken;
     return ^{
         @jobs_strongify(self)
         if (!self) return;
-        if (!_volumeBtn) return;
+        if (!self->_volumeBtn) return;
         CGFloat buttonWH = JobsWidth(36);
         CGFloat right = JobsWidth(18);
         CGFloat top = self.view.safeAreaInsets.top + JobsWidth(12);
@@ -789,11 +789,11 @@ static dispatch_once_t static_jobsAppDoorOnceToken;
     return ^{
         @jobs_strongify(self)
         if (!self) return;
-        if (_jobsAppDoorContentView) [self.view bringSubviewToFront:_jobsAppDoorContentView];
-        if (_logoContentView) [self.view bringSubviewToFront:_logoContentView];
-        if (_customerServiceBtn) [self.view bringSubviewToFront:_customerServiceBtn];
-        if (_volumePanelView) [self.view bringSubviewToFront:_volumePanelView];
-        if (_volumeBtn) [self.view bringSubviewToFront:_volumeBtn];
+        if (self->_jobsAppDoorContentView) [self.view bringSubviewToFront:self->_jobsAppDoorContentView];
+        if (self->_logoContentView) [self.view bringSubviewToFront:self->_logoContentView];
+        if (self->_customerServiceBtn) [self.view bringSubviewToFront:self->_customerServiceBtn];
+        if (self->_volumePanelView) [self.view bringSubviewToFront:self->_volumePanelView];
+        if (self->_volumeBtn) [self.view bringSubviewToFront:self->_volumeBtn];
     };
 }
 

@@ -19,11 +19,11 @@ run_snapshot_hook() {
     return 0
   fi
   hook_project_root="$(git rev-parse --show-toplevel)" || return 1
-  if [[ ! -f "$hook_project_root/ScriptsByDevTools/gitee_snapshot.command/gitee_snapshot.command" ]]; then
+  if [[ ! -f "$hook_project_root/ScriptsByPods/自动化测试相关脚本/gitee_snapshot.command/gitee_snapshot.command" ]]; then
     print -u2 -- '✖ 当前分支缺少快照检查脚本。请回到 byPods 后再推送；已停止推送。'
     return 1
   fi
-  print -r -- "$hook_push_input" | /bin/zsh "$hook_project_root/ScriptsByDevTools/gitee_snapshot.command/gitee_snapshot.command" --hook pre-push "$@"
+  print -r -- "$hook_push_input" | /bin/zsh "$hook_project_root/ScriptsByPods/自动化测试相关脚本/gitee_snapshot.command/gitee_snapshot.command" --hook pre-push "$@"
 }
 # 放行远端删除，检查普通推送的提交链。
 main() {

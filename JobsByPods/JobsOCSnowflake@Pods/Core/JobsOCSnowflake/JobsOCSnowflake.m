@@ -110,11 +110,11 @@ Prop_assign()uint32_t issuedSequence;
                 timestamp - self.publishMillisecond >= (UINT64_C(1) << kTimeBits)) {
                 return nil;
             }
-            _issuedMillisecond = timestamp;
-            _issuedSequence = sequence;
-            _hasIssuedID = YES;
-            _lastGeneralMillisecond = timestamp;
-            _sequence = sequence;
+            self->_issuedMillisecond = timestamp;
+            self->_issuedSequence = sequence;
+            self->_hasIssuedID = YES;
+            self->_lastGeneralMillisecond = timestamp;
+            self->_sequence = sequence;
             uint64_t timeParameter = timestamp - self.publishMillisecond;
             uint64_t timeOffset = kIDCBits + kMachineBits + kSequenceBits;
             uint64_t idcParameter = self.IDC;

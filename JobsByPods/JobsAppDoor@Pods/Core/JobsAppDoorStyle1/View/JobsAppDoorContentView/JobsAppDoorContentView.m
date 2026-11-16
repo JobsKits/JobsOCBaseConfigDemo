@@ -840,14 +840,14 @@ Prop_strong(nullable)RACDisposable *verificationCodeBtnEnableDisposable;
                     self.allRise(data);
                 });
             }else if (self.configuration.registerConfig.showsMobileBinding && i == phoneIndex){// 手机号码
-                inputView_7 = JobsAppDoorInputViewBaseStyle_7.new;
-                doorInputViewBaseStyle = (JobsAppDoorInputViewBaseStyle *)inputView_7;
-                inputView_7.addOn(self);
-                [self.registerDoorInputViewBaseStyleMutArr addObject:inputView_7];
-                inputView_7.jobsRichViewByModel(self.registerDoorInputViewBaseStyleModelMutArr[i]);
-                self.jobs_prepareStaticPlaceholderForInputView(inputView_7);
+                self->inputView_7 = JobsAppDoorInputViewBaseStyle_7.new;
+                doorInputViewBaseStyle = (JobsAppDoorInputViewBaseStyle *)self->inputView_7;
+                self->inputView_7.addOn(self);
+                [self.registerDoorInputViewBaseStyleMutArr addObject:self->inputView_7];
+                self->inputView_7.jobsRichViewByModel(self.registerDoorInputViewBaseStyleModelMutArr[i]);
+                self.jobs_prepareStaticPlaceholderForInputView(self->inputView_7);
                 @jobs_weakify(self)
-                inputView_7.actionObjBlock(^(id data) {
+                self->inputView_7.actionObjBlock(^(id data) {
                     @jobs_strongify(self)
                     if ([data isKindOfClass:UITextField.class]) {
                         UITextField *textField = (UITextField *)data;

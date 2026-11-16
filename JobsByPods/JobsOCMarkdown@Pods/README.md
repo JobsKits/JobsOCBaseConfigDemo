@@ -85,6 +85,8 @@ OC 老工程不依赖本 Pod，而是把同一组 Objective-C 源码、资源和
 普通 `worknotes` / `work/notes` 文档及构建树外的 proof JSON 仍按原规则复制，
 不整体排除 `work`。新旧主工程沿用三个构建参数，无须临时环境变量。
 
+文档图片只复制主工程 `JobsOCBaseConfigDemo/其他/libs/` 或 `JobsByPods/<Pod名>@Pods/` 内的图片，扩展名不区分大小写；既有第三方排除规则优先。主工程 libs 外和仓库根 `assets/` 的示意图不随文档进入 App，原 Markdown 正文、图片替代文字和链接不改写，JSON、音视频等非图片附件继续按原规则复制。
+
 ## <span id="jobs-toc-heading-3" data-jobs-toc="v2">三、读取与渲染 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a></span><!-- jobs-toc:heading-end -->
 
 ```objective-c
@@ -131,6 +133,8 @@ flowchart LR
 
 ### <span id="jobs-toc-heading-8" data-jobs-toc="v2">5.3、关键设计与边界 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a></span><!-- jobs-toc:heading-end -->
 
+- WebView 构造功能 Block 在弱引用提升并判空后，通过 `self->_webView` 检查、创建和返回缓存，避免隐式捕获原始 `self`，并保留已有构造顺序。
+
 - 文档读取、[**Markdown**](https://markdown.cn) 转换和 WebView 展示是不同阶段，错误要能定位到对应阶段。
 - 离线浏览依赖完整资源包，不能只复制原生视图类。
 - 第三方浏览器发行文件及许可证原样保留，不属于自研重建范围。
@@ -176,7 +180,7 @@ flowchart LR
 
 ## <span id="jobs-toc-heading-12" data-jobs-toc="v2">八、本轮单元验证 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a></span><!-- jobs-toc:heading-end -->
 
-当前结果：**Debug / Release 单 Pod 编译、Debug Stability 回归已完成；整体验收记录见根 [JobsByPods升级实施与编译验证.md](<../../JobsByPods升级实施与编译验证.md>)**。生产源码、测试源码、资源与工程配置的指纹一致且命令真实退出成功，才可复用对应验证记录。
+当前结果：**Debug / Release 单 Pod 编译、Debug Stability 回归已完成；整体验收记录见根 [JobsByPods升级实施与编译验证.md](<../../项目相关报告/JobsByPods升级实施与编译验证.md>)**。生产源码、测试源码、资源与工程配置的指纹一致且命令真实退出成功，才可复用对应验证记录。
 
 生产行为与边界按上述核心契约验收；逐 Pod 编译与独立行为回归分别记录结果。
 
@@ -184,14 +188,14 @@ flowchart LR
 
 ```shell
 cd ../..
-ruby ScriptsByPods/jobs_pods_stability_verify.rb/jobs_pods_stability_verify.rb \
+ruby ScriptsByPods/自动化测试相关脚本/jobs_pods_stability_verify.rb/jobs_pods_stability_verify.rb \
   --phase pods --pod JobsOCMarkdown
 ```
 
 当前 podspec 显式提供 `Stability` test_spec。`Tests/` 与测试 fixture 只进入测试目标；真实行为断言通过后再回填结果。指定可用模拟器 UDID：
 
 ```shell
-ruby ScriptsByPods/jobs_pods_stability_verify.rb/jobs_pods_stability_verify.rb \
+ruby ScriptsByPods/自动化测试相关脚本/jobs_pods_stability_verify.rb/jobs_pods_stability_verify.rb \
   --phase tests --pod JobsOCMarkdown --simulator '<UDID>'
 ```
 

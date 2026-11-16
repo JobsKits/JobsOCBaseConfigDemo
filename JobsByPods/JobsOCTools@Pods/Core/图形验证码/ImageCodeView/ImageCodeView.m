@@ -167,7 +167,7 @@ Prop_copy()jobsByIDBlock imageCodeViewBlock;
     return ^(jobsByIDBlock _Nullable imageCodeViewBlock){
         @jobs_strongify(self)
         if (!self) return;
-        _imageCodeViewBlock = imageCodeViewBlock;
+        self->_imageCodeViewBlock = imageCodeViewBlock;
     };
 }
 

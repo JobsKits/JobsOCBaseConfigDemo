@@ -115,7 +115,7 @@ static JobsNetworkTrafficMonitor *_sharedInstance = nil;
             });
             return;
         }
-        if (_timer) _timer.jobsStop();
+        if (self->_timer) self->_timer.jobsStop();
         self.byTimer(nil);
         self.lastSampleTime = 0;
     };

@@ -155,10 +155,10 @@ YTKCustomBaseRequestProtocol_synthesize
     return ^NSMutableDictionary *{
         @jobs_strongify(self)
         if (!self) return nil;
-        if(!_customHTTPHeader){
+        if(!self->_customHTTPHeader){
             /// 在这里添加你想要的 HTTP header
             @jobs_weakify(self)
-            _customHTTPHeader = jobsMakeMutDic(^(__kindof NSMutableDictionary * _Nullable headers) {
+            self->_customHTTPHeader = jobsMakeMutDic(^(__kindof NSMutableDictionary * _Nullable headers) {
                 @jobs_strongify(self)
                 /// 设置 Content-Type
                 [headers setValue:APP_JSON
@@ -175,7 +175,7 @@ YTKCustomBaseRequestProtocol_synthesize
         //                break;
         //        }
             });
-        };return _customHTTPHeader;
+        };return self->_customHTTPHeader;
     };
 }
 #pragma mark —— 在链式请求中，下一个请求的参数来源于上一个请求的结果
@@ -264,10 +264,10 @@ YTKCustomBaseRequestProtocol_synthesize
     return ^NSMutableDictionary *{
         @jobs_strongify(self)
         if (!self) return nil;
-        if(!_parameters){
-            _parameters = jobsMakeMutDic(^(__kindof NSMutableDictionary * _Nullable data) {
+        if(!self->_parameters){
+            self->_parameters = jobsMakeMutDic(^(__kindof NSMutableDictionary * _Nullable data) {
             });
-        };return _parameters;
+        };return self->_parameters;
     };
 }
 

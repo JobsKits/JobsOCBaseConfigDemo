@@ -187,7 +187,7 @@ Prop_strong()JobsAppDoorInputViewBaseStyleModel *doorInputViewBaseStyleModel;
     return ^UIButton *{
         @jobs_strongify(self)
         if (!self) return nil;
-        return _securityModeBtn;
+        return self->_securityModeBtn;
     };
 }
 #pragma mark —— UITextFieldDelegate

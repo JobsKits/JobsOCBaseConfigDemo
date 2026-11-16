@@ -136,9 +136,9 @@ Prop_copy(nullable)void (^segmentLongPressHandlerInternal)(LuckyWheelSegment *se
         self.byBgColor([UIColor clearColor]);
         self.byClipsToBounds(NO);
         self.layer.byMasksToBounds(NO);
-        _pointerDirection     = JobsDirectionUp;
-        _panRotationEnabled   = YES;
-        _decelerationRate     = UIScrollViewDecelerationRateNormal;
+        self->_pointerDirection     = JobsDirectionUp;
+        self->_panRotationEnabled   = YES;
+        self->_decelerationRate     = UIScrollViewDecelerationRateNormal;
         /// 盘面
         self.plateView.byVisible(YES);
         /// 中心按钮

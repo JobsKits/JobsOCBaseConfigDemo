@@ -15,6 +15,10 @@
 #import "JobsMicroSandboxDemoVC.h"
 #import "JobsMicroPWADemoVC.h"
 #import "JobsOCRootFoldTableCell.h"
+#import "JobsOCRecentDemosVC.h"
+#import "JobsOCWorldClockVC.h"
+#import "CoreDataVC.h"
+#import "JobsRustOCRDemoVC.h"
 
 #if DEBUG
 #import "JobsDebugPanelDemoVC.h"
@@ -86,6 +90,12 @@
 #import "JobsViewPush.h"
 #endif
 
+#if __has_include(<JobsOCSearcher/JobsOCSearcher.h>)
+#import <JobsOCSearcher/JobsOCSearcher.h>
+#else
+#import "JobsOCSearcher.h"
+#endif
+
 #if __has_include(<JobsBlock/JobsBlock.h>)
 #import <JobsBlock/JobsBlock.h>
 #else
@@ -100,7 +110,9 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface ViewController_1 : BaseViewController <UITableViewDelegate,UITableViewDataSource,UISearchBarDelegate>
+@interface ViewController_1 : BaseViewController <UITableViewDelegate,UITableViewDataSource>
+
+-(void)jobsSetHomeSplashVisible:(BOOL)visible;
 
 @end
 

@@ -186,7 +186,7 @@ static dispatch_once_t static_msgEditBoardViewOnceToken;
     return ^UIButton *{
         @jobs_strongify(self)
         if (!self) return nil;
-        return _allChooseBtn;
+        return self->_allChooseBtn;
     };
 }
 
@@ -195,7 +195,7 @@ static dispatch_once_t static_msgEditBoardViewOnceToken;
     return ^UIButton *{
         @jobs_strongify(self)
         if (!self) return nil;
-        return _markToReadBtn;
+        return self->_markToReadBtn;
     };
 }
 
@@ -204,7 +204,7 @@ static dispatch_once_t static_msgEditBoardViewOnceToken;
     return ^UIButton *{
         @jobs_strongify(self)
         if (!self) return nil;
-        return _deleteBtn;
+        return self->_deleteBtn;
     };
 }
 #pragma mark —— lazyLoad

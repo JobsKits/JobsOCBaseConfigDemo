@@ -325,8 +325,8 @@ willDismissEditMenuWithAnimator:(id<UIEditMenuInteractionAnimating>)animator{
     _leftView.addOn(self).byAdd(^(MASConstraintMaker *make) {
         make.centerY.equalTo(self);
         make.left.equalTo(self).offset(self.leftViewByOutLineOffset);
-        if (_leftView.width) make.width.mas_equalTo(_leftView.width);
-        if (_leftView.height) make.height.mas_equalTo(_leftView.height);
+        if (self->_leftView.width) make.width.mas_equalTo(self->_leftView.width);
+        if (self->_leftView.height) make.height.mas_equalTo(self->_leftView.height);
     });self.refresh();/// 会将之前设置的size值冲掉
 }
 

@@ -1658,3 +1658,101 @@
 "至少录制 %.0f 秒；手指移出按钮即取消，计时环走满后自动保存。" = "Enregistrez au moins %.0f secondes. Glissez hors du bouton pour annuler ; l’enregistrement est sauvegardé quand l’anneau est complet.";
 "GXCard 式滑动卡片堆" = "Pile de cartes à balayer façon GXCard";
 "可拖动" = "Déplaçable";
+
+"没有匹配的 Demo" = "Aucune démo correspondante";
+"轻点清空搜索，查看全部 Demo。" = "Touchez pour effacer la recherche et voir toutes les démos.";
+
+"清空关键词" = "Effacer la recherche";
+"试试其他关键词，或清空后查看搜索历史。" = "Essayez un autre mot-clé ou effacez la recherche pour voir l’historique.";
+"暂无搜索历史" = "Aucune recherche récente";
+"输入关键词，查找 Demo。" = "Saisissez un mot-clé pour trouver une démo.";
+
+// Shared Searcher input, empty states and local demo terms.
+"输入关键词开始搜索。" = "Saisissez un mot-clé pour lancer la recherche.";
+"没有匹配结果" = "Aucun résultat correspondant";
+"搜索推荐" = "Suggestions de recherche";
+"Java 是运行在 Java 虚拟机上的编程语言。" = "Java est un langage de programmation qui s’exécute sur la machine virtuelle Java.";
+"Python 是常用于脚本、自动化和数据处理的编程语言。" = "Python est un langage de programmation souvent utilisé pour les scripts, l’automatisation et le traitement de données.";
+"Objective-C 是支持消息发送和运行时机制的编程语言。" = "Objective-C est un langage de programmation doté d’un mécanisme d’envoi de messages et d’un environnement d’exécution dynamique.";
+"Swift 是 Apple 平台应用开发使用的编程语言。" = "Swift est un langage de programmation utilisé pour développer des apps sur les plateformes Apple.";
+"iOS 是 iPhone 使用的操作系统。" = "iOS est le système d’exploitation de l’iPhone.";
+"UIKit 提供窗口、视图、控件和页面导航等原生界面能力。" = "UIKit fournit les fenêtres, les vues, les contrôles et la navigation des interfaces natives.";
+"Masonry 是基于 Auto Layout 的 Objective-C 布局库。" = "Masonry est une bibliothèque de mise en page Objective-C basée sur Auto Layout.";
+"JobsOCSearcher 统一管理输入、推荐词、搜索历史和结果区域。" = "JobsOCSearcher gère la saisie, les suggestions, l’historique de recherche et la zone de résultats.";
+
+"最近使用" = "Utilisés récemment";
+
+"尚无浏览记录" = "Aucun historique de consultation";
+
+"更多" = "Plus";
+
+"打开侧栏" = "Ouvrir la barre latérale";
+
+// Core Data 用户模型与本地数据库 Demo。
+"Core Data 用户数据库" = "Base d’utilisateurs Core Data";
+"User 模型定义姓名与年龄，SQLite 文件保存实际记录。本页仅演示本地持久化。" = "Le modèle User définit un nom et un âge. Un fichier SQLite stocke les enregistrements réels. Cette démo présente uniquement la persistance locale.";
+"添加用户" = "Ajouter un utilisateur";
+"编辑用户" = "Modifier l’utilisateur";
+"姓名不能为空。" = "Le nom ne peut pas être vide.";
+"年龄须为 0～150 的整数。" = "L’âge doit être un nombre entier compris entre 0 et 150.";
+"尚无用户记录" = "Aucun utilisateur enregistré";
+"输入姓名和年龄，添加第一位用户" = "Saisissez un nom et un âge pour ajouter le premier utilisateur.";
+"点击记录编辑姓名与年龄，左滑删除。所有操作立即保存，重启后仍可读取。" = "Touchez un enregistrement pour modifier le nom et l’âge, ou balayez vers la gauche pour le supprimer. Les modifications sont enregistrées immédiatement et conservées après le redémarrage de l’app.";
+"确定删除本 Demo 的全部用户？此操作无法撤销。" = "Supprimer tous les utilisateurs de cette démo ? Cette action est irréversible.";
+"新增" = "Ajouter";
+"重试" = "Réessayer";
+"操作" = "Actions";
+"Core Data 本地数据库" = "Base locale Core Data";
+"添加记录" = "Ajouter un enregistrement";
+"保存修改" = "Enregistrer les modifications";
+"删除记录" = "Supprimer l’enregistrement";
+"清空数据库" = "Vider la base";
+"数据库操作失败" = "Échec de l’opération sur la base";
+"重试数据库加载" = "Réessayer de charger la base";
+"记录数量：%@" = "Enregistrements : %@";
+"数据库尚未就绪。" = "La base n’est pas encore prête.";
+"不能读取数据库模型。" = "Impossible de lire le modèle de la base.";
+"重新加载" = "Recharger";
+"数据库记录缺少必要字段。" = "Des champs obligatoires manquent dans un enregistrement.";
+
+// 首页骨架与世界时钟。
+"世界时钟" = "Horloge mondiale";
+"设备当前时区" = "Fuseau horaire de l’appareil";
+"世界时区" = "Fuseaux horaires mondiaux";
+"暂无时区数据" = "Aucune donnée de fuseau horaire";
+"功能实验室" = "Laboratoire de fonctions";
+"贝克岛" = "Île Baker";
+"12小时制" = "Format 12 heures";
+"24小时制" = "Format 24 heures";
+
+"返回首页时收缩分组" = "Replier les groupes au retour à l’accueil";
+
+
+/* Rust OCR */
+"Rust 离线 OCR" = "OCR Rust hors ligne";
+"OCR：所有识别均在本机完成" = "OCR : toute la reconnaissance se fait sur cet appareil";
+"OCR：选择图片后开始识别" = "OCR : choisissez une image puis lancez la reconnaissance";
+"OCR：内置样本" = "OCR : image exemple";
+"OCR：选择照片" = "OCR : choisir une photo";
+"OCR：开始识别" = "OCR : reconnaître";
+"OCR：复制结果" = "OCR : copier le résultat";
+"OCR：文字" = "OCR : texte";
+"OCR：识别完成" = "OCR : reconnaissance terminée";
+"OCR：暂无文字，请选择清晰图片并重新识别" = "OCR : aucun texte. Choisissez une image nette et réessayez.";
+"OCR：图片读取失败" = "OCR : chargement de l’image impossible";
+"OCR：正在识别，请稍候" = "OCR : reconnaissance en cours, veuillez patienter";
+"OCR：识别失败，可重新尝试" = "OCR : échec de la reconnaissance. Réessayez.";
+"OCR：已取消识别" = "OCR : reconnaissance annulée";
+"OCR：结果已复制" = "OCR : résultat copié";
+
+"OCR：SDK 尚未就绪" = "OCR : SDK pas encore prêt";
+
+/* OCR whole-page reading and camera input */
+"OCR：样本" = "Exemple";
+"OCR：相册" = "Photos";
+"OCR：拍照" = "Appareil";
+"OCR：识别结果" = "Résultat";
+"OCR：复制" = "Copier";
+"OCR：设备无法使用摄像头" = "L’appareil photo est indisponible sur cet appareil.";
+"OCR：请在设置中允许访问相机" = "Autorisez l’accès à l’appareil photo dans les réglages système.";
+"OCR：相机照片读取失败" = "Impossible de charger la photo prise. Réessayez.";

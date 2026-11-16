@@ -124,14 +124,14 @@ Prop_assign()NSInteger remainingRetryCount;
         @jobs_strongify(self)
         if (!self) return;
         @jobs_weakify(self)
-        _avatarView = jobsMakeImageView(^(__kindof UIImageView * _Nullable imageView) {
+        self->_avatarView = jobsMakeImageView(^(__kindof UIImageView * _Nullable imageView) {
             imageView
                 .byImage([JobsGestureLockResource imageNamed:@"gesture_headIcon"])
                 .byContentMode(UIViewContentModeScaleAspectFit)
                 .byUserInteractionEnabled(NO)
                 .addOn(self.view);
         });
-        _nameLabel = jobsMakeLabel(^(__kindof UILabel * _Nullable label) {
+        self->_nameLabel = jobsMakeLabel(^(__kindof UILabel * _Nullable label) {
             label
                 .byText(@"账户".jobsTr())
                 .byTextCor(RGBA_COLOR(0.95 * 255.0, 0.55 * 255.0, 0.15 * 255.0, 1.0))
@@ -139,25 +139,25 @@ Prop_assign()NSInteger remainingRetryCount;
                 .byTextAlignment(NSTextAlignmentCenter)
                 .addOn(self.view);
         });
-        _indicatorView = [[JobsGestureLockIndicator alloc] initWithConfiguration:self.configuration];
-        _indicatorView.addOn(self.view);
-        _statusLabel = jobsMakeLabel(^(__kindof UILabel * _Nullable label) {
+        self->_indicatorView = [[JobsGestureLockIndicator alloc] initWithConfiguration:self.configuration];
+        self->_indicatorView.addOn(self.view);
+        self->_statusLabel = jobsMakeLabel(^(__kindof UILabel * _Nullable label) {
             label
                 .byTextCor(self.configuration.statusTextColor)
                 .byFont(self.configuration.statusFont)
                 .byTextAlignment(NSTextAlignmentCenter)
                 .addOn(self.view);
         });
-        _lockView = [[JobsGestureLockView alloc] initWithConfiguration:self.configuration];
-        _lockView.byDelegate(self);
-        _lockView.addOn(self.view);
-        _otherAccountButton = [self actionButtonWithTitle:@"其他账户" action:^(__kindof UIButton * _Nullable button) {
+        self->_lockView = [[JobsGestureLockView alloc] initWithConfiguration:self.configuration];
+        self->_lockView.byDelegate(self);
+        self->_lockView.addOn(self.view);
+        self->_otherAccountButton = [self actionButtonWithTitle:@"其他账户" action:^(__kindof UIButton * _Nullable button) {
             weak_self.didTapOtherAccount(button);
         }];
-        _resetButton = [self actionButtonWithTitle:@"重新绘制" action:^(__kindof UIButton * _Nullable button) {
+        self->_resetButton = [self actionButtonWithTitle:@"重新绘制" action:^(__kindof UIButton * _Nullable button) {
             weak_self.didTapReset(button);
         }];
-        _forgotButton = [self actionButtonWithTitle:@"忘记密码" action:^(__kindof UIButton * _Nullable button) {
+        self->_forgotButton = [self actionButtonWithTitle:@"忘记密码" action:^(__kindof UIButton * _Nullable button) {
             weak_self.didTapForgot(button);
         }];
     };

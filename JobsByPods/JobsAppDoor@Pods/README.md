@@ -222,6 +222,8 @@ flowchart LR
 
 ### <span id="jobs-toc-heading-16" data-jobs-toc="v2">12.3、关键设计与边界 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a></span><!-- jobs-toc:heading-end -->
 
+- 两套入口与公共输入件的功能 Block 在弱引用提升后，通过 `self->_xxx` 访问既有成员，避免隐式捕获原始 `self`；音量、播放器和输入框行为保持原有管线。
+
 - 两套样式共享公共能力，但切换布局与运动方式不同，不能只换颜色。
 - 认证页面只收集输入并分发业务动作，真实账号认证仍需宿主接入。
 - 资源统一放在 JobsAppDoorResources.bundle；键盘跟随与页面切换需要协调，不能让旧状态继续驱动新卡片。
@@ -256,7 +258,7 @@ flowchart LR
 
 ## <span id="jobs-toc-heading-19" data-jobs-toc="v2">十四、本轮单元验证 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a></span><!-- jobs-toc:heading-end -->
 
-当前结果：**Debug / Release 单 Pod 编译已完成；本 Pod 无独立 Stability 回归；整体验收记录见根 [JobsByPods升级实施与编译验证.md](<../../JobsByPods升级实施与编译验证.md>)**。生产源码、测试源码、资源与工程配置的指纹一致且命令真实退出成功，才可复用对应验证记录。
+当前结果：**Debug / Release 单 Pod 编译已完成；本 Pod 无独立 Stability 回归；整体验收记录见根 [JobsByPods升级实施与编译验证.md](<../../项目相关报告/JobsByPods升级实施与编译验证.md>)**。生产源码、测试源码、资源与工程配置的指纹一致且命令真实退出成功，才可复用对应验证记录。
 
 该 Pod 维持既有内核，纳入统一逐 Pod 和主工程编译；没有以新增代码数量作为升级验收依据。
 
@@ -264,7 +266,7 @@ flowchart LR
 
 ```shell
 cd ../..
-ruby ScriptsByPods/jobs_pods_stability_verify.rb/jobs_pods_stability_verify.rb \
+ruby ScriptsByPods/自动化测试相关脚本/jobs_pods_stability_verify.rb/jobs_pods_stability_verify.rb \
   --phase pods --pod JobsAppDoor
 ```
 

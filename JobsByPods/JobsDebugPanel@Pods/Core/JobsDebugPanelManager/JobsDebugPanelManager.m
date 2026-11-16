@@ -23,6 +23,7 @@ Prop_strong()NSMutableDictionary<NSString *,JobsDebugOverlayWindow *> *overlayWi
 Prop_strong()NSMutableArray<id> *observers;
 Prop_assign()BOOL started;
 Prop_assign()BOOL hiddenForCurrentLaunch;
+Prop_weak(nullable)UIViewController *floatingEntrySuppressionOwner;
 
 -(jobsByVoidBlock _Nonnull)refreshWindows;
 -(JobsRetDebugPanelByVoidBlock _Nonnull)showFloatingEntry;
@@ -241,6 +242,12 @@ static void JobsDebugPanelInstallShakeObserver(void) {
         if (!self || !self.started) {
             return;
         }
+        if (self.floatingEntrySuppressionOwner) {
+            for (JobsDebugOverlayWindow *window in self.overlayWindows.allValues) {
+                window.byHidden(YES);
+            }
+            return;
+        }
         NSMutableDictionary<NSString *,UIWindow *> *hosts = jobsMakeMutDic(nil);
         BOOL usesScenes = NO;
         if (@available(iOS 13.0, *)) {
@@ -332,10 +339,28 @@ static void JobsDebugPanelInstallShakeObserver(void) {
     @jobs_weakify(self)
     return ^JobsDebugPanelManager *{
         @jobs_strongify(self)
-        if (!self || !self.started || UIApplication.sharedApplication.applicationState != UIApplicationStateActive) {
+        if (!self || !self.started || self.floatingEntrySuppressionOwner || UIApplication.sharedApplication.applicationState != UIApplicationStateActive) {
             return self;
         }
         self->_hiddenForCurrentLaunch = NO;
+        self.refreshWindows();
+        return self;
+    };
+}
+
+-(JobsRetDebugPanelByViewControllerBlock _Nonnull)byFloatingEntrySuppressionOwner {
+    @jobs_weakify(self)
+    return ^JobsDebugPanelManager *(UIViewController *owner) {
+        @jobs_strongify(self)
+        if (!self) return nil;
+        if (!NSThread.isMainThread) {
+            dispatch_async(dispatch_get_main_queue(), ^{
+                @jobs_strongify(self)
+                if (self) self.byFloatingEntrySuppressionOwner(owner);
+            });
+            return self;
+        }
+        self->_floatingEntrySuppressionOwner = owner;
         self.refreshWindows();
         return self;
     };
@@ -360,7 +385,7 @@ static void JobsDebugPanelInstallShakeObserver(void) {
     @jobs_weakify(self)
     return ^JobsDebugPanelManager *(UIViewController *source) {
         @jobs_strongify(self)
-        if (!self || !source) {
+        if (!self || !source || self.floatingEntrySuppressionOwner) {
             return self;
         }
         if (![NSThread isMainThread]) {
@@ -459,7 +484,7 @@ static void JobsDebugPanelInstallShakeObserver(void) {
     @jobs_weakify(self)
     return ^JobsDebugPanelManager *(UIViewController *source) {
         @jobs_strongify(self)
-        if (!self || !source) {
+        if (!self || !source || self.floatingEntrySuppressionOwner) {
             return self;
         }
         if (![NSThread isMainThread]) {

@@ -104,6 +104,8 @@ flowchart TD
 
 ## <span id="jobs-toc-heading-9" data-jobs-toc="v2">四、运行合同与失败边界 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a></span><!-- jobs-toc:heading-end -->
 
+- 默认状态与工作队列初始化 Block 在弱引用提升并判空后，通过 `self->_xxx` 初始化成员，保持原有串行队列、心跳与退避参数。
+
 - 连接和 URL 切换在实例 workQueue 顺序执行，send 同步调用按实例 queue-specific 标识判断，不借用另一 client 的队列。
 - 心跳携带独立 payload，只有当前 socket 对应 pong 才确认存活。下一心跳仍未收到匹配 pong 时断开并按现有退避策略重连；迟到 socket 回调被忽略。heartbeatInterval<=0 可关闭，非有限值不启动。
 - 回调在主线程。重连延迟检查有限值并限制最大 24 小时；系统挂起后恢复时允许心跳判断旧连接失效。
@@ -123,7 +125,7 @@ flowchart TD
 
 ## <span id="jobs-toc-heading-11" data-jobs-toc="v2">六、本轮单元验证 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a></span><!-- jobs-toc:heading-end -->
 
-当前结果：**Debug / Release 单 Pod 编译、Debug Stability 回归已完成；整体验收记录见根 [JobsByPods升级实施与编译验证.md](<../../JobsByPods升级实施与编译验证.md>)**。生产源码、测试源码、资源与工程配置的指纹一致且命令真实退出成功，才可复用对应验证记录。
+当前结果：**Debug / Release 单 Pod 编译、Debug Stability 回归已完成；整体验收记录见根 [JobsByPods升级实施与编译验证.md](<../../项目相关报告/JobsByPods升级实施与编译验证.md>)**。生产源码、测试源码、资源与工程配置的指纹一致且命令真实退出成功，才可复用对应验证记录。
 
 生产行为与边界按上述核心契约验收；逐 Pod 编译与独立行为回归分别记录结果。
 
@@ -131,14 +133,14 @@ flowchart TD
 
 ```shell
 cd ../..
-ruby ScriptsByPods/jobs_pods_stability_verify.rb/jobs_pods_stability_verify.rb \
+ruby ScriptsByPods/自动化测试相关脚本/jobs_pods_stability_verify.rb/jobs_pods_stability_verify.rb \
   --phase pods --pod JobsOCWebSocket
 ```
 
 当前 podspec 显式提供 `Stability` test_spec。`Tests/` 与测试 fixture 只进入测试目标；真实行为断言通过后再回填结果。指定可用模拟器 UDID：
 
 ```shell
-ruby ScriptsByPods/jobs_pods_stability_verify.rb/jobs_pods_stability_verify.rb \
+ruby ScriptsByPods/自动化测试相关脚本/jobs_pods_stability_verify.rb/jobs_pods_stability_verify.rb \
   --phase tests --pod JobsOCWebSocket --simulator '<UDID>'
 ```
 

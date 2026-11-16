@@ -144,7 +144,7 @@ BaseButtonProtocol_synthesize
             self.countLabel.byAlpha(0);
             self.countLabel.byTextCor(HEXCOLOR(0xFD5656));
             /// 不需要动画时,返回,不需要动画说明是获取数据后的赋值操作
-            if (!_isNeedAnimation) {
+            if (!self->_isNeedAnimation) {
                 self.countLabel.byAlpha(1);
                 return;
             }

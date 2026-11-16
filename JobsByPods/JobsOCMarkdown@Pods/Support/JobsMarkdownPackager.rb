@@ -251,8 +251,10 @@ require 'uri'
 
 class JobsMarkdownPackager
   OUTPUT_BUNDLE_NAME = 'JobsMarkdownDocuments.bundle'
+  IMAGE_EXTENSIONS = %w[.png .jpg .jpeg .gif .webp .svg .heic .heif .bmp .tif .tiff .ico .avif .apng].freeze
   EXCLUDED_COMPONENTS = [
     '.git',
+    '.gitkeep',
     '.codegraph',
     '.dart_tool',
     '.build',
@@ -348,6 +350,15 @@ class JobsMarkdownPackager
     return true if components.any? { |component| component.match?(/\AManualBy.*Pods@Pods\z/) }
 
     EXCLUDED_PREFIXES.any? { |prefix| relative == prefix || relative.start_with?("#{prefix}/") }
+  end
+
+  # 文档附件同样遵守宿主图片边界，保留自建 Pod 的独立资源归属。
+  def excluded_image_resource?(relative)
+    return false unless IMAGE_EXTENSIONS.include?(File.extname(relative).downcase)
+    return false if relative.start_with?('JobsOCBaseConfigDemo/其他/libs/')
+    return false if relative.match?(%r{\AJobsByPods/[^/]+@Pods/})
+
+    true
   end
 
   # 复制单个 Markdown，生成标题，并继续收集它引用的本地资源。
@@ -455,7 +466,7 @@ class JobsMarkdownPackager
       return
     end
     relative = relative_path(source_path)
-    return if excluded?(relative)
+    return if excluded?(relative) || excluded_image_resource?(relative)
 
     copy_file(source_path, documents_root.join(relative))
   end

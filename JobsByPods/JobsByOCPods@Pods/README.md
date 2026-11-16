@@ -292,7 +292,7 @@ pod install --no-repo-update
 
 ## <span id="jobs-toc-heading-25" data-jobs-toc="v2">十四、本轮单元验证 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a></span><!-- jobs-toc:heading-end -->
 
-当前结果：**Debug / Release 单 Pod 编译、Debug Stability 回归已完成；整体验收记录见根 [JobsByPods升级实施与编译验证.md](<../../JobsByPods升级实施与编译验证.md>)**。生产源码、测试源码、资源与工程配置的指纹一致且命令真实退出成功，才可复用对应验证记录。
+当前结果：**Debug / Release 单 Pod 编译、Debug Stability 回归已完成；整体验收记录见根 [JobsByPods升级实施与编译验证.md](<../../项目相关报告/JobsByPods升级实施与编译验证.md>)**。生产源码、测试源码、资源与工程配置的指纹一致且命令真实退出成功，才可复用对应验证记录。
 
 生产行为与边界按上述核心契约验收；逐 Pod 编译与独立行为回归分别记录结果。
 
@@ -300,7 +300,7 @@ pod install --no-repo-update
 
 ```shell
 cd ../..
-ruby ScriptsByPods/jobs_pods_stability_verify.rb/jobs_pods_stability_verify.rb \
+ruby ScriptsByPods/自动化测试相关脚本/jobs_pods_stability_verify.rb/jobs_pods_stability_verify.rb \
   --phase pods --pod JobsByOCPods
 ```
 
@@ -311,10 +311,14 @@ ruby ScriptsByPods/jobs_pods_stability_verify.rb/jobs_pods_stability_verify.rb \
 同一测试类直接调用生产 plist 读取 Block，覆盖 `nil`、空串、非字符串、不存在的随机文件名，并复用运行 bundle 的合法 `Info.plist`；先确认真实文件及非空字典存在，再核对读取结果，不把缺失 fixture 的 `nil == nil` 当作成功。
 
 ```shell
-ruby ScriptsByPods/jobs_pods_stability_verify.rb/jobs_pods_stability_verify.rb \
+ruby ScriptsByPods/自动化测试相关脚本/jobs_pods_stability_verify.rb/jobs_pods_stability_verify.rb \
   --phase tests --pod JobsByOCPods --simulator '<UDID>'
 ```
 
 运行前应已安装工程依赖；runner 的 `--phase pods` 默认分别编译 Debug / Release，`--phase tests` 默认运行 Debug（JobsOCSnowflake 默认 Debug / Release），并将命令、源码指纹、日志和退出码保存到工程 `work/JobsPodsStability/`。如需固定输出目录，使用 runner 的 `--output`。
+
+
+
+`UITextField+Placeholder` 保留显式的 `jobsAttributedText()` 模型富文本辅助入口；分类不再覆盖系统 `attributedText` getter。普通输入框的当前文本、占位与 UIKit 原生绘制继续由系统属性承接，避免出现“AX 有值但输入文字不可见”。搜索组件对原生 `attributedText.string` 与 `text` 一致性提供回归，宿主与旧输入条另做真实可视验证。
 
 <a id="🔚" href="#前言" style="font-size:17px; color:green; font-weight:bold;">我是有底线的➤点我回到首页</a>

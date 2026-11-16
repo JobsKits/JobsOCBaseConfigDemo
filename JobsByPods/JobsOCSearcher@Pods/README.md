@@ -29,6 +29,7 @@
   - [11.4、阅读与重建顺序](#jobs-toc-heading-20)
 - [十二、目录计数与安装边界](#jobs-toc-heading-21)
 - [十三、本轮单元验证](#jobs-toc-heading-22)
+- [十四、统一输入、历史与结果区域](#unified-search-flow)
 
 </details>
 <!-- jobs-toc:end -->
@@ -64,8 +65,8 @@
 - 搜索推荐由 `JobsOCSearcherView.byRecommendSearches(...)` 链式配置，业务侧只需要传入字符串数组；传 `nil` 或空数组时不展示推荐模块。
 - 推荐词使用彩色矩形标签多行排布，文字固定为白色，标签背景不使用透明色或白色。
 - 历史搜索使用 `NSUserDefaults` 按 `historyStorageKey` 持久化，只有键盘搜索确认会自动写入历史，支持单条删除、全部清空和最大条数限制。
-- 点击推荐词或历史词后，只负责填入输入框并通过 `itemSelectedBlock` 回调给业务侧，不自动写入历史。
-- `placeholder`、`recommendTitle`、`historyTitle` 为空时分别回退为 `请输入搜索内容`、`🔍搜索推荐`、`⏰搜索历史`；使用自定义 Config 时仍保留这些默认文案。
+- 点击推荐词或历史词后，只负责填入输入框并通过 `itemSelectedBlock` 回调给业务侧，不自动写入历史。规范化关键词实际变化时只发送一次 `searchTextDidChangeBlock`，同值确认不重复发送输入事件。
+- `placeholder`、`recommendTitle`、`historyTitle` 为空时分别回退为全局语言对应的 `请输入搜索内容`、`搜索推荐`、`搜索历史`；使用自定义 Config 时仍保留这些默认文案。
 - 使用 `searchView.clearHistory()` 清空历史，随后刷新列表并触发 `clearHistoryBlock`。该入口返回无参 Block，属于终止动作；新旧 OC 工程使用同一公开调用方式。
 
 ## <span id="jobs-toc-heading-4" data-jobs-toc="v2">三、目录结构 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a></span><!-- jobs-toc:heading-end -->
@@ -80,6 +81,7 @@ JobsOCSearcher@Pods/
 ├── Core/  # 公开入口与核心实现，4 个文件
 │   ├── JobsOCSearcherConfig/
 │   └── JobsOCSearcherView/
+├── Tests/JobsOCSearcherStabilityTests/  # XCTest 行为验证
 ├── Support/  # 内部支援，2 个文件
     └── JobsOCSearcherRecordCell/
 └── Resource/  # 非代码资源，1 个文件
@@ -115,6 +117,7 @@ JobsOCSearcher@Pods/
 - `JobsBlock`
 - `JobsBaseUI`（`jobsMakeButton`、`jobsResetBtn*` 与 `jobsMakeTableViewBy*`）
 - `JobsMakes`
+- `JobsLanMgr`（读取宿主全局语言；不提供组件内语言开关）
 - `JobsOCDSL`
 - `JobsOCDefs`
 
@@ -223,7 +226,7 @@ pod install --no-repo-update
 | `Core/` | 4 | 4 | 公共入口与核心实现；公开 / 私有头由 podspec 指定 |
 | `Support/` | 2 | 2 | 仅供当前 Pod 内部实现，按实际 subspec / private header 映射 |
 | `Resource/` | 1 | 0 | 非代码资源；按 resources / resource_bundles 和排除规则安装 |
-| `Tests/`（无目录） | 0 | 0 | 只由独立测试目标或回归 harness 使用，不进入生产 source_files |
+| `Tests/` | 2 | 2 | 只由独立测试目标或回归 harness 使用，不进入生产 source_files |
 
 `Core` 的物理目录不等于所有头文件均公开；`Support` 和测试 fixture 不作为 App 或其它 Pod 的稳定消费入口。根聚合头与 `public_header_files` 是外部引用依据。
 
@@ -243,20 +246,75 @@ pod install --no-repo-update
 
 ## <span id="jobs-toc-heading-22" data-jobs-toc="v2">十三、本轮单元验证 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a></span><!-- jobs-toc:heading-end -->
 
-当前结果：**Debug / Release 单 Pod 编译已完成；本 Pod 无独立 Stability 回归；整体验收记录见根 [JobsByPods升级实施与编译验证.md](<../../JobsByPods升级实施与编译验证.md>)**。生产源码、测试源码、资源与工程配置的指纹一致且命令真实退出成功，才可复用对应验证记录。
+既有 Debug / Release 单 Pod 构建记录见根 [JobsByPods升级实施与编译验证.md](<../../项目相关报告/JobsByPods升级实施与编译验证.md>)。本轮新增 `Stability` 行为测试；生产源码、测试源码、资源与工程配置指纹一致且命令真实退出成功，才可复用对应验证记录。
 
-该 Pod 维持既有内核，纳入统一逐 Pod 和主工程编译；没有以新增代码数量作为升级验收依据。
+本组件的输入、历史及结果状态由 `Stability` 测试覆盖；首页、组件 Demo 和旧输入条的实际布局与交互另由宿主验收。
 
 从本 README 所在目录回到工程根目录，再运行该 Pod 的 Debug / Release 单元编译：
 
 ```shell
 cd ../..
-ruby ScriptsByPods/jobs_pods_stability_verify.rb/jobs_pods_stability_verify.rb \
+ruby ScriptsByPods/自动化测试相关脚本/jobs_pods_stability_verify.rb/jobs_pods_stability_verify.rb \
   --phase pods --pod JobsOCSearcher
 ```
 
-当前没有 `Stability` test_spec；单独 Pod 的编译覆盖不能等同于行为测试通过，集成场景由宿主验收。
+本轮新增 `Stability` test_spec，覆盖历史隔离、输入回调和结果状态；单独编译不能等同于行为测试通过，测试执行结果与宿主交互分别记录。
 
 运行前应已安装工程依赖；runner 的 `--phase pods` 默认分别编译 Debug / Release，`--phase tests` 默认运行 Debug（JobsOCSnowflake 默认 Debug / Release），并将命令、源码指纹、日志和退出码保存到工程 `work/JobsPodsStability/`。如需固定输出目录，使用 runner 的 `--output`。
+
+
+## 十四、<span id="unified-search-flow">统一输入、历史与结果区域</span> <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
+
+本组件由首页与独立 Demo 共同消费，完整流程和宿主边界如下。现有公开 API 继续可用。
+
+| 配置／入口 | 行为 |
+| --- | --- |
+| `showsCancelButton`／`cancelBlock` | 默认隐藏取消按钮；启用后为自适应语言宽度的文字取消。清空关键词后回调宿主；是否收键盘沿用 `dismissKeyboardWhenCancel`。 |
+| `showsSearchButton` | 默认 `YES`，输入激活后展示提交按钮；首页设为 `NO`，保留键盘 Search 提交。 |
+| `historyStorageKey`／`historyDefaults` | 默认使用标准 UserDefaults；首页显式沿用既有历史键。测试或多租户宿主可注入独立 Defaults。 |
+| `historyScope`／`persistsHistory` | 非空 scope 在存储键后追加 `.account.` 与 UTF-8 Base64 后缀；默认持久化，`NO` 时按键／scope 保存在当前组件内存，不写磁盘。变更同一 Config 后可 reload，不向旧账号写入或清空。 |
+| `maxHistoryCount` | 默认 20，归一到 1–1000；去空白、去重、最近优先。 |
+| `byResultContentView(view)` | 注入宿主拥有的结果视图。空关键词展示可选推荐与历史／空历史；非空只展示结果或无结果空态。传 nil 可解除结果归属。 |
+| `byQuery(text, recordHistory)` | 统一程序化填词／清空；只有规范化关键词真实变化才回调一次输入事件。默认由调用方显式传 `NO`，确认或结果选择再记录。 |
+| `byResultCount(count)` | 传匹配 item 总数，不能传分组数；只刷新结果／空态，不触发查询回调。 |
+| `focus()`／`dismissKeyboard()` | 仅控制输入焦点，不取消搜索，不清历史。结果模式点击空白同样仅收键盘。 |
+| `reloadWithConfig(config)` | 刷新文案、语义色、历史上下文，保留 query 和当前输入框／焦点；不重复发查询事件。 |
+| `inputOnly`／`initWithConfig:textField:` | 旧输入条兼容：可注入真实 UITextField 子类，组件统一拥有其 delegate／输入事件；不展示历史与结果。 |
+
+```objc
+@jobs_weakify(self)
+JobsOCSearcherConfig *config = JobsOCSearcherConfig.defaultConfig()
+    .byShowsCancelButton(YES)
+    .byShowsSearchButton(NO)
+    .byHistoryStorageKey(@"Feature.SearchHistory")
+    .byHistoryScope(accountID)
+    .byPersistsHistory(YES)
+    .byMaxHistoryCount(20)
+    .bySearchTextDidChangeBlock(^(NSString *query) {
+        // 宿主过滤真实数据并刷新自己的结果视图，再传匹配项总数。
+        @jobs_strongify(self)
+        self.searchView.byResultCount(matchingItems.count);
+    })
+    .byCancelBlock(^{
+        // 宿主退出独占搜索并恢复原页面状态。
+    });
+_searchView = [JobsOCSearcherView.alloc initWithConfig:config]
+    .byResultContentView(self.resultsView)
+    .byRecommendSearches(@[@"UIKit", @"Swift"])
+    .addOn(container)
+    .byAdd(^(MASConstraintMaker *make) {
+        make.edges.equalTo(container);
+    });
+```
+
+配置中的 `placeholder`、取消／清空／删除、空历史／无结果等文案，以及 page／input／text／secondary／accent 语义色均可由宿主注入。默认文案读取全局 `JobsLanMgr`，默认颜色跟随现有主题语义；本模块不增加语言／主题按钮。仅搜索字段使用零高 inputAccessoryView，不修改全局 IQ 配置。宿主可刷新本地化 Config，不重建输入框或用户草稿。推荐词标签、历史删除与空态点击均使用原生可交互控件。
+
+底层不包含 Demo 模型、匹配算法、路由、首页浮层或抽屉依赖。独立 Demo 的本地词表是明确的离线教学数据；替换成服务端结果时，宿主负责请求和本地演示回退，仍沿用同一个结果区域接口。
+
+验证：`JobsOCSearcherStabilityTests` 中 `testSearcherHistoryIsolationAndLegacyStorage`、`testSearcherQueryCallbacksAndResultsAreIndependent` 、`testSearcherConfigRefreshPreservesQueryAndCustomField` 、`testSearcherUsesNativeAttributedTextForRendering` 、`testSearcherSameConfigReloadsCurrentLanguage` 和 `testSearcherLaysOutVisibleNativeInput` 覆盖原历史键兼容、scope／memory 隔离、容量、回调去重、结果计数、重配输入保持及原生文本绘制合同；首页与独立 Demo 另做实际交互验证，记录以当轮验收产物为准。
+
+UI 文案字段接受本地化原始 key，也兼容已翻译的自定义文本。`defaultConfig` 保留原始 key，View / RecordCell 在渲染时读取当前全局语言；复用同一个 Config 调用 `reloadWithConfig` 不会固定在创建时的语言。宿主仅为 Searcher 视图桥接全局有效主题的原生 trait，避免输入框圆叉与键盘跟主题脱节；不改全局 UIKit / IQ 配置。
+
+同 Config 的跨语言用例要求测试宿主提供真实 `en` / `zh-Hans` 词表；不带这些表的纯组件测试宿主会明确跳过该用例。本轮集成验收使用临时生成的测试宿主，拷入最终 App 的原表并验证哈希，未给生产组件增加测试资源依赖。
 
 <a id="🔚" href="#前言" style="font-size:17px; color:green; font-weight:bold;">我是有底线的➤点我回到首页</a>

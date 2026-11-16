@@ -330,18 +330,18 @@ static void *JobsOCWebSocketQueueKey = &JobsOCWebSocketQueueKey;
     return ^{
         @jobs_strongify(self)
         if (!self) return;
-        _state = JobsOCWebSocketStateIdle;
-        _reconnectEnabled = YES;
-        _heartbeatInterval = 30;
-        _reconnectBaseDelay = 1;
-        _maximumReconnectDelay = 16;
-        _maximumReconnectAttempts = 5;
-        _workQueue = dispatch_queue_create(
+        self->_state = JobsOCWebSocketStateIdle;
+        self->_reconnectEnabled = YES;
+        self->_heartbeatInterval = 30;
+        self->_reconnectBaseDelay = 1;
+        self->_maximumReconnectDelay = 16;
+        self->_maximumReconnectAttempts = 5;
+        self->_workQueue = dispatch_queue_create(
             "com.jobs.oc-websocket.client",
             DISPATCH_QUEUE_SERIAL
         );
         dispatch_queue_set_specific(
-            _workQueue,
+            self->_workQueue,
             JobsOCWebSocketQueueKey,
             (__bridge void *)self,
             NULL

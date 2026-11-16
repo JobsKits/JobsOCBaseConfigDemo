@@ -19,21 +19,30 @@
 
 ## <span id="jobs-toc-heading-1" data-jobs-toc="v2">🔥 <font id=前言>前言</font></span><!-- jobs-toc:heading-end -->
 
-本目录存放 [**CocoaPods**](https://cocoapods.org/) 生命周期的辅助脚本；自动执行以工程根目录 [Podfile](../Podfile) 的实际挂载为准，目录中存在脚本不代表它会自动运行。
+本目录统一管理自动化测试、开发工具和 [**CocoaPods**](https://cocoapods.org/) 生命周期辅助脚本；自动执行以工程根目录 [Podfile](../Podfile) 的实际挂载为准，目录中存在脚本不代表它会自动运行。
 
 每个自维护脚本都由同名（含扩展名）目录包装，目录内保存真实脚本与对应 README。Shell 入口使用 `【MacOS】`，Xcode Behavior 专用入口使用 `【MacOS@Xcode】`；Ruby 辅助模块与回归脚本保留 `.rb` 名称，不添加系统宿主前缀。复制时保留完整目录和相对依赖。
+
+OC 两侧的真实脚本包统一位于 `ScriptsByPods/Cocoapods相关脚本/`；`ScriptsByPods` 根目录保留 Install、Update 两个同名相对符号链接，供四工程共用的 Behavior 定位。链接指向本工程分类目录，不复制脚本、不依赖工程外目录，也不另挂 Xcode 导航。复制或移动工程时保留整个 `ScriptsByPods` 及符号链接；只复制分类目录会导致共用菜单找不到入口。
+
+- [自动化测试相关脚本](./自动化测试相关脚本/README.md)：巡检、稳定性回归、CodeGraph、构建与开发工具。
+- [Cocoapods相关脚本](./Cocoapods相关脚本/README.md)：安装与更新、网络和源、依赖报告及边界工具。
+
+Xcode 导航中的 `ScriptsByPods` 使用蓝色文件系统同步文件夹，下辖蓝色的 `自动化测试相关脚本`、`Cocoapods相关脚本`，目录内容随磁盘同步。它们仅用于导航展示，不加入 App target 的编译或资源打包；原有脚本挂载与 Behavior 兼容路径保持有效。
 
 ## <span id="jobs-toc-heading-2" data-jobs-toc="v2">一、安装入口 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a></span><!-- jobs-toc:heading-end -->
 
 | 入口 | 挂载时机 | 行为与失败边界 |
 | --- | --- | --- |
-| [Xcode 当前工程通用入口](<./【MacOS@Xcode】🫘当前工程Pod Install.command/README.md>) | `Xcode → Behaviors → 🫘当前工程 · Pod Install` 手动调用 | 识别当前工程；空回车仅基础 `pod install`，跳过附加探测、报告与可选辅助任务；精确输入大写 `YES` 才走原完整流程，保留各子任务确认与已有开关。其它输入、Ctrl+C 或输入结束（EOF）取消；`--check` 只读定位。复用现有 CocoaPods，独立临时日志与真实退出码；不加入 Podfile 钩子或构建流程，随本目录复制 |
-| [Xcode 当前工程更新入口](<./【MacOS@Xcode】🫘当前工程Pod Update.command/README.md>) | `Xcode → Behaviors → 🫘当前工程 · Pod Update` 手动调用 | 空回车仅基础 `pod update`；大写 `YES` 检查现有 CocoaPods 后执行目标 Podfile 对 update 的完整流程，保留已有开关与子脚本确认。按 Podfile 范围更新全部依赖，可能更新锁文件；基础跳可选增强，必要工程配置保留。`--check` 只读定位，独立更新日志及真实退出码；本机已接入工程相对路径；用户级设置不随工程分发，换电脑首次登记 |
-| [CocoaPods 网络适配](<./【MacOS】🌐CocoaPods网络适配.command/README.md>) | Podfile 顶部、选源前 | 同步验证当前链路与已启用代理，注册已审发布请求的官方归档回退；仅影响当前安装进程与子进程 |
-| [CocoaPods 源自动选择](<./【MacOS】🌐CocoaPods源自动选择.command/README.md>) | Podfile 的 `source` 声明前 | 同步选择当前可用公共 Specs 源，保留私有源与锁定版本 |
-| [Pod Install 本地脚本保护](<./【MacOS】📦Pod Install离线保护.command/README.md>) | 依赖解析前同步 `--preflight` | 在当前终端确认并生成 `../PodspecDependencyReport/`，保留工具检查与安装选择；此阶段不启动 CodeGraph |
-| 同一保护入口 `--post-integrate` | 成功完成工程集成后 | 同步执行 [PIF 会话检查](<./【MacOS】🧹恢复Xcode PIF构建会话.command/README.md>)，有活动构建则跳过；随后在当前终端同步调用 CodeGraph |
-| [CodeGraph 初始化](./【MacOS】codegraph_init.command/README.md) | 集成完成后的前台收尾 | 完整体检工具链、按需补齐依赖，更新 `../.codegraph/codegraph.db` 并调用 [Markdown 导出](./【MacOS】codegraph_export_md.command/README.md) 更新 `../.codegraph/codegraph.md/`；等待本次任务结束，辅助失败告警并保留 CocoaPods 自身结果 |
+| [Xcode 当前工程通用入口](<./Cocoapods相关脚本/【MacOS@Xcode】🫘当前工程Pod Install.command/README.md>) | `Xcode → Behaviors → 🫘当前工程 · Pod Install` 手动调用 | 识别当前工程；空回车仅基础 `pod install`，跳过附加探测、报告与可选辅助任务；精确输入大写 `YES` 才走原完整流程，保留各子任务确认与已有开关。其它输入、Ctrl+C 或输入结束（EOF）取消；`--check` 只读定位。复用现有 CocoaPods，独立临时日志与真实退出码；不加入 Podfile 钩子或构建流程，随本目录复制 |
+| [Xcode 当前工程更新入口](<./Cocoapods相关脚本/【MacOS@Xcode】🫘当前工程Pod Update.command/README.md>) | `Xcode → Behaviors → 🫘当前工程 · Pod Update` 手动调用 | 空回车仅基础 `pod update`；大写 `YES` 检查现有 CocoaPods 后执行目标 Podfile 对 update 的完整流程，保留已有开关与子脚本确认。按 Podfile 范围更新全部依赖，可能更新锁文件；基础跳可选增强，必要工程配置保留。`--check` 只读定位，独立更新日志及真实退出码；本机已接入工程相对路径；用户级设置不随工程分发，换电脑首次登记 |
+| [CocoaPods 网络适配](<./Cocoapods相关脚本/【MacOS】🌐CocoaPods网络适配.command/README.md>) | Podfile 顶部、选源前 | 同步验证当前链路与已启用代理，注册已审发布请求的官方归档回退；仅影响当前安装进程与子进程 |
+| [CocoaPods 源自动选择](<./Cocoapods相关脚本/【MacOS】🌐CocoaPods源自动选择.command/README.md>) | Podfile 的 `source` 声明前 | 同步选择当前可用公共 Specs 源，保留私有源与锁定版本 |
+| [Pod Install 本地脚本保护](<./Cocoapods相关脚本/【MacOS】📦Pod Install离线保护.command/README.md>) | 依赖解析前同步 `--preflight` | 在当前终端确认并生成 `../PodspecDependencyReport/`，保留工具检查与安装选择；此阶段不启动 CodeGraph |
+| 同一保护入口 `--post-integrate` | 成功完成工程集成后 | 同步执行 [PIF 会话检查](<./自动化测试相关脚本/【MacOS】🧹恢复Xcode PIF构建会话.command/README.md>)，有活动构建则跳过；随后在当前终端同步调用 CodeGraph |
+| [CodeGraph 初始化](./自动化测试相关脚本/【MacOS】codegraph_init.command/README.md) | 集成完成后的前台收尾 | 完整体检工具链、按需补齐依赖，更新 `../.codegraph/codegraph.db` 并调用 [Markdown 导出](./自动化测试相关脚本/【MacOS】codegraph_export_md.command/README.md) 更新 `../.codegraph/codegraph.md/`；等待本次任务结束，辅助失败告警并保留 CocoaPods 自身结果 |
+
+安装和更新入口仅临时调整当前终端会话配色，结束时按保存值精确恢复；颜色响应分段或短时延迟不影响正常恢复。检测到后续改色时保留这些项；恢复失败另报具体阶段或颜色项及原因，并保留手工恢复入口。`pod` 的退出码与配色保护分别提示：`pod` 成功但配色恢复失败时，整个入口仍返回非零，此时无需因配色警告重复安装。
 
 ## <span id="jobs-toc-heading-3" data-jobs-toc="v2">二、CodeGraph 运行边界 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a></span><!-- jobs-toc:heading-end -->
 

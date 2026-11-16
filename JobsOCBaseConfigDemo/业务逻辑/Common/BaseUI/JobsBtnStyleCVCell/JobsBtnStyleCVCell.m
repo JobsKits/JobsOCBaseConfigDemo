@@ -59,7 +59,7 @@ AppToolsProtocol_synthesize
     return ^BOOL{
         @jobs_strongify(self)
         if (!self) return (BOOL){0};
-        return _selected;
+        return self->_selected;
     };
 }
 
@@ -272,8 +272,8 @@ AppToolsProtocol_synthesize
     return ^(UIViewModel * viewModel){
         @jobs_strongify(self)
         if (!self) return;
-        _viewModel = viewModel;
-        self.setBtnByViewModel(_viewModel);
+        self->_viewModel = viewModel;
+        self.setBtnByViewModel(self->_viewModel);
     };
 }
 
@@ -287,7 +287,7 @@ AppToolsProtocol_synthesize
     return ^(UIButtonModel * buttonModel){
         @jobs_strongify(self)
         if (!self) return;
-        _buttonModel = buttonModel;
+        self->_buttonModel = buttonModel;
         self.setBtnByButtonModel(buttonModel);
     };
 }
@@ -349,18 +349,18 @@ AppToolsProtocol_synthesize
         [self->_webView removeFromSuperview];
         self->_webView = nil;
         if(self.viewModel){
-            _webView = self.makeWebViewByString(isValue(self.viewModel.textModel.text) ? self.viewModel.textModel.text : self.viewModel.subTextModel.text);
+            self->_webView = self.makeWebViewByString(isValue(self.viewModel.textModel.text) ? self.viewModel.textModel.text : self.viewModel.subTextModel.text);
         }
         if(self.buttonModel){
-            _webView = self.makeWebViewByString(isValue(self.buttonModel.title) ? self.buttonModel.title : self.buttonModel.subTitle);
+            self->_webView = self.makeWebViewByString(isValue(self.buttonModel.title) ? self.buttonModel.title : self.buttonModel.subTitle);
         }
-        _webView.byBgColor(JobsClearColor);
-        _webView.byOpaque(NO);
+        self->_webView.byBgColor(JobsClearColor);
+        self->_webView.byOpaque(NO);
         self.contentView
-            .addSubview(_webView)
+            .addSubview(self->_webView)
             .byAdd(self.masonryBlock);
         self.refresh();
-        return _webView;
+        return self->_webView;
     };
 }
 

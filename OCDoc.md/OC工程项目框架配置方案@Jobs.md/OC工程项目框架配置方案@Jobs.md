@@ -34,29 +34,30 @@
 - [八、启动、根容器与全局 UI](#jobs-toc-heading-25)
   - [8.1、启动链路](#jobs-toc-heading-26)
   - [8.2、根列表与导航](#jobs-toc-heading-27)
-  - [8.3、全局主题与页面生命周期](#jobs-toc-heading-28)
-  - [8.4、页面标准骨架](#jobs-toc-heading-29)
-  - [8.5、动态时钟入口图标](#jobs-toc-heading-30)
-  - [8.6、Debug 调试面板与环境配置](#jobs-toc-heading-31)
-- [九、本地 Pod 与依赖治理](#jobs-toc-heading-32)
-  - [9.1、标准本地 Pod 目录](#jobs-toc-heading-33)
-  - [9.2、Podspec 职责](#jobs-toc-heading-34)
-  - [9.3、依赖方向与调用边界](#jobs-toc-heading-35)
-- [十、资源、多语言、隐私与 Widget](#jobs-toc-heading-36)
-  - [10.1、资源与多语言](#jobs-toc-heading-37)
-  - [10.2、权限、Entitlements 与隐私](#jobs-toc-heading-38)
-  - [10.3、Widget Extension 与 App Group](#jobs-toc-heading-39)
-- [十一、网络、媒体、工具链与 CI](#jobs-toc-heading-40)
-  - [11.1、网络、数据、日志与生命周期](#jobs-toc-heading-41)
-  - [11.2、依赖图、CodeGraph 与 CI](#jobs-toc-heading-42)
-- [十二、新项目落地清单](#jobs-toc-heading-43)
-  - [12.1、工程与启动](#jobs-toc-heading-44)
-  - [12.2、Pod、组件与业务](#jobs-toc-heading-45)
-  - [12.3、资源、测试与交付](#jobs-toc-heading-46)
-- [十三、验证、风险与持续维护](#jobs-toc-heading-47)
-  - [13.1、低副作用静态检查](#jobs-toc-heading-48)
-  - [13.2、按风险升级验证](#jobs-toc-heading-49)
-  - [13.3、风险与文档防漂移](#jobs-toc-heading-50)
+    - [8.2.1、统一搜索组件与宿主边界](#native-unified-searcher)
+  - [8.3、全局主题与页面生命周期](#jobs-toc-heading-29)
+  - [8.4、页面标准骨架](#jobs-toc-heading-30)
+  - [8.5、动态时钟入口图标](#jobs-toc-heading-31)
+  - [8.6、Debug 调试面板与环境配置](#jobs-toc-heading-32)
+- [九、本地 Pod 与依赖治理](#jobs-toc-heading-33)
+  - [9.1、标准本地 Pod 目录](#jobs-toc-heading-34)
+  - [9.2、Podspec 职责](#jobs-toc-heading-35)
+  - [9.3、依赖方向与调用边界](#jobs-toc-heading-36)
+- [十、资源、多语言、隐私与 Widget](#jobs-toc-heading-37)
+  - [10.1、资源与多语言](#jobs-toc-heading-38)
+  - [10.2、权限、Entitlements 与隐私](#jobs-toc-heading-39)
+  - [10.3、Widget Extension 与 App Group](#jobs-toc-heading-40)
+- [十一、网络、媒体、工具链与 CI](#jobs-toc-heading-41)
+  - [11.1、网络、数据、日志与生命周期](#jobs-toc-heading-42)
+  - [11.2、依赖图、CodeGraph 与 CI](#jobs-toc-heading-43)
+- [十二、新项目落地清单](#jobs-toc-heading-44)
+  - [12.1、工程与启动](#jobs-toc-heading-45)
+  - [12.2、Pod、组件与业务](#jobs-toc-heading-46)
+  - [12.3、资源、测试与交付](#jobs-toc-heading-47)
+- [十三、验证、风险与持续维护](#jobs-toc-heading-48)
+  - [13.1、低副作用静态检查](#jobs-toc-heading-49)
+  - [13.2、按风险升级验证](#jobs-toc-heading-50)
+  - [13.3、风险与文档防漂移](#jobs-toc-heading-51)
 
 </details>
 <!-- jobs-toc:end -->
@@ -573,7 +574,16 @@ sequenceDiagram
 - `JobsOCGraphicCaptchaCharacterUnitSimplifiedChinese` 与 `JobsOCGraphicCaptchaCharacterUnitTraditionalChinese` 分别表示简体、繁体汉字，兼容值 `JobsOCGraphicCaptchaCharacterUnitChinese` 表示两者合集。
 - 图形验证码把英文大写、英文小写、阿拉伯数字、简体汉字、繁体汉字作为五类独立字符池；可用 `twoMixedConfig`、`threeMixedConfig`、`fourMixedConfig`、`fullMixedConfig`，对应 Demo 展示两两、三三、四四和全部组合。
 
-### <span id="jobs-toc-heading-28" data-jobs-toc="v2">8.3、全局主题与页面生命周期 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a></span><!-- jobs-toc:heading-end -->
+
+#### 8.2.1、<span id="native-unified-searcher">统一搜索组件与宿主边界</span> <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
+
+首页搜索与组件 Demo 都实际创建 `JobsOCSearcherView`，共享输入、文字取消、推荐词、历史去重／容量／删除／清空、历史与结果切换及完整空态。首页保留原历史存储键，空关键词只展示历史，清空关键词回历史；组件 Demo 保留八个推荐词并用本地技术词表展示真实匹配结果与释义，选择结果会记录当前关键词。
+
+`JobsOCSearcherConfig` 注入全局设置对应的文案和语义配色，组件不保存独立语言或主题偏好；`reloadWithConfig` 保留当前关键词、输入焦点和历史。`historyScope` 用于账号隔离，`persistsHistory=NO` 用于当前组件的内存历史，容量限制为 1–1000（默认 20）。推荐／历史选择只填入并回调，确认搜索才自动记录；宿主点结果可主动 `saveHistoryByText`。
+
+宿主通过 `byResultContentView(view)` 注入结果区域，监听一次有效关键词变更后过滤数据，再以 `byResultCount(匹配项总数)` 更新空态；组件不依赖首页分组、Demo 路由、抽屉或调试浮层。首页继续保存并恢复原滚动／展开／浮控显隐／抽屉手势，搜索期间收键盘、主题或语言刷新及前后台切换不退出搜索。旧 `JobsOCSearcherBar` 作为 input-only 兼容门面复用同一输入管线，并保留真实 `ZYTextField` 协议类型。
+
+### <span id="jobs-toc-heading-29" data-jobs-toc="v2">8.3、全局主题与页面生命周期 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a></span><!-- jobs-toc:heading-end -->
 
 - `JobsThemeCenter` 位于 `JobsOCDefs`，读取主工程 `JobsThemeResources.json`、持久化状态、维护弱引用绑定并发布 `JobsThemeDidChangeNotification`。
 - `JobsLabelColor`、`JobsSecondaryLabelColor`、`JobsSystemBackgroundColor` 等背景 / 文字语义宏携带主题 Key；UIKit setter 自动登记，切换时不修改全局外观，不遍历 Scene、Window 或控制器树。
@@ -583,7 +593,7 @@ sequenceDiagram
 - 自定义绘制、`CGColor`、`CALayer`、CoreText 和第三方容器使用 `bindObject:slot:apply:` 显式登记背景 / 文字资源。
 - UI 验证覆盖初始、布局、点按 / 刷新、结束 / 停止、前后台、明暗主题、键盘、弹层和自定义绘制；“按钮能点”不等于全局主题完成。
 
-### <span id="jobs-toc-heading-29" data-jobs-toc="v2">8.4、页面标准骨架 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a></span><!-- jobs-toc:heading-end -->
+### <span id="jobs-toc-heading-30" data-jobs-toc="v2">8.4、页面标准骨架 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a></span><!-- jobs-toc:heading-end -->
 
 ```objc
 // FeatureDemoVC.h
@@ -640,7 +650,7 @@ Prop_strong(UIView *, contentView);
 - 页面布局统一使用 [**Masonry**](https://github.com/SnapKit/Masonry)；首次 `mas_makeConstraints`，常量变化 `mas_updateConstraints`，结构变化才 `mas_remakeConstraints`。
 - `viewDidLoad` 只编排导航、唤醒 UI、绑定数据和首屏请求，不承载大段对象创建与业务状态机。
 
-### <span id="jobs-toc-heading-30" data-jobs-toc="v2">8.5、动态时钟入口图标 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a></span><!-- jobs-toc:heading-end -->
+### <span id="jobs-toc-heading-31" data-jobs-toc="v2">8.5、动态时钟入口图标 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a></span><!-- jobs-toc:heading-end -->
 
 `JobsClockIconView` 只输出表盘外圈、固定时针、旋转分针和中心点，不绘制数字或时间刻度，也不附带标题、按钮和状态文案。组件内部复用 `JobsImageRotator` 与 `JobsOCTimer`；默认顺时针，调用方可传入逆时针方向和 Timer 间隔。
 
@@ -653,7 +663,9 @@ JobsClockIconView *clockIcon =
 
 页面消失、Cell 离屏或关闭分组时停止 Timer；系统开启“减弱动态效果”时不主动播放入口动画。
 
-### <span id="jobs-toc-heading-31" data-jobs-toc="v2">8.6、Debug 调试面板与环境配置 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a></span><!-- jobs-toc:heading-end -->
+### <span id="jobs-toc-heading-32" data-jobs-toc="v2">8.6、Debug 调试面板与环境配置 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a></span><!-- jobs-toc:heading-end -->
+
+独占输入界面通过 `JobsDebugPanelManager.sharedPanel.byFloatingEntrySuppressionOwner(self)` 临时抑制悬浮入口和调试页，退出传入 `nil`；摇动、前后台及窗口刷新不会解除抑制，解除后按原长按隐藏状态恢复，不写入持久偏好。
 
 `JobsDebugPanel` 在 OC 新工程通过本地 Pod 交付，OC 老工程直接集成主工程功能目录。公开 API 为 `JobsDebugEnvironment`、`JobsDebugAction`、`JobsDebugPanelManager` 和 `JobsDebugPanelVC`；二级页面、Cell、模态导航与 Overlay Window 是内部实现。完整说明见 [JobsDebugPanel README](../../JobsByPods/JobsDebugPanel@Pods/README.md)。[**SwiftUI**](https://developer.apple.com/xcode/swiftui/) 工程单独使用 `JobsSwiftUIDebugPanel` 本地 Pod，配置思想与行为一致，界面及导航使用 SwiftUI。
 
@@ -701,9 +713,9 @@ JobsDebugPanelManager.sharedPanel
 - `JobsDebugPanelDemoVC` 请求当前 `baseURL + /get`，超时 `3` 秒；失败、超时或无法解析时继续展示本地结果并可重试，后续成功响应自动覆盖。真机的 `127.0.0.1` 指设备本身，访问开发机须配置设备可达地址。
 - 默认未加入全 App 弱网开关。开发设备可使用 [**Apple Network Link Conditioner**](https://developer.apple.com/library/archive/documentation/FileManagement/Conceptual/On_Demand_Resources_Guide/TestingPerformance.html) 的 `Settings > Developer` profile；应用内局部延迟模拟无法代替全网络带宽与丢包控制，[后台 Session 也不支持自定义 URLProtocol](https://developer.apple.com/documentation/foundation/urlsessionconfiguration/protocolclasses)。
 
-## <span id="jobs-toc-heading-32" data-jobs-toc="v2">九、本地 Pod 与依赖治理 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a></span><!-- jobs-toc:heading-end -->
+## <span id="jobs-toc-heading-33" data-jobs-toc="v2">九、本地 Pod 与依赖治理 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a></span><!-- jobs-toc:heading-end -->
 
-### <span id="jobs-toc-heading-33" data-jobs-toc="v2">9.1、标准本地 Pod 目录 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a></span><!-- jobs-toc:heading-end -->
+### <span id="jobs-toc-heading-34" data-jobs-toc="v2">9.1、标准本地 Pod 目录 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a></span><!-- jobs-toc:heading-end -->
 
 ```text
 JobsByPods/FeatureName@Pods/
@@ -721,7 +733,7 @@ JobsByPods/FeatureName@Pods/
 - 没有资源时不强制创建 `Resource`；存在资源时与 `Core` 平级，并通过独立 Bundle 交付。
 - 新 Pod 优先使用 `JobsPodspecKit.rb` 统一默认值，但最终必须核对生成后的 podspec 是否符合真实目录和依赖。
 
-### <span id="jobs-toc-heading-34" data-jobs-toc="v2">9.2、Podspec 职责 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a></span><!-- jobs-toc:heading-end -->
+### <span id="jobs-toc-heading-35" data-jobs-toc="v2">9.2、Podspec 职责 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a></span><!-- jobs-toc:heading-end -->
 
 | 配置 | 规则 |
 | --- | --- |
@@ -736,7 +748,7 @@ JobsByPods/FeatureName@Pods/
 - `Podfile.deps` 只声明依赖，不放下载、改源码、生成工程或其它副作用逻辑。
 - `Podfile` 统一管理安装策略、Build Settings 和受控的安装钩子；安装期兼容补丁必须可定位、可失败提示、可随上游升级删除。
 
-### <span id="jobs-toc-heading-35" data-jobs-toc="v2">9.3、依赖方向与调用边界 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a></span><!-- jobs-toc:heading-end -->
+### <span id="jobs-toc-heading-36" data-jobs-toc="v2">9.3、依赖方向与调用边界 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a></span><!-- jobs-toc:heading-end -->
 
 - 基础定义层不能依赖 UI 或业务功能层；功能 Pod 可以组合基础层，基础层不能反向依赖功能 Pod。
 - Jobs DSL 链式方法除终止动作外都要返回可继续链下去的当前对象；子类专属 DSL 先于父类 DSL。
@@ -744,9 +756,9 @@ JobsByPods/FeatureName@Pods/
 - 公开头只 import 公开契约；实现细节、兼容头和第三方私有类型留在 `.m` 或 `Support`。
 - 修改本地 Pod 后同步扫描宿主 import / 调用、其它 podspec、`Podfile.deps`、Demo、README、本文和 CodeSnippets。
 
-## <span id="jobs-toc-heading-36" data-jobs-toc="v2">十、资源、多语言、隐私与 Widget <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a></span><!-- jobs-toc:heading-end -->
+## <span id="jobs-toc-heading-37" data-jobs-toc="v2">十、资源、多语言、隐私与 Widget <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a></span><!-- jobs-toc:heading-end -->
 
-### <span id="jobs-toc-heading-37" data-jobs-toc="v2">10.1、资源与多语言 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a></span><!-- jobs-toc:heading-end -->
+### <span id="jobs-toc-heading-38" data-jobs-toc="v2">10.1、资源与多语言 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a></span><!-- jobs-toc:heading-end -->
 
 - 宿主资源按 Assets、图片、字体、音视频、JSON、Lottie、网页和语言包分类；功能专属资源跟随功能 Pod。
 - App 文案使用 `Localizable.strings` 与 `.tr`；Display Name、权限等系统文案使用各语言 `InfoPlist.strings`。
@@ -755,14 +767,14 @@ JobsByPods/FeatureName@Pods/
 - Bundle 名是公开契约；资源 Pod 重命名时同步 podspec、访问 Helper、README、Demo 和测试。
 - Markdown 文档浏览功能由 `JobsOCMarkdown` 本地 Pod 提供运行时资源；宿主 Build Phase 扫描仓库内 Jobs 自有 `*.md`，保留相对目录并复制本地引用资源到 `JobsMarkdownDocuments.bundle`。设备端只读取该构建产物，不依赖开发机文件路径。
 
-### <span id="jobs-toc-heading-38" data-jobs-toc="v2">10.2、权限、Entitlements 与隐私 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a></span><!-- jobs-toc:heading-end -->
+### <span id="jobs-toc-heading-39" data-jobs-toc="v2">10.2、权限、Entitlements 与隐私 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a></span><!-- jobs-toc:heading-end -->
 
 - 权限 key 只在真实功能需要时启用，文案说明用途和用户收益；不保留空字符串或“以后可能用”的生产权限。
 - `Info.plist`、`InfoPlist.strings`、Capabilities、Entitlements 和实际调用必须成套存在。
 - 相机、麦克风、相册、蓝牙、后台音频和 App Group 等能力分别核对系统版本、拒绝态、后台行为和审核边界。
 - 使用 Required Reason API 的 Jobs 自建 Pod，在自身 `Resource/PrivacyInfo.xcprivacy` 声明并由 podspec 打包；不直接修改第三方清单。
 
-### <span id="jobs-toc-heading-39" data-jobs-toc="v2">10.3、Widget Extension 与 App Group <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a></span><!-- jobs-toc:heading-end -->
+### <span id="jobs-toc-heading-40" data-jobs-toc="v2">10.3、Widget Extension 与 App Group <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a></span><!-- jobs-toc:heading-end -->
 
 - `JobsOCWidgetExtension/` 承载 WidgetKit target，`JobsOCWidgetSharedStore.swift` 是共享状态入口。
 - App 与 Widget 的 Entitlements 当前统一使用 `group.com.JobsOCBaseConfigDemo`。
@@ -770,9 +782,9 @@ JobsByPods/FeatureName@Pods/
 - Widget target 保持 `APPLICATION_EXTENSION_API_ONLY = YES`，不能引用仅 App 可用的 API，也不能把宿主全部 Pods 拖进扩展。
 - 完整验证需要在模拟器 / 真机桌面添加 Widget；宿主页中的预览不等于系统扩展已经运行。
 
-## <span id="jobs-toc-heading-40" data-jobs-toc="v2">十一、网络、媒体、工具链与 CI <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a></span><!-- jobs-toc:heading-end -->
+## <span id="jobs-toc-heading-41" data-jobs-toc="v2">十一、网络、媒体、工具链与 CI <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a></span><!-- jobs-toc:heading-end -->
 
-### <span id="jobs-toc-heading-41" data-jobs-toc="v2">11.1、网络、数据、日志与生命周期 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a></span><!-- jobs-toc:heading-end -->
+### <span id="jobs-toc-heading-42" data-jobs-toc="v2">11.1、网络、数据、日志与生命周期 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a></span><!-- jobs-toc:heading-end -->
 
 - 网络经 `JobsNetWorkTools`、YTKNetwork / AFNetworking 适配层等稳定门面接入；页面至少区分加载、成功、空、可重试失败、不可恢复失败和取消。
 - `YTKNetworkExtra` 的普通、上传、批量与链式请求保留真实网络能力；页面管理加载状态，并在成功、失败和取消时收尾。
@@ -783,7 +795,7 @@ JobsByPods/FeatureName@Pods/
 - 列表多 Timer 通过 `JobsTimerMgr` 的 `scopeIdentifier` 归组：Cell / Model 解绑用 `stopAndRemove:expectedTimer:` 防止旧清理误杀新实例，页面消失 / 重现 / 释放分别暂停、恢复、整组移除；倒计时只信任 Model 的绝对 `endAt`。
 - 开屏支持本地图 / GIF / 远程图、本地视频和远程视频时，失败路径要可降级，不能阻塞根页面可用性。
 
-### <span id="jobs-toc-heading-42" data-jobs-toc="v2">11.2、依赖图、CodeGraph 与 CI <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a></span><!-- jobs-toc:heading-end -->
+### <span id="jobs-toc-heading-43" data-jobs-toc="v2">11.2、依赖图、CodeGraph 与 CI <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a></span><!-- jobs-toc:heading-end -->
 
 - `PodspecDependencyReport` 由安装后流程生成 Markdown、图形和循环依赖分析；它是生成物，不手工编辑结论。
 - 仓库存在 `.codegraph/` 时，理解符号、调用路径和改动影响优先使用 CodeGraph；索引不能替代编译器和测试。
@@ -791,9 +803,9 @@ JobsByPods/FeatureName@Pods/
 - GitHub Actions 通过 workspace + App Scheme 构建 iOS Simulator，并独立生成 OC 协议关系图。
 - CI 与脚本不能写死个人证书、Cookie、Token 或本机缓存；可选增强缺失时要显式降级或给出可诊断错误。
 
-## <span id="jobs-toc-heading-43" data-jobs-toc="v2">十二、新项目落地清单 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a></span><!-- jobs-toc:heading-end -->
+## <span id="jobs-toc-heading-44" data-jobs-toc="v2">十二、新项目落地清单 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a></span><!-- jobs-toc:heading-end -->
 
-### <span id="jobs-toc-heading-44" data-jobs-toc="v2">12.1、工程与启动 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a></span><!-- jobs-toc:heading-end -->
+### <span id="jobs-toc-heading-45" data-jobs-toc="v2">12.1、工程与启动 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a></span><!-- jobs-toc:heading-end -->
 
 - [ ] 修改 App、Tests、UITests、Widget target、Scheme、Bundle ID、Display Name、Team、版本号和 AppIcon。
 - [ ] 统一部署目标、静态链接、Build Settings 和 User Script Sandboxing。
@@ -801,7 +813,7 @@ JobsByPods/FeatureName@Pods/
 - [ ] 根控制器统一从 `JobsOCMakeAppRootViewController()` 返回；登录态、深链、推送和开屏通过可测试入口编排。
 - [ ] 多 Scene 场景下，主题、语言、根切换和全局浮层覆盖全部 Window。
 
-### <span id="jobs-toc-heading-45" data-jobs-toc="v2">12.2、Pod、组件与业务 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a></span><!-- jobs-toc:heading-end -->
+### <span id="jobs-toc-heading-46" data-jobs-toc="v2">12.2、Pod、组件与业务 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a></span><!-- jobs-toc:heading-end -->
 
 - [ ] 在 `Podfile.deps` 修改 target 名，删除不需要的外部依赖、功能 Pod 和 Demo 能力。
 - [ ] 保留 `JobsOCDefs / JobsBlock → JobsMakes / JobsOCDSL → JobsByOCPods → JobsBaseUI` 的基础依赖方向。
@@ -810,7 +822,7 @@ JobsByPods/FeatureName@Pods/
 - [ ] 网络、缓存、日志、计时器、权限、通知和媒体分别通过稳定门面接入。
 - [ ] 独立功能有独立 Demo 页面、根入口和图标映射；不以空壳或聚合 Workbench 作为完成标准。
 
-### <span id="jobs-toc-heading-46" data-jobs-toc="v2">12.3、资源、测试与交付 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a></span><!-- jobs-toc:heading-end -->
+### <span id="jobs-toc-heading-47" data-jobs-toc="v2">12.3、资源、测试与交付 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a></span><!-- jobs-toc:heading-end -->
 
 - [ ] 删除靶场无关的大资源、权限、语言、后台模式、Widget 和 App Group。
 - [ ] 对账 `Info.plist`、`InfoPlist.strings`、`Localizable.strings`、Entitlements、Capabilities 和实际调用。
@@ -818,9 +830,9 @@ JobsByPods/FeatureName@Pods/
 - [ ] Unit Tests 覆盖纯逻辑、解析、缓存键和状态机；UI Tests 覆盖启动、根入口、主题、语言和关键导航。
 - [ ] README、本文、Pod README、CodeSnippets 与真实 API 对齐；Pod 变化后重新生成依赖图并确认无循环依赖。
 
-## <span id="jobs-toc-heading-47" data-jobs-toc="v2">十三、验证、风险与持续维护 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a></span><!-- jobs-toc:heading-end -->
+## <span id="jobs-toc-heading-48" data-jobs-toc="v2">十三、验证、风险与持续维护 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a></span><!-- jobs-toc:heading-end -->
 
-### <span id="jobs-toc-heading-48" data-jobs-toc="v2">13.1、低副作用静态检查 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a></span><!-- jobs-toc:heading-end -->
+### <span id="jobs-toc-heading-49" data-jobs-toc="v2">13.1、低副作用静态检查 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a></span><!-- jobs-toc:heading-end -->
 
 ```shell
 git diff --check -- \
@@ -828,7 +840,7 @@ git diff --check -- \
 
 plutil -lint \
   JobsOCBaseConfigDemo/Info.plist \
-  JobsOCBaseConfigDemo/JobsOCBaseConfigDemo.entitlements \
+  JobsOCBaseConfigDemo/其他/JobsOCBaseConfigDemo.entitlements \
   JobsOCWidgetExtension/Info.plist \
   JobsOCWidgetExtension/JobsOCWidgetExtension.entitlements
 
@@ -840,7 +852,7 @@ ruby -c Podfile.deps
 - 改动 `.m` 时可以先用 Clang 做定向语法检查，但它不能替代完整模块编译。
 - 改动 podspec 时先做 Ruby 语法 / spec 解析和直接依赖扫描，再按需运行安装与依赖报告。
 
-### <span id="jobs-toc-heading-49" data-jobs-toc="v2">13.2、按风险升级验证 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a></span><!-- jobs-toc:heading-end -->
+### <span id="jobs-toc-heading-50" data-jobs-toc="v2">13.2、按风险升级验证 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a></span><!-- jobs-toc:heading-end -->
 
 | 变更类型 | 最低验证 | 完整验证 |
 | --- | --- | --- |
@@ -854,7 +866,7 @@ ruby -c Podfile.deps
 - `pod install`、`xcodebuild`、清缓存和下载依赖等有副作用命令，只在任务确实需要时执行并明确范围。
 - 静态通过、Pod 编译通过、App 编译通过、模拟器表现和真机表现是不同证据，交付时分别说明。
 
-### <span id="jobs-toc-heading-50" data-jobs-toc="v2">13.3、风险与文档防漂移 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a></span><!-- jobs-toc:heading-end -->
+### <span id="jobs-toc-heading-51" data-jobs-toc="v2">13.3、风险与文档防漂移 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a></span><!-- jobs-toc:heading-end -->
 
 - 不把业务 UI、历史网格算法、动画状态机直接搬进公共 DSL。
 - 不在公开头中为方便调用扩大 import；私有实现留在 `.m` 或 `Support`。

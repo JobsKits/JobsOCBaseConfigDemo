@@ -166,8 +166,8 @@ Prop_assign()CGFloat jobsDefaultPopUpHeight;
     return ^(JobsCommentModel * mjModel){
         @jobs_strongify(self)
         if (!self) return;
-        _mjModel = mjModel;
-        self.tableView.endRefreshing(_mjModel.listDataArr.count);
+        self->_mjModel = mjModel;
+        self.tableView.endRefreshing(self->_mjModel.listDataArr.count);
     };
 }
 
@@ -181,8 +181,8 @@ Prop_assign()CGFloat jobsDefaultPopUpHeight;
     return ^(JobsCommentModel * yyModel){
         @jobs_strongify(self)
         if (!self) return;
-        _yyModel = yyModel;
-        self.tableView.endRefreshing(_yyModel.listDataArr.count);
+        self->_yyModel = yyModel;
+        self.tableView.endRefreshing(self->_yyModel.listDataArr.count);
     };
 }
 
@@ -239,9 +239,9 @@ Prop_assign()CGFloat jobsDefaultPopUpHeight;
     return ^CGFloat{
         @jobs_strongify(self)
         if (!self) return (CGFloat){0};
-        if (_jobsDefaultPopUpHeight <= 0) {
-            _jobsDefaultPopUpHeight = self.popUpHeight;
-        };return _jobsDefaultPopUpHeight;
+        if (self->_jobsDefaultPopUpHeight <= 0) {
+            self->_jobsDefaultPopUpHeight = self.popUpHeight;
+        };return self->_jobsDefaultPopUpHeight;
     };
 }
 

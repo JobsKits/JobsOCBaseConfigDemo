@@ -8,6 +8,8 @@
 #ifndef JOBS_HEADER_GUARD_JOBSOCBASECONFIGDEMOTESTS_E8A113D253
 #define JOBS_HEADER_GUARD_JOBSOCBASECONFIGDEMOTESTS_E8A113D253
 
+#import <objc/message.h>
+#import <UIKit/UIKit.h>
 #import <XCTest/XCTest.h>
 
 #if __has_include(<JobsOCTimer/JobsOCTimer.h>) && __has_include(<JobsOCTimerMgr/JobsOCTimerMgr.h>)
@@ -16,6 +18,12 @@
 #define JOBS_TIMER_TESTS_AVAILABLE 1
 #else
 #define JOBS_TIMER_TESTS_AVAILABLE 0
+#endif
+
+#if __has_include(<JobsOCDSL/JobsOCDSL.h>)
+#import <JobsOCDSL/JobsOCDSL.h>
+#else
+#import "JobsOCDSL.h"
 #endif
 
 #if __has_include(<JobsOCDefs/JobsDefines.h>)

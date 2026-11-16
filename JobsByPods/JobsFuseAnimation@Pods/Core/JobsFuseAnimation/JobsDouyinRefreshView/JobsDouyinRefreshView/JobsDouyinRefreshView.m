@@ -307,8 +307,8 @@ JobsKey(JobsJobsDouyinRefreshViewModernTraitsRegistrationKey)
         self.byUserInteractionEnabled(NO);
         self.byAccessibilityElement(YES);
         self.byAccessibilityLabel(@"刷新中");
-        _redDotLayer = CAShapeLayer.layer;
-        _greenDotLayer = CAShapeLayer.layer;
+        self->_redDotLayer = CAShapeLayer.layer;
+        self->_greenDotLayer = CAShapeLayer.layer;
         [self.layer addSublayer:self.redDotLayer];
         [self.layer addSublayer:self.greenDotLayer];
         [NSNotificationCenter.defaultCenter addObserver:self

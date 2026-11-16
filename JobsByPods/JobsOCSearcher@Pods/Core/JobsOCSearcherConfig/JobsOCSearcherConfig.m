@@ -9,14 +9,35 @@
 
 @implementation JobsOCSearcherConfig
 
+-(instancetype)init{
+    if (self = [super init]) {
+        _showsSearchButton = YES;
+        _persistsHistory = YES;
+        _dismissKeyboardWhenCancel = YES;
+        _maxHistoryCount = 20;
+    }
+    return self;
+}
+
 +(JobsRetJobsOCSearcherConfigByVoidBlock _Nonnull)defaultConfig{
     return ^JobsOCSearcherConfig *{
         return JobsOCSearcherConfig.new
             .byPlaceholder(@"请输入搜索内容")
             .bySearchButtonTitle(@"搜索")
-            .byRecommendTitle(@"🔍搜索推荐")
-            .byHistoryTitle(@"⏰搜索历史")
+            .byRecommendTitle(@"搜索推荐")
+            .byHistoryTitle(@"搜索历史")
             .byHistoryStorageKey(@"JobsOCSearcherHistoryData")
+            .byCancelButtonTitle(@"取消")
+            .byClearHistoryButtonTitle(@"清空")
+            .byDeleteHistoryButtonTitle(@"删除")
+            .byEmptyHistoryTitle(@"暂无搜索历史")
+            .byEmptyHistoryMessage(@"输入关键词开始搜索。")
+            .byEmptyResultsTitle(@"没有匹配结果")
+            .byEmptyResultsMessage(@"试试其他关键词，或清空后查看搜索历史。")
+            .byClearQueryButtonTitle(@"清空关键词")
+            .byShowsCancelButton(NO)
+            .byShowsSearchButton(YES)
+            .byPersistsHistory(YES)
             .byMaxHistoryCount(20)
             .byDismissKeyboardWhenCancel(YES);
     };
@@ -45,13 +66,37 @@ JobsOCSearcherConfigObjectDSL(JobsByArr, HistoryChangedBlock, historyChangedBloc
 JobsOCSearcherConfigObjectDSL(JobsByVoid, CancelBlock, cancelBlock, jobsByVoidBlock _Nullable)
 JobsOCSearcherConfigObjectDSL(JobsByVoid, ClearHistoryBlock, clearHistoryBlock, jobsByVoidBlock _Nullable)
 
+JobsOCSearcherConfigObjectDSL(Str, CancelButtonTitle, cancelButtonTitle, NSString *_Nullable)
+JobsOCSearcherConfigObjectDSL(Str, ClearHistoryButtonTitle, clearHistoryButtonTitle, NSString *_Nullable)
+JobsOCSearcherConfigObjectDSL(Str, DeleteHistoryButtonTitle, deleteHistoryButtonTitle, NSString *_Nullable)
+JobsOCSearcherConfigObjectDSL(Str, EmptyHistoryTitle, emptyHistoryTitle, NSString *_Nullable)
+JobsOCSearcherConfigObjectDSL(Str, EmptyHistoryMessage, emptyHistoryMessage, NSString *_Nullable)
+JobsOCSearcherConfigObjectDSL(Str, EmptyResultsTitle, emptyResultsTitle, NSString *_Nullable)
+JobsOCSearcherConfigObjectDSL(Str, EmptyResultsMessage, emptyResultsMessage, NSString *_Nullable)
+JobsOCSearcherConfigObjectDSL(Str, ClearQueryButtonTitle, clearQueryButtonTitle, NSString *_Nullable)
+JobsOCSearcherConfigObjectDSL(Str, HistoryScope, historyScope, NSString *_Nullable)
+JobsOCSearcherConfigObjectDSL(Str, AccessibilityIdentifierPrefix, accessibilityIdentifierPrefix, NSString *_Nullable)
+JobsOCSearcherConfigObjectDSL(Cor, PageBackgroundColor, pageBackgroundColor, UIColor *_Nullable)
+JobsOCSearcherConfigObjectDSL(Cor, InputBackgroundColor, inputBackgroundColor, UIColor *_Nullable)
+JobsOCSearcherConfigObjectDSL(Cor, TextColor, textColor, UIColor *_Nullable)
+JobsOCSearcherConfigObjectDSL(Cor, SecondaryTextColor, secondaryTextColor, UIColor *_Nullable)
+JobsOCSearcherConfigObjectDSL(Cor, AccentColor, accentColor, UIColor *_Nullable)
+JobsOCSearcherConfigObjectDSL(Cor, SeparatorColor, separatorColor, UIColor *_Nullable)
+JobsOCSearcherConfigObjectDSL(BOOL, ShowsCancelButton, showsCancelButton, BOOL)
+JobsOCSearcherConfigObjectDSL(BOOL, ShowsSearchButton, showsSearchButton, BOOL)
+JobsOCSearcherConfigObjectDSL(BOOL, PersistsHistory, persistsHistory, BOOL)
+JobsOCSearcherConfigObjectDSL(NSUserDefaults, HistoryDefaults, historyDefaults, NSUserDefaults *_Nullable)
+
+JobsOCSearcherConfigObjectDSL(BOOL, InputOnly, inputOnly, BOOL)
+JobsOCSearcherConfigObjectDSL(JobsByStr, EditingDidBeginBlock, editingDidBeginBlock, jobsByStrBlock _Nullable)
+
 #undef JobsOCSearcherConfigObjectDSL
 
 -(JobsRetJobsOCSearcherConfigByNSUIntegerBlock _Nonnull)byMaxHistoryCount{
     @jobs_weakify(self)
     return ^__kindof JobsOCSearcherConfig *_Nullable(NSUInteger data){
         @jobs_strongify(self)
-        self.maxHistoryCount = data;
+        self.maxHistoryCount = MIN(MAX(data, 1), 1000);
         return self;
     };
 }

@@ -342,7 +342,7 @@ Prop_strong()UILabel *replySummaryLabel;
             make.size.mas_equalTo(CGSizeMake(16, 16));
         }];
         [self.replyHintAvatarLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.edges.equalTo(_replyHintAvatarImageView);
+            make.edges.equalTo(self->_replyHintAvatarImageView);
         }];
     };return _replyHintAvatarImageView;
 }

@@ -1,0 +1,7 @@
+{
+  "version": "1.24.2",
+  "url": "https://download.onnxruntime.ai/pod-archive-onnxruntime-c-1.24.2.zip",
+  "sha256": "f7100a992d2a8135168c8afd831e6a58b465349101982aa58b3e11d36e600b54",
+  "checksum_source": "https://github.com/microsoft/onnxruntime-swift-package-manager/blob/1.24.2/Package.swift",
+  "ownership": "Microsoft third-party binary runtime; Jobs Rust OCR source is compiled locally"
+}

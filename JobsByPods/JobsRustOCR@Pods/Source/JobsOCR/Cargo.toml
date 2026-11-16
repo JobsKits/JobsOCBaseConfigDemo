@@ -1,0 +1,43 @@
+[package]
+name = "jobs-ocr"
+version = "0.1.0"
+edition = "2024"
+rust-version = "1.92"
+license = "Apache-2.0"
+description = "Offline Indra OCR pipeline with a portable C ABI"
+
+[lib]
+name = "jobs_ocr"
+crate-type = ["rlib", "staticlib", "cdylib"]
+
+[[bin]]
+name = "jobs-ocr"
+path = "src/main.rs"
+
+[[test]]
+name = "core_contract"
+path = "tests/core_contract.rs"
+
+[[test]]
+name = "lm_contract"
+path = "tests/lm_contract.rs"
+
+[[test]]
+name = "layout_contract"
+path = "tests/layout_contract.rs"
+
+[dependencies]
+ort = { version = "=2.0.0-rc.15", default-features = false, features = ["std", "api-17", "alternative-backend"] }
+image = { version = "=0.25.10", default-features = false, features = ["png", "jpeg", "bmp", "tiff", "webp"] }
+serde = { version = "=1.0.228", features = ["derive"] }
+serde_json = "=1.0.149"
+unicode-normalization = "0.1.24"
+unicode-width = "0.2.2"
+zip = { version = "2.4", default-features = false, features = ["deflate"] }
+half = "2.7.1"
+
+[profile.release]
+lto = "thin"
+codegen-units = 1
+# Keep native macro dylibs intact; Apple's dyld rejects misaligned LINKEDIT after rust-objcopy stripping.
+strip = false

@@ -48,6 +48,8 @@
 #import "JobsDefines.h"
 #endif
 
+#import "JobsOCSearcherConfig.h"
+
 NS_ASSUME_NONNULL_BEGIN
 
 @interface JobsOCSearcherRecordCell : UITableViewCell
@@ -56,6 +58,7 @@ Prop_copy(nullable)jobsByStrBlock deleteBlock;
 
 +(JobsRetStrByVoidBlock _Nonnull)reuseIdentifier;
 -(jobsByStrBlock _Nonnull)updateWithText;
+-(jobsByJobsOCSearcherConfigBlock _Nonnull)applyConfig;
 
 // JOBS_PROPERTY_DSL_DECLARATION_AUTOGEN_BEGIN JobsOCSearcherRecordCell
 -(JobsRetJobsOCSearcherRecordCellByNSStringBlock _Nonnull)byHistoryText;

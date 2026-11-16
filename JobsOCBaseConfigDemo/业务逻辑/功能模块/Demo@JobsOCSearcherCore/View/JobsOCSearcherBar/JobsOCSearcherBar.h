@@ -37,6 +37,12 @@
 #import "JobsOCDSL.h"
 #endif
 
+#if __has_include(<JobsOCSearcher/JobsOCSearcher.h>)
+#import <JobsOCSearcher/JobsOCSearcher.h>
+#else
+#import "JobsOCSearcher.h"
+#endif
+
 #if __has_include(<JobsBlock/JobsBlock.h>)
 #import <JobsBlock/JobsBlock.h>
 #else

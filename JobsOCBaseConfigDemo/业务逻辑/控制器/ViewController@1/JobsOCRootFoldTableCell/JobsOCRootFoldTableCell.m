@@ -75,6 +75,7 @@ JobsKey(JobsJobsOCRootFoldTableCellModernTraitsRegistrationKey)
 @implementation JobsOCRootFoldTableCell{
 
     MASConstraint *_innerTableHeightConstraint;
+    MASConstraint *_headerHeightConstraint;
     BOOL _expanded;
 }
 
@@ -95,12 +96,12 @@ JobsKey(JobsJobsOCRootFoldTableCellModernTraitsRegistrationKey)
 }
 
 +(UIFont *)titleFont{
-    return UIFontWeightMediumSize(16);
+    return UIFontWeightMediumSize(17);
 }
 
 +(JobsRetFontByVoidBlock _Nonnull)subTitleFont{
     return ^UIFont *{
-        return UIFontWeightRegularSize(12);
+        return UIFontWeightRegularSize(13);
     };
 }
 
@@ -112,13 +113,13 @@ JobsKey(JobsJobsOCRootFoldTableCellModernTraitsRegistrationKey)
 
 +(JobsRetFontByVoidBlock _Nonnull)innerTitleFont{
     return ^UIFont *{
-        return UIFontWeightRegularSize(15);
+        return UIFontWeightRegularSize(17);
     };
 }
 
 +(JobsRetFontByVoidBlock _Nonnull)innerSubTitleFont{
     return ^UIFont *{
-        return UIFontWeightRegularSize(11);
+        return UIFontWeightRegularSize(12);
     };
 }
 
@@ -187,7 +188,7 @@ JobsKey(JobsJobsOCRootFoldTableCellModernTraitsRegistrationKey)
 
 +(JobsRetCGFloatByVoidBlock _Nonnull)innerRowHeight{
     return ^CGFloat{
-        return 50;
+        return 56;
     };
 }
 
@@ -232,6 +233,35 @@ JobsKey(JobsJobsOCRootFoldTableCellModernTraitsRegistrationKey)
                                              attributes:@{NSFontAttributeName : self.sectionDescriptionFont()}
                                                 context:nil];
     return ceil(CGRectGetHeight(textRect)) + self.sectionDescriptionVerticalInset() * 2;
+}
+
++(CGFloat)measuredHeaderHeightByTitleText:(NSString *)text tableWidth:(CGFloat)tableWidth{
+    if (tableWidth <= 78 || !text.length) {
+        return self.jobsHeaderHeight();
+    }
+    CGRect bounds = [text boundingRectWithSize:CGSizeMake(tableWidth - 78, CGFLOAT_MAX)
+                                      options:NSStringDrawingUsesLineFragmentOrigin | NSStringDrawingUsesFontLeading
+                                   attributes:@{NSFontAttributeName : self.titleFont}
+                                      context:nil];
+    return MAX(self.jobsHeaderHeight(), self.headerTitleTop() + ceil(CGRectGetHeight(bounds)) +
+        self.headerTitleGap() + self.subTitleHeight() + self.headerTitleBottom());
+}
+
++(CGFloat)collapsedHeightByTitle:(NSString *)title
+                      itemCount:(NSUInteger)itemCount
+                     tableWidth:(CGFloat)tableWidth{
+    NSString *text = [NSString stringWithFormat:@"%@  (%lu)", title ?: @"", (unsigned long)itemCount];
+    return [self measuredHeaderHeightByTitleText:text tableWidth:tableWidth] + self.verticalInset() * 2;
+}
+
++(CGFloat)expandedHeightByTitle:(NSString *)title
+                     itemCount:(NSUInteger)itemCount
+            sectionDescription:(NSString *_Nullable)sectionDescription
+                    tableWidth:(CGFloat)tableWidth{
+    CGFloat contentWidth = MAX(120, tableWidth - 20);
+    return [self collapsedHeightByTitle:title itemCount:itemCount tableWidth:tableWidth] +
+        self.innerTop() + [self sectionDescriptionHeightByText:sectionDescription headerWidth:contentWidth] +
+        itemCount * self.innerRowHeight() + self.innerBottom();
 }
 
 +(JobsRetCGFloatByVoidBlock _Nonnull)collapsedHeight{
@@ -343,7 +373,7 @@ JobsKey(JobsJobsOCRootFoldTableCellModernTraitsRegistrationKey)
             SuppressWdeprecatedDeclarationsWarning([super traitCollectionDidChange:previousTraitCollection];);
         }
         self.updateColors();
-        [_innerTableView reloadData];
+        [self->_innerTableView reloadData];
     };
 }
 
@@ -358,6 +388,11 @@ JobsKey(JobsJobsOCRootFoldTableCellModernTraitsRegistrationKey)
         @jobs_strongify(self)
         if (!self) return;
         [super layoutSubviews];
+        CGFloat width = CGRectGetWidth(self.contentView.bounds);
+        if (width > 78) {
+            CGFloat height = [JobsOCRootFoldTableCell measuredHeaderHeightByTitleText:self.titleLab.text tableWidth:width];
+            [self->_headerHeightConstraint setOffset:height];
+        }
         self.reloadSectionDescriptionHeaderViewIfNeeded();
     };
 }
@@ -405,11 +440,11 @@ JobsKey(JobsJobsOCRootFoldTableCellModernTraitsRegistrationKey)
     return ^{
         @jobs_strongify(self)
         if (!self) return;
-        self.cardView.byBgColor(JobsSecondarySystemBackgroundColor);
+        self.cardView.byBgColor(JobsThemeCenter.shared.isDarkMode ? RGB_COLOR(25, 27, 32) : JobsSecondarySystemBackgroundColor);
         self.titleLab.byTextCor(JobsLabelColor);
-        self.subTitleLab.byTextCor(JobsSecondaryLabelColor);
+        self.subTitleLab.byTextCor(JobsLabelColor.colorWithAlphaComponentBy(.72));
         self.chevronView.byTintColor(JobsSecondaryLabelColor);
-        self.innerTableView.bySeparatorColor(JobsTertiaryLabelColor);
+        self.innerTableView.bySeparatorColor(JobsSeparatorColor);
     };
 }
 
@@ -520,7 +555,7 @@ JobsKey(JobsJobsOCRootFoldTableCellModernTraitsRegistrationKey)
         @jobs_strongify(self)
         if (!self) return;
         if (!self.chargingProgressTimer) return;
-        if (self.window && _expanded && self.containsChargingProgressItem()) {
+        if (self.window && self->_expanded && self.containsChargingProgressItem()) {
             self.chargingProgressTimer.resume();
         }else{
             if (self.chargingProgressTimer) self.chargingProgressTimer.pause();
@@ -602,7 +637,7 @@ JobsKey(JobsJobsOCRootFoldTableCellModernTraitsRegistrationKey)
     return ^(UITableViewCell * cell){
         @jobs_strongify(self)
         if (!self) return;
-        BOOL shouldScroll = self.window && _expanded;
+        BOOL shouldScroll = self.window && self->_expanded;
         if (shouldScroll) {
             if (cell.textLabel) cell.textLabel.byResumeTextScroll();
             if (cell.detailTextLabel) cell.detailTextLabel.byResumeTextScroll();
@@ -680,7 +715,7 @@ JobsKey(JobsJobsOCRootFoldTableCellModernTraitsRegistrationKey)
         JobsClockIconView *clockIcon = self.clockIconInCell(cell);
         if (!clockIcon) return;
         if (self.window &&
-            _expanded &&
+            self->_expanded &&
             !UIAccessibilityIsReduceMotionEnabled()) {
             if (!clockIcon.isRunning) clockIcon.start();
         }else{
@@ -1065,7 +1100,7 @@ JobsKey(JobsJobsOCRootFoldTableCellModernTraitsRegistrationKey)
     return ^{
         @jobs_strongify(self)
         if (!self) return;
-        if (!_innerTableView) return;
+        if (!self->_innerTableView) return;
         UIView *headerView = self.innerTableView.tableHeaderView;
         CGFloat headerWidth = self.sectionDescriptionHeaderWidth();
         CGFloat headerHeight = self.sectionDescriptionHeaderHeight();
@@ -1076,7 +1111,7 @@ JobsKey(JobsJobsOCRootFoldTableCellModernTraitsRegistrationKey)
                   ABS(CGRectGetHeight(headerView.bounds) - headerHeight) > 0.5){
             self.innerTableView.byTableHeaderView(self.sectionDescriptionHeaderViewByText(self.sectionDescription));
         }
-        if (_expanded) [_innerTableHeightConstraint setOffset:self.innerTableContentHeight()];
+        if (self->_expanded) [self->_innerTableHeightConstraint setOffset:self.innerTableContentHeight()];
     };
 }
 
@@ -1098,7 +1133,7 @@ JobsKey(JobsJobsOCRootFoldTableCellModernTraitsRegistrationKey)
         jobsMakeLabel(^(__kindof UILabel * _Nullable label) {
             label
                 .byText(text.jobsTr())
-                .byTextCor(JobsSecondaryLabelColor)
+                .byTextCor(JobsLabelColor.colorWithAlphaComponentBy(.72))
                 .byFont(JobsOCRootFoldTableCell.sectionDescriptionFont())
                 .byNumberOfLines(0)
                 .byLineBreakMode(NSLineBreakByWordWrapping)
@@ -1241,7 +1276,7 @@ heightForRowAtIndexPath:(NSIndexPath *)indexPath{
     if (subAttributedText.length) {
         NSMutableAttributedString *themedSubAttributedText = subAttributedText.mutableCopy;
         [themedSubAttributedText addAttribute:NSForegroundColorAttributeName
-                                       value:JobsSecondaryLabelColor
+                                       value:JobsLabelColor.colorWithAlphaComponentBy(.72)
                                        range:NSMakeRange(0, themedSubAttributedText.length)];
         cell.detailTextLabel.byText(nil);
         cell.detailTextLabel.byAttributedText(themedSubAttributedText);
@@ -1250,7 +1285,7 @@ heightForRowAtIndexPath:(NSIndexPath *)indexPath{
         cell.detailTextLabel.byText(self.subTextByViewModel(viewModel));
     }
     cell.textLabel.byTextCor(JobsLabelColor);
-    cell.detailTextLabel.byTextCor(JobsSecondaryLabelColor);
+    cell.detailTextLabel.byTextCor(JobsLabelColor.colorWithAlphaComponentBy(.72));
     cell.byTintColor(JobsSecondaryLabelColor);
     self.applyTextDisplayStrategyToLabel(cell.textLabel);
     self.applyTextDisplayStrategyToLabel(cell.detailTextLabel);
@@ -1324,7 +1359,7 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
             view.addOn(self.cardView)
                 .byAdd(^(MASConstraintMaker *make) {
                     make.top.left.right.equalTo(self.cardView);
-                    make.height.mas_equalTo(JobsOCRootFoldTableCell.jobsHeaderHeight()).priority(999);
+                    self->_headerHeightConstraint = make.height.mas_equalTo(JobsOCRootFoldTableCell.jobsHeaderHeight()).priority(999);
                 });
         });
     };return _headerView;
@@ -1348,8 +1383,8 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     if (!_titleLab) {
         _titleLab = jobsMakeLabel(^(__kindof UILabel * _Nullable label) {
             label.byFont(JobsOCRootFoldTableCell.titleFont)
-                .byNumberOfLines(1)
-                .byLineBreakMode(NSLineBreakByTruncatingTail)
+                .byNumberOfLines(0)
+                .byLineBreakMode(NSLineBreakByWordWrapping)
                 .byAdjustsFontSizeToFitWidth(NO)
                 .byMinimumScaleFactor(1)
                 .addOn(self.headerView)
@@ -1357,7 +1392,6 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
                     make.left.equalTo(self.headerView).offset(16);
                     make.right.lessThanOrEqualTo(self.chevronView.mas_left).offset(-10);
                     make.top.equalTo(self.headerView).offset(JobsOCRootFoldTableCell.headerTitleTop());
-                    make.height.mas_equalTo(JobsOCRootFoldTableCell.titleHeight());
                 });
         });
     };return _titleLab;
@@ -1375,7 +1409,7 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
                 .byAdd(^(MASConstraintMaker *make) {
                     make.left.equalTo(self.titleLab);
                     make.right.lessThanOrEqualTo(self.chevronView.mas_left).offset(-10);
-                    make.top.equalTo(self.headerView).offset(JobsOCRootFoldTableCell.headerSubTitleTop());
+                    make.top.equalTo(self.titleLab.mas_bottom).offset(JobsOCRootFoldTableCell.headerTitleGap());
                     make.height.mas_equalTo(JobsOCRootFoldTableCell.subTitleHeight());
                 });
         });
@@ -1422,7 +1456,7 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
                 .byAdd(^(MASConstraintMaker *make) {
                     make.top.equalTo(self.detailClipView).offset(JobsOCRootFoldTableCell.innerTop());
                     make.left.right.equalTo(self.detailClipView);
-                    _innerTableHeightConstraint = make.height.mas_equalTo(0).priority(999);
+                    self->_innerTableHeightConstraint = make.height.mas_equalTo(0).priority(999);
                     make.bottom.lessThanOrEqualTo(self.detailClipView).offset(-JobsOCRootFoldTableCell.innerBottom()).priority(999);
                 });
             [tableView addGestureRecognizer:self.innerCellLongPressGesture];

@@ -142,7 +142,7 @@ Prop_strong()JobsAppDoorInputViewBaseStyleModel *doorInputViewBaseStyleModel;
     return ^ZYTextField *{
         @jobs_strongify(self)
         if (!self) return nil;
-        return _zyTextField;
+        return self->_zyTextField;
     };
 }
 
@@ -156,7 +156,7 @@ Prop_strong()JobsAppDoorInputViewBaseStyleModel *doorInputViewBaseStyleModel;
     return ^NSString *{
         @jobs_strongify(self)
         if (!self) return nil;
-        return _zyTextField.text;
+        return self->_zyTextField.text;
     };
 }
 #pragma mark —— lazyLoad
@@ -196,7 +196,7 @@ Prop_strong()JobsAppDoorInputViewBaseStyleModel *doorInputViewBaseStyleModel;
                     make.edges.equalTo(self);
                 });
             @jobs_weakify(self)
-            [_zyTextField jobsTextFieldEventFilterBlock:^BOOL(id _Nullable data) {
+            [self->_zyTextField jobsTextFieldEventFilterBlock:^BOOL(id _Nullable data) {
                 @jobs_strongify(self)
                 return self.retBoolByIDBlock ? self.retBoolByIDBlock(data) : YES;
             } subscribeNextBlock:^(NSString *_Nullable x) {

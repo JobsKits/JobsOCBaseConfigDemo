@@ -118,12 +118,12 @@ BaseViewProtocol_synthesize
     return ^(UIViewModel * viewModel){
         @jobs_strongify(self)
         if (!self) return;
-        _viewModel = viewModel;
+        self->_viewModel = viewModel;
         @jobs_weakify(self)
         /// viewModel + textModel
-        _button.bySelected(viewModel.jobsSelected);
-        if (_button) _button.byEnabled(viewModel.jobsEnabled);/// 这个属性为YES，则优先响应Btn。这个属性为NO，则响应UITableViewCell
-        _button.resetByViewModel(viewModel,self.selected)
+        self->_button.bySelected(viewModel.jobsSelected);
+        if (self->_button) self->_button.byEnabled(viewModel.jobsEnabled);/// 这个属性为YES，则优先响应Btn。这个属性为NO，则响应UITableViewCell
+        self->_button.resetByViewModel(viewModel,self.selected)
             .onClickBy(^(UIButton *x){
                 @jobs_strongify(self)
                 if (self.objBlock) self.objBlock(x);
@@ -132,7 +132,7 @@ BaseViewProtocol_synthesize
             });
         /// 背景图
         if(viewModel.normalBgImageURL){
-            _button.imageURL(viewModel.normalBgImageURLString.jobsImageURLPlus().jobsURL())
+            self->_button.imageURL(viewModel.normalBgImageURLString.jobsImageURLPlus().jobsURL())
                 .placeholderImage(viewModel.normalImage)
                 .options(self.jobsMakeSDWebImageOptions())
                 .completed(^(UIImage *_Nullable image,
@@ -145,13 +145,13 @@ BaseViewProtocol_synthesize
                         JobsLog(@"图片加载成功");
                     }
                 }).bgNormalLoad();
-        }else _button.jobsResetBtnBgImage(viewModel.backgroundImage);
+        }else self->_button.jobsResetBtnBgImage(viewModel.backgroundImage);
         /// 图文间距
-        if (@available(iOS 16.0, *)) _button.jobsResetImagePadding(viewModel.imageTitleSpace);
+        if (@available(iOS 16.0, *)) self->_button.jobsResetImagePadding(viewModel.imageTitleSpace);
         /// 图文相对位置关系
-        if (@available(iOS 16.0, *)) _button.jobsResetImagePlacement(viewModel.buttonEdgeInsetsStyle);
+        if (@available(iOS 16.0, *)) self->_button.jobsResetImagePlacement(viewModel.buttonEdgeInsetsStyle);
         /// 圆切角
-        _button.jobsResetBtnCornerRadiusValue(viewModel.layerCornerRadius);
+        self->_button.jobsResetBtnCornerRadiusValue(viewModel.layerCornerRadius);
     };
 }
 
@@ -165,12 +165,12 @@ BaseViewProtocol_synthesize
     return ^(UIButtonModel * buttonModel){
         @jobs_strongify(self)
         if (!self) return;
-        _buttonModel = buttonModel;
+        self->_buttonModel = buttonModel;
         @jobs_weakify(self)
-        _button
+        self->_button
             .bySelected(buttonModel.jobsSelected)
             .byEnabled(buttonModel.jobsEnabled);
-        _button.resetByButtonModel(buttonModel,self.selected)
+        self->_button.resetByButtonModel(buttonModel,self.selected)
             .onClickBy(^(UIButton *x){
                 @jobs_strongify(self)
                 if (self.objBlock) self.objBlock(x);
@@ -179,7 +179,7 @@ BaseViewProtocol_synthesize
             });
         /// 背景图
         if(buttonModel.normalBgImageURL){
-            _button.imageURL(buttonModel.normalBgImageURLString.jobsImageURLPlus().jobsURL())
+            self->_button.imageURL(buttonModel.normalBgImageURLString.jobsImageURLPlus().jobsURL())
                 .placeholderImage(buttonModel.backgroundImage)
                 .options(self.jobsMakeSDWebImageOptions())
                 .completed(^(UIImage * _Nullable image,
@@ -192,13 +192,13 @@ BaseViewProtocol_synthesize
                         JobsLog(@"图片加载成功");
                     }
                 }).bgNormalLoad();
-        }else _button.jobsResetBtnBgImage(buttonModel.backgroundImage);
+        }else self->_button.jobsResetBtnBgImage(buttonModel.backgroundImage);
         /// 图文间距
-        if (@available(iOS 16.0, *)) _button.jobsResetImagePadding(buttonModel.imagePadding);
+        if (@available(iOS 16.0, *)) self->_button.jobsResetImagePadding(buttonModel.imagePadding);
         /// 图文相对位置关系
-        if (@available(iOS 16.0, *)) _button.jobsResetImagePlacement(buttonModel.imagePlacement);
+        if (@available(iOS 16.0, *)) self->_button.jobsResetImagePlacement(buttonModel.imagePlacement);
         /// 圆切角
-        _button.jobsResetBtnCornerRadiusValue(buttonModel.cornerRadiusValue);
+        self->_button.jobsResetBtnCornerRadiusValue(buttonModel.cornerRadiusValue);
     };
 }
 #pragma mark —— BaseButtonProtocol

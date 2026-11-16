@@ -1,0 +1,12 @@
+{
+  "version": "1.24.2",
+  "url": "https://download.onnxruntime.ai/pod-archive-onnxruntime-c-1.24.2.zip",
+  "sha256": "f7100a992d2a8135168c8afd831e6a58b465349101982aa58b3e11d36e600b54",
+  "bytes": 52138597,
+  "checksum_source": "https://github.com/microsoft/onnxruntime-swift-package-manager/blob/main/Package.swift",
+  "platforms_verified": [
+    "iOS arm64 static archive",
+    "iOS simulator arm64/x86_64 static archive",
+    "macOS arm64/x86_64 static archive"
+  ]
+}

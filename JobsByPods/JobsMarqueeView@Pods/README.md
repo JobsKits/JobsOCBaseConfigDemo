@@ -122,6 +122,8 @@ pod install --no-repo-update
 
 ## <span id="jobs-toc-heading-8" data-jobs-toc="v2">七、风险说明 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a></span><!-- jobs-toc:heading-end -->
 
+- `commonInit` 的功能 Block 在弱引用提升并判空后，通过 `self->_xxx` 初始化方向、计时配置和滚动容器，避免初始化过程隐式捕获原始 `self`。
+
 - 非 GCD timer 内核依赖主线程和主 RunLoop，组件内部统一让 `JobsOCTimerMgr` 创建并管理。
 - 数据源按钮会被复制为内部按钮；各 `UIControlState` 资源统一通过 `JobsByOCPods` 状态型 API 复制，历史 target-action 在内部转成 `onJobsEvent` Block，Jobs 按钮点击 Block 继续同步；复杂自定义子视图按钮建议单独验证。
 - `PageControl` 默认和自定义约束统一使用 `Masonry`；`byPageControlConstraintsBlock:` 直接提供 `MASConstraintMaker`，不开放系统 `NSLayoutConstraint` 入口。
@@ -178,7 +180,7 @@ pod install --no-repo-update
 
 ## <span id="jobs-toc-heading-16" data-jobs-toc="v2">十一、本轮单元验证 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a></span><!-- jobs-toc:heading-end -->
 
-当前结果：**Debug / Release 单 Pod 编译、Debug Stability 回归已完成；整体验收记录见根 [JobsByPods升级实施与编译验证.md](<../../JobsByPods升级实施与编译验证.md>)**。生产源码、测试源码、资源与工程配置的指纹一致且命令真实退出成功，才可复用对应验证记录。
+当前结果：**Debug / Release 单 Pod 编译、Debug Stability 回归已完成；整体验收记录见根 [JobsByPods升级实施与编译验证.md](<../../项目相关报告/JobsByPods升级实施与编译验证.md>)**。生产源码、测试源码、资源与工程配置的指纹一致且命令真实退出成功，才可复用对应验证记录。
 
 生产行为与边界按上述核心契约验收；逐 Pod 编译与独立行为回归分别记录结果。
 
@@ -186,14 +188,14 @@ pod install --no-repo-update
 
 ```shell
 cd ../..
-ruby ScriptsByPods/jobs_pods_stability_verify.rb/jobs_pods_stability_verify.rb \
+ruby ScriptsByPods/自动化测试相关脚本/jobs_pods_stability_verify.rb/jobs_pods_stability_verify.rb \
   --phase pods --pod JobsMarqueeView
 ```
 
 当前 podspec 显式提供 `Stability` test_spec。`Tests/` 与测试 fixture 只进入测试目标；真实行为断言通过后再回填结果。指定可用模拟器 UDID：
 
 ```shell
-ruby ScriptsByPods/jobs_pods_stability_verify.rb/jobs_pods_stability_verify.rb \
+ruby ScriptsByPods/自动化测试相关脚本/jobs_pods_stability_verify.rb/jobs_pods_stability_verify.rb \
   --phase tests --pod JobsMarqueeView --simulator '<UDID>'
 ```
 

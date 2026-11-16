@@ -119,13 +119,13 @@ Prop_assign(readwrite)JobsLockerType type;
                 return [self.recursiveLockInternal tryLock];
             /// 处理 JobsLockerTypePThreadMutex 分支
             case JobsLockerTypePThreadMutex:
-                return pthread_mutex_trylock(&_pthreadMutex) == 0;
+                return pthread_mutex_trylock(&self->_pthreadMutex) == 0;
             /// 处理 JobsLockerTypeUnfairLock 分支
             case JobsLockerTypeUnfairLock:
-                return os_unfair_lock_trylock(&_unfairLock);
+                return os_unfair_lock_trylock(&self->_unfairLock);
             /// 处理 JobsLockerTypeSemaphore 分支
             case JobsLockerTypeSemaphore:
-                return dispatch_semaphore_wait(_semaphore, DISPATCH_TIME_NOW) == 0;
+                return dispatch_semaphore_wait(self->_semaphore, DISPATCH_TIME_NOW) == 0;
         }
     };
 }
@@ -171,15 +171,15 @@ Prop_assign(readwrite)JobsLockerType type;
                 break;
             /// 处理 JobsLockerTypePThreadMutex 分支
             case JobsLockerTypePThreadMutex:
-                pthread_mutex_unlock(&_pthreadMutex);
+                pthread_mutex_unlock(&self->_pthreadMutex);
                 break;
             /// 处理 JobsLockerTypeUnfairLock 分支
             case JobsLockerTypeUnfairLock:
-                os_unfair_lock_unlock(&_unfairLock);
+                os_unfair_lock_unlock(&self->_unfairLock);
                 break;
             /// 处理 JobsLockerTypeSemaphore 分支
             case JobsLockerTypeSemaphore:
-                dispatch_semaphore_signal(_semaphore);
+                dispatch_semaphore_signal(self->_semaphore);
                 break;
         }
     };

@@ -339,9 +339,12 @@ BaseViewControllerProtocol_synthesize
     @jobs_weakify(self)
     return ^() {
         @jobs_strongify(self)
+        if (!self) {
+            return;
+        }
         /// 页面根承载面统一跟随系统主题；业务图片与固定色请放到内容子视图。
         self.view.byBgColor(JobsSystemBackgroundColor);
-        if (_bgImageView) _bgImageView.byAlpha(0);
+        if (self->_bgImageView) self->_bgImageView.byAlpha(0);
     };
 }
 #pragma mark —— lazyLoad

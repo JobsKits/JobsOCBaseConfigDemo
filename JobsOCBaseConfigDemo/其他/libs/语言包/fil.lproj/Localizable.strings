@@ -1658,3 +1658,101 @@
 "点击按钮开始验证码倒计时" = "I-click ang button para simulan ang verification code countdown";
 "GXCard 式滑动卡片堆" = "Nadudulas na patong-patong na kard na gaya ng GXCard";
 "可拖动" = "Maaaring i-drag";
+
+"没有匹配的 Demo" = "Walang tumutugmang Demo";
+"轻点清空搜索，查看全部 Demo。" = "I-tap para i-clear ang paghahanap at makita ang lahat ng Demo.";
+
+"清空关键词" = "I-clear ang paghahanap";
+"试试其他关键词，或清空后查看搜索历史。" = "Subukan ang ibang keyword, o i-clear ang paghahanap para makita ang mga kamakailang paghahanap.";
+"暂无搜索历史" = "Wala pang kamakailang paghahanap";
+"输入关键词，查找 Demo。" = "Maglagay ng keyword para makahanap ng Demo.";
+
+// Shared Searcher input, empty states and local demo terms.
+"输入关键词开始搜索。" = "Maglagay ng keyword para magsimulang maghanap.";
+"没有匹配结果" = "Walang tumugmang resulta";
+"搜索推荐" = "Mga mungkahing paghahanap";
+"Java 是运行在 Java 虚拟机上的编程语言。" = "Ang Java ay isang programming language na tumatakbo sa Java Virtual Machine.";
+"Python 是常用于脚本、自动化和数据处理的编程语言。" = "Ang Python ay isang programming language na madalas gamitin para sa mga script, awtomasyon, at pagproseso ng data.";
+"Objective-C 是支持消息发送和运行时机制的编程语言。" = "Ang Objective-C ay isang programming language na may pagpapadala ng mensahe at dynamic na runtime.";
+"Swift 是 Apple 平台应用开发使用的编程语言。" = "Ang Swift ay isang programming language na ginagamit sa paggawa ng mga app para sa mga platform ng Apple.";
+"iOS 是 iPhone 使用的操作系统。" = "Ang iOS ang operating system ng iPhone.";
+"UIKit 提供窗口、视图、控件和页面导航等原生界面能力。" = "Nagbibigay ang UIKit ng mga native na window, view, control, at paglipat sa mga screen.";
+"Masonry 是基于 Auto Layout 的 Objective-C 布局库。" = "Ang Masonry ay isang library ng layout para sa Objective-C na nakabatay sa Auto Layout.";
+"JobsOCSearcher 统一管理输入、推荐词、搜索历史和结果区域。" = "Pinamamahalaan ng JobsOCSearcher ang input, mga mungkahi, kasaysayan ng paghahanap, at lugar ng mga resulta.";
+
+"最近使用" = "Mga kamakailang ginamit";
+
+"尚无浏览记录" = "Wala pang kasaysayan ng pagtingin";
+
+"更多" = "Higit pa";
+
+"打开侧栏" = "Buksan ang sidebar";
+
+// Core Data 用户模型与本地数据库 Demo。
+"Core Data 用户数据库" = "Database ng mga user sa Core Data";
+"User 模型定义姓名与年龄，SQLite 文件保存实际记录。本页仅演示本地持久化。" = "Tinutukoy ng modelong User ang pangalan at edad. Iniimbak ng SQLite file ang mga aktuwal na tala. Lokal na pag-iimbak lamang ang ipinapakita ng demo na ito.";
+"添加用户" = "Magdagdag ng user";
+"编辑用户" = "I-edit ang user";
+"姓名不能为空。" = "Hindi maaaring walang laman ang pangalan.";
+"年龄须为 0～150 的整数。" = "Dapat na buong bilang mula 0 hanggang 150 ang edad.";
+"尚无用户记录" = "Wala pang tala ng user";
+"输入姓名和年龄，添加第一位用户" = "Maglagay ng pangalan at edad upang idagdag ang unang user.";
+"点击记录编辑姓名与年龄，左滑删除。所有操作立即保存，重启后仍可读取。" = "I-tap ang tala upang i-edit ang pangalan at edad; i-swipe pakaliwa upang burahin ito. Agad na nase-save ang mga pagbabago at mababasa pa rin matapos i-restart ang app.";
+"确定删除本 Demo 的全部用户？此操作无法撤销。" = "Burahin ang lahat ng user sa demo na ito? Hindi na ito maibabalik.";
+"新增" = "Magdagdag";
+"重试" = "Subukang muli";
+"操作" = "Mga aksyon";
+"Core Data 本地数据库" = "Lokal na database sa Core Data";
+"添加记录" = "Magdagdag ng tala";
+"保存修改" = "I-save ang mga pagbabago";
+"删除记录" = "Burahin ang tala";
+"清空数据库" = "Burahin ang laman ng database";
+"数据库操作失败" = "Nabigo ang operasyon sa database";
+"重试数据库加载" = "Subukang i-load muli ang database";
+"记录数量：%@" = "Bilang ng tala: %@";
+"数据库尚未就绪。" = "Hindi pa handa ang database.";
+"不能读取数据库模型。" = "Hindi mabasa ang modelo ng database.";
+"重新加载" = "I-load muli";
+"数据库记录缺少必要字段。" = "May kulang na kailangang field sa tala ng database.";
+
+// 首页骨架与世界时钟。
+"世界时钟" = "Orasan ng mundo";
+"设备当前时区" = "Time zone ng device";
+"世界时区" = "Mga time zone sa mundo";
+"暂无时区数据" = "Walang datos ng time zone";
+"功能实验室" = "Laboratoryo ng mga function";
+"贝克岛" = "Pulo ng Baker";
+"12小时制" = "12-oras na format";
+"24小时制" = "24-oras na format";
+
+"返回首页时收缩分组" = "Tiklupin ang mga grupo pagbalik sa Home";
+
+
+/* Rust OCR */
+"Rust 离线 OCR" = "Rust Offline OCR";
+"OCR：所有识别均在本机完成" = "OCR: all recognition runs on this device";
+"OCR：选择图片后开始识别" = "OCR: choose an image, then start recognition";
+"OCR：内置样本" = "OCR: sample image";
+"OCR：选择照片" = "OCR: choose photo";
+"OCR：开始识别" = "OCR: recognize";
+"OCR：复制结果" = "OCR: copy result";
+"OCR：文字" = "OCR: text";
+"OCR：识别完成" = "OCR: recognition complete";
+"OCR：暂无文字，请选择清晰图片并重新识别" = "OCR: no text yet. Choose a clear image and try again.";
+"OCR：图片读取失败" = "OCR: could not load image";
+"OCR：正在识别，请稍候" = "OCR: recognizing, please wait";
+"OCR：识别失败，可重新尝试" = "OCR: recognition failed. Try again.";
+"OCR：已取消识别" = "OCR: recognition cancelled";
+"OCR：结果已复制" = "OCR: result copied";
+
+"OCR：SDK 尚未就绪" = "OCR: SDK is not ready";
+
+/* OCR whole-page reading and camera input */
+"OCR：样本" = "Halimbawa";
+"OCR：相册" = "Mga Larawan";
+"OCR：拍照" = "Kamera";
+"OCR：识别结果" = "Resulta";
+"OCR：复制" = "Kopyahin";
+"OCR：设备无法使用摄像头" = "Hindi magagamit ang kamera sa device na ito.";
+"OCR：请在设置中允许访问相机" = "Payagan ang pag-access sa kamera sa mga setting ng system.";
+"OCR：相机照片读取失败" = "Hindi mabasa ang kinunang larawan. Subukan muli.";

@@ -145,15 +145,15 @@ Prop_strong()LZTabBarConfig *config;
     return ^{
         @jobs_strongify(self)
         if (!self) return;
-        if (_config.isNavigation) {
-            NSMutableArray *vcs = [NSMutableArray arrayWithCapacity:_config.viewControllers.count];
-            for (UIViewController *vc in _config.viewControllers) {
+        if (self->_config.isNavigation) {
+            NSMutableArray *vcs = [NSMutableArray arrayWithCapacity:self->_config.viewControllers.count];
+            for (UIViewController *vc in self->_config.viewControllers) {
                 if (![vc isKindOfClass:UINavigationController.class]) {
                     vcs.add(vc.navCtrl());
                 } else vcs.add(vc);
             }self.viewControllers = vcs.copy;
         } else {
-            self.byViewControllers(_config.viewControllers.copy);
+            self.byViewControllers(self->_config.viewControllers.copy);
         }
     };
 }

@@ -8,6 +8,7 @@ require 'securerandom'
 jobs_pod_install_guard_path = File.join(
   __dir__,
   'ScriptsByPods',
+  'Cocoapods相关脚本',
   '【MacOS】📦Pod Install离线保护.command',
   'jobs_pod_install_offline_guard.rb', 'jobs_pod_install_offline_guard.rb'
 )
@@ -18,7 +19,7 @@ JobsPodInstallOfflineGuard.guard!(__dir__)
 platform :ios, '16.6'
 
 # 同步准备当前安装进程的网络链路，让选源和后续源码下载继承同一配置。
-jobs_pod_network_dir = File.join(__dir__, 'ScriptsByPods', '【MacOS】🌐CocoaPods网络适配.command')
+jobs_pod_network_dir = File.join(__dir__, 'ScriptsByPods', 'Cocoapods相关脚本', '【MacOS】🌐CocoaPods网络适配.command')
 jobs_pod_network_path = File.join(jobs_pod_network_dir, 'jobs_cocoapods_network.rb', 'jobs_cocoapods_network.rb')
 begin
   if File.file?(jobs_pod_network_path)
@@ -52,6 +53,7 @@ end
 jobs_specs_source_path = File.join(
   __dir__,
   'ScriptsByPods',
+  'Cocoapods相关脚本',
   '【MacOS】🌐CocoaPods源自动选择.command',
   'jobs_cocoapods_source.rb', 'jobs_cocoapods_source.rb'
 )
@@ -84,7 +86,13 @@ instance_eval(File.read(deps_path), deps_path, 1)
 
 # ===== ScriptsByPods: 脚本统一按 同名文件夹/同名脚本 取路径 =====
 def scripts_by_pods_script_path(script_name)
-  File.expand_path(File.join(__dir__, 'ScriptsByPods', script_name, script_name))
+  category = case script_name
+  when '【MacOS】codegraph_init.command', '【MacOS】codegraph_export_md.command', '【MacOS】🧹恢复Xcode PIF构建会话.command'
+    '自动化测试相关脚本'
+  else
+    'Cocoapods相关脚本'
+  end
+  File.expand_path(File.join(__dir__, 'ScriptsByPods', category, script_name, script_name))
 end
 
 def jobs_pod_install_pure_mode?
@@ -431,7 +439,9 @@ def jobs_config_xcconfig_path(installer)
     return candidate if File.exist?(candidate)
   end
 
-  Dir.glob(File.join(__dir__, '*', 'JobsConfig.xcconfig')).find { |path| File.file?(path) }
+  candidates = Dir.glob(File.join(__dir__, '*', '其他', 'JobsConfig.xcconfig')) +
+    Dir.glob(File.join(__dir__, '*', 'JobsConfig.xcconfig'))
+  candidates.find { |path| File.file?(path) }
 end
 
 def aggregate_target_xcconfig?(xcconfig_path, aggregate_target_names)

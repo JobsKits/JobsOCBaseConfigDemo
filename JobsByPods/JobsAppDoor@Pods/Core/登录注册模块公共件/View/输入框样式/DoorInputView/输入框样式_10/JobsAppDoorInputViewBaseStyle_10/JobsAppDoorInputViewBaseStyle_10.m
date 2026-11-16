@@ -168,7 +168,7 @@ Prop_strong()JobsAppDoorInputViewBaseStyleModel *doorInputViewBaseStyleModel;
                     make.size.mas_equalTo(inputSize_02());
                 });
             @jobs_weakify(self)
-            [_zyTextField jobsTextFieldEventFilterBlock:^BOOL(id _Nullable data) {
+            [self->_zyTextField jobsTextFieldEventFilterBlock:^BOOL(id _Nullable data) {
                 @jobs_strongify(self)
                 return self.retBoolByIDBlock ? self.retBoolByIDBlock(data) : YES;
             } subscribeNextBlock:^(id _Nullable x) {

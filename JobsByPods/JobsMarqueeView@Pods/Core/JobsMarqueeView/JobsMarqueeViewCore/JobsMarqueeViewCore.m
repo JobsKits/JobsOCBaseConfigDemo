@@ -334,22 +334,22 @@ Prop_copy()NSString *timerIdentifier;
         @jobs_strongify(self)
         if (!self) return;
         self.byClipsToBounds(YES);
-        _direction = JobsMarqueeDirectionLeft;
-        _scrollMode = JobsMarqueeScrollModeContinuous;
-        _itemSizeMode = JobsMarqueeItemSizeModeFitContent;
-        _dataSourceButtons = @[];
-        _timerTypeForFrequency = JobsTimerTypeGCD;
-        _timerTypeForContinuous = JobsTimerTypeDisplayLink;
-        _frequencyInterval = 1.0;
-        _continuousSpeed = 40.0;
-        _continuousInterval = 1.0 / 60.0;
-        _pageControlPosition = JobsMarqueePageControlPositionBottomCenter;
-        _needsRebuildContent = YES;
-        _lastBoundsSize = CGSizeZero;
-        _minButtonSize = self.computeMinButtonSize();
-        _timerIdentifier = [NSString stringWithFormat:@"%@.%p", JobsMarqueeTimerIdentifierPrefix, self];
-        _internalButtons = NSMutableArray.array;
-        _scrollView = jobsMakeScrollView(^(__kindof UIScrollView * _Nullable scrollView) {
+        self->_direction = JobsMarqueeDirectionLeft;
+        self->_scrollMode = JobsMarqueeScrollModeContinuous;
+        self->_itemSizeMode = JobsMarqueeItemSizeModeFitContent;
+        self->_dataSourceButtons = @[];
+        self->_timerTypeForFrequency = JobsTimerTypeGCD;
+        self->_timerTypeForContinuous = JobsTimerTypeDisplayLink;
+        self->_frequencyInterval = 1.0;
+        self->_continuousSpeed = 40.0;
+        self->_continuousInterval = 1.0 / 60.0;
+        self->_pageControlPosition = JobsMarqueePageControlPositionBottomCenter;
+        self->_needsRebuildContent = YES;
+        self->_lastBoundsSize = CGSizeZero;
+        self->_minButtonSize = self.computeMinButtonSize();
+        self->_timerIdentifier = [NSString stringWithFormat:@"%@.%p", JobsMarqueeTimerIdentifierPrefix, self];
+        self->_internalButtons = NSMutableArray.array;
+        self->_scrollView = jobsMakeScrollView(^(__kindof UIScrollView * _Nullable scrollView) {
             scrollView
                 .byDelegate(self)
                 .byShowsHorizontalScrollIndicator(NO)

@@ -46,7 +46,8 @@ Prop_copy()NSString *historyText;
         [self.deleteButton mas_makeConstraints:^(MASConstraintMaker *make) {
             make.right.equalTo(self.contentView).offset(-10);
             make.centerY.equalTo(self.contentView);
-            make.size.mas_equalTo(CGSizeMake(40, 40));
+            make.height.mas_equalTo(44);
+            make.width.greaterThanOrEqualTo(@44);
         }];
     };return self;
 }
@@ -116,12 +117,27 @@ Prop_copy()NSString *historyText;
             button
                 .jobsResetBtnTitle(@"删除".jobsTr())
                 .jobsResetBtnTitleCor(RGBA_COLOR(0.63 * 255.0, 0.67 * 255.0, 0.73 * 255.0, 1))
-                .jobsResetBtnTitleFont(UIFontWeightRegularSize(13))
+                .jobsResetBtnTitleFont(UIFontWeightRegularSize(14))
+                .byContentEdgeInsets(UIEdgeInsetsMake(0, 6, 0, 6))
                 .onClickBy(^(__kindof UIButton * _Nullable button) {
                     weak_self.deleteButtonEvent();
                 });
         });
     };return _deleteButton;
+}
+
+
+-(jobsByJobsOCSearcherConfigBlock _Nonnull)applyConfig{
+    @jobs_weakify(self)
+    return ^(JobsOCSearcherConfig *config) {
+        @jobs_strongify(self)
+        if (!self)
+            return;
+        self.historyLabel.byTextCor(config.textColor ?: JobsLabelColor);
+        self.contentView.byBgColor(config.pageBackgroundColor ?: JobsSystemBackgroundColor);
+        self.deleteButton.jobsResetBtnTitle((config.deleteHistoryButtonTitle ?: @"删除").jobsTr())
+            .jobsResetBtnTitleCor(config.accentColor ?: (JobsThemeCenter.shared.darkMode ? HEXCOLOR(0x8BC4EB) : HEXCOLOR(0x195E83)));
+    };
 }
 
 // JOBS_PROPERTY_DSL_IMPLEMENTATION_AUTOGEN_BEGIN JobsOCSearcherRecordCell

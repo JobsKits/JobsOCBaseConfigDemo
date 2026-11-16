@@ -44,6 +44,6 @@
 
 ## 三、<span id="validation">验证入口</span> <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
-在项目根目录运行 `pod install --no-repo-update` 刷新 Development Pods；通过 `JobsOCStabilitySupport` scheme 构建组件，通过现有 Stability scheme 验证宿主。组件编译不能替代主 App、设备运行或全部稳定性测试验收。完整入口见[稳定性验证工具](../../ScriptsByPods/jobs_pods_stability_verify.rb/README.md)。
+在项目根目录运行 `pod install --no-repo-update` 刷新 Development Pods；通过 `JobsOCStabilitySupport` scheme 构建组件，通过现有 Stability scheme 验证宿主。组件编译不能替代主 App、设备运行或全部稳定性测试验收。完整入口见[稳定性验证工具](../../ScriptsByPods/自动化测试相关脚本/jobs_pods_stability_verify.rb/README.md)。
 
 <a id="🔚" href="#前言" style="font-size:17px; color:green; font-weight:bold;">我是有底线的➤点我回到首页</a>

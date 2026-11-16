@@ -6,7 +6,6 @@
 //
 
 #import "JobsOCBaseConfigDemoTests.h"
-#import <objc/message.h>
 
 // 用途：实现自动化测试；验证宿主 Bundle、计时器前后台与手动暂停、开屏、手势页、下拉选择及蓝牙页面的基础回归。
 // 运行：在 Xcode 的 JobsOCBaseConfigDemoTests 测试 Target 执行，或由现有 CI 调用；不编入主 App。
@@ -89,7 +88,7 @@
                 .byPauseInBackground(YES)
                 .byAutoManageAppState(YES);
         });
-        [timer start];
+        timer.start();
         XCTAssertTrue(timer.isRunning);
 
         [NSNotificationCenter.defaultCenter postNotificationName:UIApplicationWillResignActiveNotification object:nil];
@@ -98,10 +97,10 @@
         [NSNotificationCenter.defaultCenter postNotificationName:UIApplicationDidBecomeActiveNotification object:nil];
         XCTAssertTrue(timer.isRunning);
 
-        [timer pause];
+        timer.pause();
         [NSNotificationCenter.defaultCenter postNotificationName:UIApplicationDidBecomeActiveNotification object:nil];
         XCTAssertFalse(timer.isRunning);
-        [timer stop];
+        timer.jobsStop();
     };
 }
 
@@ -116,7 +115,7 @@
         @jobs_strongify(self)
         if (!self) return;
         NSString *identifier = [NSString stringWithFormat:@"tests.timer.%@", NSUUID.UUID.UUIDString];
-        JobsTimerMgr *manager = JobsTimerMgr.shared;
+        JobsTimerMgr *manager = JobsTimerMgr.shared();
         XCTAssertTrue([manager upsertTimerWithIdentifier:identifier
                                               timerType:JobsTimerTypeGCD
                                                  policy:JobsTimerBackgroundPolicyPauseAndResume
@@ -125,17 +124,17 @@
             timer.byTimeInterval(60)
                 .byQueue(dispatch_get_main_queue());
         } handler:nil]);
-        XCTAssertTrue([manager isRunning:identifier]);
+        XCTAssertTrue(manager.isRunning(identifier));
 
         [NSNotificationCenter.defaultCenter postNotificationName:UIApplicationWillResignActiveNotification object:nil];
-        XCTAssertFalse([manager isRunning:identifier]);
+        XCTAssertFalse(manager.isRunning(identifier));
         [NSNotificationCenter.defaultCenter postNotificationName:UIApplicationDidBecomeActiveNotification object:nil];
-        XCTAssertTrue([manager isRunning:identifier]);
+        XCTAssertTrue(manager.isRunning(identifier));
 
-        XCTAssertTrue([manager pause:identifier]);
+        XCTAssertTrue(manager.pause(identifier));
         [NSNotificationCenter.defaultCenter postNotificationName:UIApplicationDidBecomeActiveNotification object:nil];
-        XCTAssertFalse([manager isRunning:identifier]);
-        XCTAssertTrue([manager stopAndRemove:identifier]);
+        XCTAssertFalse(manager.isRunning(identifier));
+        XCTAssertTrue(manager.stopAndRemove(identifier));
     };
 }
 
@@ -157,7 +156,7 @@
                                        startImmediately:NO
                                                   build:nil
                                                 handler:nil]);
-        JobsTimer *oldTimer = [manager timerForIdentifier:identifier];
+        JobsTimer *oldTimer = manager.timerForIdentifier(identifier);
         XCTAssertTrue([manager upsertTimerWithIdentifier:identifier
                                               timerType:JobsTimerTypeGCD
                                                  policy:JobsTimerBackgroundPolicyIgnore
@@ -166,13 +165,13 @@
             timer.byTimeInterval(60)
                 .byQueue(dispatch_get_main_queue());
         } handler:nil]);
-        JobsTimer *currentTimer = [manager timerForIdentifier:identifier];
+        JobsTimer *currentTimer = manager.timerForIdentifier(identifier);
 
         XCTAssertFalse([manager stopAndRemove:identifier expectedTimer:oldTimer]);
-        XCTAssertEqual([manager timerForIdentifier:identifier],currentTimer);
+        XCTAssertEqual(manager.timerForIdentifier(identifier),currentTimer);
         XCTAssertTrue(currentTimer.isRunning);
         XCTAssertTrue([manager stopAndRemove:identifier expectedTimer:currentTimer]);
-        XCTAssertFalse([manager exists:identifier]);
+        XCTAssertFalse(manager.exists(identifier));
     };
 }
 
@@ -201,17 +200,17 @@
                     .byQueue(dispatch_get_main_queue());
             } handler:nil]);
         }
-        XCTAssertTrue([manager pause:manualTimerIdentifier]);
+        XCTAssertTrue(manager.pause(manualTimerIdentifier));
 
-        XCTAssertEqual([manager pauseScope:scopeIdentifier],2);
-        XCTAssertFalse([manager isRunning:scopeTimerIdentifier]);
-        XCTAssertFalse([manager isRunning:manualTimerIdentifier]);
-        XCTAssertEqual([manager resumeScope:scopeIdentifier],2);
-        XCTAssertTrue([manager isRunning:scopeTimerIdentifier]);
-        XCTAssertFalse([manager isRunning:manualTimerIdentifier]);
-        XCTAssertEqual([manager stopAndRemoveScope:scopeIdentifier],2);
-        XCTAssertFalse([manager exists:scopeTimerIdentifier]);
-        XCTAssertFalse([manager exists:manualTimerIdentifier]);
+        XCTAssertEqual(manager.pauseScope(scopeIdentifier),2);
+        XCTAssertFalse(manager.isRunning(scopeTimerIdentifier));
+        XCTAssertFalse(manager.isRunning(manualTimerIdentifier));
+        XCTAssertEqual(manager.resumeScope(scopeIdentifier),2);
+        XCTAssertTrue(manager.isRunning(scopeTimerIdentifier));
+        XCTAssertFalse(manager.isRunning(manualTimerIdentifier));
+        XCTAssertEqual(manager.stopAndRemoveScope(scopeIdentifier),2);
+        XCTAssertFalse(manager.exists(scopeTimerIdentifier));
+        XCTAssertFalse(manager.exists(manualTimerIdentifier));
     };
 }
 #endif
@@ -229,11 +228,12 @@
         UIViewController *rootViewController = UIViewController.new;
         UINavigationController *navigationController = [[UINavigationController alloc] initWithRootViewController:rootViewController];
         navigationController.view.byFrame(CGRectMake(0, 0, 402, 874));
-        typedef id(*JobsSplashConfigurationIMP)(id, SEL, NSString *);
+        typedef id(*JobsSplashConfigurationIMP)(id, SEL, NSString *, NSBundle *);
         JobsSplashConfigurationIMP makeConfiguration = (JobsSplashConfigurationIMP)objc_msgSend;
         id configuration = makeConfiguration(NSClassFromString(@"JobsOCSplashConfiguration"),
-                                             NSSelectorFromString(@"localImage:"),
-                                             @"");
+                                             NSSelectorFromString(@"localImage:bundle:"),
+                                             @"",
+                                             NSBundle.mainBundle);
         [configuration setValue:@8 forKey:@"countdownSeconds"];
         [configuration setValue:@YES forKey:@"skipButtonVisible"];
         typedef UIViewController *(*JobsShowSplashIMP)(id, SEL, UIViewController *, id);

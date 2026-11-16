@@ -207,7 +207,7 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     return ^{
         @jobs_strongify(self)
         if (!self) return;
-        _walletExpandBtn.jobsResetBtnTitle(self.walletCardsExpanded ? @"收起".jobsTr() : @"展开".jobsTr());
+        self->_walletExpandBtn.jobsResetBtnTitle(self.walletCardsExpanded ? @"收起".jobsTr() : @"展开".jobsTr());
     };
 }
 

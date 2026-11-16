@@ -45,7 +45,7 @@ Prop_copy()NSMutableDictionary *dataInfo;
     return ^NSDictionary *(NSString * key){
         @jobs_strongify(self)
         if (!self) return nil;
-        return [_dataInfo objectForKey:key];
+        return [self->_dataInfo objectForKey:key];
     };
 }
 #pragma mark —— lazyLoad

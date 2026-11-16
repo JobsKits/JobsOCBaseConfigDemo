@@ -36,6 +36,18 @@
 
 @end
 
+static void JobsOCSetHomeSplashVisible(UIViewController *owner, BOOL visible) {
+    if (!owner) {
+        return;
+    }
+    if ([owner isKindOfClass:ViewController_1.class]) {
+        [(ViewController_1 *)owner jobsSetHomeSplashVisible:visible];
+    }
+    for (UIViewController *child in owner.childViewControllers) {
+        JobsOCSetHomeSplashVisible(child, visible);
+    }
+}
+
 static NSString *const JobsOCSplashEnabledUserDefaultsKey = @"com.BSports.JobsOCSplashEnabledUserDefaultsKey";
 
 static BOOL JobsOCSplashEnabled(void) {
@@ -183,12 +195,21 @@ static JobsOCSplashConfiguration *JobsOCSplashConfigurationForNextLaunch(void) {
                 window.windowScene.activationState == UISceneActivationStateUnattached) {
                 return;
             }
+            JobsOCSetHomeSplashVisible(hostViewController, YES);
+            __weak UIViewController *splashHost = hostViewController;
             JobsOCSplashConfiguration *configuration = JobsOCSplashConfigurationForNextLaunch();
             configuration
                 .byCountdownSeconds(@8)
                 .bySkipButtonVisible(YES)
                 .byTapAction(JobsOCSplashAction.none())
-                .byShakeAction(JobsOCSplashAction.none());
+                .byShakeAction(JobsOCSplashAction.none())
+                .byOnSkip(^(JobsOCSplashVC *splashVC) {
+                    dispatch_async(dispatch_get_main_queue(), ^{
+                        if (!splashVC.parentViewController && !splashVC.presentingViewController) {
+                            JobsOCSetHomeSplashVisible(splashHost, NO);
+                        }
+                    });
+                });
             [JobsOCSplashPresenter showOver:hostViewController
                               configuration:configuration];
         });

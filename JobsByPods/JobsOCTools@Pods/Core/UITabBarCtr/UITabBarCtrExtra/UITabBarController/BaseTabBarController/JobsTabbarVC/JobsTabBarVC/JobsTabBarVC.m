@@ -160,7 +160,7 @@ static dispatch_once_t JobsTabBarVCOnceToken;
                 self.byPushOrPresent(self.viewModel.pushOrPresent);
             }
         }
-        A = YES;
+        self->A = YES;
         self.byDelegate(self);
         self.byOpenScrollTabbar(YES);
     };

@@ -768,11 +768,11 @@ didOutputAudioSampleBuffer:(CMSampleBufferRef)sampleBuffer{
     return ^{
         @jobs_strongify(self)
         if (!self) return;
-        if (self.writerStarted || !_latestVideoFormatDescription || !_latestAudioFormatDescription || !self.currentOutputURL) return;
+        if (self.writerStarted || !self->_latestVideoFormatDescription || !self->_latestAudioFormatDescription || !self.currentOutputURL) return;
         NSError *error = nil;
         BOOL success = [self.assetWriter startWritingToURL:self.currentOutputURL
-                                    videoFormatDescription:_latestVideoFormatDescription
-                                    audioFormatDescription:_latestAudioFormatDescription
+                                    videoFormatDescription:self->_latestVideoFormatDescription
+                                    audioFormatDescription:self->_latestAudioFormatDescription
                                          deviceOrientation:self.recordingOrientation
                                                frontCamera:self.captureManager.currentPosition == AVCaptureDevicePositionFront
                                                      error:&error];
@@ -844,9 +844,9 @@ didOutputAudioSampleBuffer:(CMSampleBufferRef)sampleBuffer{
         @jobs_strongify(self)
         if (!self) return;
         @synchronized (self) {
-            if (!formatDescription || _latestVideoFormatDescription == formatDescription) return;
-            if (_latestVideoFormatDescription) CFRelease(_latestVideoFormatDescription);
-            _latestVideoFormatDescription = (CMFormatDescriptionRef)CFRetain(formatDescription);
+            if (!formatDescription || self->_latestVideoFormatDescription == formatDescription) return;
+            if (self->_latestVideoFormatDescription) CFRelease(self->_latestVideoFormatDescription);
+            self->_latestVideoFormatDescription = (CMFormatDescriptionRef)CFRetain(formatDescription);
         }
     };
 }
@@ -857,9 +857,9 @@ didOutputAudioSampleBuffer:(CMSampleBufferRef)sampleBuffer{
         @jobs_strongify(self)
         if (!self) return;
         @synchronized (self) {
-            if (!formatDescription || _latestAudioFormatDescription == formatDescription) return;
-            if (_latestAudioFormatDescription) CFRelease(_latestAudioFormatDescription);
-            _latestAudioFormatDescription = (CMFormatDescriptionRef)CFRetain(formatDescription);
+            if (!formatDescription || self->_latestAudioFormatDescription == formatDescription) return;
+            if (self->_latestAudioFormatDescription) CFRelease(self->_latestAudioFormatDescription);
+            self->_latestAudioFormatDescription = (CMFormatDescriptionRef)CFRetain(formatDescription);
         }
     };
 }
@@ -870,13 +870,13 @@ didOutputAudioSampleBuffer:(CMSampleBufferRef)sampleBuffer{
         @jobs_strongify(self)
         if (!self) return;
         @synchronized (self) {
-            if (_latestVideoFormatDescription) {
-                CFRelease(_latestVideoFormatDescription);
-                _latestVideoFormatDescription = nil;
+            if (self->_latestVideoFormatDescription) {
+                CFRelease(self->_latestVideoFormatDescription);
+                self->_latestVideoFormatDescription = nil;
             }
-            if (_latestAudioFormatDescription) {
-                CFRelease(_latestAudioFormatDescription);
-                _latestAudioFormatDescription = nil;
+            if (self->_latestAudioFormatDescription) {
+                CFRelease(self->_latestAudioFormatDescription);
+                self->_latestAudioFormatDescription = nil;
             }
         }
     };

@@ -15,6 +15,7 @@
 #endif
 
 #import "AppDelegate.h"
+#import "ViewController@1.h"
 #import "JobsOCDeviceGuardLaunchGate.h"
 //#import "SceneDelegate.h"
 #import "NSObject+UserInfo.h"

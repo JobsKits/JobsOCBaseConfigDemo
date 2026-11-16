@@ -1658,3 +1658,101 @@
 "至少录制 %.0f 秒；手指移出按钮即取消，计时环走满后自动保存。" = "Mindestens %.0f Sekunden aufnehmen. Finger zum Abbrechen aus der Schaltfläche ziehen; ein voller Zeitring speichert automatisch.";
 "GXCard 式滑动卡片堆" = "Wischbarer Kartenstapel im GXCard-Stil";
 "可拖动" = "Verschiebbar";
+
+"没有匹配的 Demo" = "Keine passenden Demos";
+"轻点清空搜索，查看全部 Demo。" = "Tippe, um die Suche zu löschen und alle Demos anzuzeigen.";
+
+"清空关键词" = "Suche löschen";
+"试试其他关键词，或清空后查看搜索历史。" = "Versuche ein anderes Suchwort oder lösche die Suche, um den Suchverlauf zu sehen.";
+"暂无搜索历史" = "Keine letzten Suchanfragen";
+"输入关键词，查找 Demo。" = "Gib ein Suchwort ein, um eine Demo zu finden.";
+
+// Shared Searcher input, empty states and local demo terms.
+"输入关键词开始搜索。" = "Gib einen Suchbegriff ein, um die Suche zu starten.";
+"没有匹配结果" = "Keine passenden Ergebnisse";
+"搜索推荐" = "Suchvorschläge";
+"Java 是运行在 Java 虚拟机上的编程语言。" = "Java ist eine Programmiersprache, die auf der Java Virtual Machine ausgeführt wird.";
+"Python 是常用于脚本、自动化和数据处理的编程语言。" = "Python ist eine Programmiersprache, die häufig für Skripte, Automatisierung und Datenverarbeitung verwendet wird.";
+"Objective-C 是支持消息发送和运行时机制的编程语言。" = "Objective-C ist eine Programmiersprache mit Nachrichtenversand und dynamischer Laufzeitumgebung.";
+"Swift 是 Apple 平台应用开发使用的编程语言。" = "Swift ist eine Programmiersprache für die Entwicklung von Apps auf Apple-Plattformen.";
+"iOS 是 iPhone 使用的操作系统。" = "iOS ist das Betriebssystem des iPhone.";
+"UIKit 提供窗口、视图、控件和页面导航等原生界面能力。" = "UIKit bietet native Fenster, Ansichten, Steuerelemente und Seitennavigation.";
+"Masonry 是基于 Auto Layout 的 Objective-C 布局库。" = "Masonry ist eine Objective-C-Bibliothek für Layouts auf Basis von Auto Layout.";
+"JobsOCSearcher 统一管理输入、推荐词、搜索历史和结果区域。" = "JobsOCSearcher verwaltet Eingaben, Suchvorschläge, den Suchverlauf und den Ergebnisbereich.";
+
+"最近使用" = "Zuletzt verwendet";
+
+"尚无浏览记录" = "Noch kein Verlauf";
+
+"更多" = "Mehr";
+
+"打开侧栏" = "Seitenleiste öffnen";
+
+// Core Data 用户模型与本地数据库 Demo。
+"Core Data 用户数据库" = "Core Data-Benutzerdatenbank";
+"User 模型定义姓名与年龄，SQLite 文件保存实际记录。本页仅演示本地持久化。" = "Das User-Modell definiert Name und Alter. Eine SQLite-Datei speichert die tatsächlichen Datensätze. Diese Demo zeigt nur lokale Persistenz.";
+"添加用户" = "Benutzer hinzufügen";
+"编辑用户" = "Benutzer bearbeiten";
+"姓名不能为空。" = "Der Name darf nicht leer sein.";
+"年龄须为 0～150 的整数。" = "Das Alter muss eine ganze Zahl zwischen 0 und 150 sein.";
+"尚无用户记录" = "Noch keine Benutzerdatensätze";
+"输入姓名和年龄，添加第一位用户" = "Geben Sie Name und Alter ein, um den ersten Benutzer hinzuzufügen.";
+"点击记录编辑姓名与年龄，左滑删除。所有操作立即保存，重启后仍可读取。" = "Tippen Sie auf einen Datensatz, um Name und Alter zu ändern, oder wischen Sie zum Löschen nach links. Änderungen werden sofort gespeichert und bleiben nach einem App-Neustart erhalten.";
+"确定删除本 Demo 的全部用户？此操作无法撤销。" = "Alle Benutzer dieser Demo löschen? Dies kann nicht rückgängig gemacht werden.";
+"新增" = "Hinzufügen";
+"重试" = "Erneut versuchen";
+"操作" = "Aktionen";
+"Core Data 本地数据库" = "Lokale Core Data-Datenbank";
+"添加记录" = "Datensatz hinzufügen";
+"保存修改" = "Änderungen speichern";
+"删除记录" = "Datensatz löschen";
+"清空数据库" = "Datenbank leeren";
+"数据库操作失败" = "Datenbankoperation fehlgeschlagen";
+"重试数据库加载" = "Datenbank erneut laden";
+"记录数量：%@" = "Datensätze: %@";
+"数据库尚未就绪。" = "Die Datenbank ist noch nicht bereit.";
+"不能读取数据库模型。" = "Das Datenbankmodell kann nicht gelesen werden.";
+"重新加载" = "Neu laden";
+"数据库记录缺少必要字段。" = "In einem Datensatz fehlen erforderliche Felder.";
+
+// 首页骨架与世界时钟。
+"世界时钟" = "Weltuhr";
+"设备当前时区" = "Zeitzone des Geräts";
+"世界时区" = "Weltweite Zeitzonen";
+"暂无时区数据" = "Keine Zeitzonendaten";
+"功能实验室" = "Funktionslabor";
+"贝克岛" = "Bakerinsel";
+"12小时制" = "12-Stunden-Format";
+"24小时制" = "24-Stunden-Format";
+
+"返回首页时收缩分组" = "Gruppen bei Rückkehr zur Startseite einklappen";
+
+
+/* Rust OCR */
+"Rust 离线 OCR" = "Rust Offline-OCR";
+"OCR：所有识别均在本机完成" = "OCR: Die Erkennung erfolgt vollständig auf diesem Gerät";
+"OCR：选择图片后开始识别" = "OCR: Bild auswählen und Erkennung starten";
+"OCR：内置样本" = "OCR: Beispielbild";
+"OCR：选择照片" = "OCR: Foto auswählen";
+"OCR：开始识别" = "OCR: Erkennung starten";
+"OCR：复制结果" = "OCR: Ergebnis kopieren";
+"OCR：文字" = "OCR: Text";
+"OCR：识别完成" = "OCR: Erkennung abgeschlossen";
+"OCR：暂无文字，请选择清晰图片并重新识别" = "OCR: Kein Text. Ein scharfes Bild auswählen und erneut versuchen.";
+"OCR：图片读取失败" = "OCR: Bild konnte nicht geladen werden";
+"OCR：正在识别，请稍候" = "OCR: Erkennung läuft, bitte warten";
+"OCR：识别失败，可重新尝试" = "OCR: Erkennung fehlgeschlagen. Erneut versuchen.";
+"OCR：已取消识别" = "OCR: Erkennung abgebrochen";
+"OCR：结果已复制" = "OCR: Ergebnis kopiert";
+
+"OCR：SDK 尚未就绪" = "OCR: SDK ist noch nicht bereit";
+
+/* OCR whole-page reading and camera input */
+"OCR：样本" = "Beispiel";
+"OCR：相册" = "Fotos";
+"OCR：拍照" = "Kamera";
+"OCR：识别结果" = "Ergebnis";
+"OCR：复制" = "Kopieren";
+"OCR：设备无法使用摄像头" = "Die Kamera ist auf diesem Gerät nicht verfügbar.";
+"OCR：请在设置中允许访问相机" = "Erlaube den Kamerazugriff in den Systemeinstellungen.";
+"OCR：相机照片读取失败" = "Das aufgenommene Foto konnte nicht geladen werden. Bitte erneut versuchen.";

@@ -13,7 +13,7 @@ environment ribbons while preserving the original icon assets.
   spec.author           = { 'Jobs' => 'lg295060456@gmail.com' }
   spec.platform         = :ios, '12.0'
   spec.source           = { :path => '.' }
-  spec.preserve_paths   = 'Scripts/**/*'
+  spec.preserve_paths   = ['Scripts/**/*', 'JobsAppIconRibbon.config']
   spec.script_phase = {
     :name => 'Generate AppIcon Environment Ribbon',
     :script => 'JOBS_APP_ICON_RIBBON_NONINTERACTIVE=1 /bin/zsh "${PODS_TARGET_SRCROOT}/Scripts/JobsAppIconRibbon.sh"',

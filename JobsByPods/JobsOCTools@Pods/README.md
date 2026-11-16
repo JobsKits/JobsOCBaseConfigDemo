@@ -244,6 +244,8 @@ pod install --no-repo-update
 
 ## <span id="jobs-toc-heading-15" data-jobs-toc="v2">九、风险说明 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a></span><!-- jobs-toc:heading-end -->
 
+- Tab 容器及菜单的功能 Block 在弱引用提升后，通过 `self->_xxx` 读取既有配置与成员，保留首次安装门禁和原有容器装配顺序。
+
 - 只有 podspec 指定的公开头进入外部 API 边界；新增 import 时要确认不会把私有实现细节暴露给外部。
 - `Support` 只服务当前 Pod；App 层或其它 Pod 不应依赖 `Support/**/*.h` 的搜索路径命中。
 - `XDTextBtnView` 生成的按钮使用 `onClickBy` Block 链式入口绑定点按，不在调用方新增 `byAddTarget`。
@@ -336,7 +338,7 @@ pod install --no-repo-update
 
 ## <span id="jobs-toc-heading-24" data-jobs-toc="v2">十四、本轮单元验证 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a></span><!-- jobs-toc:heading-end -->
 
-历史结果：**清理 VPN 示例之前的 Debug / Release 单 Pod 编译、Debug Stability 回归和 macOS 生产实现回归见根 [JobsByPods升级实施与编译验证.md](<../../JobsByPods升级实施与编译验证.md>)**。源码或公开头变化后，旧指纹对应的记录不能作为当前编译结果，需刷新安装映射并重新验证。
+历史结果：**清理 VPN 示例之前的 Debug / Release 单 Pod 编译、Debug Stability 回归和 macOS 生产实现回归见根 [JobsByPods升级实施与编译验证.md](<../../项目相关报告/JobsByPods升级实施与编译验证.md>)**。源码或公开头变化后，旧指纹对应的记录不能作为当前编译结果，需刷新安装映射并重新验证。
 
 生产行为与边界按上述核心契约验收；逐 Pod 编译与独立行为回归分别记录结果。
 
@@ -344,14 +346,14 @@ pod install --no-repo-update
 
 ```shell
 cd ../..
-ruby ScriptsByPods/jobs_pods_stability_verify.rb/jobs_pods_stability_verify.rb \
+ruby ScriptsByPods/自动化测试相关脚本/jobs_pods_stability_verify.rb/jobs_pods_stability_verify.rb \
   --phase pods --pod JobsOCTools
 ```
 
 当前 podspec 显式提供 `Stability` test_spec。`Tests/` 与测试 fixture 只进入测试目标；真实行为断言通过后再回填结果。指定可用模拟器 UDID：
 
 ```shell
-ruby ScriptsByPods/jobs_pods_stability_verify.rb/jobs_pods_stability_verify.rb \
+ruby ScriptsByPods/自动化测试相关脚本/jobs_pods_stability_verify.rb/jobs_pods_stability_verify.rb \
   --phase tests --pod JobsOCTools --simulator '<UDID>'
 ```
 

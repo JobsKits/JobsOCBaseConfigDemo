@@ -208,6 +208,8 @@ JobsNetworkTrafficMonitor 使用 JobsOCTimer 周期读取处于 UP 状态的网�
 
 ## <span id="jobs-toc-heading-21" data-jobs-toc="v2">十一、运行合同与失败边界 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a></span><!-- jobs-toc:heading-end -->
 
+- 停止采样的功能 Block 在弱引用提升并判空后，显式通过 `self->_timer` 检查和停止既有计时器，不触发计时器懒加载。
+
 - 每个 monitor 持有自己的累计字节和单调时间基准；start/restart 清理基准，stop 释放 timer。采样间隔须有限且为正，限制为 0.1–3600 秒，非法值回退 1 秒。
 - 网速按实际采样 elapsed 计算；统计 AF_LINK、UP、非回环接口的设备总流量，显示“设备总流量”，不能视作 App 独占流量或固定 Wi-Fi。计数下降重新建基准，回退当次速率为零。
 - 生命周期运行在主队列；shared 保留单个回调槽，需要多个独立展示者时分别创建实例，避免互相覆盖。
@@ -239,7 +241,7 @@ JobsNetworkTrafficMonitor 使用 JobsOCTimer 周期读取处于 UP 状态的网�
 
 ## <span id="jobs-toc-heading-23" data-jobs-toc="v2">十三、本轮单元验证 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a></span><!-- jobs-toc:heading-end -->
 
-当前结果：**Debug / Release 单 Pod 编译、Debug Stability 回归已完成；整体验收记录见根 [JobsByPods升级实施与编译验证.md](<../../JobsByPods升级实施与编译验证.md>)**。生产源码、测试源码、资源与工程配置的指纹一致且命令真实退出成功，才可复用对应验证记录。
+当前结果：**Debug / Release 单 Pod 编译、Debug Stability 回归已完成；整体验收记录见根 [JobsByPods升级实施与编译验证.md](<../../项目相关报告/JobsByPods升级实施与编译验证.md>)**。生产源码、测试源码、资源与工程配置的指纹一致且命令真实退出成功，才可复用对应验证记录。
 
 生产行为与边界按上述核心契约验收；逐 Pod 编译与独立行为回归分别记录结果。
 
@@ -247,7 +249,7 @@ JobsNetworkTrafficMonitor 使用 JobsOCTimer 周期读取处于 UP 状态的网�
 
 ```shell
 cd ../..
-ruby ScriptsByPods/jobs_pods_stability_verify.rb/jobs_pods_stability_verify.rb \
+ruby ScriptsByPods/自动化测试相关脚本/jobs_pods_stability_verify.rb/jobs_pods_stability_verify.rb \
   --phase pods --pod JobsNetWorkTools
 ```
 
@@ -256,7 +258,7 @@ ruby ScriptsByPods/jobs_pods_stability_verify.rb/jobs_pods_stability_verify.rb \
 当前 podspec 显式提供 `Stability` test_spec。`Tests/` 与测试 fixture 只进入测试目标；真实行为断言通过后再回填结果。指定可用模拟器 UDID：
 
 ```shell
-ruby ScriptsByPods/jobs_pods_stability_verify.rb/jobs_pods_stability_verify.rb \
+ruby ScriptsByPods/自动化测试相关脚本/jobs_pods_stability_verify.rb/jobs_pods_stability_verify.rb \
   --phase tests --pod JobsNetWorkTools --simulator '<UDID>'
 ```
 

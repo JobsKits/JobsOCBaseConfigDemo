@@ -545,15 +545,15 @@ Prop_strong()id runtimeObject;
         if (!self) return nil;
         Class existClass = NSClassFromString(className);
         if (existClass) {
-            newClass = existClass;
+            self->newClass = existClass;
             return existClass;
         }
         /// ❤️添加一个继承 OCDynamic 的类 类名是 className；注意：调用的 C 语言的方法 所以不要使用 @"".jobsTr() 表示字符串 应该使用 ""❤️
         /// 我们如果使用 objc_allocateClassPair 函数来创建一个类对象失败了，那么 objc_allocateClassPair 就会返回 Nil。如果所要创建的类已经存在了，那么就会返回 Nil.
-        newClass = objc_allocateClassPair(OCDynamic.class,/// 第一个参数是父类对象，如果传nil那么新创建的类就是跟NSObject同等级别的根类对象;
+        self->newClass = objc_allocateClassPair(OCDynamic.class,/// 第一个参数是父类对象，如果传nil那么新创建的类就是跟NSObject同等级别的根类对象;
                                           className.UTF8String,/// 第二个参数是本类类名;
                                           0);/// 第三个参数是初始的内存空间大小;
-        return newClass;
+        return self->newClass;
     /*
      1、objc_registerClassPair函数是将创建的类对象加载到内存，加载完成之后，本类中的ro就已经确定了;
      2、我们知道，ro是只读的，它在确定之后就不可以动态增加内容了，如果我们想在运行时增加一些内容，只能是往rw中去增加;

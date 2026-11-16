@@ -156,8 +156,8 @@ Prop_assign()NSUInteger renderVersion;
                 });
         });
         self.controlTitleLabel.addOn(_controlView).byAdd(^(MASConstraintMaker *make) {
-            make.left.equalTo(_controlView).offset(JobsWidth(14));
-            make.centerY.equalTo(_controlView);
+            make.left.equalTo(self->_controlView).offset(JobsWidth(14));
+            make.centerY.equalTo(self->_controlView);
         });
         self.brushSwitch.byAlpha(1);
         self.clearButton.byAlpha(1);
@@ -189,10 +189,10 @@ Prop_assign()NSUInteger renderVersion;
                 .onJobsChange(^(__kindof UIControl * _Nullable control) {
                     weak_self.switchValueChanged((UISwitch *)control);
                 })
-                .addOn(_controlView)
+                .addOn(self->_controlView)
                 .byAdd(^(MASConstraintMaker *make) {
-                    make.left.equalTo(_controlView).offset(JobsWidth(74));
-                    make.centerY.equalTo(_controlView);
+                    make.left.equalTo(self->_controlView).offset(JobsWidth(74));
+                    make.centerY.equalTo(self->_controlView);
                 });
         });
     };return _brushSwitch;
@@ -215,10 +215,10 @@ Prop_assign()NSUInteger renderVersion;
                         .byCornerRadius(JobsWidth(7))
                         .byMasksToBounds(YES);
                 })
-                .addOn(_controlView)
+                .addOn(self->_controlView)
                 .byAdd(^(MASConstraintMaker *make) {
-                    make.right.equalTo(_controlView).offset(-JobsWidth(14));
-                    make.centerY.equalTo(_controlView);
+                    make.right.equalTo(self->_controlView).offset(-JobsWidth(14));
+                    make.centerY.equalTo(self->_controlView);
                     make.size.mas_equalTo(CGSizeMake(JobsWidth(74), JobsWidth(34)));
                 });
         });

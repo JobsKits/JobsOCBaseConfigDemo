@@ -254,8 +254,8 @@ Prop_assign()CGRect lastAnimationBounds;
         self.byUserInteractionEnabled(NO);
         self.byAccessibilityElement(YES);
         self.byAccessibilityLabel(@"刷新中");
-        _contentLayer = CALayer.layer;
-        _markLayer = CAShapeLayer.layer;
+        self->_contentLayer = CALayer.layer;
+        self->_markLayer = CAShapeLayer.layer;
         [self.layer addSublayer:self.contentLayer];
         [self.contentLayer addSublayer:self.markLayer];
         [NSNotificationCenter.defaultCenter addObserver:self

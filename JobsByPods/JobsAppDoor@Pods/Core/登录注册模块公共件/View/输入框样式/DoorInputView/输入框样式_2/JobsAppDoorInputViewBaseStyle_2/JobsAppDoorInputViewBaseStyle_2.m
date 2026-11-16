@@ -81,30 +81,30 @@ Prop_strong()JobsAppDoorInputViewBaseStyleModel *doorInputViewBaseStyleModel;
     return ^{
         @jobs_strongify(self)
         if (!self) return;
-        _magicTextField
+        self->_magicTextField
             .byLeftView(jobsMakeImageView(^(__kindof UIImageView * _Nullable imageView) {
                 imageView
                     .byImage(self.doorInputViewBaseStyleModel.leftViewIMG)
                     .byUserInteractionEnabled(NO);
             }))
             .byLeftViewMode(self.doorInputViewBaseStyleModel.leftViewMode);
-        _magicTextField.byReturnKeyType(self.doorInputViewBaseStyleModel.returnKeyType);
-        _magicTextField.byKeyboardAppearance(self.doorInputViewBaseStyleModel.keyboardAppearance);
-        _magicTextField.byPlaceholder(self.doorInputViewBaseStyleModel.placeholder);
-        _magicTextField.byKeyboardType(self.doorInputViewBaseStyleModel.keyboardType);
-        _magicTextField.byTextCor(self.doorInputViewBaseStyleModel.titleStrCor);
-        _magicTextField.byUseCustomClearButton(self.doorInputViewBaseStyleModel.useCustomClearButton);
-        _magicTextField.byIsShowDelBtn(self.doorInputViewBaseStyleModel.isShowDelBtn);
-        _magicTextField.byRightViewOffsetX(self.doorInputViewBaseStyleModel.rightViewOffsetX ? : JobsWidth(8));
-        _magicTextField.byPlaceholderColor(self.doorInputViewBaseStyleModel.placeholderColor);
-        _magicTextField.byLeftViewOffsetX(self.doorInputViewBaseStyleModel.leftViewOffsetX ? : JobsWidth(17));
-        _magicTextField.byPlaceholderFont(self.doorInputViewBaseStyleModel.placeholderFont);
-        _magicTextField.byRequestParams(self.textFieldInputModel);
-        _magicTextField.byAnimationColor(self.doorInputViewBaseStyleModel.animationColor ? : Cor3);
-        _magicTextField.byPlaceHolderAlignment(self.doorInputViewBaseStyleModel.placeHolderAlignment ? : NSTextAlignmentLeft);
-        _magicTextField.byPlaceHolderOffset(self.doorInputViewBaseStyleModel.placeHolderOffset ? : JobsWidth(20));
-        _magicTextField.byMoveDistance(self.doorInputViewBaseStyleModel.moveDistance ? : JobsWidth(40));
-        _magicTextField.byFieldEditorOffset(self.doorInputViewBaseStyleModel.fieldEditorOffset ? : JobsWidth(50));
+        self->_magicTextField.byReturnKeyType(self.doorInputViewBaseStyleModel.returnKeyType);
+        self->_magicTextField.byKeyboardAppearance(self.doorInputViewBaseStyleModel.keyboardAppearance);
+        self->_magicTextField.byPlaceholder(self.doorInputViewBaseStyleModel.placeholder);
+        self->_magicTextField.byKeyboardType(self.doorInputViewBaseStyleModel.keyboardType);
+        self->_magicTextField.byTextCor(self.doorInputViewBaseStyleModel.titleStrCor);
+        self->_magicTextField.byUseCustomClearButton(self.doorInputViewBaseStyleModel.useCustomClearButton);
+        self->_magicTextField.byIsShowDelBtn(self.doorInputViewBaseStyleModel.isShowDelBtn);
+        self->_magicTextField.byRightViewOffsetX(self.doorInputViewBaseStyleModel.rightViewOffsetX ? : JobsWidth(8));
+        self->_magicTextField.byPlaceholderColor(self.doorInputViewBaseStyleModel.placeholderColor);
+        self->_magicTextField.byLeftViewOffsetX(self.doorInputViewBaseStyleModel.leftViewOffsetX ? : JobsWidth(17));
+        self->_magicTextField.byPlaceholderFont(self.doorInputViewBaseStyleModel.placeholderFont);
+        self->_magicTextField.byRequestParams(self.textFieldInputModel);
+        self->_magicTextField.byAnimationColor(self.doorInputViewBaseStyleModel.animationColor ? : Cor3);
+        self->_magicTextField.byPlaceHolderAlignment(self.doorInputViewBaseStyleModel.placeHolderAlignment ? : NSTextAlignmentLeft);
+        self->_magicTextField.byPlaceHolderOffset(self.doorInputViewBaseStyleModel.placeHolderOffset ? : JobsWidth(20));
+        self->_magicTextField.byMoveDistance(self.doorInputViewBaseStyleModel.moveDistance ? : JobsWidth(40));
+        self->_magicTextField.byFieldEditorOffset(self.doorInputViewBaseStyleModel.fieldEditorOffset ? : JobsWidth(50));
     };
 }
 

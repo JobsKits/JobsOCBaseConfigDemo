@@ -139,6 +139,8 @@ pod install --no-repo-update
 
 ## <span id="jobs-toc-heading-10" data-jobs-toc="v2">九、风险说明 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a></span><!-- jobs-toc:heading-end -->
 
+- 回复提示头像的约束 Block 通过 `self->_replyHintAvatarImageView` 直接引用已经创建的视图，保持原有约束与懒加载时序。
+
 - 模式二只负责把“点击评论”交还给业务侧，真正的新页面由宿主 Demo 或业务控制器打开。
 - 当前组件只做展示，不包含发布评论、点赞、删除、举报或网络请求。
 - `Support` 内部 Cell 不作为公开 API 使用，外部只应通过 `JobsOCCommentView` 和模型配置。
@@ -200,7 +202,7 @@ pod install --no-repo-update
 
 ## <span id="jobs-toc-heading-18" data-jobs-toc="v2">十三、本轮单元验证 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a></span><!-- jobs-toc:heading-end -->
 
-当前结果：**Debug / Release 单 Pod 编译已完成；本 Pod 无独立 Stability 回归；整体验收记录见根 [JobsByPods升级实施与编译验证.md](<../../JobsByPods升级实施与编译验证.md>)**。生产源码、测试源码、资源与工程配置的指纹一致且命令真实退出成功，才可复用对应验证记录。
+当前结果：**Debug / Release 单 Pod 编译已完成；本 Pod 无独立 Stability 回归；整体验收记录见根 [JobsByPods升级实施与编译验证.md](<../../项目相关报告/JobsByPods升级实施与编译验证.md>)**。生产源码、测试源码、资源与工程配置的指纹一致且命令真实退出成功，才可复用对应验证记录。
 
 该 Pod 维持既有内核，纳入统一逐 Pod 和主工程编译；没有以新增代码数量作为升级验收依据。
 
@@ -208,7 +210,7 @@ pod install --no-repo-update
 
 ```shell
 cd ../..
-ruby ScriptsByPods/jobs_pods_stability_verify.rb/jobs_pods_stability_verify.rb \
+ruby ScriptsByPods/自动化测试相关脚本/jobs_pods_stability_verify.rb/jobs_pods_stability_verify.rb \
   --phase pods --pod JobsOCComment
 ```
 

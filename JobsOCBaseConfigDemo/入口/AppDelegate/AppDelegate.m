@@ -123,14 +123,29 @@ static dispatch_once_t AppDelegateOnceToken;
 - (NSPersistentCloudKitContainer *)persistentContainer {
     @synchronized (self) {
         if (_persistentContainer == nil) {
-            // 模型名固定匹配打包的 JobsOCBaseConfigDemo.momd，不使用可本地化的显示名。
-            _persistentContainer = [NSPersistentCloudKitContainer.alloc initWithName:@"JobsOCBaseConfigDemo"];
-            [_persistentContainer loadPersistentStoresWithCompletionHandler:^(NSPersistentStoreDescription *storeDescription,
-                                                                              NSError *error) {
+            // 固定模型名匹配打包资源；失败不缓存，供 Demo 的重新加载动作重试。
+            NSURL *modelURL = [NSBundle.mainBundle URLForResource:@"JobsOCBaseConfigDemo" withExtension:@"momd"];
+            NSManagedObjectModel *model = modelURL ? [NSManagedObjectModel.alloc initWithContentsOfURL:modelURL] : nil;
+            if (!model) {
+                JobsLog(@"Core Data model unavailable: JobsOCBaseConfigDemo.momd");
+                return nil;
+            }
+            NSPersistentCloudKitContainer *candidate = [NSPersistentCloudKitContainer.alloc initWithName:@"JobsOCBaseConfigDemo" managedObjectModel:model];
+            for (NSPersistentStoreDescription *description in candidate.persistentStoreDescriptions) {
+                description.shouldAddStoreAsynchronously = NO;
+                description.shouldMigrateStoreAutomatically = YES;
+                description.shouldInferMappingModelAutomatically = YES;
+            }
+            __block NSError *loadError = nil;
+            [candidate loadPersistentStoresWithCompletionHandler:^(NSPersistentStoreDescription *description, NSError *error) {
+                loadError = error;
                 if (error) {
                     JobsLog(@"Core Data load failed: %@, %@", error, error.userInfo);
                 }
             }];
+            if (!loadError && candidate.persistentStoreCoordinator.persistentStores.count) {
+                _persistentContainer = candidate;
+            }
         }
     }
     return _persistentContainer;

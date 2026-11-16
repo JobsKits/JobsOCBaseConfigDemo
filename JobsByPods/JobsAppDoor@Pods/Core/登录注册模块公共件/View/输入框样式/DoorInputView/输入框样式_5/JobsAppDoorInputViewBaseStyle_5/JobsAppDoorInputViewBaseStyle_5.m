@@ -210,7 +210,7 @@ Prop_strong()UIViewModel *chooseBtnViewModel;
     return ^BaseButton *{
         @jobs_strongify(self)
         if (!self) return nil;
-        return _securityModeBtn;
+        return self->_securityModeBtn;
     };
 }
 #pragma mark —— lazyLoad

@@ -38,6 +38,8 @@
 
 该模块没有运行时代码，不需要在 [**Swift**](https://www.swift.org/) 或 [**Objective-C**](https://developer.apple.com/library/archive/documentation/Cocoa/Conceptual/ProgrammingWithObjectiveC/Introduction/Introduction.html) 中 `import`。它由 [**CocoaPods**](https://cocoapods.org/) 注册到 [**Xcode**](https://developer.apple.com/xcode) Build Phase，并在资源编译前生成派生 AppIcon。
 
+本地 Pod 统一放在工程的 `JobsByPods` 下，本模块目录为 `JobsByPods/JobsAppIconRibbon@Pods`；新工程不保留 `Libs` 目录。独立调用从脚本祖先的 Podfile 定位工程，默认读取模块根的 `JobsAppIconRibbon.config`；显式环境参数仍可覆盖。原图路径继续相对工程根目录，生成器不修改原图。
+
 ## <span id="jobs-toc-heading-2" data-jobs-toc="v2">一、快速使用 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a></span><!-- jobs-toc:heading-end -->
 
 1. 在 `Podfile` 或依赖拆分文件中引入：
@@ -46,7 +48,7 @@
    pod 'JobsAppIconRibbon', :path => './JobsByPods/JobsAppIconRibbon@Pods'
    ```
 
-2. 在项目根目录创建 `JobsAppIconRibbon.config`：
+2. 编辑本模块根目录的 `JobsAppIconRibbon.config`：
 
    ```properties
    SOURCE_APPICONSET=项目内原始AppIcon.appiconset的相对路径
@@ -135,7 +137,7 @@ JobsAppIconRibbon@Pods/
 - `JobsPodspecKit.rb`：应用 OC 新工程本地 Pod 的标准构建配置。
 - `Scripts/JobsAppIconRibbon.sh`：解析项目根目录、配置文件和 Configuration。
 - `Scripts/JobsAppIconRibbonGenerator.swift`：使用 macOS 图像能力生成派生图标。
-- 项目根目录的 `../../JobsAppIconRibbon.config`：项目级样式和路径配置。
+- 本模块的 `./JobsAppIconRibbon.config`：项目级样式和路径配置。
 
 ## <span id="jobs-toc-heading-7" data-jobs-toc="v2">六、手动验证 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a></span><!-- jobs-toc:heading-end -->
 
@@ -152,7 +154,7 @@ zsh './JobsByPods/JobsAppIconRibbon@Pods/Scripts/JobsAppIconRibbon.sh'
 
 ## <span id="jobs-toc-heading-8" data-jobs-toc="v2">七、常见问题 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a></span><!-- jobs-toc:heading-end -->
 
-- 找不到配置文件：确认项目根目录存在 `JobsAppIconRibbon.config`。
+- 找不到配置文件：确认本模块目录存在 `JobsAppIconRibbon.config`。
 - 找不到源图标：确认 `SOURCE_APPICONSET` 是项目根目录下的相对路径，并包含 `Contents.json`。
 - 构建后图标未变化：确认当前 Configuration 的 `ASSETCATALOG_COMPILER_APPICON_NAME` 使用派生名称。
 - 字体未生效：`FONT_NAME` 必须是 macOS 可识别的字体名称；不可用时会回退到系统粗体。
@@ -230,7 +232,7 @@ flowchart LR
 
 ## <span id="jobs-toc-heading-17" data-jobs-toc="v2">十二、本轮单元验证 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a></span><!-- jobs-toc:heading-end -->
 
-当前结果：**Debug / Release 单 Pod 编译、macOS 生产实现回归已完成；本 Pod 无独立 Stability 回归；整体验收记录见根 [JobsByPods升级实施与编译验证.md](<../../JobsByPods升级实施与编译验证.md>)**。生产源码、测试源码、资源与工程配置的指纹一致且命令真实退出成功，才可复用对应验证记录。
+当前结果：**Debug / Release 单 Pod 编译、macOS 生产实现回归已完成；本 Pod 无独立 Stability 回归；整体验收记录见根 [JobsByPods升级实施与编译验证.md](<../../项目相关报告/JobsByPods升级实施与编译验证.md>)**。生产源码、测试源码、资源与工程配置的指纹一致且命令真实退出成功，才可复用对应验证记录。
 
 生产行为与边界按上述核心契约验收；逐 Pod 编译与独立行为回归分别记录结果。
 
@@ -238,7 +240,7 @@ flowchart LR
 
 ```shell
 cd ../..
-ruby ScriptsByPods/jobs_pods_stability_verify.rb/jobs_pods_stability_verify.rb \
+ruby ScriptsByPods/自动化测试相关脚本/jobs_pods_stability_verify.rb/jobs_pods_stability_verify.rb \
   --phase pods --pod JobsAppIconRibbon
 ```
 

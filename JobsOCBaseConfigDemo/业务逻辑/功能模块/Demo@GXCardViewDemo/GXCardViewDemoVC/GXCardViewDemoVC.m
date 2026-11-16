@@ -330,7 +330,7 @@ Prop_assign()NSInteger cellCount;
         @jobs_strongify(self)
         if (!self) return;
         [super viewWillAppear:animated];
-        [_cardView reloadData];
+        [self->_cardView reloadData];
     };
 }
 

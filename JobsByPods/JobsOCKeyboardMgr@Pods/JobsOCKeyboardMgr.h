@@ -45,7 +45,8 @@ Prop_assign(readonly, getter=isStarted) BOOL started;
 +(JobsRetIDByVoidBlock _Nonnull)jobsSharedManager;
 
 -(JobsRetJobsOCKeyboardMgrByVoidBlock _Nonnull)start;
--(JobsRetJobsOCKeyboardMgrByVoidBlock _Nonnull)stop;
+// 显式遮蔽通用 TimerProtocol 的 BOOL stop，保持点语法调用 Block getter。
+Prop_copy(readonly) JobsRetJobsOCKeyboardMgrByVoidBlock _Nonnull stop;
 -(JobsRetJobsOCKeyboardMgrByVoidBlock _Nonnull)restore;
 -(JobsRetJobsOCKeyboardMgrByConfigBlock _Nonnull)byConfig;
 -(jobsByIDBlock _Nonnull)clearConfigByOwner;

@@ -71,10 +71,10 @@ Prop_strong()NSMutableArray <UIImage *>*photosImageMutArr;
             .byBgCor(RGBA_COLOR(255, 238, 221, 1))
             .byNavBgCor(RGBA_COLOR(255, 238, 221, 1))
             .byNavBgImage(@"导航栏左侧底图".img);
-        _picBefore = nil;
-        _picAfter = nil;
-        _resultStr = @"".jobsTr();
-        _showStr = @"".jobsTr();
+        self->_picBefore = nil;
+        self->_picAfter = nil;
+        self->_resultStr = @"".jobsTr();
+        self->_showStr = @"".jobsTr();
     };
 }
 

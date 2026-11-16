@@ -158,8 +158,8 @@ static dispatch_once_t JobsCustomTabBarVCOnceToken;
         @jobs_strongify(self)
         if (!self) return;
         // UIKit 初始化可能提前加载 view；首次外观传播前才安装已注入的配置。
-        if (!_didInstallInitialConfiguration) {
-            _didInstallInitialConfiguration = YES;
+        if (!self->_didInstallInitialConfiguration) {
+            self->_didInstallInitialConfiguration = YES;
             if (!self.viewControllers.count) {
                 self.byViewControllers(self.sceneConfiguration ? self.sceneConfiguration.viewControllers : JobsCustomTabBarVCViewControllers());
             }

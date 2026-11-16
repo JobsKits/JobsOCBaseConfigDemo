@@ -64,12 +64,24 @@ UITableViewDataSource,
 UITextFieldDelegate
 >
 
+Prop_copy(readonly)NSString *normalizedQuery;
+Prop_strong(readonly, nullable)UIView *resultContentView;
 Prop_strong(readonly)UITextField *textField;
 Prop_strong(readonly)JobsOCSearcherConfig *config;
 Prop_copy(readonly)NSArray <NSString *>*historySearches;
 
+/// Inject the host result view; the host still owns its data source and navigation.
+-(JobsRetJobsOCSearcherViewByUIViewBlock _Nonnull)byResultContentView;
+/// Real normalized query changes emit exactly one text-change callback.
+-(JobsRetJobsOCSearcherViewByNSStringBOOLBlock _Nonnull)byQuery;
+-(JobsRetJobsOCSearcherViewByNSUIntegerBlock _Nonnull)byResultCount;
+-(JobsRetJobsOCSearcherViewByVoidBlock _Nonnull)focus;
+-(JobsRetJobsOCSearcherViewByVoidBlock _Nonnull)dismissKeyboard;
 -(JobsRetJobsOCSearcherViewByConfigBlock _Nonnull)byConfig;
 -(instancetype)initWithConfig:(JobsOCSearcherConfig *_Nullable)config;
+/// Optional real UITextField subclass for legacy input-only adapters; the component owns editing/delegate events.
+-(instancetype)initWithConfig:(JobsOCSearcherConfig *_Nullable)config
+                    textField:(UITextField *_Nullable)textField;
 /// 链式配置搜索推荐词元；传 nil / 空数组时隐藏搜索推荐模块。
 -(JobsRetJobsOCSearcherViewByNSArrayNSStringBlock _Nonnull)byRecommendSearches;
 -(jobsByJobsOCSearcherConfigBlock _Nonnull)reloadWithConfig;

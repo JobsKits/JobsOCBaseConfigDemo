@@ -209,6 +209,8 @@ pod install --no-repo-update
 
 ## <span id="jobs-toc-heading-15" data-jobs-toc="v2">九、风险说明 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a></span><!-- jobs-toc:heading-end -->
 
+- 功能 Block 先提升弱引用并判空，再用 `self->_xxx` 访问既有视图与模型；直接成员读取不改成懒加载 getter，避免改变初始化与复用时序。
+
 - 只有 podspec 指定的公开头进入外部 API 边界；新增 import 时要确认不会把私有实现细节暴露给外部。
 - `Support` 只服务当前 Pod；App 层或其它 Pod 不应依赖 `Support/**/*.h` 的搜索路径命中。
 - `BaseLabel` 是 `UIView` 子类，可见性状态使用 `jobsVisible` / `byVisible`；`isVisible` 只属于 model 协议标记，不能直接发给视图对象。
@@ -276,7 +278,7 @@ pod install --no-repo-update
 
 [Mac 解档内核回归](<./Tests/run_regression.rb>) 用 `ruby Tests/run_regression.rb` 直接编译原始生产 `.m`，验证基础类型、嵌套容器白名单和非法类集合；它不访问系统 Keychain，不替代上面的真实账户 smoke。真实 smoke 跳过时必须记为跳过，不能计为通过。
 
-本工程的 [统一验收入口](<../../ScriptsByPods/jobs_pods_stability_verify.rb/jobs_pods_stability_verify.rb>) 为 JobsBaseUI Simulator 测试宿主使用 ad-hoc 签名和宿主自己的 Keychain access group；实际检查签名和展开后的 entitlement，要求所有用例通过且零跳过。直接使用无签名 XCTest 命令可能得到 `errSecMissingEntitlement`，请通过该入口执行本模块系统回归；生产 Helper 的 query 保持系统默认 access group。
+本工程的 [统一验收入口](<../../ScriptsByPods/自动化测试相关脚本/jobs_pods_stability_verify.rb/jobs_pods_stability_verify.rb>) 为 JobsBaseUI Simulator 测试宿主使用 ad-hoc 签名和宿主自己的 Keychain access group；实际检查签名和展开后的 entitlement，要求所有用例通过且零跳过。直接使用无签名 XCTest 命令可能得到 `errSecMissingEntitlement`，请通过该入口执行本模块系统回归；生产 Helper 的 query 保持系统默认 access group。
 
 ## <span id="jobs-toc-heading-23" data-jobs-toc="v2">十三、目录计数与安装边界 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a></span><!-- jobs-toc:heading-end -->
 
@@ -307,7 +309,7 @@ pod install --no-repo-update
 
 ## <span id="jobs-toc-heading-24" data-jobs-toc="v2">十四、本轮单元验证 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a></span><!-- jobs-toc:heading-end -->
 
-当前结果：**Debug / Release 单 Pod 编译、Debug Stability 回归、macOS 生产实现回归已完成；整体验收记录见根 [JobsByPods升级实施与编译验证.md](<../../JobsByPods升级实施与编译验证.md>)**。生产源码、测试源码、资源与工程配置的指纹一致且命令真实退出成功，才可复用对应验证记录。
+当前结果：**Debug / Release 单 Pod 编译、Debug Stability 回归、macOS 生产实现回归已完成；整体验收记录见根 [JobsByPods升级实施与编译验证.md](<../../项目相关报告/JobsByPods升级实施与编译验证.md>)**。生产源码、测试源码、资源与工程配置的指纹一致且命令真实退出成功，才可复用对应验证记录。
 
 生产行为与边界按上述核心契约验收；逐 Pod 编译与独立行为回归分别记录结果。
 
@@ -315,18 +317,22 @@ pod install --no-repo-update
 
 ```shell
 cd ../..
-ruby ScriptsByPods/jobs_pods_stability_verify.rb/jobs_pods_stability_verify.rb \
+ruby ScriptsByPods/自动化测试相关脚本/jobs_pods_stability_verify.rb/jobs_pods_stability_verify.rb \
   --phase pods --pod JobsBaseUI
 ```
 
 当前 podspec 显式提供 `Stability` test_spec。`Tests/` 与测试 fixture 只进入测试目标；真实行为断言通过后再回填结果。指定可用模拟器 UDID：
 
 ```shell
-ruby ScriptsByPods/jobs_pods_stability_verify.rb/jobs_pods_stability_verify.rb \
+ruby ScriptsByPods/自动化测试相关脚本/jobs_pods_stability_verify.rb/jobs_pods_stability_verify.rb \
   --phase tests --pod JobsBaseUI --simulator '<UDID>'
 ```
 
 运行前应已安装工程依赖；runner 的 `--phase pods` 默认分别编译 Debug / Release，`--phase tests` 默认运行 Debug（JobsOCSnowflake 默认 Debug / Release），并将命令、源码指纹、日志和退出码保存到工程 `work/JobsPodsStability/`。如需固定输出目录，使用 runner 的 `--output`。
+
+
+
+`UITextField+Placeholder` 保留显式的 `jobsAttributedText()` 模型富文本辅助入口；分类不再覆盖系统 `attributedText` getter。普通输入框的当前文本、占位与 UIKit 原生绘制继续由系统属性承接，避免出现“AX 有值但输入文字不可见”。搜索组件对原生 `attributedText.string` 与 `text` 一致性提供回归，宿主与旧输入条另做真实可视验证。
 
 <a id="🔚" href="#前言" style="font-size:17px; color:green; font-weight:bold;">我是有底线的➤点我回到首页</a>
 
