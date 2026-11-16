@@ -107,13 +107,13 @@ Prop_strong()NSMutableArray <NSURL *>*assetURLs;
     return ^{
         @jobs_strongify(self)
         if (!self) return;
-        _player.currentPlayerManager.stop;
-        _player.byPlayerDidToEnd(nil);
-        _player.byControlView(nil);
-        _player = nil;
-        _playerManager = nil;
-        [_customPlayerControlView removeFromSuperview];
-        _customPlayerControlView = nil;
+        self->_player.currentPlayerManager.stop;
+        self->_player.byPlayerDidToEnd(nil);
+        self->_player.byControlView(nil);
+        self->_player = nil;
+        self->_playerManager = nil;
+        [self->_customPlayerControlView removeFromSuperview];
+        self->_customPlayerControlView = nil;
     };
 }
 #pragma mark —— lazyLoad

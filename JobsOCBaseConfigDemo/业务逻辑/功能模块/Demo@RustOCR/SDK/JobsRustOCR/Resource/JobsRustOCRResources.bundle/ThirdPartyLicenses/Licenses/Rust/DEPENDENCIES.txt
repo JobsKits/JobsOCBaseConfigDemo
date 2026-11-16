@@ -1,0 +1,55 @@
+JobsOCR Apple Rust dependency notices
+Original texts accompany this file in per-crate subdirectories.
+Includes build dependencies for attribution completeness.
+
+adler2 2.0.1 | 0BSD OR MIT OR Apache-2.0 | https://crates.io/crates/adler2/2.0.1
+autocfg 1.5.1 | Apache-2.0 OR MIT | https://crates.io/crates/autocfg/1.5.1
+bitflags 2.13.2 | MIT OR Apache-2.0 | https://crates.io/crates/bitflags/2.13.2
+bumpalo 3.20.4 | MIT OR Apache-2.0 | https://crates.io/crates/bumpalo/3.20.4
+bytemuck 1.25.2 | Zlib OR Apache-2.0 OR MIT | https://crates.io/crates/bytemuck/1.25.2
+byteorder-lite 0.1.0 | Unlicense OR MIT | https://crates.io/crates/byteorder-lite/0.1.0
+cfg-if 1.0.5 | MIT OR Apache-2.0 | https://crates.io/crates/cfg-if/1.0.5
+crc32fast 1.5.5 | MIT OR Apache-2.0 | https://crates.io/crates/crc32fast/1.5.5
+equivalent 1.0.3 | Apache-2.0 OR MIT | https://crates.io/crates/equivalent/1.0.3
+fax 0.2.7 | MIT | https://crates.io/crates/fax/0.2.7
+fdeflate 0.3.7 | MIT OR Apache-2.0 | https://crates.io/crates/fdeflate/0.3.7
+flate2 1.1.11 | MIT OR Apache-2.0 | https://crates.io/crates/flate2/1.1.11
+half 2.7.1 | MIT OR Apache-2.0 | https://crates.io/crates/half/2.7.1
+hashbrown 0.17.1 | MIT OR Apache-2.0 | https://crates.io/crates/hashbrown/0.17.1
+image 0.25.10 | MIT OR Apache-2.0 | https://crates.io/crates/image/0.25.10
+image-webp 0.2.4 | MIT OR Apache-2.0 | https://crates.io/crates/image-webp/0.2.4
+indexmap 2.14.2 | Apache-2.0 OR MIT | https://crates.io/crates/indexmap/2.14.2
+itoa 1.0.19 | MIT OR Apache-2.0 | https://crates.io/crates/itoa/1.0.19
+log 0.4.35 | MIT OR Apache-2.0 | https://crates.io/crates/log/0.4.35
+memchr 2.8.3 | Unlicense OR MIT | https://crates.io/crates/memchr/2.8.3
+miniz_oxide 0.8.9 | MIT OR Zlib OR Apache-2.0 | https://crates.io/crates/miniz_oxide/0.8.9
+miniz_oxide 0.9.1 | MIT OR Zlib OR Apache-2.0 | https://crates.io/crates/miniz_oxide/0.9.1
+moxcms 0.8.1 | BSD-3-Clause OR Apache-2.0 | https://crates.io/crates/moxcms/0.8.1
+num-traits 0.2.19 | MIT OR Apache-2.0 | https://crates.io/crates/num-traits/0.2.19
+ort 2.0.0-rc.15 | MIT OR Apache-2.0 | https://crates.io/crates/ort/2.0.0-rc.15
+ort-sys 2.0.0-rc.15 | MIT OR Apache-2.0 | https://crates.io/crates/ort-sys/2.0.0-rc.15
+png 0.18.1 | MIT OR Apache-2.0 | https://crates.io/crates/png/0.18.1
+proc-macro2 1.0.107 | MIT OR Apache-2.0 | https://crates.io/crates/proc-macro2/1.0.107
+pxfm 0.1.30 | BSD-3-Clause OR Apache-2.0 | https://crates.io/crates/pxfm/0.1.30
+quick-error 2.0.1 | MIT/Apache-2.0 | https://crates.io/crates/quick-error/2.0.1
+quote 1.0.47 | MIT OR Apache-2.0 | https://crates.io/crates/quote/1.0.47
+serde 1.0.228 | MIT OR Apache-2.0 | https://crates.io/crates/serde/1.0.228
+serde_core 1.0.228 | MIT OR Apache-2.0 | https://crates.io/crates/serde_core/1.0.228
+serde_derive 1.0.228 | MIT OR Apache-2.0 | https://crates.io/crates/serde_derive/1.0.228
+serde_json 1.0.149 | MIT OR Apache-2.0 | https://crates.io/crates/serde_json/1.0.149
+simd-adler32 0.3.10 | MIT | https://crates.io/crates/simd-adler32/0.3.10
+smallvec 1.16.5 | MIT OR Apache-2.0 | https://crates.io/crates/smallvec/1.16.5
+syn 2.0.119 | MIT OR Apache-2.0 | https://crates.io/crates/syn/2.0.119
+tiff 0.11.3 | MIT | https://crates.io/crates/tiff/0.11.3
+tinyvec 1.13.3 | Zlib OR Apache-2.0 OR MIT | https://crates.io/crates/tinyvec/1.13.3
+unicode-ident 1.0.27 | (MIT OR Apache-2.0) AND Unicode-3.0 | https://crates.io/crates/unicode-ident/1.0.27
+unicode-normalization 0.1.26 | (MIT OR Apache-2.0) AND Unicode-3.0 | https://crates.io/crates/unicode-normalization/0.1.26
+unicode-width 0.2.3 | MIT OR Apache-2.0 | https://crates.io/crates/unicode-width/0.2.3
+weezl 0.1.12 | MIT OR Apache-2.0 | https://crates.io/crates/weezl/0.1.12
+zerocopy 0.8.63 | BSD-2-Clause OR Apache-2.0 OR MIT | https://crates.io/crates/zerocopy/0.8.63
+zerocopy-derive 0.8.63 | BSD-2-Clause OR Apache-2.0 OR MIT | https://crates.io/crates/zerocopy-derive/0.8.63
+zip 2.6.1 | MIT | https://crates.io/crates/zip/2.6.1
+zmij 1.0.23 | MIT | https://crates.io/crates/zmij/1.0.23
+zopfli 0.8.4 | Apache-2.0 | https://crates.io/crates/zopfli/0.8.4
+zune-core 0.5.3 | MIT OR Apache-2.0 OR Zlib | https://crates.io/crates/zune-core/0.5.3
+zune-jpeg 0.5.15 | MIT OR Apache-2.0 OR Zlib | https://crates.io/crates/zune-jpeg/0.5.15

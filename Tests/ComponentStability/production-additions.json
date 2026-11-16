@@ -1,0 +1,276 @@
+{
+  "version": 1,
+  "added_sources": [
+    "Libs/OCBaseConfig/JobsMixFunc/FMDatabaseExtra/FMDatabase+Manager/FMDatabase+Manager.h",
+    "Libs/OCBaseConfig/JobsMixFunc/FMDatabaseExtra/FMDatabase+Manager/FMDatabase+Manager.m",
+    "Libs/OCBaseConfig/JobsMixFunc/JobsCryptography/AES/AES.h",
+    "Libs/OCBaseConfig/JobsMixFunc/JobsCryptography/AES/AES.m",
+    "Libs/OCBaseConfig/JobsMixFunc/JobsCryptography/AESCipher/AESCipher.h",
+    "Libs/OCBaseConfig/JobsMixFunc/JobsCryptography/AESCipher/AESCipher.m",
+    "Libs/OCBaseConfig/JobsMixFunc/JobsModel/NSString+JobsModelTime/NSString+JobsModelTime.h",
+    "Libs/OCBaseConfig/JobsMixFunc/JobsModel/NSString+JobsModelTime/NSString+JobsModelTime.m",
+    "Libs/OCBaseConfig/JobsMixFunc/JobsUploadingProgressView/JobsUploadingProgressView/JobsUploadingProgressView.h",
+    "Libs/OCBaseConfig/JobsMixFunc/JobsUploadingProgressView/JobsUploadingProgressView/JobsUploadingProgressView.m",
+    "Libs/OCBaseConfig/JobsMixFunc/JobsNavigationTransitionMgr/JobsNavigationTransitionMgr/JobsNavigationTransitionMgr.h",
+    "Libs/OCBaseConfig/JobsMixFunc/JobsNavigationTransitionMgr/JobsNavigationTransitionMgr/JobsNavigationTransitionMgr.m",
+    "Libs/OCBaseConfig/JobsMixFunc/JobsClockView/JobsClockView/JobsClockView.h",
+    "Libs/OCBaseConfig/JobsMixFunc/JobsClockView/JobsClockView/JobsClockView.m"
+  ],
+  "modified_owned_sources": [
+    "Libs/JobsOCBaseCustomizeUIKitCore/NSString/NSString+Category/NSString+Time/NSString+Time.h",
+    "Libs/JobsOCBaseCustomizeUIKitCore/NSString/NSString+Category/NSString+Time/NSString+Time.m",
+    "Libs/OCBaseConfig/JobsBlock/JobsBlockHeader.h",
+    "Libs/OCBaseConfig/JobsBlock/Core/确定参数的Block/ReturnByCertainParametersBlock.h",
+    "Libs/OCBaseConfig/JobsMixFunc/JobsCryptography/JobsCryptography.h",
+    "Libs/JobsOCBaseCustomizeUIKitCore/UIButton/UIButton+Category/UIButtonMake/UIButton+TextView/UIButton+TextView.h",
+    "Libs/JobsOCBaseCustomizeUIKitCore/UIButton/UIButton+Category/UIButtonMake/UIButton+TextView/UIButton+TextView.m",
+    "Libs/OCBaseConfig/JobsMixFunc/JobsNavigationTransitionMgr/JobsNavigationTransitionMgrHeader.h",
+    "Libs/OCBaseConfig/JobsMixFunc/JobsClockView/JobsClockViewHeader.h",
+    "JobsOCBaseConfigDemo/业务逻辑/功能模块/Demo@钟/JobsClockDemoVC/JobsClockDemoVC.m",
+    "Libs/JobsOCBaseCustomizeUIKitCore/NSObject/NSObject+Category/NSObject+Extra/NSObject+Extra.m",
+    "Libs/JobsOCBaseCustomizeUIKitCore/UIView/UIView+Category/UIView+Gesture/UIView+Gesture.m",
+    "Libs/JobsOCDSL/UIKit/UIView+DSLs/UIView+Gesture/UIView+Gesture/UIView+Gesture.m",
+    "JobsOCBaseConfigDemo/业务逻辑/功能模块/Demo@本地通知/ViewController/LocalNotificationsVC.m"
+  ],
+  "untouched_legacy_sources": [
+    "Libs/PodsManual/FMDatabase+Manager",
+    "Libs/🔨Manual_Add_ThirdParty（按需引入）/加密体系",
+    "Libs/🔨Manual_Add_ThirdParty（按需引入）/JobsUploadingProgressView",
+    "Libs/🔨Manual_Add_ThirdParty（按需引入）/JobsNavigationTransition",
+    "Libs/🔨Manual_Add_ThirdParty（按需引入）/JobsClockView"
+  ],
+  "header_precedence": [
+    "Libs/OCBaseConfig/JobsMixFunc/JobsClockView/JobsClockView",
+    "Libs/OCBaseConfig/JobsMixFunc/JobsNavigationTransitionMgr/JobsNavigationTransitionMgr",
+    "Libs/OCBaseConfig/JobsMixFunc/JobsModel/NSString+JobsModelTime",
+    "Libs/OCBaseConfig/JobsMixFunc/FMDatabaseExtra/FMDatabase+Manager",
+    "Libs/OCBaseConfig/JobsMixFunc/JobsUploadingProgressView/JobsUploadingProgressView",
+    "Libs/OCBaseConfig/JobsMixFunc/JobsCryptography/AES",
+    "Libs/OCBaseConfig/JobsMixFunc/JobsCryptography/AESCipher"
+  ],
+  "ownership_exclusions": [
+    "NSData+CommonCrypto: AQToolkit / Jim Dovey，未复制，AES使用系统CommonCrypto兼容相同历史格式"
+  ],
+  "source_pairs": [
+    {
+      "component": "JobsModel",
+      "source": "JobsByPods/JobsModel@Pods/Core/Foundation/NSString+JobsModelTime/NSString+JobsModelTime.h",
+      "destination": "Libs/OCBaseConfig/JobsMixFunc/JobsModel/NSString+JobsModelTime/NSString+JobsModelTime.h",
+      "source_sha256": "808c1d690e08528530a31efd90dc19f531cf995d72cefb12322d23a809829f54",
+      "destination_sha256": "808c1d690e08528530a31efd90dc19f531cf995d72cefb12322d23a809829f54",
+      "adapted": false
+    },
+    {
+      "component": "JobsModel",
+      "source": "JobsByPods/JobsModel@Pods/Core/Foundation/NSString+JobsModelTime/NSString+JobsModelTime.m",
+      "destination": "Libs/OCBaseConfig/JobsMixFunc/JobsModel/NSString+JobsModelTime/NSString+JobsModelTime.m",
+      "source_sha256": "0f74c2133adffdca8d06405ef0cbca55cd78645cf8cc0006c2a0e051134e572b",
+      "destination_sha256": "0f74c2133adffdca8d06405ef0cbca55cd78645cf8cc0006c2a0e051134e572b",
+      "adapted": false
+    },
+    {
+      "component": "FMDatabaseExtra",
+      "source": "JobsByPods/FMDatabaseExtra@Pods/Core/FMDatabase+Manager/FMDatabase+Manager.h",
+      "destination": "Libs/OCBaseConfig/JobsMixFunc/FMDatabaseExtra/FMDatabase+Manager/FMDatabase+Manager.h",
+      "source_sha256": "379e51059e1b0cc3dda5584ca037d53b24980f126a0495f51d8ef15957adf129",
+      "destination_sha256": "79323c396e6510584616c1a79167d7b5fa0f170d910dad820cac0e8183488c61",
+      "adapted": true
+    },
+    {
+      "component": "FMDatabaseExtra",
+      "source": "JobsByPods/FMDatabaseExtra@Pods/Core/FMDatabase+Manager/FMDatabase+Manager.m",
+      "destination": "Libs/OCBaseConfig/JobsMixFunc/FMDatabaseExtra/FMDatabase+Manager/FMDatabase+Manager.m",
+      "source_sha256": "1b8cbdbd4f7ce6b9f9acac71f62dfbde719ed85ae71f189b295deb1a098fa6f8",
+      "destination_sha256": "9dc19d62ecabbc93d4601cd5d54aec511d4a9b65080904316ffc72cbefbaab2f",
+      "adapted": true
+    },
+    {
+      "component": "JobsUploadingProgressView",
+      "source": "JobsByPods/JobsUploadingProgressView@Pods/Core/JobsUploadingProgressView/JobsUploadingProgressView.h",
+      "destination": "Libs/OCBaseConfig/JobsMixFunc/JobsUploadingProgressView/JobsUploadingProgressView/JobsUploadingProgressView.h",
+      "source_sha256": "3087609fc6673ebcf4e07e8b2a80db43fededdbc91137fe01ee53390e545e269",
+      "destination_sha256": "3087609fc6673ebcf4e07e8b2a80db43fededdbc91137fe01ee53390e545e269",
+      "adapted": false
+    },
+    {
+      "component": "JobsUploadingProgressView",
+      "source": "JobsByPods/JobsUploadingProgressView@Pods/Core/JobsUploadingProgressView/JobsUploadingProgressView.m",
+      "destination": "Libs/OCBaseConfig/JobsMixFunc/JobsUploadingProgressView/JobsUploadingProgressView/JobsUploadingProgressView.m",
+      "source_sha256": "f923966fd452682eace05df31797cd1c5a5622daa1512a73377d8e49ceb86694",
+      "destination_sha256": "f923966fd452682eace05df31797cd1c5a5622daa1512a73377d8e49ceb86694",
+      "adapted": false
+    },
+    {
+      "component": "AES",
+      "source": "JobsByPods/JobsCryptography@Pods/Core/加密（编码）算法/AES/AES/AES.h",
+      "destination": "Libs/OCBaseConfig/JobsMixFunc/JobsCryptography/AES/AES.h",
+      "source_sha256": "813a951ad9caccb391d9f42f69b79e31d622524d0415c5fd24cfa258c0387dd5",
+      "destination_sha256": "5927ee4c2885270150399fe686263a2e554b095e93f990bba55daac739a6e34e",
+      "adapted": true
+    },
+    {
+      "component": "AES",
+      "source": "JobsByPods/JobsCryptography@Pods/Core/加密（编码）算法/AES/AES/AES.m",
+      "destination": "Libs/OCBaseConfig/JobsMixFunc/JobsCryptography/AES/AES.m",
+      "source_sha256": "1bd4af4f400a27c06f61564ad2c75d76a442358d56c15baea57a4f02c4f196be",
+      "destination_sha256": "18c69dd8fc39787b253616b344c247e5fab11fb8bd8325b18e8f74d4a90fa605",
+      "adapted": true
+    },
+    {
+      "component": "AESCipher",
+      "source": "JobsByPods/JobsCryptography@Pods/Core/加密（编码）算法/AES/AESCipher/AESCipher.h",
+      "destination": "Libs/OCBaseConfig/JobsMixFunc/JobsCryptography/AESCipher/AESCipher.h",
+      "source_sha256": "001148aad73581718a98f13e76ab0cf0bccfdb0c3d1965b88fb69e5a2358b25d",
+      "destination_sha256": "a9aba1b35e36528d4faa30b536579dc730c0798238350ca10b7d3ca7b85d6107",
+      "adapted": true
+    },
+    {
+      "component": "AESCipher",
+      "source": "JobsByPods/JobsCryptography@Pods/Core/加密（编码）算法/AES/AESCipher/AESCipher.m",
+      "destination": "Libs/OCBaseConfig/JobsMixFunc/JobsCryptography/AESCipher/AESCipher.m",
+      "source_sha256": "dd01974937ee3c4951d290d41e9b5a05a1c918ec10c74205591e7257d5689c0e",
+      "destination_sha256": "dd01974937ee3c4951d290d41e9b5a05a1c918ec10c74205591e7257d5689c0e",
+      "adapted": false
+    },
+    {
+      "component": "JobsNavigationTransitionMgr",
+      "source": "JobsByPods/JobsNavigationTransitionMgr@Pods/Core/JobsNavigationTransitionMgr/JobsNavigationTransitionMgr.h",
+      "destination": "Libs/OCBaseConfig/JobsMixFunc/JobsNavigationTransitionMgr/JobsNavigationTransitionMgr/JobsNavigationTransitionMgr.h",
+      "source_sha256": "979a477ba61fedc50027551803d494746c5ed6efd60a85f8d208cc480eef6300",
+      "destination_sha256": "94637aaa4e59133ea2ca8d096e9b01c41bc01f1c99d29f832c3ae471657d9e7c",
+      "adapted": true
+    },
+    {
+      "component": "JobsNavigationTransitionMgr",
+      "source": "JobsByPods/JobsNavigationTransitionMgr@Pods/Core/JobsNavigationTransitionMgr/JobsNavigationTransitionMgr.m",
+      "destination": "Libs/OCBaseConfig/JobsMixFunc/JobsNavigationTransitionMgr/JobsNavigationTransitionMgr/JobsNavigationTransitionMgr.m",
+      "source_sha256": "ff0d13c397fd42aeb06d4a9b5febd6bea911db7a940f462aedcdfc4102a6212b",
+      "destination_sha256": "52c0683bfd0b3bdfcbc489cddf6a8174234649c7086807afe5fc7f28b7ccfa71",
+      "adapted": true
+    },
+    {
+      "component": "JobsClockView",
+      "source": "JobsByPods/JobsClockView@Pods/Core/JobsClockView/JobsClockView.h",
+      "destination": "Libs/OCBaseConfig/JobsMixFunc/JobsClockView/JobsClockView/JobsClockView.h",
+      "source_sha256": "805559bd19df48f5a9171c100798f4e053686f7f7b593458d92e8d1408ee6e93",
+      "destination_sha256": "485f618f99ed8c958caa21a05ff07c76533731796fa44dfb17a905c7811a4544",
+      "adapted": true
+    },
+    {
+      "component": "JobsClockView",
+      "source": "JobsByPods/JobsClockView@Pods/Core/JobsClockView/JobsClockView.m",
+      "destination": "Libs/OCBaseConfig/JobsMixFunc/JobsClockView/JobsClockView/JobsClockView.m",
+      "source_sha256": "ff29ff97632ec958a954b3637a7d6efd8475aea7c5897e3678a7eaaf84aa1449",
+      "destination_sha256": "c5da4937ce8edc9ebc9e549939824c61ffdc5c4704dc16ac3736d033f9a617b4",
+      "adapted": true
+    }
+  ],
+  "adaptations": {
+    "JobsModel": "同源模型时间转换；旧Time分类原有其它方法保持，移除重复转换IMP",
+    "FMDatabaseExtra": "同源事务与并发保护，保留旧createDataBaseWithPath:公开selector兼容",
+    "JobsUploadingProgressView": "同源新维护实现；旧manual源码保留但不重复编译",
+    "AES": "系统CommonCrypto实现同一历史AES-CBC/PKCS7/SHA256派生格式，认证入口沿用既有JobsAuthenticatedCipher；AQToolkit外援未复制",
+    "AESCipher": "同源实现；去除不使用的UIKit聚合依赖，仅Foundation/CommonCrypto",
+    "MJRefreshExtra": "修移植测试Support引用；旧真实UIButton+TextView补同源runtime provider/初始化失败恢复/安全缓存，保留JobsBasePopup子类公开类型与默认行为/原delegate和DSL，不改6原测试断言",
+    "JobsNavigationTransitionMgr": "同源4个DSL、导航容器独立持有、手势去重与弱捕获、垂直/取消进度处理和小容器取消恢复；旧公开class API及shared/destroy入口保持。旧manual正文保留但不参与编译；自有聚合头精确导出并兼容同名历史类声明，不改外援引用/PCH顺序/header map配置",
+    "JobsClockView": "同源时钟计时器懒创建、主线程tick、弱启动/停止块、已排队启动不可复活对象和dealloc停止现有计时器；仅imports适配及保留旧stop消息兼容入口。旧owned Demo维持startByTimerType并改实际执行jobsStop Block；manual正文及原3测试不改"
+  },
+  "block_declaration_sync": {
+    "component": "JobsUploadingProgressView",
+    "source_declarations": [
+      "JobsByPods/JobsBlock@Pods/JobsBlock.h: JobsRetJobsUploadingProgressViewByCorBlock",
+      "JobsByPods/JobsBlock@Pods/Core/确定参数的Block/ReturnByCertainParametersBlock/ReturnByCertainParametersBlock.h: JobsRetJobsUploadingProgressViewByCAKeyframeAnimationBlock"
+    ],
+    "destination_dependencies": [
+      {
+        "path": "Libs/OCBaseConfig/JobsBlock/JobsBlockHeader.h",
+        "sha256": "d49824f9cfdd3dfa66762351cd5f5ad76ceeb414d4edadcd7f995757ea9110bc"
+      },
+      {
+        "path": "Libs/OCBaseConfig/JobsBlock/Core/确定参数的Block/ReturnByCertainParametersBlock.h",
+        "sha256": "4e3c53e00bb8225e910f459bb6d2121d05bb35221f1aa665305eb13cbc180138"
+      }
+    ],
+    "changes": "只补JobsUploadingProgressView类前向声明及两个精确返回当前对象类型的Block typedef；业务header无临时typedef"
+  },
+  "aggregate_header_sync": {
+    "path": "Libs/OCBaseConfig/JobsMixFunc/JobsCryptography/JobsCryptography.h",
+    "sha256": "5ee5c81c514142c957939c0e1e7502e19ce9c53c178516933eb7ec6977e744c5",
+    "reason": "PCH先导出实际App自维护AES/AESCipher及认证能力，再保留旧vendor聚合，避免同名guard先声明vendor接口"
+  },
+  "mjrefresh_owner_sync": [
+    {
+      "path": "Libs/JobsOCBaseCustomizeUIKitCore/UIButton/UIButton+Category/UIButtonMake/UIButton+TextView/UIButton+TextView.h",
+      "sha256": "88a70866e619296fa6c676f2291f44b0a31020f590ae9d44d2834a4e33b50697",
+      "source": "JobsByPods/MJRefreshExtra@Pods/Support/UIKit/UIButton/UIButton+TextView/UIButton+TextView.h"
+    },
+    {
+      "path": "Libs/JobsOCBaseCustomizeUIKitCore/UIButton/UIButton+Category/UIButtonMake/UIButton+TextView/UIButton+TextView.m",
+      "sha256": "d4933039d368993ee482ab60f11a672592a1881886380ae401fd9482effc6192",
+      "source": "JobsByPods/MJRefreshExtra@Pods/Support/UIKit/UIButton/UIButton+TextView/UIButton+TextView.m"
+    }
+  ],
+  "keyboard_stop_declaration_sync": {
+    "old": "Libs/OCBaseConfig/JobsMixFunc/JobsOCKeyboardMgr/JobsOCKeyboardMgr.h",
+    "new": "JobsByPods/JobsOCKeyboardMgr@Pods/JobsOCKeyboardMgr.h",
+    "old_sha256": "19b92efe580cf1f81efcc8dddebf30b5536a7fe6268b17e96455cf735231f5c3",
+    "new_sha256": "ffef25b397dcffa26a1b7c3f77cfa8ce81d140376dd9a98907d7c96a004e1718",
+    "scope": "两侧同一public声明调整；NSObject/RAC继承TimerProtocol时点语法解析到Block stop，保留既有弱Block getter/selector，不改测试方法或断言",
+    "implementation_unchanged": true,
+    "isolated_real_cc1_owner_overlay_exit_status": 0
+  },
+  "navigation_owner_sync": {
+    "members_switched": {
+      "enabled": "Libs/OCBaseConfig/JobsMixFunc/JobsNavigationTransitionMgr/JobsNavigationTransitionMgr/JobsNavigationTransitionMgr.m",
+      "disabled": "Libs/🔨Manual_Add_ThirdParty（按需引入）/JobsNavigationTransition/JobsNavigationTransitionMgr/JobsNavigationTransitionMgr.m"
+    },
+    "header_priority": "App/UnitTest Debug/Release精确HEADER_SEARCH_PATHS与USER_HEADER_SEARCH_PATHS；原Xcode项目header map配置保持。聚合头兼容category补维护版已实现的4个同型DSL声明，处理历史同名guard已先载入的旧类接口",
+    "syntax": "保留最新真实cc1的全部header maps和搜索顺序，源重编App PCH后维护版owner与原3例测试TU均exit0/零error；第三方/PCH正文不改，行为由真实XCTest记录"
+  },
+  "clock_owner_sync": {
+    "enabled": "Libs/OCBaseConfig/JobsMixFunc/JobsClockView/JobsClockView/JobsClockView.m",
+    "disabled": "Libs/🔨Manual_Add_ThirdParty（按需引入）/JobsClockView/JobsClockView.m",
+    "block_dependencies": [
+      "Libs/OCBaseConfig/JobsBlock/JobsBlockHeader.h",
+      "Libs/OCBaseConfig/JobsBlock/Core/确定参数的Block/ReturnByCertainParametersBlock.h"
+    ],
+    "syntax": "最新真实UnitTest cc1源重编App PCH，owner与原3测试TU均exit0/零error；原start/stop保存与执行断言不变；真实运行待当次结果"
+  },
+  "release_host_testability": {
+    "target": "JobsOCBaseConfigDemo",
+    "configuration": "Release",
+    "sdk": "iphonesimulator*",
+    "settings": {
+      "GCC_SYMBOLS_PRIVATE_EXTERN": "NO",
+      "ENABLE_TESTABILITY": "YES"
+    },
+    "reason": "Hosted XCTest经BUNDLE_LOADER解析已集成App真实类/C函数与常量；旧Release默认hidden使同一已存在符号变private external。仅Simulator测试基线公开，不改变device Release/Pods链接。"
+  },
+  "weak_target_dispatch_sync": {
+    "owner": "Libs/JobsOCBaseCustomizeUIKitCore/NSObject/NSObject+Category/NSObject+Extra/NSObject+Extra.m",
+    "selectors": [
+      "weak_target",
+      "setWeak_target:"
+    ],
+    "storage": "JobsWeakAssociation + @selector(weak_target)",
+    "reason": "旧Aalto/Jobs同名property存在不同key与强弱语义；Jobs自有+load保存原IMP，仅marker/byWeak_target或Jobs弱关联NSHashTable参与对象走零化弱存储，其余getter/setter回退原IMP。自有gesture入口显式迁移旧目标并opt-in；不改外援正文/未参与对象语义/对象isa/149测试。",
+    "untouched_legacy": {
+      "Libs/JobsOCBaseCustomizeUIKitCore/NSObject/NSObject+Category/NSObject+Extras/NSObject+Extras.h": "0c23cb070f781232c88eb49a60d3d5a4515ec686013c103e574a530dfa851e06",
+      "Libs/JobsOCBaseCustomizeUIKitCore/NSObject/NSObject+Category/NSObject+Extras/NSObject+Extras.m": "134dc69e2a59917ae326d838424892a03c409e3923ffcfc26e081e53d8c87cb0"
+    },
+    "gesture_opt_in_sources": [
+      "Libs/JobsOCBaseCustomizeUIKitCore/UIView/UIView+Category/UIView+Gesture/UIView+Gesture.m",
+      "Libs/JobsOCDSL/UIKit/UIView+DSLs/UIView+Gesture/UIView+Gesture/UIView+Gesture.m"
+    ]
+  },
+  "ui_notifications_observation_sync": {
+    "source": "JobsOCBaseConfigDemo/业务逻辑/功能模块/Demo@本地通知/ViewController/LocalNotificationsVC.m",
+    "scope": "Jobs自有.m补同源DEBUG观察接线；admin头与现有真实长按手势/业务逻辑不改",
+    "identifier": "jobs.coverage.longPress.LocalNotificationsVC.btn",
+    "callbacks": [
+      "原onLongPressGestureBy block内JobsOCCoverageLongPressDelivered(data)",
+      "真实_btn getter末尾JobsOCCoveragePrepareLongPressButton"
+    ],
+    "tests": "原UI场景/steps/断言保持，初次真实UI4 3pass/1fail证据保留；等待本轮最终UI4与同fp165"
+  }
+}

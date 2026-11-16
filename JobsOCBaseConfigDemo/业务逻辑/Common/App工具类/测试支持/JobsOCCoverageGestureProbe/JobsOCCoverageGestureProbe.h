@@ -30,7 +30,7 @@ NS_INLINE void JobsOCCoveragePrepareLongPressButton(UIView * _Nullable button,
     if (!JobsOCCoverageGestureProbeEnabled() || !button) {
         return;
     }
-    if (![button.accessibilityIdentifier isEqualToString:identifier]) {
+    if (![button.accessibilityIdentifier isEqualToString:identifier] || !button.accessibilityValue.length) {
         button.accessibilityIdentifier = identifier;
         button.accessibilityValue = @"longPress:idle";
     }

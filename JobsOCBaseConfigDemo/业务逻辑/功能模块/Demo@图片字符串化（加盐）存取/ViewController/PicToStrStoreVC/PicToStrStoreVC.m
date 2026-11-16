@@ -88,9 +88,9 @@ Prop_strong()NSMutableArray <__kindof UIViewModel *>*dataMutArr;
         if (!self) return;
             [super viewWillAppear:animated];
         //    self.updateStatusBarCor(JobsOrangeColor);/// 在具体子类实现，不要写在父类。父类只做提示
-            if (_dataMutArr.count) {
+            if (self->_dataMutArr.count) {
                 [self.dataMutArr removeAllObjects];
-                _dataMutArr = nil;
+                self->_dataMutArr = nil;
             }
             [self.tableView.mj_header beginRefreshing];
     };

@@ -313,7 +313,9 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
             0,
             options,
             ^{
-            self.gk_navTitleBtn.byAlpha(active ? 0 : 1);
+            UIButton *titleButton = self.gk_navTitleBtn;
+            if (titleButton)
+                titleButton.byAlpha(active ? 0 : 1);
             self.searchView.byAlpha(active ? 1 : 0);
             [self.gk_navigationBar layoutIfNeeded];
         },

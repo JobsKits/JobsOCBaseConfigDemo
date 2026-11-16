@@ -142,7 +142,7 @@ Prop_strong()CAShapeLayer *overlayMaskLayer;
         @jobs_strongify(self)
         if (!self) return;
         CGFloat arcTop = self.jobsNavigationBarHeight + 20;
-        _overlayMaskLayer = jobsMakeCAShapeLayer(^(__kindof CAShapeLayer * _Nullable layer) {
+        self->_overlayMaskLayer = jobsMakeCAShapeLayer(^(__kindof CAShapeLayer * _Nullable layer) {
             layer
                 .byPath(UIBezierPath
                         .byBezierPathWithRect(self.view.bounds)

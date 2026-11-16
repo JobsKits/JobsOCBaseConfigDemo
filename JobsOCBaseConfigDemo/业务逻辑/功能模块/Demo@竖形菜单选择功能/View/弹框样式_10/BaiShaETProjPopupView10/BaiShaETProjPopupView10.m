@@ -81,18 +81,18 @@ static dispatch_once_t static_popupView10OnceToken;
         @jobs_strongify(self)
         if (!self) return;
         [super layoutSubviews];
-        if (!_registeredGradientTraits) {
-            _registeredGradientTraits = YES;
+        if (!self->_registeredGradientTraits) {
+            self->_registeredGradientTraits = YES;
             if (@available(iOS 17.0, *)) {
                 [self registerForTraitChanges:@[UITraitDisplayScale.class] withHandler:^(BaiShaETProjPopupView10 *view, UITraitCollection *previousTraits) {
                     [view setNeedsLayout];
                 }];
             }
         }
-        if (_titleLab && (_gradientScale != self.traitCollection.displayScale ||
-                          !CGSizeEqualToSize(_gradientSize, _titleLab.bounds.size))) {
-            _cor = nil;
-            _titleLab.byBgColor(self.cor);
+        if (self->_titleLab && (self->_gradientScale != self.traitCollection.displayScale ||
+                          !CGSizeEqualToSize(self->_gradientSize, self->_titleLab.bounds.size))) {
+            self->_cor = nil;
+            self->_titleLab.byBgColor(self.cor);
         }
     };
 }

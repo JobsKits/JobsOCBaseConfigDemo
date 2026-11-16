@@ -18,7 +18,7 @@ concurrency:
 jobs:
   build-simulator-app:
     runs-on: xcode-27
-    timeout-minutes: 150
+    timeout-minutes: 320
     permissions:
       actions: write
       contents: read
@@ -28,6 +28,7 @@ jobs:
       SCHEME: JobsOCBaseConfigDemo
       CONFIGURATION: Debug
       SDK: iphonesimulator
+      JOBS_SIMULATOR_ONLY: '1'
       JOBS_POD_INSTALL_SKIP_VENDOR_PATCHES: '1'
       DESTINATION: generic/platform=iOS Simulator
       SIMULATOR_ARCH: arm64
@@ -44,30 +45,61 @@ jobs:
           ruby .github/tests/ProjectMembership/regression.rb/regression.rb
           ruby .github/tests/ProjectMembership/validate_membership.rb/validate_membership.rb
 
-      - name: Select Xcode 27.1 SDK
+      - name: Select Xcode 26 SDK
         run: |
-          diagnostics_path="${RUNNER_TEMP}/BuildDiagnostics"
-          mkdir -p "${diagnostics_path}"
-          selected_developer_dir="${XCODE_27_1_DEVELOPER_DIR:-/Applications/Xcode_27.1.app/Contents/Developer}"
-          if [[ ! -d "${selected_developer_dir}" ]]; then
-            echo "::error::Xcode 27.1 is required but is unavailable on the runner: ${selected_developer_dir}"
+          selected_developer_dir=""
+
+          if [[ -n "${XCODE_26_DEVELOPER_DIR:-}" && -d "${XCODE_26_DEVELOPER_DIR}" ]]; then
+            selected_developer_dir="${XCODE_26_DEVELOPER_DIR}"
+          else
+            latest_xcode="$(ruby -e 'puts Dir.glob("/Applications/Xcode_26*.app").max_by { |path| Gem::Version.new(File.basename(path)[/\d+(?:\.\d+)*/, 0]) }')"
+            if [[ -n "${latest_xcode}" ]]; then
+              selected_developer_dir="${latest_xcode}/Contents/Developer"
+            fi
+          fi
+
+          if [[ -n "${selected_developer_dir}" ]]; then
+            export DEVELOPER_DIR="${selected_developer_dir}"
+            echo "DEVELOPER_DIR=${DEVELOPER_DIR}" >> "${GITHUB_ENV}"
+          else
+            echo "::error::Xcode 26 is required by this project but is not installed on the runner."
             exit 1
           fi
-          export DEVELOPER_DIR="${selected_developer_dir}"
-          echo "DEVELOPER_DIR=${DEVELOPER_DIR}" >> "${GITHUB_ENV}"
-          xcodebuild -version | tee "${diagnostics_path}/xcode-version.txt"
-          grep -Eq '^Xcode 27[.]1([.]|$)' "${diagnostics_path}/xcode-version.txt"
-          simulator_sdk_version="$(xcrun --sdk iphonesimulator --show-sdk-version)"
-          echo "iOS Simulator SDK: ${simulator_sdk_version}" | tee "${diagnostics_path}/simulator-sdk-version.txt"
-          ruby -rrubygems -e 'abort "iOS Simulator SDK 27.1 or newer is required" if Gem::Version.new(ARGV.fetch(0)) < Gem::Version.new("27.1")' "${simulator_sdk_version}"
-          xcode-select -p
+
+          xcode_version="$(xcodebuild -version)"
+          echo "${xcode_version}"
+          grep -Eq '^Xcode 26([.]|$)' <<< "${xcode_version}" || {
+            echo "::error::Selected developer directory does not provide Xcode 26: ${DEVELOPER_DIR}"
+            exit 1
+          }
+          echo "DEVELOPER_DIR=${DEVELOPER_DIR}"
 
       - name: Show build environment
         run: |
+          diagnostics_path="${RUNNER_TEMP}/BuildDiagnostics"
+          mkdir -p "${diagnostics_path}"
           sw_vers
-          xcodebuild -version
+          xcodebuild -version | tee "${diagnostics_path}/xcode-version.txt"
+          xcrun --sdk iphonesimulator --show-sdk-version | tee "${diagnostics_path}/simulator-sdk-version.txt"
           xcode-select -p
           pod --version
+
+      - name: Prepare test Simulator
+        timeout-minutes: 10
+        run: |
+          ruby .github/tests/SimulatorRuntime/selection_regression.rb
+          xcrun --sdk iphonesimulator --show-sdk-version > "${RUNNER_TEMP}/simulator-sdk-version.txt"
+          xcrun simctl list runtimes -j > "${RUNNER_TEMP}/simulator-runtimes.json"
+          xcrun simctl list devices available -j > "${RUNNER_TEMP}/simulator-devices.json"
+          ruby .github/tests/SimulatorRuntime/select_simulator.rb \
+            "$(cat "${RUNNER_TEMP}/simulator-sdk-version.txt")" \
+            "${RUNNER_TEMP}/simulator-runtimes.json" \
+            "${RUNNER_TEMP}/simulator-devices.json" \
+            > "${RUNNER_TEMP}/simulator-selection.env"
+          cat "${RUNNER_TEMP}/simulator-selection.env" >> "${GITHUB_ENV}"
+          simulator_id="$(sed -n 's/^SIMULATOR_ID=//p' "${RUNNER_TEMP}/simulator-selection.env")"
+          echo "JOBS_STABILITY_SIMULATOR=${simulator_id}" >> "${GITHUB_ENV}"
+          xcrun simctl bootstatus "${simulator_id}" -b
 
       - name: Install CocoaPods dependencies
         timeout-minutes: 20
@@ -77,6 +109,29 @@ jobs:
           {
             pod install --no-repo-update || pod install --repo-update
           } 2>&1 | tee "${RUNNER_TEMP}/BuildDiagnostics/pod-install.log"
+          ruby .github/tests/SimulatorPods/dependency_regression.rb --installed-root "${GITHUB_WORKSPACE}"
+
+      - name: Record ReactiveObjC build configuration
+        timeout-minutes: 5
+        run: |
+          diagnostics_dir="${RUNNER_TEMP}/BuildDiagnostics/ReactiveObjC"
+          ruby .github/tests/SimulatorPods/record_reactiveobjc.rb "${GITHUB_WORKSPACE}" "${diagnostics_dir}"
+          xcodebuild -project Pods/Pods.xcodeproj -target ReactiveObjC \
+            -configuration Debug -sdk iphonesimulator -showBuildSettings \
+            > "${diagnostics_dir}/Debug-build-settings.log" 2>&1
+
+      - name: Verify integrated component configuration
+        timeout-minutes: 10
+        run: |
+          ruby ScriptsByPods/自动化测试相关脚本/jobs_pods_stability_verify.rb/Tests/integrated_mode_regression.rb/integrated_mode_regression.rb
+
+      - name: Run integrated component XCTest and production harnesses
+        timeout-minutes: 120
+        run: |
+          ruby ScriptsByPods/自动化测试相关脚本/jobs_pods_stability_verify.rb/jobs_pods_stability_verify.rb \
+            --phase tests --architecture "${SIMULATOR_ARCH}" \
+            --simulator "${JOBS_STABILITY_SIMULATOR}" \
+            --output "${RUNNER_TEMP}/JobsComponentsStability"
 
       - name: Build Simulator app
         timeout-minutes: 120
@@ -108,7 +163,12 @@ jobs:
         uses: actions/upload-artifact@v7.0.1
         with:
           name: ${{ env.SCHEME }}-Build-Logs-${{ github.run_id }}-${{ github.run_attempt }}
-          path: ${{ runner.temp }}/BuildDiagnostics
+          path: |
+            ${{ runner.temp }}/BuildDiagnostics
+            ${{ runner.temp }}/JobsComponentsStability/results.json
+            ${{ runner.temp }}/JobsComponentsStability/configuration-audit.json
+            ${{ runner.temp }}/JobsComponentsStability/*.log
+            ${{ runner.temp }}/JobsComponentsStability/*.xcresult
           if-no-files-found: warn
           retention-days: 14
 

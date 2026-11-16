@@ -108,10 +108,10 @@ static dispatch_once_t static_commentViewOnceToken;
     return ^{
         @jobs_strongify(self)
         if (!self) return;
-        if (!_tableView) return;
-        _tableView.byBgColor(JobsSecondarySystemBackgroundColor);
-        _tableView.backgroundView.byBgColor(JobsSecondarySystemBackgroundColor);
-        for (UIView *subview in _tableView.subviews) {
+        if (!self->_tableView) return;
+        self->_tableView.byBgColor(JobsSecondarySystemBackgroundColor);
+        self->_tableView.backgroundView.byBgColor(JobsSecondarySystemBackgroundColor);
+        for (UIView *subview in self->_tableView.subviews) {
             if (![subview isKindOfClass:UITableViewCell.class] &&
                 ![subview isKindOfClass:UITableViewHeaderFooterView.class]) {
                 subview.byBgColor(JobsSecondarySystemBackgroundColor);

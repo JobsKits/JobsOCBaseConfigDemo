@@ -428,7 +428,7 @@ numberOfRowsInSection:(NSInteger)section {
     return ^NSArray<NSString *> *(UITableView * tableView){
         @jobs_strongify(self)
         if (!self) return nil;
-        return tableView == _tableView ? self.indexArray : nil;
+        return tableView == self->_tableView ? self.indexArray : nil;
     };
 }
 

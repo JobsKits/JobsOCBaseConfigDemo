@@ -25,6 +25,8 @@ Prop_strong(readonly) UIView *view;
 Prop_copy() void (^onChange)(NSString *statusKey, NSUInteger planeCount, NSUInteger objectCount);
 Prop_assign(readonly) BOOL previewing;
 Prop_assign() NSUInteger modelIndex;
+Prop_assign(readonly) NSUInteger selectedModelIndex;
+Prop_assign(readonly) BOOL canPlaceAtCenter;
 Prop_copy(readonly) NSString *selectionDescription;
 
 -(void)resume;

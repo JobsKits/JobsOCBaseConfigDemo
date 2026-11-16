@@ -47,7 +47,7 @@
 
 > 本文以 `JobsOCBaseConfigDemo` 主工程中已经直接集成的 `JobsRandomUtils` 为最小样板，说明怎样把一组主工程源码提取到独立 Framework target，再归档为同时支持 iOS 真机与 iOS Simulator 的 `XCFramework`。
 
-- 当前源码位于 `JobsOCBaseConfigDemo/OCBaseConfig/JobsMixFunc/JobsRandomUtils/JobsRandomUtils.h/.m`，真实 Demo 位于 `业务逻辑/功能模块/Demo@随机数测试模块`。
+- 当前源码位于 `Libs/OCBaseConfig/JobsMixFunc/JobsRandomUtils/JobsRandomUtils.h/.m`，真实 Demo 位于 `业务逻辑/功能模块/Demo@随机数测试模块`。
 - 主工程代码不能因为“准备二进制化”就直接删除或搬走。先创建独立 Framework target 并构建消费者，再在切换接入来源时移除 App target 对原 `.m` 的编译，避免重复符号。
 - Apple 推荐使用[**多平台二进制 Framework Bundle**](https://developer.apple.com/documentation/xcode/creating-a-multi-platform-binary-framework-bundle)组合不同平台变体，不使用 `lipo` 把 iOS 真机与 iOS Simulator 二进制塞进同一份旧式胖 Framework。
 

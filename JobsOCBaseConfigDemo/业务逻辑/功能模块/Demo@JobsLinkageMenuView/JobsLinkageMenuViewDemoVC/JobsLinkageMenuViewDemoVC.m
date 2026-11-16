@@ -56,7 +56,7 @@
         CGFloat cardX = JobsWidth(16);
         CGFloat cardW = MAX(0, CGRectGetWidth(self.bounds) - cardX * 2);
         CGFloat y = JobsWidth(16);
-        for (UIView *card in _cards) {
+        for (UIView *card in self->_cards) {
             card.byFrame(CGRectMake(cardX, y, cardW, JobsWidth(96)));
             y += JobsWidth(112);
         }
@@ -93,16 +93,16 @@
                 })
                 .addOn(card);
         });
-        [_iconLabels addObject:iconLabel];
+        [self->_iconLabels addObject:iconLabel];
         UILabel *titleLabel = jobsMakeLabel(^(__kindof UILabel * _Nullable label) {
             label
-                .byText([NSString stringWithFormat:@"%@ - %@ 活动 %ld", _sectionTitle, _menuTitle, (long)index + 1])
+                .byText([NSString stringWithFormat:@"%@ - %@ 活动 %ld", self->_sectionTitle, self->_menuTitle, (long)index + 1])
                 .byTextCor(UIColor.labelColor)
                 .byFont(UIFontBoldSystemFontOfSize(18))
                 .byNumberOfLines(2)
                 .addOn(card);
         });
-        [_titleLabels addObject:titleLabel];
+        [self->_titleLabels addObject:titleLabel];
         UILabel *subtitleLabel = jobsMakeLabel(^(__kindof UILabel * _Nullable label) {
             label
                 .byText(@"神秘彩金等你来拿".jobsTr())
@@ -110,7 +110,7 @@
                 .byFont(UIFontSystemFontOfSize(15))
                 .addOn(card);
         });
-        [_subtitleLabels addObject:subtitleLabel];
+        [self->_subtitleLabels addObject:subtitleLabel];
         [iconLabel mas_makeConstraints:^(MASConstraintMaker *make) {
             make.left.equalTo(card).offset(JobsWidth(16));
             make.centerY.equalTo(card);

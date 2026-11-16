@@ -153,7 +153,7 @@ JobsKey(JobsJobsClockDemoVCModernTraitsRegistrationKey)
         if (!self) return;
         [super viewWillDisappear:animated];
         /// 离开页面就停表，避免后台白跑
-        [self.clockView stop];
+        self.clockView.jobsStop();
     };
 }
 

@@ -1,0 +1,343 @@
+//
+//  JobsHotLabelBySingleLine.m
+//  JobsHotLabel
+//
+//  Created by Jobs on 2026年5月13日，星期三.
+//
+
+#import "JobsHotLabelBySingleLine.h"
+
+@interface JobsHotLabelBySingleLine (){
+
+    CGSize btnSize;
+    CGFloat width;
+}
+/// UI
+Prop_strong()NSMutableArray <UIButton *>*btnMutArr;
+/// Data
+Prop_copy()NSArray <UIViewModel *>*viewModelDataArr;// 数据源
+Prop_strong()NSMutableArray <NSNumber *>*btnHeightMutArr;
+Prop_assign()CGRect lastLayoutRect;
+Prop_assign()NSUInteger lastLayoutButtonCount;
+
+@end
+
+// JOBS_PROPERTY_DSL_SETTER_DECLARATION_AUTOGEN_BEGIN JobsHotLabelBySingleLine
+@interface JobsHotLabelBySingleLine (JobsPropertyDSLSetterAutogen_96e364d4e2)
+-(void)setViewModelDataArr:(NSArray <UIViewModel *>* _Nullable)data;
+@end
+// JOBS_PROPERTY_DSL_SETTER_DECLARATION_AUTOGEN_END JobsHotLabelBySingleLine
+
+@implementation JobsHotLabelBySingleLine
+
+-(JobsRetJobsHotLabelBySingleLineByUILabelShowingTypeBlock _Nonnull)byLabelShowingType{
+    @jobs_weakify(self)
+    return ^__kindof JobsHotLabelBySingleLine *_Nullable(UILabelShowingType data){
+        @jobs_strongify(self)
+        self.labelShowingType = data;
+        return self;
+    };
+}
+
+-(JobsRetJobsHotLabelBySingleLineByCGSizeBlock _Nonnull)byElementDefaultSize{
+    @jobs_weakify(self)
+    return ^__kindof JobsHotLabelBySingleLine *_Nullable(CGSize data){
+        @jobs_strongify(self)
+        if (!self) {
+            return nil;
+        }
+        self.elementDefaultSize = data;
+        self->_lastLayoutRect = CGRectZero;
+        [self setNeedsLayout];
+        return self;
+    };
+}
+
+-(instancetype)init{
+    if (self = [super init]) {
+        self.byBgColor(JobsSecondarySystemBackgroundColor);
+    };return self;
+}
+
+-(instancetype)initWithFrame:(CGRect)frame{
+    if (self = [super initWithFrame:frame]) {
+        self.byBgColor(JobsSecondarySystemBackgroundColor);
+    };return self;
+}
+/// 必须有frame的前提下才会进行绘制
+-(void)drawRect:(CGRect)rect{
+    jobsByFrameBlock action = ((jobsByFrameBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(JobsHotLabelBySingleLine.class, @selector(jobsDrawRect)))(self, @selector(jobsDrawRect));
+    if (action) action(rect);
+}
+
+-(jobsByFrameBlock _Nonnull)jobsDrawRect{
+    @jobs_weakify(self)
+    return ^(CGRect rect){
+        @jobs_strongify(self)
+        if (!self) return;
+        [super drawRect:rect];
+    };
+}
+
+-(void)layoutSubviews{
+    jobsByVoidBlock action = ((jobsByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(JobsHotLabelBySingleLine.class, @selector(jobsLayoutSubviews)))(self, @selector(jobsLayoutSubviews));
+    if (action) action();
+}
+
+-(jobsByVoidBlock _Nonnull)jobsLayoutSubviews{
+    @jobs_weakify(self)
+    return ^{
+        @jobs_strongify(self)
+        if (!self) return;
+        [super layoutSubviews];
+        CGRect available = UIEdgeInsetsInsetRect(self.bounds, self.safeAreaInsets);
+        if (!self->_btnMutArr.count || CGRectGetWidth(available) <= 0 ||
+            (CGRectEqualToRect(self->_lastLayoutRect, available) && self->_lastLayoutButtonCount == self->_btnMutArr.count)) return;
+        self->_lastLayoutRect = available;
+        self->_lastLayoutButtonCount = self->_btnMutArr.count;
+        CGFloat itemWidth = self.elementDefaultSize.width > 0 ? self.elementDefaultSize.width
+            : MAX(JobsWidth(40), (CGRectGetWidth(available) - JobsWidth(15 * 5)) / 4);
+        CGFloat itemHeight = MAX(JobsWidth(30), self.elementDefaultSize.height);
+        for (NSNumber *height in self->_btnHeightMutArr) itemHeight = MAX(itemHeight, height.doubleValue);
+        self->btnSize = CGSizeMake(itemWidth, itemHeight);
+        for (UIButton *button in self->_btnMutArr) {
+            button.byRemake(^(MASConstraintMaker *make) {
+                make.size.mas_equalTo(self->btnSize);
+            });
+        }
+        self.scrollView.byFrame(available);
+        CGFloat contentWidth = self->_btnMutArr.count * itemWidth + MAX(0, (NSInteger)self->_btnMutArr.count - 1) * self.stackView.spacing;
+        CGFloat stackWidth = self->_btnMutArr.count > 1 ? MAX(contentWidth, CGRectGetWidth(available)) : itemWidth;
+        self.scrollView.byContentSize(CGSizeMake(stackWidth, itemHeight));
+        self.stackView.byRemake(^(MASConstraintMaker *make) {
+            make.centerY.equalTo(self.scrollView);
+            make.height.mas_equalTo(itemHeight);
+            make.width.mas_equalTo(stackWidth);
+            if (contentWidth > CGRectGetWidth(available)) make.left.equalTo(self.scrollView);
+            else make.centerX.equalTo(self.scrollView);
+        });
+    };
+}
+#pragma mark —— BaseViewProtocol
+/// 具体由子类进行复写【数据尺寸】【如果所传参数为基本数据类型，那么包装成对象NSNumber进行转化承接】
++(JobsRetCGSizeByIDBlock _Nonnull)viewSizeByModel{
+    return ^CGSize(NSObject *_Nullable data){
+        return CGSizeMake(JobsWidth(46 * 3 + 59 * 2), data.lineNumBy(3) * JobsWidth(46 + 7));
+    };
+}
+/// 进数据
+-(jobsByIDBlock _Nonnull)jobsRichViewByModel{
+    @jobs_weakify(self)
+    return ^(NSMutableArray <UIViewModel *>*_Nullable model) {
+        @jobs_strongify(self)
+        if (model.count) {
+            self.byViewModelDataArr(model);
+            self.createHotLabelByArr(self.viewModelDataArr);
+        }
+    };
+}
+#pragma mark —— 一些私有方法
+/// 参考 Demo：https://github.com/PhonixYing/HorizontalScrollStackView
+-(jobsByArrWithViewModelBlock _Nonnull)createHotLabelByArr{
+    @jobs_weakify(self)
+    return ^(__kindof NSArray <UIViewModel *>*_Nullable dataArr){
+        @jobs_strongify(self)
+        if (!self) {
+            return;
+        }
+        if (dataArr.count) {
+//            self.dynamicCalculationWithDataArr(dataArr);
+            for (UIViewModel *vm in dataArr) {
+                self.byViewModel(vm);
+                // 其实item是button,因为button有相对于Label更为丰富的表现形式
+                UIButton *btn = self.configBtnBy(vm);
+                btn.bySizer(self->btnSize);
+                self.btnMutArr.add(btn);
+                self.stackView.add(btn);
+            }self.useHighestValue();/// 取最大的高度值使用
+            self->_lastLayoutRect = CGRectZero;
+            self.bySetNeedsLayout();
+        }
+    };
+}
+/// 内部依据数据源动态的计算一些局部变量的值
+-(jobsByArrWithViewModelBlock _Nonnull)dynamicCalculationWithDataArr{
+    @jobs_weakify(self)
+    return ^(__kindof NSArray <UIViewModel *>*_Nullable dataArr){
+        @jobs_strongify(self)
+        for (UIViewModel *vm in dataArr) {
+            CGSize BtnSize = [UILabel sizeWithText:vm.textModel.text
+                                              font:vm.textModel.font
+                                           maxSize:CGSizeMake(MAXFLOAT, MAXFLOAT)];
+            if (CGSizeEqualToSize(vm.jobsSize, CGSizeZero)) {
+                self->btnSize = BtnSize;
+            }else{
+                /// 两项比较取最大值。防止多语言化的时候，外文显示过长的问题
+                self->btnSize = CGSizeMake(MAX(BtnSize.width, vm.jobsSize.width),
+                                           MAX(BtnSize.height, vm.jobsSize.height));
+            }self->width += self->btnSize.width;
+        };
+    };
+}
+/**
+
+     配置按钮
+     如果在外层进行自定义化调用，那么他的调用时机要早于:
+     <BaseViewProtocol>
+     -(jobsByIDBlock _Nonnull)jobsRichViewByModel{
+         @jobs_weakify(self)
+         return ^(NSMutableArray <UIViewModel *>*_Nullable model) {
+             @jobs_strongify(self)
+         };
+     }
+ */
+-(JobsRetButtonByViewModelBlock _Nonnull)configBtnBy{
+    @jobs_weakify(self)
+    return ^__kindof UIButton *_Nullable(UIViewModel *_Nullable vm){
+        return jobsMakeButton(^(__kindof UIButton * _Nullable btn) {
+            @jobs_strongify(self)
+            btn.jobsResetBtnTitle(vm.textModel.text)
+            .jobsResetBtnTitleFont(vm.textModel.font)
+            .jobsResetBtnTitleCor(vm.textModel.textCor)
+            .onClickBy(^(UIButton *x){
+                JobsLog(@"");
+                @jobs_strongify(self)
+                self.changeButtonState();
+                x.bySelected(!x.selected);
+                if (self.objBlock) self.objBlock(x);
+            })
+            .makeBtnTitleByShowingType(self.labelShowingType)
+            .bySelected(self.viewModel.jobsSelected)
+            .bySize(CGSizeMake(MAX(0, (CGRectGetWidth(self.bounds) - JobsWidth(15 * 5)) / 4), JobsWidth(30)))
+            .byRequestParams(vm.requestParams)
+            .JobsBlock1(^(id _Nullable data) {
+                @jobs_strongify(self)
+                self.btnHeightMutArr.add(data);
+            });
+        });
+    };
+}
+/// 取最大的高度值使用
+-(jobsByVoidBlock _Nonnull)useHighestValue{
+    @jobs_weakify(self)
+    return ^{
+        @jobs_strongify(self)
+        if (!self) return;
+        for (UIButton *btn in self.btnMutArr) {
+            /// 取最高的值
+            NSNumber *highestNum = @(self.elementDefaultSize.height);
+            for (NSNumber *num in self.btnHeightMutArr) {
+                highestNum = @(MAX(highestNum.floatValue, num.floatValue));
+            }
+            btn.byRemake(^(MASConstraintMaker *make) {
+                make.size.mas_equalTo(CGSizeMake(self.elementDefaultSize.width, highestNum.floatValue));
+            });
+        }
+    };
+}
+
+-(jobsByVoidBlock _Nonnull)changeButtonState{
+    @jobs_weakify(self)
+    return ^{
+        @jobs_strongify(self)
+        if (!self) return;
+        for (UIButton *btn in self.btnMutArr) {
+            btn.bySelected(NO);
+        }
+    };
+}
+#pragma mark —— lazyLoad
+/**
+ 
+     typedef NS_ENUM(NSInteger, UIStackViewDistribution) {
+         UIStackViewDistributionFill = 0,//充满，当只有一个控件时可以使用
+         UIStackViewDistributionFillEqually,//平分充满，每个控件占据相同尺寸排列充满❤️
+         UIStackViewDistributionFillProportionally,//会优先按照约束的尺寸进行排列，如果没有充满，会拉伸最后一个排列的控件充满
+         UIStackViewDistributionEqualSpacing,//等间距排列
+         UIStackViewDistributionEqualCentering,//中心距离相等
+     } NS_ENUM_AVAILABLE_IOS(9_0);
+
+     typedef NS_ENUM(NSInteger, UIStackViewAlignment) {
+        UIStackViewAlignmentFill,//子视图填充StackView
+        UIStackViewAlignmentLeading,//子视图左对齐（axis为垂直方向而言）
+        UIStackViewAlignmentTop = UIStackViewAlignmentLeading,//子视图顶部对齐（axis为水平方向而言）
+        UIStackViewAlignmentFirstBaseline, // 按照第一个子视图的文字的第一行对齐，同时保证高度最大的子视图底部对齐（只在axis为水平方向有效）
+        UIStackViewAlignmentCenter,//子视图居中对齐
+        UIStackViewAlignmentTrailing,//子视图右对齐(axis为垂直方向而言）
+        UIStackViewAlignmentBottom = UIStackViewAlignmentTrailing,//子视图底部对齐（axis为水平方向而言）
+        UIStackViewAlignmentLastBaseline, // 按照最后一个子视图的文字的最后一行对齐，同时保证高度最大的子视图顶部对齐（只在axis为水平方向有效）
+     } NS_ENUM_AVAILABLE_IOS(9_0);
+ */
+/// 放在滚动视图上，可以滚动的UIStackView
+@synthesize stackView = _stackView;
+-(UIStackView *)stackView{
+    if (!_stackView) {
+        @jobs_weakify(self)
+        _stackView = jobsMakeStackView(^(__kindof UIStackView * _Nullable stackView) {
+            @jobs_strongify(self)
+            stackView
+                .byAxis(UILayoutConstraintAxisHorizontal)
+                .byDistribution(UIStackViewDistributionEqualSpacing)
+                .byAlignment(UIStackViewAlignmentCenter)
+            /// 注意这里设置的约束，最后一个宽度的约束很关键
+            .addOn(self.scrollView).byAdd(^(MASConstraintMaker *make) {
+                make.height.equalTo(self);
+                make.centerY.equalTo(self.scrollView);
+                if (self.scrollView.contentSize.width > self.scrollView.width) {
+                    make.left.equalTo(self.scrollView);/// 必须铆定 self.scrollView
+                    make.width.mas_equalTo(self->width);
+                }else{
+                    CGFloat offset = (self.scrollView.width - self.viewModelDataArr.count * self->btnSize.width) / self.viewModelDataArr.count;
+                    if (self.viewModelDataArr.count > 1) {
+                        make.width.mas_equalTo(self.scrollView.width - offset / 2);
+                    }else make.width.mas_equalTo(self->btnSize.width);
+                    make.centerX.equalTo(self.scrollView);
+                }
+            });
+        });
+    };return _stackView;
+}
+/// BaseViewProtocol
+@synthesize scrollView = _scrollView;
+/// 可以横向滚动的滚动视图（所有控件加在这上面）
+-(UIScrollView *)scrollView{
+    if (!_scrollView) {
+        @jobs_weakify(self)
+        _scrollView = jobsMakeScrollView(^(__kindof UIScrollView * _Nullable scrollView) {
+            @jobs_strongify(self)
+            scrollView
+                .byDelegate(self)
+                .byContentSize(CGSizeMake(self->width, self->btnSize.height))
+                .byShowsVerticalScrollIndicator(NO)
+                .byShowsHorizontalScrollIndicator(NO)
+                .byContentInsetAdjustmentBehavior(UIScrollViewContentInsetAdjustmentNever)
+                .byFrame(self.bounds)
+                .addOn(self);
+        });
+    };return _scrollView;
+}
+
+-(NSMutableArray<UIButton *> *)btnMutArr{
+    if (!_btnMutArr) {
+        _btnMutArr = NSMutableArray.array;
+    };return _btnMutArr;
+}
+
+-(NSMutableArray<NSNumber *> *)btnHeightMutArr{
+    if (!_btnHeightMutArr) {
+        _btnHeightMutArr = NSMutableArray.array;
+    };return _btnHeightMutArr;
+}
+
+// JOBS_PROPERTY_DSL_IMPLEMENTATION_AUTOGEN_BEGIN JobsHotLabelBySingleLine
+-(JobsRetJobsHotLabelBySingleLineByNSArrayUIViewModelBlock _Nonnull)byViewModelDataArr{
+    @jobs_weakify(self)
+    return ^__kindof JobsHotLabelBySingleLine * _Nullable(NSArray <UIViewModel *>* _Nullable data){
+        @jobs_strongify(self)
+        [self setViewModelDataArr:data];
+        return self;
+    };
+}
+// JOBS_PROPERTY_DSL_IMPLEMENTATION_AUTOGEN_END JobsHotLabelBySingleLine
+
+@end

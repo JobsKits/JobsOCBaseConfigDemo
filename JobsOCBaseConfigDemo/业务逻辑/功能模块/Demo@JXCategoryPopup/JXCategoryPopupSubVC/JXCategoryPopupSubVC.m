@@ -213,7 +213,7 @@ Prop_copy()NSString *currentTitleWritingLottieName;
         if (!filePath.length) {
             filePath = [NSBundle.mainBundle pathForResource:lottieName
                                                      ofType:@"json"
-                                                inDirectory:@"其他/资源文件管理/Lottie资源"];
+                                                inDirectory:@"其他/libs/Lottie资源"];
         };return filePath;
     };
 }
@@ -224,12 +224,12 @@ Prop_copy()NSString *currentTitleWritingLottieName;
         @jobs_strongify(self)
         if (!self) return;
         NSString *lottieName = self.titleWritingLottieName();
-        if (_titleWritingLottieView &&
+        if (self->_titleWritingLottieView &&
             [self.currentTitleWritingLottieName isEqualToString:lottieName]) return;
-        if (_titleWritingLottieView) {
-            [_titleWritingLottieView stop];
-            [_titleWritingLottieView removeFromSuperview];
-            _titleWritingLottieView = nil;
+        if (self->_titleWritingLottieView) {
+            [self->_titleWritingLottieView stop];
+            [self->_titleWritingLottieView removeFromSuperview];
+            self->_titleWritingLottieView = nil;
         }
         self.byCurrentTitleWritingLottieName(lottieName);
         self.titleWritingLottieView.byAlpha(1);

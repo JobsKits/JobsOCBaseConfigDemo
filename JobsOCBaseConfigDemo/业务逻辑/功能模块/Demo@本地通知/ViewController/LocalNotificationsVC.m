@@ -6,6 +6,7 @@
 //
 
 #import "LocalNotificationsVC.h"
+#import "JobsOCCoverageGestureProbe.h"
 
 @interface LocalNotificationsVC ()
 /// UI
@@ -98,6 +99,7 @@ Prop_strong()BaseButton *btn;
                 if (self.objBlock) self.objBlock(x);
                 [JobsMakeLocalNotification.new triggerLocalNotification:JobsLocalNotificationModel.new];
             }).onLongPressGestureBy(^(id data){
+                JobsOCCoverageLongPressDelivered(data);
                 JobsLog(@"");
             })
             .makeBtnTitleByShowingType(UILabelShowingType_03)
@@ -106,7 +108,9 @@ Prop_strong()BaseButton *btn;
                 make.center.equalTo(self.view);
                 make.size.mas_equalTo(CGSizeMake(JobsWidth(80), JobsWidth(60)));
             });
-    };return _btn;
+    }
+    JobsOCCoveragePrepareLongPressButton(_btn, @"jobs.coverage.longPress.LocalNotificationsVC.btn");
+    return _btn;
 }
 
 @end

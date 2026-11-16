@@ -262,12 +262,12 @@ Prop_strong()UIButton *accessoryDoneBtn;
                 .byBgColor(HEXCOLOR(0x263342));
         });
         self.accessoryTitleLab.addOn(_accessoryBar).byAdd(^(MASConstraintMaker *make) {
-            make.left.equalTo(_accessoryBar).offset(JobsWidth(18));
-            make.centerY.equalTo(_accessoryBar);
+            make.left.equalTo(self->_accessoryBar).offset(JobsWidth(18));
+            make.centerY.equalTo(self->_accessoryBar);
         });
         self.accessoryDoneBtn.addOn(_accessoryBar).byAdd(^(MASConstraintMaker *make) {
-            make.right.equalTo(_accessoryBar).offset(-JobsWidth(18));
-            make.centerY.equalTo(_accessoryBar);
+            make.right.equalTo(self->_accessoryBar).offset(-JobsWidth(18));
+            make.centerY.equalTo(self->_accessoryBar);
         });
     };return _accessoryBar;
 }

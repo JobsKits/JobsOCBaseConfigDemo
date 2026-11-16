@@ -235,8 +235,8 @@ Prop_assign()JobsSysProgressDemoMode progressMode;
     return ^{
         @jobs_strongify(self)
         if (!self) return;
-        if (_countdownTimer) _countdownTimer.jobsStop();
-        _countdownTimer = nil;
+        if (self->_countdownTimer) self->_countdownTimer.jobsStop();
+        self->_countdownTimer = nil;
         CGFloat finishedProgress = self.progressMode == JobsSysProgressDemoModeCountUp ? 1 : 0;
         [self.progressView setProgress:finishedProgress animated:YES];
         self.timeLab.byText(@"倒计时完成".jobsTr());
@@ -260,9 +260,9 @@ Prop_assign()JobsSysProgressDemoMode progressMode;
     return ^(BOOL resetUI){
         @jobs_strongify(self)
         if (!self) return;
-        if (_countdownTimer) {
-            _countdownTimer.jobsStop();
-            _countdownTimer = nil;
+        if (self->_countdownTimer) {
+            self->_countdownTimer.jobsStop();
+            self->_countdownTimer = nil;
         }
         if (self.startButton) self.startButton.byEnabled(YES);
         if (self.durationSegment) self.durationSegment.byEnabled(YES);

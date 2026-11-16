@@ -1,12 +1,24 @@
 # **iOS@OC**<font color=red>靶场项目</font>蓝皮书📘
 
-本工程的[iPhone 真机与 iOS 模拟器自动巡检教程](./ScriptsByDevTools/【MacOS】🧪iOS自动巡检.command/README.md)位于自己的 `ScriptsByDevTools`；只操作本工程已安装的 App，报告保存在该脚本包内。开发辅助入口见[ScriptsByDevTools 说明](./ScriptsByDevTools/README.md)。
+App骨架资产（启动、导航、菜单、搜索、侧栏、分组、悬浮控件与设置）见[App骨架功能盘点](./项目相关报告/App骨架功能盘点.md)；项目报告统一归入 `项目相关报告/`，根 `README.md` 保留为仓库入口。
+
+首页“数据、网络与文本 → Rust 离线 OCR”提供独立图片识别 Demo，调用共享 Rust 核心，含内置样本、照片选择、开始／取消、文字／JSON 和复制。新 OC 通过 `JobsByPods/JobsRustOCR@Pods` 集成，旧 OC 在同一主 xcodeproj 内以原生静态库 target `JobsRustOCRLegacy` 单独编译桥接（隔离旧 C-only 前缀头），不新增 Pod；核心灵感及模型来源为 [**Indra OCR**](https://github.com/datalab-to/indra)，详细依赖、能力和当前验证边界见 [Rust OCR 集成资产盘点](./项目相关报告/RustOCR集成/README.md)。
+
+首页统一“功能实验室”，保留项目来源副标题。深蓝#1565C0／白字悬浮时间（对比5.75:1）按本地化内容和字体缩放自适应，长按拖动并吸附四边，短按进入[世界时钟](<./JobsOCBaseConfigDemo/业务逻辑/控制器/ViewController@1/JobsOCWorldClockVC/README.md>)；设备时区置顶，全球按实时UTC偏移各列代表城市，保留日期／星期／秒值／UTC偏移／IANA与系统夏令时。原生“12小时制”开关默认关并独立记忆，明确AM／PM，只影响世界页，首页仍为24小时；页面活跃时每秒刷新，离开／后台停止。本轮两工程arm64构建、中文浅色物理手势／格式切换／滚动保持／重启恢复已验证，主链实测对应新final5／旧final3；末尾返回文案补线新final6／旧final4已构建，用户清理设备后已在新共享设备完成旧端中文返回文案与实际返回短回归。末尾纯颜色增量新final7／旧final5已构建，实际截图两端均为#1565C0。分项证据与待验范围见资产表SKEL-14／SKEL-28。当前时区使用顶部独立圆角强调卡片，大号时间随系统字号，城市／IANA／UTC偏移与日期星期完整保留；制式开关左标题随当前值显示“24小时制”或“12小时制”，默认24小时，开启明确AM／PM。
+
+设置中的“返回首页时收缩分组”默认开启并保存在UserDefaults；仅具体Demo返回首页时收缩，关闭后优先保留原展开与滚动位置，不被旧“回顶部并刷新”清空。设置／搜索／世界时钟返回不触发收缩，手动展开收缩仍可用。开屏实际呈现期间浮钟隐藏并停止接收触摸，真实结束且首页可交互后恢复，原全屏拖动范围不变。首页时间Timer按每首页实例唯一标识注册，避免开屏暂停或销毁干扰另一首页；验证阶段与待验矩阵见骨架盘点。
+
+首页“数据、网络与文本 → Core Data 本地数据库”已接入原有 `JobsOCBaseConfigDemo.xcdatamodeld` 的 `User(name, age)` 与实际 [**SQLite**](https://www.sqlite.org/) 存储，使用 `CoreDataVC` 手动添加、编辑、删除和确认清空；进入页面不再自动插入 Alice／Bob。写入立即保存、失败回滚，重载可重试；保留原容器默认存储路径及历史数据，沿用全局语言／主题、本地数据库图标和完整空态。本页不请求业务API或网络图片，源码及分项验证见[Core Data专项资产](./项目相关报告/App骨架功能盘点.md#coredata-assets)，运行验收以该表所列范围为准。
+
+本工程的[iPhone 真机与 iOS 模拟器自动巡检教程](./ScriptsByPods/自动化测试相关脚本/【MacOS】🧪iOS自动巡检.command/README.md)位于自己的 `ScriptsByPods/自动化测试相关脚本`；只操作本工程已安装的 App，报告保存在该脚本包内。开发辅助入口见[ScriptsByPods/自动化测试相关脚本 说明](./ScriptsByPods/自动化测试相关脚本/README.md)。
 
 - 确定性页面与手势清单见脚本包 `Coverage/routes.json`、`Flows.json`，源码映射见 `SourceAudit.json`。App 内 `Common/App工具类/测试支持/JobsOCCoverageGestureProbe` 仅在 Debug 且带巡检启动参数时观察原回调；组件触摸 fixture 单独标记，静态登记不表示设备已通过。根排序使用独立测试偏好域，编辑收键盘用例隔离既有发帖草稿，原 disabled 按钮不会被测试强制启用。
 
 > **项目定位**：面向 iOS 开发者的 Objective-C 工程母版、基础能力库与可运行 Demo 靶场；用于复用工程基座、验证交互和查阅实践。**状态**：持续维护与实验，维护者 **Jobs / JobsKits**；不代表全部示例已完成产品化验收。
 >
 > `main` 将基础能力集成主工程，`byPods` 将对应能力下沉本地 Pod；两种形态共用本文。2026-10-27 静态核验：首页具名路由目标 **117** 个、其它具名子目标 **14** 个，合并去重 **131** 个；源码行数、依赖数与 Git 历史按分支分别列出。入口映射口径、排除项和复核命令见[项目统计](#project-statistics)。
+
+老工程的公共源码统一放在根目录 `Libs/`，下辖 `JobsOCBaseCustomize3rdCore`、`JobsOCBaseCustomizeUIKitCore`、`JobsOCDSL`、`OCBaseConfig`、`PodsManual`、`🔨Manual_Add_ThirdParty（按需引入）`；新工程继续由本地 Pod 管理对应能力。旧绶带工具保留在 `Libs/构建工具/JobsAppIconRibbon/`；新绶带 Pod 与配置统一归入 `JobsByPods/JobsAppIconRibbon@Pods/`，新工程不保留 `Libs` 目录。两侧脚本统一在 `ScriptsByPods/自动化测试相关脚本` 与 `ScriptsByPods/Cocoapods相关脚本`，原开发工具并入前者。`JobsConfig.xcconfig`、`JobsOCBaseConfigDemo.entitlements` 和 [Info.plist 配置资料](./JobsOCBaseConfigDemo/其他/配置info.plist/README.md)归入主工程 `其他/`；实际 App 的 `Info.plist` 仍按 `INFOPLIST_FILE` 指定位置读取。
 
 <p align="left">
   <a><img src="https://img.shields.io/badge/pod-1.17.0_snapshot-brightgreen" alt="CocoaPods"/></a>
@@ -319,6 +331,15 @@
 
 > **工程形态**：OC 新旧工程共享同一套 Jobs 自维护能力与文档标准；新工程按职责拆分为本地 [**CocoaPods**](https://cocoapods.org/) 模块，旧工程将对应源码与资源直接集成到主工程。两种形态都以同一套公开 API、Demo、行为和数据库选型结论为准。
 
+
+**统一搜索组件与宿主边界**
+
+首页搜索与组件 Demo 都实际创建 `JobsOCSearcherView`，共享输入、文字取消、推荐词、历史去重／容量／删除／清空、历史与结果切换及完整空态。首页保留原历史存储键，空关键词只展示历史，清空关键词回历史；组件 Demo 保留八个推荐词并用本地技术词表展示真实匹配结果与释义，选择结果会记录当前关键词。
+
+`JobsOCSearcherConfig` 注入全局设置对应的文案和语义配色，组件不保存独立语言或主题偏好；`reloadWithConfig` 保留当前关键词、输入焦点和历史。`historyScope` 用于账号隔离，`persistsHistory=NO` 用于当前组件的内存历史，容量限制为 1–1000（默认 20）。推荐／历史选择只填入并回调，确认搜索才自动记录；宿主点结果可主动 `saveHistoryByText`。
+
+宿主通过 `byResultContentView(view)` 注入结果区域，监听一次有效关键词变更后过滤数据，再以 `byResultCount(匹配项总数)` 更新空态；组件不依赖首页分组、Demo 路由、抽屉或调试浮层。首页继续保存并恢复原滚动／展开／浮控显隐／抽屉手势，搜索期间收键盘、主题或语言刷新及前后台切换不退出搜索。旧 `JobsOCSearcherBar` 作为 input-only 兼容门面复用同一输入管线，并保留真实 `ZYTextField` 协议类型。
+
 本节只回答“项目最值得复用什么”。具体原理、完整参数和边界说明继续以对应源码、模块 `README.md` 与可运行 Demo 为准。
 
 ### <span id="jobs-toc-heading-4" data-jobs-toc="v2">2.1、统一工程基座 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a></span><!-- jobs-toc:heading-end -->
@@ -336,9 +357,9 @@
 
 Jobs 自维护代码的兼容分支统一留在封装内部，调用方沿用 Jobs API：
 
-- [绘制入口](<./JobsOCBaseConfigDemo/OCBaseConfig/JobsOCDefs/Core/MacroDef_Others/MacroDef_Func.h>) `JobsRenderImage(size, opaque, scale, drawing)` 在 iOS 10+ 使用 `UIGraphicsImageRenderer`，更旧系统使用位图上下文，保留尺寸、透明度与倍率。
-- [窗口与屏幕查询](<./JobsOCBaseConfigDemo/OCBaseConfig/JobsOCDefs/Core/JobsGetWindow/window.h>) `jobsGetMainWindow()`、`jobsGetMainScreen()` 均返回 `_Nullable`；iOS 26+ 无可用前台 Scene 时返回 `nil`，`jobsScreenBoundsForView(nil)` 返回 `CGRectZero`。传入 view 时优先其所属 Scene 或自身 bounds。
-- [按钮兼容入口](<./JobsOCBaseConfigDemo/JobsOCDSL/UIKit/UIButton+DSLs/UIButton+DSL/UIButton+DSL.m>) 在 iOS 15+ 使用 `UIButtonConfiguration` 与状态更新 handler，旧系统保留旧属性；克隆按钮调用 `byCopyCompatibilityFromButton(source)` 复制边距、高亮、禁用及阴影配置，各控件独立保存回调、变换基准与触摸阴影快照。
+- [绘制入口](<./Libs/OCBaseConfig/JobsOCDefs/Core/MacroDef_Others/MacroDef_Func.h>) `JobsRenderImage(size, opaque, scale, drawing)` 在 iOS 10+ 使用 `UIGraphicsImageRenderer`，更旧系统使用位图上下文，保留尺寸、透明度与倍率。
+- [窗口与屏幕查询](<./Libs/OCBaseConfig/JobsOCDefs/Core/JobsGetWindow/window.h>) `jobsGetMainWindow()`、`jobsGetMainScreen()` 均返回 `_Nullable`；iOS 26+ 无可用前台 Scene 时返回 `nil`，`jobsScreenBoundsForView(nil)` 返回 `CGRectZero`。传入 view 时优先其所属 Scene 或自身 bounds。
+- [按钮兼容入口](<./Libs/JobsOCDSL/UIKit/UIButton+DSLs/UIButton+DSL/UIButton+DSL.m>) 在 iOS 15+ 使用 `UIButtonConfiguration` 与状态更新 handler，旧系统保留旧属性；克隆按钮调用 `byCopyCompatibilityFromButton(source)` 复制边距、高亮、禁用及阴影配置，各控件独立保存回调、变换基准与触摸阴影快照。
 - traits 观察在 iOS 17+ 使用 `registerForTraitChanges:withHandler:` 并防止重复注册；更旧系统保留 `traitCollectionDidChange:`，两条路径复用 Jobs 业务刷新逻辑。
 - 应用角标 `byApplicationIconBadgeNumber(...)` 在 iOS 16+ 通过 `UNUserNotificationCenter` 异步更新，失败写入日志；更旧系统保留 `UIApplication` 角标属性，调用方继续使用同一 Jobs DSL。
 - 录像预览在 iOS 27+ 由当前相机的 `AVCaptureDeviceRotationCoordinator` 将指定逻辑方向换算为旋转角度；更旧系统保留逻辑方向管线，前后摄像头镜像规则不变。
@@ -379,7 +400,7 @@ Jobs 自维护的应用、Demo 与本地 Pod 统一执行同一套 [**Objective-
 | 能力域 | 代表模块 | 特色摘要 |
 | --- | --- | --- |
 | 增强现实 | [ARKit 空间实验室](./JobsOCBaseConfigDemo/业务逻辑/功能模块/Demo@ARKit/README.md) | 苹果官方 ARKit 教学与实操：世界追踪、水平平面、射线放置和锚点；方块 / 球体 / 机器人支持缩放、旋转、清空与重置，含十语言、三主题和明确标注的离线三维预览。真实空间体验需要受支持的实体设备。 |
-| 登录注册 | `JobsAppDoor` | Style1 侧栏变形与 Style2 全屏横滑两套认证 UI；统一登录、注册、忘记密码、短信 / 图形验证码和资源包。国旗与区号用不换行空格同行，切换侧栏 / 提交以 `18pt`、标题以 `22pt` 为基准（Style1 沿用 `JobsWidth` 缩放）；音量面板点外部收起并继续响应原控件，真机用原生系统音量，模拟器保留播放器局部滑条。详见[模块说明](./JobsOCBaseConfigDemo/OCBaseConfig/JobsMixFunc/JobsAppDoor/尝试高仿蜜柚.md/README.md)。 |
+| 登录注册 | `JobsAppDoor` | Style1 侧栏变形与 Style2 全屏横滑两套认证 UI；统一登录、注册、忘记密码、短信 / 图形验证码和资源包。国旗与区号用不换行空格同行，切换侧栏 / 提交以 `18pt`、标题以 `22pt` 为基准（Style1 沿用 `JobsWidth` 缩放）；音量面板点外部收起并继续响应原控件，真机用原生系统音量，模拟器保留播放器局部滑条。详见[模块说明](./Libs/OCBaseConfig/JobsMixFunc/JobsAppDoor/尝试高仿蜜柚.md/README.md)。 |
 | 开屏 | `JobsOCSplash` | 本地图片、本地 GIF、远程图片、本地视频、远程视频五种内容；远程视频仅播放完整缓存，未命中时立即回退本地视频并持续预加载。 |
 | 刷新与动画 | `JobsOCRefresher` + `JobsFuseAnimation` | 上下左右四向刷新、统一状态机、触感 / 声音；系统、图片、GIF、Lottie、今日头条、抖音动画可在挂载后原位热替换。 |
 | 表格与长文字 | `JobsOCExcel` + `JobsOCUILabelScrolling` | Office 式冻结 `0...N` 列；单元格支持缩放、单行省略、多行省略和 CoreText 完整滚动。 |
@@ -400,7 +421,7 @@ Jobs 自维护的应用、Demo 与本地 Pod 统一执行同一套 [**Objective-
 | 工程化 | 本地能力模块、`Extra` 适配层、依赖报告、Xcode CodeSnippets、`.command` | 不改上游源码地扩展第三方能力；公开头、资源、依赖、Demo、README 与代码块一起维护。 |
 | 测试场景支持 | `JobsOCStabilitySupport`、`JobsPodsStabilitySceneDelegate` | 空白 UIKit Scene 只创建测试窗口，不初始化业务服务、不替换主 App 的 `SceneDelegate`；源码直接集成于主工程目录，仅由原生单元测试 target 编译。 |
 
-Demo 源码统一放在 `JobsOCBaseConfigDemo/业务逻辑/功能模块/`，目录使用 `Demo@` 前缀；微应用、用户与设备信息、设备启动门禁分别为 `Demo@MicroAppLearning`、`Demo@JobsDeviceDescription`、`Demo@JobsDeviceGuardLaunch`，每组 `.h` / `.m` 按完整基名放入同名目录。启动门禁保留真实启动接入。测试场景支持的用法与编译归属见 [JobsOCStabilitySupport](./JobsOCBaseConfigDemo/OCBaseConfig/JobsMixFunc/JobsOCStabilitySupport/README.md)。
+Demo 源码统一放在 `JobsOCBaseConfigDemo/业务逻辑/功能模块/`，目录使用 `Demo@` 前缀；微应用、用户与设备信息、设备启动门禁分别为 `Demo@MicroAppLearning`、`Demo@JobsDeviceDescription`、`Demo@JobsDeviceGuardLaunch`，每组 `.h` / `.m` 按完整基名放入同名目录。启动门禁保留真实启动接入。测试场景支持的用法与编译归属见 [JobsOCStabilitySupport](./Libs/OCBaseConfig/JobsMixFunc/JobsOCStabilitySupport/README.md)。
 
 搜索清空公开入口使用 `clearHistory()`；空配置保留输入提示、推荐标题和历史标题。刷新配置统一接收 `JobsRefreshAnimatorProtocol`，默认与空动画替换均使用 `JobsSystemRefreshView`。自维护源码、公开 API、Demo 入口和目录核验结果见[代码平行性审计](./OCDoc.md/OC新旧代码平行性审计.md/OC新旧代码平行性审计.md)。
 
@@ -413,7 +434,7 @@ Demo 源码统一放在 `JobsOCBaseConfigDemo/业务逻辑/功能模块/`，目�
 
 <font color=red>**当前已接入采集页面和后端，仍需用户在 Safari 与系统设置完成确认。**</font>本机信息保留公开 API 与系统限制说明；本次联网结果在独立第三组显示，并区分系统回传、浏览器报告、资料映射和手工补录。会话自创建起 15 分钟有效，默认请求超时 6 秒，失败保留仍有效的数据与刷新入口；编号和 Cookie 不持久化，结束清除或到期后隐藏结果。不会用 IDFV 冒充 UDID，不承诺 IMEI 必然返回，也不把配对结果作为本机身份认证。完整流程、HTTPS 根站与超时配置、离线回退和验证边界见[设备信息模块说明](./JobsOCBaseConfigDemo/业务逻辑/功能模块/Demo@JobsDeviceDescription/README.md)。
 
-`JobsOCDeviceGuard` 直接集成于主工程 `JobsOCBaseConfigDemo/OCBaseConfig/JobsMixFunc/JobsOCDeviceGuard`，并提供独立 Demo。默认只读，写探测由显式动作启用，创建的唯一临时文件立即清理并记录清理错误；组件不自动退出 App 或上传检测信息。`shouldRestrict` 仍只表示限制建议。<font color=red>**宿主已接入真实启动门禁：`AppDelegate` 在后续显式业务初始化前调用 `JobsOCDeviceGuardLaunchGate.prepare()`，默认只在 `report.isJailbroken` 为真时提前返回 `YES`；Scene 直接创建独立原生拦截窗口，不创建正常业务根页面或开屏。**</font>详细接口与流程见[启动接入说明](./JobsOCBaseConfigDemo/业务逻辑/功能模块/Demo@JobsDeviceGuardLaunch/README.md)。首次判定后冻结，后续 Scene、活动恢复与现有生命周期回调不能绕过该启动结果；启动前可配置判定策略与拦截页工厂。`suspicious`、`indeterminate`、`unsupported` 按当前策略继续启动，不构成安全证明。Demo 按钮仍只展示单次判定；登录、支付、下单及每次请求尚未逐项接入独立拦截器。
+`JobsOCDeviceGuard` 直接集成于主工程 `Libs/OCBaseConfig/JobsMixFunc/JobsOCDeviceGuard`，并提供独立 Demo。默认只读，写探测由显式动作启用，创建的唯一临时文件立即清理并记录清理错误；组件不自动退出 App 或上传检测信息。`shouldRestrict` 仍只表示限制建议。<font color=red>**宿主已接入真实启动门禁：`AppDelegate` 在后续显式业务初始化前调用 `JobsOCDeviceGuardLaunchGate.prepare()`，默认只在 `report.isJailbroken` 为真时提前返回 `YES`；Scene 直接创建独立原生拦截窗口，不创建正常业务根页面或开屏。**</font>详细接口与流程见[启动接入说明](./JobsOCBaseConfigDemo/业务逻辑/功能模块/Demo@JobsDeviceGuardLaunch/README.md)。首次判定后冻结，后续 Scene、活动恢复与现有生命周期回调不能绕过该启动结果；启动前可配置判定策略与拦截页工厂。`suspicious`、`indeterminate`、`unsupported` 按当前策略继续启动，不构成安全证明。Demo 按钮仍只展示单次判定；登录、支付、下单及每次请求尚未逐项接入独立拦截器。
 
 设备安全入口使用打包的 `JobsDeviceGuardShield` 模板矢量图，素材为 [**iconfont**](https://www.iconfont.cn/collections/detail?cid=52407) 的 `fontawesome5 / shield-alt`（图标 ID `44771661`），由 Font Awesome 提供，按 [**CC BY 4.0 / Font Awesome Free 许可**](https://fontawesome.com/license/free)署名使用。原始 SVG 从该图标集合下载，仅转换为 PDF 以保留矢量缩放，不在运行时请求图片。
 
@@ -509,6 +530,8 @@ JobsDebugPanelManager.sharedPanel
 
 Demo 配置本地 `18080`、[**HTTPBin**](https://httpbin.org/)、[**Postman**](https://postman-echo.com/) 三个环境，使用当前 URL 请求 `/get`，超时 `3` 秒；失败时展示本地示例并可重试，成功后自动使用真实响应。浮层按 Scene 绑定当前业务 Window，按钮以外触摸继续传给业务页面；圆形入口启动时默认隐藏，摇动手机后显示；可拖动，长按 `0.8` 秒隐藏全部悬浮入口，不弹出 deinit / dealloc 提示，再次摇动可恢复；重复摇动复用浮层，退到后台再回来不自动解除隐藏，重启仍等待摇动。拖动不触发点击或长按。圆形按钮再次点按会收起环境页、自定义动作页及弹窗，返回打开前的页面，返回后可重新打开。Demo 的表格、Cell、选中态、页脚与已打开的调试页、环境页、导航和弹窗即时跟随 `JobsThemeCenter` 的有效主题，系统与 App 自选主题不一致时以 App 为准。无导航容器时用带关闭入口的导航容器模态展示；默认菜单不包含全 App 弱网开关，真实网络条件使用 [**Apple Network Link Conditioner**](https://developer.apple.com/library/archive/documentation/FileManagement/Conceptual/On_Demand_Resources_Guide/TestingPerformance.html)。完整集成、资源许可和中文架构说明见对应形态的 JobsDebugPanel README。
 
+独占输入界面通过 `JobsDebugPanelManager.sharedPanel.byFloatingEntrySuppressionOwner(self)` 临时抑制悬浮入口和调试页，退出传入 `nil`；摇动、前后台及窗口刷新不会解除抑制，解除后按原长按隐藏状态恢复，不写入持久偏好。
+
 JobsIconfont 只暴露语义资源，远程地址、字体名称与 Unicode 均由框架内部管理：
 
 ```objc
@@ -564,23 +587,23 @@ JobsIconfont 只暴露语义资源，远程地址、字体名称与 Unicode 均�
 
 下列可选网络适配、报告与辅助任务说明适用于未设置跳过开关的普通终端安装，或本手动入口选择 `YES` 的完整模式；本入口默认基础模式跳过这些增强，Podfile 必需的内联工程配置继续执行。
 
-[CocoaPods 网络适配包](<./ScriptsByPods/【MacOS】🌐CocoaPods网络适配.command/README.md>)在公共 Specs 选源前同步加载 `jobs_cocoapods_network.rb`：真实 `pod install` / `pod update` 优先验证明确指定的 `JOBS_POD_PROXY_URL`，否则测试当前 Git 链路；当前链路不可用时，再测试系统已启用的 HTTP / HTTPS / SOCKS 代理。通过验证的代理环境由本次 Specs 探测、Git / curl 与 CocoaPods 后续下载继承，进程退出恢复；不安装代理、不扫描端口、不修改全局 Git 或系统设置。默认单轮探测最多 6 秒，`JOBS_POD_NETWORK_ADAPT=0` 可关闭代理探测。
+[CocoaPods 网络适配包](<./ScriptsByPods/Cocoapods相关脚本/【MacOS】🌐CocoaPods网络适配.command/README.md>)在公共 Specs 选源前同步加载 `jobs_cocoapods_network.rb`：真实 `pod install` / `pod update` 优先验证明确指定的 `JOBS_POD_PROXY_URL`，否则测试当前 Git 链路；当前链路不可用时，再测试系统已启用的 HTTP / HTTPS / SOCKS 代理。通过验证的代理环境由本次 Specs 探测、Git / curl 与 CocoaPods 后续下载继承，进程退出恢复；不安装代理、不扫描端口、不修改全局 Git 或系统设置。默认单轮探测最多 6 秒，`JOBS_POD_NETWORK_ADAPT=0` 可关闭代理探测。
 
 同包的 `jobs_cocoapods_download_fallback.rb` 仅在真实安装入口注册已核验 `AMPopTip 4.12.0` 发布请求的官方 codeload 精确提交回退；原 Git 下载发生网络失败时才启用，不改版本、第三方 podspec 或锁文件。其他依赖保留原下载器并继承本次网络环境；未知仓库 / 版本、分支、认证或校验错误不使用归档回退，`JOBS_POD_GITHUB_ARCHIVE_FALLBACK=0` 可关闭。没有可用链路时只告警并继续原安装，不能据此视为下载成功。归档兼容验证基线为 CocoaPods 1.17.0 / downloader 2.1，其他内部 API 跳过该增强。摘要进入安装终端与手动安装入口日志；独立诊断摘要写入系统临时目录中的 `jobs-cocoapods-network.log`，不输出代理凭据。
 
-公共 Specs 由 [CocoaPods 源自动选择模块](<./ScriptsByPods/【MacOS】🌐CocoaPods源自动选择.command/README.md>)单独管理。Podfile 顶部同步加载 `jobs_cocoapods_source.rb` 并在 `source` 声明前完成真实 podspec GET 与 Git 连接测试；`pod install` / `pod update` 均按当前网络选源。可用 `JOBS_SPECS_SOURCE=cdn` / `git` 固定本次来源，默认 `auto`；每条候选线路完整测试默认最多 8 秒，可用 `JOBS_SPECS_PROBE_TIMEOUT` 调整。
+公共 Specs 由 [CocoaPods 源自动选择模块](<./ScriptsByPods/Cocoapods相关脚本/【MacOS】🌐CocoaPods源自动选择.command/README.md>)单独管理。Podfile 顶部同步加载 `jobs_cocoapods_source.rb` 并在 `source` 声明前完成真实 podspec GET 与 Git 连接测试；`pod install` / `pod update` 均按当前网络选源。可用 `JOBS_SPECS_SOURCE=cdn` / `git` 固定本次来源，默认 `auto`；每条候选线路完整测试默认最多 8 秒，可用 `JOBS_SPECS_PROBE_TIMEOUT` 调整。
 
-适配器只在当前进程映射锁文件公共源，保留锁定版本、校验和及私有源；不删除 Pods / 锁文件，不自动升级或二次安装。两条线路均失败时尝试锁文件源、已有缓存或默认 CDN，脚本异常时告警并继续 CocoaPods 自身流程，<font color=red>**不能保证离线安装成功。**</font>迁移时保留 `ScriptsByPods/【MacOS】🌐CocoaPods网络适配.command/`、`ScriptsByPods/【MacOS】🌐CocoaPods源自动选择.command/` 两个整包与 Podfile 的加载代码。两个模块缺失或初始化异常均告警并继续，查询命令不触发网络适配或归档回退；未执行真实安装或构建，隔离验证不能替代受限网络下的最终安装验收。
+适配器只在当前进程映射锁文件公共源，保留锁定版本、校验和及私有源；不删除 Pods / 锁文件，不自动升级或二次安装。两条线路均失败时尝试锁文件源、已有缓存或默认 CDN，脚本异常时告警并继续 CocoaPods 自身流程，<font color=red>**不能保证离线安装成功。**</font>迁移时保留 `ScriptsByPods/Cocoapods相关脚本/【MacOS】🌐CocoaPods网络适配.command/`、`ScriptsByPods/Cocoapods相关脚本/【MacOS】🌐CocoaPods源自动选择.command/` 两个整包与 Podfile 的加载代码。两个模块缺失或初始化异常均告警并继续，查询命令不触发网络适配或归档回退；未执行真实安装或构建，隔离验证不能替代受限网络下的最终安装验收。
 
-[Podfile](./Podfile) 顶部加载 `./ScriptsByPods/【MacOS】📦Pod Install离线保护.command/jobs_pod_install_offline_guard.rb/jobs_pod_install_offline_guard.rb`，在依赖解析前同步运行同包调度器的 `--preflight`；`post_integrate` 同步运行 `--post-integrate`。两阶段都继承当前终端，依次展示自述、等待确认并显示真实结果。详见[本地脚本保护说明](<./ScriptsByPods/【MacOS】📦Pod Install离线保护.command/README.md>)。
+[Podfile](./Podfile) 顶部加载 `./ScriptsByPods/Cocoapods相关脚本/【MacOS】📦Pod Install离线保护.command/jobs_pod_install_offline_guard.rb/jobs_pod_install_offline_guard.rb`，在依赖解析前同步运行同包调度器的 `--preflight`；`post_integrate` 同步运行 `--post-integrate`。两阶段都继承当前终端，依次展示自述、等待确认并显示真实结果。详见[本地脚本保护说明](<./ScriptsByPods/Cocoapods相关脚本/【MacOS】📦Pod Install离线保护.command/README.md>)。
 
 | 时机 | 挂载脚本 / 入口 | 实际行为、交互与产物 |
 | --- | --- | --- |
-| `pod install` / `pod update` 读取 Podfile 时，公共 Specs 选源前 | [CocoaPods 网络适配](<./ScriptsByPods/【MacOS】🌐CocoaPods网络适配.command/README.md>)同步探测并注册归档回退 | 验证当前链路与已有代理，供本次下载继承；只有已审发布请求可在 Git 网络失败后回退官方归档，不写独立持久配置 |
-| `pod install` / `pod update` 读取 Podfile 时，`source` 声明前 | [CocoaPods 源自动选择](<./ScriptsByPods/【MacOS】🌐CocoaPods源自动选择.command/README.md>)同步测速 | 测试当前网络并决定本次公共 Specs 源；结果与理由写入系统临时日志 |
-| `pod install` 读取 Podfile 时，依赖解析前 | `--preflight` → [查询工程依赖关系](<./ScriptsByPods/【MacOS】🔍查询Xcode工程依赖关系.command/README.md>) | 自述后回车确认；保留 Homebrew 自检 / 更新和 Graphviz 安装 / 升级选择，回车跳过普通安装或更新、输入任意字符执行；扫描本地 podspec，更新 `./PodspecDependencyReport/` 下的报告与关系图，并选择是否打开产物 |
-| 工程集成完成后，`post_integrate` | `--post-integrate` → [恢复 PIF 构建会话](<./ScriptsByPods/【MacOS】🧹恢复Xcode PIF构建会话.command/README.md>) | 展示影响后输入精确大写 `YES` 才恢复；有活动构建则跳过，无活动构建时结束当前用户的空闲服务，再用工作空间列表命令重建会话 |
-| PIF 流程结束后，同一前台收尾 | [CodeGraph 初始化脚本](./ScriptsByPods/【MacOS】codegraph_init.command/【MacOS】codegraph_init.command) | 完整工具链体检、经确认补齐缺失组件、建立 / 更新代码地图并导出 Markdown；等待结束并显示真实状态，工程锁避免并发更新 |
+| `pod install` / `pod update` 读取 Podfile 时，公共 Specs 选源前 | [CocoaPods 网络适配](<./ScriptsByPods/Cocoapods相关脚本/【MacOS】🌐CocoaPods网络适配.command/README.md>)同步探测并注册归档回退 | 验证当前链路与已有代理，供本次下载继承；只有已审发布请求可在 Git 网络失败后回退官方归档，不写独立持久配置 |
+| `pod install` / `pod update` 读取 Podfile 时，`source` 声明前 | [CocoaPods 源自动选择](<./ScriptsByPods/Cocoapods相关脚本/【MacOS】🌐CocoaPods源自动选择.command/README.md>)同步测速 | 测试当前网络并决定本次公共 Specs 源；结果与理由写入系统临时日志 |
+| `pod install` 读取 Podfile 时，依赖解析前 | `--preflight` → [查询工程依赖关系](<./ScriptsByPods/Cocoapods相关脚本/【MacOS】🔍查询Xcode工程依赖关系.command/README.md>) | 自述后回车确认；保留 Homebrew 自检 / 更新和 Graphviz 安装 / 升级选择，回车跳过普通安装或更新、输入任意字符执行；扫描本地 podspec，更新 `./PodspecDependencyReport/` 下的报告与关系图，并选择是否打开产物 |
+| 工程集成完成后，`post_integrate` | `--post-integrate` → [恢复 PIF 构建会话](<./ScriptsByPods/自动化测试相关脚本/【MacOS】🧹恢复Xcode PIF构建会话.command/README.md>) | 展示影响后输入精确大写 `YES` 才恢复；有活动构建则跳过，无活动构建时结束当前用户的空闲服务，再用工作空间列表命令重建会话 |
+| PIF 流程结束后，同一前台收尾 | [CodeGraph 初始化脚本](./ScriptsByPods/自动化测试相关脚本/【MacOS】codegraph_init.command/【MacOS】codegraph_init.command) | 完整工具链体检、经确认补齐缺失组件、建立 / 更新代码地图并导出 Markdown；等待结束并显示真实状态，工程锁避免并发更新 |
 
 通用辅助脚本由 `JOBS_POD_INSTALL_INTERACTION` 选择模式：
 
@@ -608,12 +631,12 @@ CodeGraph 完整体检覆盖系统 Shell / curl / Git / CLT、Brew 版本 / 配�
 
 | 时机 / 阶段 | 脚本 / 配置入口 | 实际行为与产物 |
 | --- | --- | --- |
-| 构建中：`Package Markdown Documents` | 对应工程的 `JobsMarkdownPackager.rb` | 将项目文档与相对资源打入 App 内的 `JobsMarkdownDocuments.bundle`，供 Markdown Demo 离线阅读；本地 Pod 形态由 Pod 脚本挂载，直接集成形态由主工程 Build Phase 挂载 |
-| 环境绶带生成 | 对应工程的 `JobsAppIconRibbon` 脚本或 podspec | 本地 Pod 形态通过 `script_phase`，直接集成形态通过主工程 Build Phase 生成环境绶带 |
-| 主 App 最后一个 Build Phase：`Save Build IPA` | [save_device_ipa_after_build.command](./ScriptsByDevTools/save_device_ipa_after_build.command/save_device_ipa_after_build.command) / [使用说明](./ScriptsByDevTools/save_device_ipa_after_build.command/README.md) | 真机生成 `./build/真机.ipa`，模拟器生成 `./build/模拟器.ipa`；打包成功后先清空 build 全部内容，只保留本次包 |
+| 构建中：`Package Markdown Documents` | 对应工程的 `JobsMarkdownPackager.rb` | 将项目文档与相对资源打入 App 内的 `JobsMarkdownDocuments.bundle`，供 Markdown Demo 离线阅读；图片仅允许主工程 `其他/libs/` 或自建本地 Pod 内资源，第三方排除优先，正文和非图片附件保留；本地 Pod 形态由 Pod 脚本挂载，直接集成形态由主工程 Build Phase 挂载 |
+| 环境绶带生成 | 新工程 `JobsByPods/JobsAppIconRibbon@Pods/JobsAppIconRibbon.config` 与同包脚本；老工程 `Libs/构建工具/JobsAppIconRibbon` | 新工程在 `JobsByPods` 中展示并保留 Pod `script_phase`；老工程在 `Libs/构建工具` 中展示并保留主 App Build Phase；配置与脚本按工具真实位置解析，原 AppIcon 只读 |
+| 主 App 最后一个 Build Phase：`Save Build IPA` | [save_device_ipa_after_build.command](./ScriptsByPods/自动化测试相关脚本/save_device_ipa_after_build.command/save_device_ipa_after_build.command) / [使用说明](./ScriptsByPods/自动化测试相关脚本/save_device_ipa_after_build.command/README.md) | 真机生成 `./build/真机.ipa`，模拟器生成 `./build/模拟器.ipa`；打包成功后先清空 build 全部内容，只保留本次包 |
 | Scheme Build 开始 / 结束 | `XBT Build Timer Start / End` → 外部 `xbt-build-hook.sh start / end` | 记录开始、结束时间和耗时；写入用户目录下的 `.xcode-build-timer/state/` 状态及历史日志 |
 
-主 App 最后一个 Build Phase `Save Build IPA` 调用 [save_device_ipa_after_build.command](./ScriptsByDevTools/save_device_ipa_after_build.command/save_device_ipa_after_build.command)，脚本与 `README.md` 位于同名 `.command` 目录。每次 iOS App 构建都会执行，Xcode 内无须手动确认。按设备平台保存以下产物：
+主 App 最后一个 Build Phase `Save Build IPA` 调用 [save_device_ipa_after_build.command](./ScriptsByPods/自动化测试相关脚本/save_device_ipa_after_build.command/save_device_ipa_after_build.command)，脚本与 `README.md` 位于同名 `.command` 目录。每次 iOS App 构建都会执行，Xcode 内无须手动确认。按设备平台保存以下产物：
 
 | 构建平台 | 本次唯一产物 |
 | --- | --- |
@@ -650,6 +673,8 @@ CocoaPods 生成的 `[CP] Check Pods Manifest.lock`、`[CP] Embed Pods Framework
 
 ### <span id="jobs-toc-heading-10" data-jobs-toc="v2">2.7、Jobs 自维护组件稳定性与编译门禁 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a></span><!-- jobs-toc:heading-end -->
 
+自动化测试能力按新旧工程现有实现取并集，保留完整用例、断言、fixture、报告和失败门禁；差异仅限本地 Pod 下沉与主工程直接集成。旧工程的 [组件清单与适配](./Tests/ComponentStability/README.md)登记组件、宿主和应用测试，并复用 [验收入口](./ScriptsByPods/自动化测试相关脚本/jobs_pods_stability_verify.rb/README.md)。清单与静态断言不代表已跑过 XCTest；真实退出码、源码指纹、配置审计与 `.xcresult` 由当次执行生成，未完成的运行不记录为通过。
+
 本地 Pods 形态按 Pod 单元编译后再构建主工程；直接集成形态按主工程源码、资源、Build Phases 与 target membership 验证。两种形态都要保留源码指纹、完整命令、退出码与 XCTest 产物，验证入口和报告以当前工程的 `ScriptsByPods`、稳定性报告和可运行 Demo 为准。
 
 对象生命周期、运行时调用、定时器终态、唯一 ID、事务与文件写入、音频失败清理、开屏缓存、刷新和组件状态都要覆盖；历史通过、局部门禁和基线报告不能代替当前形态的最终真实退出码与产物检查。
@@ -658,7 +683,9 @@ CocoaPods 生成的 `[CP] Check Pods Manifest.lock`、`[CP] Embed Pods Framework
 
 ### <span id="jobs-toc-heading-11" data-jobs-toc="v2">2.8、Xcode 手动运行 Pod Install <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a></span><!-- jobs-toc:heading-end -->
 
-在 `Xcode → Behaviors → 🫘当前工程 · Pod Install` 手动启动[本工程通用入口与完整用法](<./ScriptsByPods/【MacOS@Xcode】🫘当前工程Pod Install.command/README.md>)。脚本与说明保存在 `./ScriptsByPods/【MacOS@Xcode】🫘当前工程Pod Install.command/`，随 `ScriptsByPods` 一起复制，不依赖工程外脚本库。各工程保留相同实现与同一菜单名称，不新增工程专属行为；Xcode 中仅作文件展示，不为该入口增加 App target、Build Phase 或 Scheme 自动动作。
+在 `Xcode → Behaviors → 🫘当前工程 · Pod Install` 手动启动[本工程通用入口与完整用法](<./ScriptsByPods/Cocoapods相关脚本/【MacOS@Xcode】🫘当前工程Pod Install.command/README.md>)。脚本与说明保存在 `./ScriptsByPods/Cocoapods相关脚本/【MacOS@Xcode】🫘当前工程Pod Install.command/`，随 `ScriptsByPods` 一起复制，不依赖工程外脚本库。各工程保留相同实现与同一菜单名称，不新增工程专属行为；Xcode 中仅作文件展示，不为该入口增加 App target、Build Phase 或 Scheme 自动动作。
+
+Xcode 导航中的 `ScriptsByPods` 使用蓝色文件系统同步文件夹，下辖蓝色的 `自动化测试相关脚本`、`Cocoapods相关脚本`，目录内容随磁盘同步。它们仅用于导航展示，不加入 App target 的编译或资源打包；原有脚本挂载与 Behavior 兼容路径保持有效。
 
 脚本优先读取 Xcode 本次调用的 `XcodeWorkspacePath`，再读取 `XcodeProjectPath`；在当前工程及仓库边界内的祖先目录寻找最近的 `Podfile`，不遍历其它子工程。没有工程上下文或找不到 `Podfile` 时停止；`Pods`、`.swiftpm` 生成工程及明确声明为非 iOS 的 Podfile 会被拒绝。动态 Ruby DSL 不会在确认前执行或求值，未知平台仍须核对终端展示的目标。
 
@@ -668,27 +695,33 @@ CocoaPods 生成的 `[CP] Check Pods Manifest.lock`、`[CP] Embed Pods Framework
 
 Behaviors 属于 Xcode 用户设置，本机安装行为的 `Run` 路径登记为工程相对路径 `ScriptsByPods/【MacOS@Xcode】🫘当前工程Pod Install.command/【MacOS@Xcode】🫘当前工程Pod Install.command`。Xcode 从当前工作区所在目录定位本地入口；本组四工程的工作区均在工程根目录，切换工程、移动或改名工程后继续使用同一菜单，无需重选绝对路径。换电脑首次仍需登记这项用户级 Behavior，设置不会随工程自动携带；手工使用 `Choose Script…` 可能改写为绝对路径，需保留上述相对值。终端可显式传入 `--xcode-path`，加 `--check` 只读核对定位，不运行 `pod`、不写日志或工程文件；完整配置与参数见包内说明。
 
+OC 两侧的真实脚本包统一位于 `ScriptsByPods/Cocoapods相关脚本/`；`ScriptsByPods` 根目录保留 Install、Update 两个同名相对符号链接，供四工程共用的 Behavior 定位。链接指向本工程分类目录，不复制脚本、不依赖工程外目录，也不另挂 Xcode 导航。复制或移动工程时保留整个 `ScriptsByPods` 及符号链接；只复制分类目录会导致共用菜单找不到入口。
+
 **Pod Update 对应入口**
 
-[当前工程 Pod Update](<./ScriptsByPods/【MacOS@Xcode】🫘当前工程Pod Update.command/README.md>)与 Pod Install 并列保存在 `ScriptsByPods/【MacOS@Xcode】🫘当前工程Pod Update.command/`，内含自包含脚本及 README，随工程整体复制。空回车仅执行基础 `pod update`，精确输入大写 `YES` 才检查 `pod --version` 并走目标 Podfile 对 update 的现有完整流程；其它输入、EOF 或 Ctrl+C 取消。它不指定 Pod 名称，会按 Podfile 允许范围重新解析全部依赖，可能更新 `Pods/`、`Podfile.lock` 和工作空间。
+[当前工程 Pod Update](<./ScriptsByPods/Cocoapods相关脚本/【MacOS@Xcode】🫘当前工程Pod Update.command/README.md>)与 Pod Install 并列保存在 `ScriptsByPods/Cocoapods相关脚本/【MacOS@Xcode】🫘当前工程Pod Update.command/`，内含自包含脚本及 README，随工程整体复制。空回车仅执行基础 `pod update`，精确输入大写 `YES` 才检查 `pod --version` 并走目标 Podfile 对 update 的现有完整流程；其它输入、EOF 或 Ctrl+C 取消。它不指定 Pod 名称，会按 Podfile 允许范围重新解析全部依赖，可能更新 `Pods/`、`Podfile.lock` 和工作空间。
 
 基础更新复用上述四个进程级跳过开关，保留必要依赖声明与工程配置；完整更新保留已有环境开关、实际 update 钩子及子脚本确认，不强制触发仅限 install 的前置任务。入口不加入 App target、Podfile 钩子或构建动作；独立日志为系统临时目录的 `jobs-xcode-pod-update.log.*`，保留真实退出码。可用 `--check --xcode-path` 只读定位。
+
+手动安装、更新及依赖报告的提示日志均由各自脚本内置函数同步显示并以纯文本落盘，无需额外日志程序。
+
+安装和更新入口仅临时调整当前终端会话配色，结束时按保存值精确恢复；颜色响应分段或短时延迟不影响正常恢复。检测到后续改色时保留这些项；恢复失败另报具体阶段或颜色项及原因，并保留手工恢复入口。`pod` 的退出码与配色保护分别提示：`pod` 成功但配色恢复失败时，整个入口仍返回非零，此时无需因配色警告重复安装。
 
 本机已在 `Xcode → Behaviors → 🫘当前工程 · Pod Update` 接入更新入口，与现有 Pod Install 行为并列；`Run` 使用工程相对路径 `ScriptsByPods/【MacOS@Xcode】🫘当前工程Pod Update.command/【MacOS@Xcode】🫘当前工程Pod Update.command`。更新脚本与工程展示引用随工程提供，用户级 Behaviors 不会由工程自动部署，换电脑首次仍需登记；完整登记和终端用法见包内 README。
 
 ### <span id="jobs-toc-heading-12" data-jobs-toc="v2">2.9、GitHub Actions 模拟器构建 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a></span><!-- jobs-toc:heading-end -->
 
-[构建工作流](./.github/workflows/build_simulator_app.yml)在推送、拉取请求或手动触发时运行；自动触发范围为 `main`、`byPods`。当前 `main` 使用 `xcode-27` runner，显式选择 Xcode 27.1，并验证 iOS Simulator SDK 不低于 27.1；缺少所需工具链时立即失败。版本信息与实际 SDK 写入构建诊断，不接受 runner 默认的 Xcode 27.0 或更高版本的 beta 代替所选基线；显式选择 `arm64` 模拟器架构。`byPods` 在安装前只选择与当前 Simulator SDK 同主版本的可用 arm64 iPhone，不让旧系统的已启动设备抢占；没有匹配 runtime 时提前失败，不自动下载运行时。模拟器 App 不使用真机签名，只供对应架构的模拟器运行。
+[构建工作流](./.github/workflows/build_simulator_app.yml)在推送、拉取请求或手动触发时运行；自动触发范围为 `main`、`byPods`。两侧采用相同的 Xcode 26 选择逻辑：优先读取已存在的 `XCODE_26_DEVELOPER_DIR`，否则在 `/Applications/Xcode_26*.app` 中按数字版本选取，再核验实际版本属于 Xcode 26。旧侧保留 `xcode-27` runner、新侧保留 `macos-15` runner，但不据 runner 名称推断预装版本；没有符合条件的工具链、SDK 或同主版本 arm64 iPhone runtime 即明确失败，不自动切换其它 Xcode 主版本或下载运行时。实际开发者目录、Xcode 与 Simulator SDK 版本保留在日志，旧侧同时写入 `BuildDiagnostics/`。模拟器 App 仅供对应架构运行，不代表真机验收。
 
 [Podfile](./Podfile) 在生成 Pods 工程时，两种形态均为 [**ReactiveObjC**](https://github.com/ReactiveCocoa/ReactiveObjC) 的 Debug / Release 目标显式保留 `ReactiveObjC/extobjc` 头文件搜索目录并继承原有路径。`byPods` 额外仅为该目标关闭 [**USE_HEADERMAP**](https://developer.apple.com/documentation/xcode/build-settings-reference)，避免批量构建时裸宏头名先被映射为框架前缀路径；`main` 当前未设置这一 Header Map 覆盖。`RACmetamacros.h` 使用上游既有文件，不复制宏头、不改写供应商源码，也不依赖前次编译产生的头映射；原 public Headers phase、模块定义和消费者配置保留，CI 关闭旧供应商补丁时仍执行各自配置适配。缺头仍会阻断构建，不降低检查等级。
 
 `main` 仅为 [**ZFPlayer**](https://github.com/renzifeng/ZFPlayer) 4.1.4、[**AFNetworking**](https://github.com/AFNetworking/AFNetworking) 4.0.1 的 Debug / Release target 设置 `CLANG_ENABLE_MODULES=NO`，使其旧 IPv6 头引用按文本包含顺序编译；公开 modulemap、`DEFINES_MODULE` 与宿主的模块编译继续保留。这项生成配置在 CI 跳过旧供应商源码补丁时同样生效。本地使用 Xcode 27.1 / SDK 27.1 验证了上游原版 Reachability / AFHTTPSessionManager 实现、两个完整 framework，以及启用模块并同时使用 `#import` / `@import` 的消费者编译和链接；主 App 整包结果仍以对应提交的云端工作流为准。
 
-`main` 安装依赖后构建 Debug 主 App；`byPods` 保留各 Jobs 本地 Pod 的 Debug / Release 编译、48 个 Stability Pod 共 49 个配置的组件回归、macOS harness 与主 App Debug / Release 编译。整个 `byPods` job 使用 `JOBS_SIMULATOR_ONLY=1`：安装时排除只有真机 arm64 slice 的 IJK，保留模拟器原有 AVPlayer / ControlView，测试覆盖不删减。本地默认不设置此变量，切换模式必须重新 `pod install`；CI 结果仅证明模拟器依赖图，模式与架构均写入结果身份，不代表真机 IJK 验收。配置回归先于耗时构建执行；宿主权限审计先运行 9 个独立 Mach-O 场景，Pod 测试成功后再显式验收当次临时 Products 目录中的 AppHost，指定产物缺失即失败。测试首错停止后续测试与 harness，日志保留真实 `ld:` 原因。本地 Pod 门禁保留完整命令、退出码与源码冻结校验。冻结范围只排除 `JobsAppIconRibbon.config` 实际指定的 Debug / Release 派生 appiconset，原始 AppIcon、配置与生成器仍参加校验。
+`main` 安装依赖后按共享配置矩阵执行集成组件 XCTest 与生产 harness，再构建 Debug 主 App；`byPods` 保留各 Jobs 本地 Pod 的 Debug / Release 编译、各 Stability 组件及其所需配置的回归、macOS harness 与主 App Debug / Release 编译。两种形态的模拟器 job 均使用 `JOBS_SIMULATOR_ONLY=1`：安装时排除只有真机 arm64 slice 的 IJK，保留模拟器原有 AVPlayer / ControlView，测试覆盖不删减。本地默认不设置此变量，切换模式必须重新 `pod install`；CI 结果仅证明模拟器依赖图，模式与架构均写入结果身份，不代表真机 IJK 验收。配置回归先于耗时构建执行；宿主权限审计先运行 9 个独立 Mach-O 场景，Pod 测试成功后再显式验收当次临时 Products 目录中的 AppHost，指定产物缺失即失败。测试首错停止后续测试与 harness，日志保留真实 `ld:` 原因。本地 Pod 门禁保留完整命令、退出码与源码冻结校验。冻结范围只排除 `JobsAppIconRibbon.config` 实际指定的 Debug / Release 派生 appiconset，原始 AppIcon、配置与生成器仍参加校验。
 
-`byPods` 的 Pod 阶段通过[门禁脚本](https://github.com/JobsKits/JobsOCBaseConfigDemo/blob/byPods/ScriptsByPods/jobs_pods_stability_verify.rb/README.md)的 `--batch-pods` 生成仅含 109 个自建 Pod target 的专用 workspace / Scheme，在 Debug、Release 各执行一次构建，由 Xcode 合并共享依赖；framework 与 aggregate / 头文件 target 保持原始语义，不使用 `-alltargets`，不改变资源依赖、测试宿主与主 App 的独立验收。CI 每配置最多 55 分钟，两个配置仍共用原有的 120 分钟步骤时限；本地未加开关时仍逐 Pod 构建。失败或超时停止后续配置，源码、安装模式与架构门禁继续生效。
+`byPods` 的 Pod 阶段通过[门禁脚本](https://github.com/JobsKits/JobsOCBaseConfigDemo/blob/byPods/ScriptsByPods/自动化测试相关脚本/jobs_pods_stability_verify.rb/README.md)的 `--batch-pods` 生成仅含 109 个自建 Pod target 的专用 workspace / Scheme，在 Debug、Release 各执行一次构建，由 Xcode 合并共享依赖；framework 与 aggregate / 头文件 target 保持原始语义，不使用 `-alltargets`，不改变资源依赖、测试宿主与主 App 的独立验收。CI 每配置最多 55 分钟，两个配置仍共用原有的 120 分钟步骤时限；本地未加开关时仍逐 Pod 构建。失败或超时停止后续配置，源码、安装模式与架构门禁继续生效。
 
-批次进程独立记录整批命令、退出状态和耗时；每 Pod 结果仅引用该批次的成员身份与共享日志，耗时为 null，不声称独立执行或独立耗时。`OwnedPodsBatch/` 的成员 manifest、Scheme 与 workspace 连同构建日志上传；缓存和 README 回填同时核对这些文件证据，组件 XCTest 结论仍来自独立真实测试结果。[批量夹具](https://github.com/JobsKits/JobsOCBaseConfigDemo/blob/byPods/ScriptsByPods/jobs_pods_stability_verify.rb/Tests/pod_batch_regression.rb)不调用真实构建或安装，实际耗时与全流程通过结果以云端运行证据为准。
+批次进程独立记录整批命令、退出状态和耗时；每 Pod 结果仅引用该批次的成员身份与共享日志，耗时为 null，不声称独立执行或独立耗时。`OwnedPodsBatch/` 的成员 manifest、Scheme 与 workspace 连同构建日志上传；缓存和 README 回填同时核对这些文件证据，组件 XCTest 结论仍来自独立真实测试结果。[批量夹具](https://github.com/JobsKits/JobsOCBaseConfigDemo/blob/byPods/ScriptsByPods/自动化测试相关脚本/jobs_pods_stability_verify.rb/Tests/pod_batch_regression.rb)不调用真实构建或安装，实际耗时与全流程通过结果以云端运行证据为准。
 
 Pod 编译前后通过[只读诊断脚本](https://github.com/JobsKits/JobsOCBaseConfigDemo/blob/byPods/.github/tests/SimulatorPods/record_reactiveobjc.rb)分别留存 runner 实际生成的 Pods 工程、ReactiveObjC 配置、宏头路径及指纹，编译前另记录 Xcode 展开后的 Debug build settings；两个诊断目录和该目标编译时产生的 response files、header maps、虚拟文件映射随验证记录上传，用于区分源码缺失、搜索路径、路径遮蔽和构建期间的文件变化，不改写 Pods 或供应商文件。
 
@@ -696,13 +729,18 @@ Pod 编译前后通过[只读诊断脚本](https://github.com/JobsKits/JobsOCBas
 
 `main` 在安装依赖前运行[源码成员校验](./.github/tests/ProjectMembership/README.md)，将同步组逐项启用的源码路径与 `git ls-files -z` 精确对账，包括目录大小写；本机文件存在不能代替 Git 清单匹配。`JobsTImer`、`JobsTabbarVC`、`NSObject+image` 的工程路径保留 Git 已跟踪的真实拼写，避免新克隆时漏编 `JobsTimer`、`JobsTabBarVC` 或图片分类。检查失败立即停止，原有第三方与资源成员范围保持不变。
 
+CI 测试目录在 Xcode 的“自动化测试 → .github/tests”显示，保留文件系统同步与仅展示的用途；同步组按真实路径显示，不设置 `name` 属性，以兼容现有 [**Xcodeproj**](https://github.com/CocoaPods/Xcodeproj) 的同步组解析，避免依赖安装时出现未知属性警告。
+
 `JobsOCVideoRecorder` 的预览方向同时判断编译 SDK 和运行系统：SDK 至少为 iOS 27 时才编译 `videoRotationAngleRelativeToDeviceOrientation:`，并在 iOS 27 及以上运行时使用它；旧 SDK 或旧系统沿用原有 `videoOrientation` 逻辑，保留前置镜像处理。无需提高最低部署版本或切换 CI 工具链。
 
 `byPods` 主 App 的 Debug / Release 同样启用 `GCC_PRECOMPILE_PREFIX_HEADER=YES`，复用现有前缀头，不修改 Pod target 或头文件正文。主 App 阶段显式保留每配置 1800 秒的构建期限，外层步骤设为 65 分钟，覆盖两个配置及指纹、静态审计和进程回收开销；避免用单个配置的 30 分钟期限截断整个双配置阶段。两配置的实际编译与打包仍须通过完整 CI 验收。
 
 打包固定选择 `${products_dir}/${SCHEME}.app`，并校验 `Info.plist`、非测试 Runner 的 Bundle ID、主可执行名称及文件存在，避免按目录枚举顺序误选其它 `.app`。主 App 缺失或身份不匹配时直接失败。
 
-构建阶段保留实时日志和诊断产物，阶段超时早于整个任务超时，以便失败后仍有时间上传日志；`main` 的依赖安装 / 编译分别限时 20 / 120 分钟，整个任务限时 150 分钟。`byPods` 的模拟器准备 / 依赖安装 / 配置守卫 / 各 Pod 编译 / 组件回归 / 宿主权限验收 / 主 App 编译分别限时 10 / 30 / 10 / 120 / 90 / 10 / 65 分钟，整个任务限时 320 分钟。成功后生成可下载的 `.app.zip`，排查失败时先下载对应运行的构建日志与 `.xcresult`；产物只代表该次运行实际完成的阶段，历史成功不能替代最新提交的构建结果。
+构建阶段保留实时日志和诊断产物，阶段超时早于整个任务超时，以便失败后仍有时间上传日志；`main` 的依赖安装 / 集成模式夹具 / 组件 XCTest 与 harness / 主 App 编译分别限时 20 / 10 / 120 / 120 分钟，整个任务限时 320 分钟。`byPods` 的模拟器准备 / 依赖安装 / 配置守卫 / 各 Pod 编译 / 组件回归 / 宿主权限验收 / 主 App 编译分别限时 10 / 30 / 10 / 120 / 90 / 10 / 65 分钟，整个任务限时 320 分钟。成功后生成可下载的 `.app.zip`，排查失败时先下载对应运行的构建日志与 `.xcresult`；产物只代表该次运行实际完成的阶段，历史成功不能替代最新提交的构建结果。
+
+
+`main` 先运行 23 场景的集成模式临时工程夹具，再调用同包验收入口的 `--phase tests`，不传 `--configuration` 固定单配置，架构取 `SIMULATOR_ARCH`。测试准备采用默认 Debug / Release 矩阵；普通组件、宿主与原应用 XCTest 在 Debug 执行，`JobsOCSnowflake` 同时执行 Debug / Release，macOS 生产 harness 按清单执行；新侧保留相同的 Snowflake 双配置测试合同。模拟器选择器实际输出 `SIMULATOR_ID`，CI 明确映射成 `JOBS_STABILITY_SIMULATOR` 后传给 `--simulator`；无匹配 SDK 代际的设备即失败。验收输出在 runner 临时目录 `JobsComponentsStability/`，`results.json`、`configuration-audit.json`、日志与 `.xcresult` 和原 `BuildDiagnostics/` 一起由始终执行的诊断上传步骤留存 14 天；fixture、组件或配置失败会阻断后续主 App 构建，日志仍可下载。此处描述工作流挂载，未将本地或云端尚未完成的运行标记为通过。
 
 ### 2.10、<span id="resizable-window-adaptation">iPhone Duo 与运行中窗口尺寸变化</span> <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
@@ -814,7 +852,7 @@ Pod 编译前后通过[只读诊断脚本](https://github.com/JobsKits/JobsOCBas
 * [**Swift Package Dependence使用指南🧭**](https://github.com/JobsKits/JobsDocs/blob/main/iOS相关的文档和资料.md/Swift Package Dependence使用指南.md/Swift Package Dependence使用指南.md)
 * [**iOS 多语言环境设置**](https://github.com/JobsKits/JobsDocs/blob/main/iOS相关的文档和资料.md/iOS多语言环境设置.md/iOS多语言环境设置.md)
 * [**跳转其他App没有则下载**](https://github.com/JobsKits/JobsDocs/blob/main/iOS相关的文档和资料.md/跳转其他App没有则下载.md/跳转其他App没有则下载.md)
-* [**配置`info.plist`文件**](https://github.com/JobsKits/JobsOCBaseConfigDemo/blob/main/JobsOCBaseConfigDemo/配置info.plist/配置info.plist.md)
+* [**配置`info.plist`文件**](./JobsOCBaseConfigDemo/其他/配置info.plist/README.md)
 * [**利用quicktype自动建立数据模型**](https://github.com/JobsKits/JobsDocs/blob/main/利用quicktype自动建立数据模型.md/利用quicktype自动建立数据模型.md)
 * [**Apple生成`*.p12`文件**](https://github.com/JobsKits/JobsDocs/blob/main/iOS相关的文档和资料.md/Apple生成 *.p12文件.md/Apple生成 *.p12文件.md)
 * [**iOS项目集成Unity**](https://github.com/JobsKits/JobsDocs/blob/main/iOS相关的文档和资料.md/iOS项目集成Unity.md/iOS项目集成Unity.md)
@@ -868,16 +906,16 @@ Pod 编译前后通过[只读诊断脚本](https://github.com/JobsKits/JobsOCBas
   * [**定一行个数得出几行**](https://github.com/JobsKits/JobsDocs/blob/main/iOS相关的文档和资料.md/其他.md/定一行个数得出几行.md)
 * 加密体系相关
   * 加密（编码）算法
-    * **Base编码系列**：[**Base16**](https://github.com/JobsKits/JobsOCBaseConfigDemo/blob/main/JobsOCBaseConfigDemo/🔨Manual_Add_ThirdParty（按需引入）/加密体系/加密（编码）算法/Base编码系列/Base16/Base16.md)、[**Base32**](https://github.com/JobsKits/JobsOCBaseConfigDemo/blob/main/JobsOCBaseConfigDemo/🔨Manual_Add_ThirdParty（按需引入）/加密体系/加密（编码）算法/Base编码系列/Base32/Base32.md)、[**Base64**](https://github.com/JobsKits/JobsOCBaseConfigDemo/blob/main/JobsOCBaseConfigDemo/🔨Manual_Add_ThirdParty（按需引入）/加密体系/加密（编码）算法/Base编码系列/Base64/Base64.md)、[**Base85**](https://github.com/JobsKits/JobsOCBaseConfigDemo/blob/main/JobsOCBaseConfigDemo/🔨Manual_Add_ThirdParty（按需引入）/加密体系/加密（编码）算法/Base编码系列/Base85/Base85.md)
-    * [**Unicode**](https://github.com/JobsKits/JobsOCBaseConfigDemo/blob/main/JobsOCBaseConfigDemo/🔨Manual_Add_ThirdParty（按需引入）/加密体系/加密（编码）算法/Unicode/Unicode.md)
-    * [**MIME**](https://github.com/JobsKits/JobsOCBaseConfigDemo/blob/main/JobsOCBaseConfigDemo/🔨Manual_Add_ThirdParty（按需引入）/加密体系/加密（编码）算法/MIME/MIME.md)
-    * [**HexadecimalData**](https://github.com/JobsKits/JobsOCBaseConfigDemo/blob/main/JobsOCBaseConfigDemo/🔨Manual_Add_ThirdParty（按需引入）/加密体系/加密（编码）算法/HexadecimalData/HexadecimalData.md)
-    * [**凯撒加密解密**](https://github.com/JobsKits/JobsOCBaseConfigDemo/blob/main/JobsOCBaseConfigDemo/🔨Manual_Add_ThirdParty（按需引入）/加密体系/加密（编码）算法/凯撒加密解密/凯撒加密解密.md)
-    * [**AESCipher**](https://github.com/JobsKits/JobsOCBaseConfigDemo/tree/main/JobsOCBaseConfigDemo/🔨Manual_Add_ThirdParty（按需引入）/加密体系/加密（编码）算法/AES/AESCipher)
-    * [**DES**](https://github.com/JobsKits/JobsOCBaseConfigDemo/blob/main/JobsOCBaseConfigDemo/🔨Manual_Add_ThirdParty（按需引入）/加密体系/加密（编码）算法/DES/DES.md)
-    * [**SHA**](https://github.com/JobsKits/JobsOCBaseConfigDemo/blob/main/JobsOCBaseConfigDemo/🔨Manual_Add_ThirdParty（按需引入）/加密体系/加密（编码）算法/SHA/SHA.md)：[**SHA1**](https://github.com/JobsKits/JobsOCBaseConfigDemo/blob/main/JobsOCBaseConfigDemo/🔨Manual_Add_ThirdParty（按需引入）/加密体系/加密（编码）算法/SHA/SHA-1/SHA-1.md)、[**SHA-224**](https://github.com/JobsKits/JobsOCBaseConfigDemo/blob/main/JobsOCBaseConfigDemo/🔨Manual_Add_ThirdParty（按需引入）/加密体系/加密（编码）算法/SHA/SHA-224/SHA-224.md)、[**SHA-256**](https://github.com/JobsKits/JobsOCBaseConfigDemo/blob/main/JobsOCBaseConfigDemo/🔨Manual_Add_ThirdParty（按需引入）/加密体系/加密（编码）算法/SHA/SHA-256/SHA-256.md)、[**SHA-384**](https://github.com/JobsKits/JobsOCBaseConfigDemo/blob/main/JobsOCBaseConfigDemo/🔨Manual_Add_ThirdParty（按需引入）/加密体系/加密（编码）算法/SHA/SHA-384/SHA-384.md)、[**SHA-512**](https://github.com/JobsKits/JobsOCBaseConfigDemo/blob/main/JobsOCBaseConfigDemo/🔨Manual_Add_ThirdParty（按需引入）/加密体系/加密（编码）算法/SHA/SHA-512/SHA-512.md)
-    * [**RSA**](https://github.com/JobsKits/JobsOCBaseConfigDemo/blob/main/JobsOCBaseConfigDemo/🔨Manual_Add_ThirdParty（按需引入）/加密体系/加密（编码）算法/非对称加密RSA/RSA.md)
-  * HASH 信息摘要：[**MD5**](https://github.com/JobsKits/JobsOCBaseConfigDemo/blob/main/JobsOCBaseConfigDemo/🔨Manual_Add_ThirdParty（按需引入）/加密体系/HASH 信息摘要/MD5/MD5.md)、[**HASH**](https://github.com/JobsKits/JobsOCBaseConfigDemo/tree/main/JobsOCBaseConfigDemo/🔨Manual_Add_ThirdParty（按需引入）/加密体系/HASH 信息摘要)
+    * **Base编码系列**：[**Base16**](https://github.com/JobsKits/JobsOCBaseConfigDemo/blob/main/Libs/🔨Manual_Add_ThirdParty（按需引入）/加密体系/加密（编码）算法/Base编码系列/Base16/Base16.md)、[**Base32**](https://github.com/JobsKits/JobsOCBaseConfigDemo/blob/main/Libs/🔨Manual_Add_ThirdParty（按需引入）/加密体系/加密（编码）算法/Base编码系列/Base32/Base32.md)、[**Base64**](https://github.com/JobsKits/JobsOCBaseConfigDemo/blob/main/Libs/🔨Manual_Add_ThirdParty（按需引入）/加密体系/加密（编码）算法/Base编码系列/Base64/Base64.md)、[**Base85**](https://github.com/JobsKits/JobsOCBaseConfigDemo/blob/main/Libs/🔨Manual_Add_ThirdParty（按需引入）/加密体系/加密（编码）算法/Base编码系列/Base85/Base85.md)
+    * [**Unicode**](https://github.com/JobsKits/JobsOCBaseConfigDemo/blob/main/Libs/🔨Manual_Add_ThirdParty（按需引入）/加密体系/加密（编码）算法/Unicode/Unicode.md)
+    * [**MIME**](https://github.com/JobsKits/JobsOCBaseConfigDemo/blob/main/Libs/🔨Manual_Add_ThirdParty（按需引入）/加密体系/加密（编码）算法/MIME/MIME.md)
+    * [**HexadecimalData**](https://github.com/JobsKits/JobsOCBaseConfigDemo/blob/main/Libs/🔨Manual_Add_ThirdParty（按需引入）/加密体系/加密（编码）算法/HexadecimalData/HexadecimalData.md)
+    * [**凯撒加密解密**](https://github.com/JobsKits/JobsOCBaseConfigDemo/blob/main/Libs/🔨Manual_Add_ThirdParty（按需引入）/加密体系/加密（编码）算法/凯撒加密解密/凯撒加密解密.md)
+    * [**AESCipher**](https://github.com/JobsKits/JobsOCBaseConfigDemo/tree/main/Libs/🔨Manual_Add_ThirdParty（按需引入）/加密体系/加密（编码）算法/AES/AESCipher)
+    * [**DES**](https://github.com/JobsKits/JobsOCBaseConfigDemo/blob/main/Libs/🔨Manual_Add_ThirdParty（按需引入）/加密体系/加密（编码）算法/DES/DES.md)
+    * [**SHA**](https://github.com/JobsKits/JobsOCBaseConfigDemo/blob/main/Libs/🔨Manual_Add_ThirdParty（按需引入）/加密体系/加密（编码）算法/SHA/SHA.md)：[**SHA1**](https://github.com/JobsKits/JobsOCBaseConfigDemo/blob/main/Libs/🔨Manual_Add_ThirdParty（按需引入）/加密体系/加密（编码）算法/SHA/SHA-1/SHA-1.md)、[**SHA-224**](https://github.com/JobsKits/JobsOCBaseConfigDemo/blob/main/Libs/🔨Manual_Add_ThirdParty（按需引入）/加密体系/加密（编码）算法/SHA/SHA-224/SHA-224.md)、[**SHA-256**](https://github.com/JobsKits/JobsOCBaseConfigDemo/blob/main/Libs/🔨Manual_Add_ThirdParty（按需引入）/加密体系/加密（编码）算法/SHA/SHA-256/SHA-256.md)、[**SHA-384**](https://github.com/JobsKits/JobsOCBaseConfigDemo/blob/main/Libs/🔨Manual_Add_ThirdParty（按需引入）/加密体系/加密（编码）算法/SHA/SHA-384/SHA-384.md)、[**SHA-512**](https://github.com/JobsKits/JobsOCBaseConfigDemo/blob/main/Libs/🔨Manual_Add_ThirdParty（按需引入）/加密体系/加密（编码）算法/SHA/SHA-512/SHA-512.md)
+    * [**RSA**](https://github.com/JobsKits/JobsOCBaseConfigDemo/blob/main/Libs/🔨Manual_Add_ThirdParty（按需引入）/加密体系/加密（编码）算法/非对称加密RSA/RSA.md)
+  * HASH 信息摘要：[**MD5**](https://github.com/JobsKits/JobsOCBaseConfigDemo/blob/main/Libs/🔨Manual_Add_ThirdParty（按需引入）/加密体系/HASH 信息摘要/MD5/MD5.md)、[**HASH**](https://github.com/JobsKits/JobsOCBaseConfigDemo/tree/main/Libs/🔨Manual_Add_ThirdParty（按需引入）/加密体系/HASH 信息摘要)
 * 其他研究
   * [**iOS项目常用的第三方框架**](https://www.cnblogs.com/sundaysgarden/articles/14208764.html)
   * [**滚动数字显示**](https://github.com/lf19940514/LFScrollNumberDemo)
@@ -1225,7 +1263,7 @@ Current targets:
 
 #### <span id="jobs-toc-heading-33" data-jobs-toc="v2">9.1、🖨️ 重写打印输出  <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a></span><!-- jobs-toc:heading-end -->
 
-* 关注文件：[**MacroDef_Log.h**](https://github.com/JobsKits/JobsOCBaseConfigDemo/blob/main/JobsOCBaseConfigDemo/OCBaseConfig/各项全局定义/各项宏定义/MacroDef_Sys/MacroDef_Log.h)
+* 关注文件：[**MacroDef_Log.h**](https://github.com/JobsKits/JobsOCBaseConfigDemo/blob/main/Libs/OCBaseConfig/各项全局定义/各项宏定义/MacroDef_Sys/MacroDef_Log.h)
 
   * 使之能定位到具体文件行的输出
 
@@ -1275,7 +1313,7 @@ Current targets:
     #endif
     ```
 
-* 关注实现类：[**@interface UIView (Extras)**](https://github.com/JobsKits/JobsOCBaseConfigDemo/tree/main/JobsOCBaseConfigDemo/JobsOCBaseCustomizeUIKitCore/UIView/UIView+Category/UIView+Extras)
+* 关注实现类：[**@interface UIView (Extras)**](https://github.com/JobsKits/JobsOCBaseConfigDemo/tree/main/Libs/JobsOCBaseCustomizeUIKitCore/UIView/UIView+Category/UIView+Extras)
 
   ![image-20240710102050455](./assets/image-20240710102050455.png)
 
@@ -1477,7 +1515,7 @@ Current targets:
   }];
   ```
 
-### <span id="jobs-toc-heading-44" data-jobs-toc="v2">2、[**<font color=red>`BaseProtocol` 相关继承结构关系图</font>**](https://github.com/JobsKits/JobsOCBaseConfigDemo/blob/main/JobsOCBaseConfigDemo/JobsOCBaseCustomizeUIKitCore/BaseProtocol/BaseProtocol.md) <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a></span><!-- jobs-toc:heading-end -->
+### <span id="jobs-toc-heading-44" data-jobs-toc="v2">2、[**<font color=red>`BaseProtocol` 相关继承结构关系图</font>**](https://github.com/JobsKits/JobsOCBaseConfigDemo/blob/main/Libs/JobsOCBaseCustomizeUIKitCore/BaseProtocol/BaseProtocol.md) <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a></span><!-- jobs-toc:heading-end -->
 
 * **如果两个对象都继承了共同的协议，互相包含会造成编译器错误**
 
@@ -1653,7 +1691,7 @@ classDiagram
 
 * **当前设备是否是全面屏**：
 
-  * 关注实现类：[**@interface UIDevice (XMUtils)**](https://github.com/JobsKits/JobsOCBaseConfigDemo/tree/main/JobsOCBaseConfigDemo/JobsOCBaseCustomizeUIKitCore/UIDevice/UIDevice+Category/UIDevice+XMUtils) 和 [**MacroDef_Size.h**](https://github.com/JobsKits/JobsOCBaseConfigDemo/blob/main/JobsOCBaseConfigDemo/OCBaseConfig/各项全局定义/各项宏定义/MacroDef_Size/MacroDef_Size.h)
+  * 关注实现类：[**@interface UIDevice (XMUtils)**](https://github.com/JobsKits/JobsOCBaseConfigDemo/tree/main/Libs/JobsOCBaseCustomizeUIKitCore/UIDevice/UIDevice+Category/UIDevice+XMUtils) 和 [**MacroDef_Size.h**](https://github.com/JobsKits/JobsOCBaseConfigDemo/blob/main/Libs/OCBaseConfig/各项全局定义/各项宏定义/MacroDef_Size/MacroDef_Size.h)
 
     ```objective-c
     +(BOOL)isFullScreen;
@@ -1819,7 +1857,7 @@ classDiagram
 
 #### <span id="jobs-toc-heading-50" data-jobs-toc="v2">6.2、字符串转化  <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a></span><!-- jobs-toc:heading-end -->
 
-* 关注头文件[**`JobsString.h`**](https://github.com/JobsKits/JobsOCBaseConfigDemo/blob/main/JobsOCBaseConfigDemo/JobsOCBaseCustomizeUIKitCore/NSString/JobsString.h)
+* 关注头文件[**`JobsString.h`**](https://github.com/JobsKits/JobsOCBaseConfigDemo/blob/main/Libs/JobsOCBaseCustomizeUIKitCore/NSString/JobsString.h)
 
 * 基本数据类型转化成字符串类型
 
@@ -2623,7 +2661,7 @@ classDiagram
   }
   ```
 
-### <span id="jobs-toc-heading-66" data-jobs-toc="v2">10、[<font color=red>**寻找系统关键变量**</font>](https://github.com/JobsKits/JobsOCBaseConfigDemo/blob/main/JobsOCBaseConfigDemo/OCBaseConfig/各项全局定义/各项宏定义/MacroDef_Func/MacroDef_Func.h) <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a></span><!-- jobs-toc:heading-end -->
+### <span id="jobs-toc-heading-66" data-jobs-toc="v2">10、[<font color=red>**寻找系统关键变量**</font>](https://github.com/JobsKits/JobsOCBaseConfigDemo/blob/main/Libs/OCBaseConfig/各项全局定义/各项宏定义/MacroDef_Func/MacroDef_Func.h) <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a></span><!-- jobs-toc:heading-end -->
 
 * [**寻找当前控制器 **](#寻找当前控制器 )
 
@@ -2811,7 +2849,7 @@ classDiagram
   }
   ```
 
-### <span id="jobs-toc-heading-67" data-jobs-toc="v2">11、[**`JobsTabBarCtrl`-深层次自定义`UITabbar`**](https://github.com/JobsKits/JobsOCBaseConfigDemo/blob/main/JobsOCBaseConfigDemo/OCBaseConfig/JobsMixFunc/UITabBarCtr/自定义 UITabBarController.md/自定义 UITabBarController.md) <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a></span><!-- jobs-toc:heading-end -->
+### <span id="jobs-toc-heading-67" data-jobs-toc="v2">11、[**`JobsTabBarCtrl`-深层次自定义`UITabbar`**](https://github.com/JobsKits/JobsOCBaseConfigDemo/blob/main/Libs/OCBaseConfig/JobsMixFunc/UITabBarCtr/自定义 UITabBarController.md/自定义 UITabBarController.md) <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a></span><!-- jobs-toc:heading-end -->
 
 * 背景介绍
   * 完全继承自系统Api，最大化兼容系统特色
@@ -2875,11 +2913,11 @@ classDiagram
 
 ### <span id="jobs-toc-heading-69" data-jobs-toc="v2">13、🧰 <font color=red>**全局工具箱**</font> <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a></span><!-- jobs-toc:heading-end -->
 
-* [**JobsAppTools**](https://github.com/JobsKits/JobsOCBaseConfigDemo/tree/main/JobsOCBaseConfigDemo/JobsOCBaseCustomizeUIKitCore/NSObject/BaseObject/JobsAppTools) （单例模式）
+* [**JobsAppTools**](https://github.com/JobsKits/JobsOCBaseConfigDemo/tree/main/Libs/JobsOCBaseCustomizeUIKitCore/NSObject/BaseObject/JobsAppTools) （单例模式）
 
-* [**NSObject+AppTools**](https://github.com/JobsKits/JobsOCBaseConfigDemo/tree/main/JobsOCBaseConfigDemo/JobsOCBaseCustomizeUIKitCore/NSObject/NSObject+Category/NSObject+AppTools) （分类模式）
+* [**NSObject+AppTools**](https://github.com/JobsKits/JobsOCBaseConfigDemo/tree/main/Libs/JobsOCBaseCustomizeUIKitCore/NSObject/NSObject+Category/NSObject+AppTools) （分类模式）
 
-* [**`FileFolderHandleModel`**](https://github.com/JobsKits/JobsOCBaseConfigDemo/tree/main/JobsOCBaseConfigDemo/JobsOCBaseCustomizeUIKitCore/NSObject/BaseObject/FileFolderHandleTool)：**文件夹操作**
+* [**`FileFolderHandleModel`**](https://github.com/JobsKits/JobsOCBaseConfigDemo/tree/main/Libs/JobsOCBaseCustomizeUIKitCore/NSObject/BaseObject/FileFolderHandleTool)：**文件夹操作**
 
   * ```ruby
     pod 'TXFileOperation' # 文件夹操作 https://github.com/xtzPioneer/TXFileOperation
@@ -2893,7 +2931,7 @@ classDiagram
     #endif
     ```
 
-* [**`JobsLoadingImage`**](https://github.com/JobsKits/JobsOCBaseConfigDemo/blob/main/JobsOCBaseConfigDemo/JobsOCBaseCustomizeUIKitCore/UIImage/JobsLoadingImage.h)：**图片存取**
+* [**`JobsLoadingImage`**](https://github.com/JobsKits/JobsOCBaseConfigDemo/blob/main/Libs/JobsOCBaseCustomizeUIKitCore/UIImage/JobsLoadingImage.h)：**图片存取**
 
 ### <span id="jobs-toc-heading-70" data-jobs-toc="v2">14、<font color=red>`UIView` 和 `UIViewController`</font> <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a></span><!-- jobs-toc:heading-end -->
 
@@ -3762,7 +3800,7 @@ classDiagram
 
 #### <span id="jobs-toc-heading-85" data-jobs-toc="v2">20.1、左边的目录是`UITableView`，右边的内容是<font color=purper>`UIView`</font>  <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a></span><!-- jobs-toc:heading-end -->
 
-* [**`JobsMenuView`**](https://github.com/JobsKits/JobsOCBaseConfigDemo/tree/main/JobsOCBaseConfigDemo/OCBaseConfig/JobsMixFunc/JobsMenuView)
+* [**`JobsMenuView`**](https://github.com/JobsKits/JobsOCBaseConfigDemo/tree/main/Libs/OCBaseConfig/JobsMixFunc/JobsMenuView)
 
   * <font color=green>**整体是一个大View**</font>
 
@@ -5226,7 +5264,7 @@ self.countDownBtn.timerContinue();
   #endif
   ```
 
-* 关注实现类：[**@interface UIView (Masonry)**](https://github.com/JobsKits/JobsOCBaseConfigDemo/tree/main/JobsOCBaseConfigDemo/JobsOCBaseCustomizeUIKitCore/UIView/UIView+Category/UIView+Masonry)
+* 关注实现类：[**@interface UIView (Masonry)**](https://github.com/JobsKits/JobsOCBaseConfigDemo/tree/main/Libs/JobsOCBaseCustomizeUIKitCore/UIView/UIView+Category/UIView+Masonry)
 
 * 统一设置内边距
   
@@ -5631,7 +5669,7 @@ self.countDownBtn.timerContinue();
 
 #### <span id="jobs-toc-heading-115" data-jobs-toc="v2">33.2、对通知的使用  <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a></span><!-- jobs-toc:heading-end -->
 
-关注实现类：[**`MacroDef_Notification.h`**](https://github.com/JobsKits/JobsOCBaseConfigDemo/blob/main/JobsOCBaseConfigDemo/OCBaseConfig/%E5%90%84%E9%A1%B9%E5%85%A8%E5%B1%80%E5%AE%9A%E4%B9%89/%E5%90%84%E9%A1%B9%E5%AE%8F%E5%AE%9A%E4%B9%89/MacroDef_Func/MacroDef_Notification.h) [**`@interface NSNotificationCenter (JobsBlock)`**]()
+关注实现类：[**`MacroDef_Notification.h`**](https://github.com/JobsKits/JobsOCBaseConfigDemo/blob/main/Libs/OCBaseConfig/%E5%90%84%E9%A1%B9%E5%85%A8%E5%B1%80%E5%AE%9A%E4%B9%89/%E5%90%84%E9%A1%B9%E5%AE%8F%E5%AE%9A%E4%B9%89/MacroDef_Func/MacroDef_Notification.h) [**`@interface NSNotificationCenter (JobsBlock)`**]()
 
 ##### <span id="jobs-toc-heading-116" data-jobs-toc="v2">33.2.1、发通知  <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a></span><!-- jobs-toc:heading-end -->
 
@@ -5832,7 +5870,7 @@ didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
 
 * 对全局进行统一的`UICollectionViewCell`相关子类注册是很有必要的，方便管理，防止崩溃
 
-* 关注实现类[<font color=blue>**`@implementation UICollectionView (JobsRegisterClass)`**</font>](https://github.com/JobsKits/JobsOCBaseConfigDemo/tree/main/JobsOCBaseConfigDemo/JobsOCBaseCustomizeUIKitCore/UICollectionView/UICollectionView+Category/UICollectionView+JobsRegisterClass)
+* 关注实现类[<font color=blue>**`@implementation UICollectionView (JobsRegisterClass)`**</font>](https://github.com/JobsKits/JobsOCBaseConfigDemo/tree/main/Libs/JobsOCBaseCustomizeUIKitCore/UICollectionView/UICollectionView+Category/UICollectionView+JobsRegisterClass)
 
 * 在每一个`_collectionView`创建的时候，加入以下这一段代码
 
@@ -5872,7 +5910,7 @@ didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
 
 * **弹窗消失的时候，挂载的视图一定要销毁，而不是隐藏**
 
-* 对其二次封装，方便使用。关注实现类：[<font color=blue>**`@implementation NSObject (TFPopup)`**</font>](https://github.com/JobsKits/JobsOCBaseConfigDemo/tree/main/JobsOCBaseConfigDemo/JobsOCBaseCustomizeUIKitCore/NSObject/NSObject%2BCategory/NSObject%2BTFPopup)
+* 对其二次封装，方便使用。关注实现类：[<font color=blue>**`@implementation NSObject (TFPopup)`**</font>](https://github.com/JobsKits/JobsOCBaseConfigDemo/tree/main/Libs/JobsOCBaseCustomizeUIKitCore/NSObject/NSObject%2BCategory/NSObject%2BTFPopup)
 
   * ```objective-c
     #pragma mark —— PopView
@@ -6051,8 +6089,9 @@ didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
 - Demo 根列表支持拖拽调整普通分组顺序；“其他”作为兜底分组始终固定在列表末尾，不参与拖拽，也不会因历史持久化顺序恢复到中间。
 - Demo 根列表搜索栏使用独立的蓝色“取消”按钮关闭搜索，不复用 `UISearchBar` 内置取消控件；输入框背景、文字、占位符、图标和边框统一读取 `JobsThemeCenter` 语义色。历史单条记录通过左滑“删除”，不额外占用透明附件区域；“清空”用于整批删除。
 - Demo 根列表的二级入口统一使用 `50pt` 固定行高；主标题和副标题由“设置 → 列表主/副标题”统一选择一般裁切、省略号、缩小字体、连续跑马灯或左右来回滚动，短文仍走 UILabel 原生绘制，深浅色下与同层普通 Label 保持同色。设置中的开屏内容、应用语言和列表文字策略均以一级 Cell 展示当前值，点击展开缩进的二级选项后再点选。Swift / OC 的 Label 分组统一覆盖动效数字、四种定尺寸文字策略、UILabel 与 UIButton.titleLabel 表现列表、可交互自定义 Label、圆点文本和文字旋转。
+- Demo 侧栏“最近使用”替换收藏占位；首页／搜索／最近列表实际打开 Demo 时按稳定标识保存最近30项，去重前插、重启恢复、忽略失效注册项，返回仍保留最近来源；空态保留图文和重新加载入口。源码与验证见[资产盘点](./项目相关报告/App骨架功能盘点.md)。
 - 抽屉收起与目标页面推入在同一轮交互中启动，由抽屉组件统一管理位移和遮罩，不等待固定延时；关闭过程防止重复跳转。
-- 根列表左侧抽屉使用不带分组外边距的平铺列表，菜单标题保留原字号并在窄屏自动换行；容器背景、文字、图标、右箭头和选中背景，以及左上角侧滑菜单图标与右上角功能菜单图标，均使用当前主题语义色；可点击的二级 Cell 与功能菜单 Cell 使用主题语义选中背景，功能菜单常态使用次级背景，主题切换时同步刷新。
+- 根列表左侧抽屉使用不带分组外边距的平铺列表，菜单标题保留原字号并在窄屏自动换行；容器背景、文字、图标、右箭头和选中背景，以及左上角侧滑菜单图标与右上角功能菜单图标，均使用当前主题语义色；可点击的二级 Cell 与功能菜单 Cell 使用主题语义选中背景，功能菜单使用浅 `#E8EFEB`／深 `#232C28` 的圆角表面、独立柔和阴影壳与无分隔线内容，最小112pt宽、48pt行、8pt内边距／圆角；将真实按钮转换到首页坐标后按右缘定位，随主题和布局更新。首页左右图像按钮源码已配置随语言切换的“打开侧栏”／“更多”无障碍名称与稳定标识，菜单三项已配置独立行与编号标识；最终包实际AX读取仍未完整暴露，见资产盘点中的待核记录。
 - 进度条相关二级入口（系统、自定义与兼容入口）的主标题前统一展示三格循环充电动效，只刷新当前可见入口，折叠或离屏时不更新不可见 Cell。
 - 主题公共能力下沉到 `JobsOCDefs/Core/JobsTheme`，主工程在 `其他/libs/Json文件/JobsThemeResources.json` 维护业务数据包。切换时先快照当前弱引用绑定对象，再重放通过 `JobsLabelColor`、`JobsSecondaryLabelColor`、`JobsSystemBackgroundColor` 等 Key 标记的背景 / 文字资源和显式主题图片，允许回调同步解绑而不修改正在遍历的集合；不写系统明暗 Trait，不遍历 Scene、Window 或控制器树。`CGColor`、`CALayer`、CoreText 与自绘内容需要显式绑定或监听 `JobsThemeDidChangeNotification`。
 - Demo 子页返回按钮统一使用 template 图标、主题主文字色和透明背景；左右导航按钮在 iOS 26+ 隐藏系统共享底板，切换主题后继续保持透明。主标题 / 副标题分别使用主题主 / 次文字色；公共导航绑定同时覆盖 GK 与系统导航、普通标题与富文本 titleView，切换主题时重新解析颜色。
@@ -6157,8 +6196,8 @@ self.gk_navTitleViewBy(jobsMakeViewModel(^(__kindof UIViewModel * _Nullable data
 
 * 在这个基础上进行的二次封装
 
-  * 关注实现类：[**`@interface BaseViewController : UIViewController`**](https://github.com/JobsKits/JobsOCBaseConfigDemo/tree/main/JobsOCBaseConfigDemo/JobsOCBaseCustomizeUIKitCore/UIViewController/BaseViewController)
-  * 关注实现类：[**`@interface UIViewController (BaseVC)`**](https://github.com/JobsKits/JobsOCBaseConfigDemo/tree/main/JobsOCBaseConfigDemo/JobsOCBaseCustomizeUIKitCore/UIViewController/UIViewController+Category/UIViewController+Others/UIViewController+BaseVC)
+  * 关注实现类：[**`@interface BaseViewController : UIViewController`**](https://github.com/JobsKits/JobsOCBaseConfigDemo/tree/main/Libs/JobsOCBaseCustomizeUIKitCore/UIViewController/BaseViewController)
+  * 关注实现类：[**`@interface UIViewController (BaseVC)`**](https://github.com/JobsKits/JobsOCBaseConfigDemo/tree/main/Libs/JobsOCBaseCustomizeUIKitCore/UIViewController/UIViewController+Category/UIViewController+Others/UIViewController+BaseVC)
 
 ##### <span id="jobs-toc-heading-127" data-jobs-toc="v2">37.2.2、[**`JobsNavBar`**](https://github.com/JobsKits/JobsOCBaseConfigDemo/tree/main/JobsOCBaseConfigDemo/%F0%9F%94%A8Manual_Add_ThirdParty%EF%BC%88%E6%8C%89%E9%9C%80%E5%BC%95%E5%85%A5%EF%BC%89/JobsNavBar)  <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a></span><!-- jobs-toc:heading-end -->
 
@@ -6170,9 +6209,9 @@ self.gk_navTitleViewBy(jobsMakeViewModel(^(__kindof UIViewModel * _Nullable data
 
 * 完全一个新的View，不涉及系统的**UINavigationBar**
 
-* 以分类的方式集成在**UIViewController**层。关注实现类：[**`@interface UIViewController (BaseVC)`**](https://github.com/JobsKits/JobsOCBaseConfigDemo/tree/main/JobsOCBaseConfigDemo/JobsOCBaseCustomizeUIKitCore/UIViewController/UIViewController+Category/UIViewController+Others/UIViewController+BaseVC)
+* 以分类的方式集成在**UIViewController**层。关注实现类：[**`@interface UIViewController (BaseVC)`**](https://github.com/JobsKits/JobsOCBaseConfigDemo/tree/main/Libs/JobsOCBaseCustomizeUIKitCore/UIViewController/UIViewController+Category/UIViewController+Others/UIViewController+BaseVC)
 
-* 以继承的方式集成在**UIView**层。关注实现类：[**`@interface BaseView : UIView`**](https://github.com/JobsKits/JobsOCBaseConfigDemo/tree/main/JobsOCBaseConfigDemo/JobsOCBaseCustomizeUIKitCore/UIView/BaseView)
+* 以继承的方式集成在**UIView**层。关注实现类：[**`@interface BaseView : UIView`**](https://github.com/JobsKits/JobsOCBaseConfigDemo/tree/main/Libs/JobsOCBaseCustomizeUIKitCore/UIView/BaseView)
 
 * 配置并使用
 
@@ -6264,7 +6303,7 @@ self.gk_navTitleViewBy(jobsMakeViewModel(^(__kindof UIViewModel * _Nullable data
 
 #### <span id="jobs-toc-heading-128" data-jobs-toc="v2">37.3、推控制器（已做防止多次Push误操作）<a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a></span><!-- jobs-toc:heading-end -->
 
-  * 关注实现类：[**`@interface NSObject (Extras)`**](https://github.com/JobsKits/JobsOCBaseConfigDemo/tree/main/JobsOCBaseConfigDemo/JobsOCBaseCustomizeUIKitCore/NSObject/NSObject%2BCategory/NSObject%2BExtras)
+  * 关注实现类：[**`@interface NSObject (Extras)`**](https://github.com/JobsKits/JobsOCBaseConfigDemo/tree/main/Libs/JobsOCBaseCustomizeUIKitCore/NSObject/NSObject%2BCategory/NSObject%2BExtras)
 
     ```objective-c
     /// 强制以Push的方式展现页面
@@ -6284,7 +6323,7 @@ self.gk_navTitleViewBy(jobsMakeViewModel(^(__kindof UIViewModel * _Nullable data
                        completion:(void (^ __nullable)(void))completion;
     ```
     
-  * 关注实现类：[**`@interface UIViewController (BaseVC)`**](https://github.com/JobsKits/JobsOCBaseConfigDemo/tree/main/JobsOCBaseConfigDemo/JobsOCBaseCustomizeUIKitCore/UIViewController/UIViewController%2BCategory/UIViewController%2BOthers/UIViewController%2BBaseVC)
+  * 关注实现类：[**`@interface UIViewController (BaseVC)`**](https://github.com/JobsKits/JobsOCBaseConfigDemo/tree/main/Libs/JobsOCBaseCustomizeUIKitCore/UIViewController/UIViewController%2BCategory/UIViewController%2BOthers/UIViewController%2BBaseVC)
 
     ```objective-c
     /// present
@@ -6328,9 +6367,9 @@ self.gk_navTitleViewBy(jobsMakeViewModel(^(__kindof UIViewModel * _Nullable data
                                   success:(jobsByIDBlock _Nullable)successBlock;
     ```
 
-  #### <span id="jobs-toc-heading-129" data-jobs-toc="v2">37.4、[**`UIViewController`转场动画的使用方法**](https://github.com/JobsKits/JobsOCBaseConfigDemo/blob/main/JobsOCBaseConfigDemo/JobsOCBaseCustomizeUIKitCore/UIViewController/UIViewController%2BCategory/UIViewController%2BXLBubbleTransition/UIViewController%2BXLBubbleTransition.md/UIViewController%2BXLBubbleTransition.md)  <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a></span><!-- jobs-toc:heading-end -->
+  #### <span id="jobs-toc-heading-129" data-jobs-toc="v2">37.4、[**`UIViewController`转场动画的使用方法**](https://github.com/JobsKits/JobsOCBaseConfigDemo/blob/main/Libs/JobsOCBaseCustomizeUIKitCore/UIViewController/UIViewController%2BCategory/UIViewController%2BXLBubbleTransition/UIViewController%2BXLBubbleTransition.md/UIViewController%2BXLBubbleTransition.md)  <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a></span><!-- jobs-toc:heading-end -->
 
-> 关注实现类：[**@interface UIViewController (XLBubbleTransition)**](https://github.com/JobsKits/JobsOCBaseConfigDemo/tree/main/JobsOCBaseConfigDemo/JobsOCBaseCustomizeUIKitCore/UIViewController/UIViewController%2BCategory/UIViewController%2BXLBubbleTransition)
+> 关注实现类：[**@interface UIViewController (XLBubbleTransition)**](https://github.com/JobsKits/JobsOCBaseConfigDemo/tree/main/Libs/JobsOCBaseCustomizeUIKitCore/UIViewController/UIViewController%2BCategory/UIViewController%2BXLBubbleTransition)
 
   * ```objective-c
     /// 设置控制器的转场方向
@@ -6342,9 +6381,9 @@ self.gk_navTitleViewBy(jobsMakeViewModel(^(__kindof UIViewModel * _Nullable data
 
 Demo 根列表左下角显示“按”的悬浮按钮，短按会保留原有声音反馈，并使用滚动 DSL 在列表顶部与尾部之间动画切换；首次短按前往尾部，长按手写动画保持不变。
 
-> 关注实现类：[**@interface UIViewController (SuspendBtn)**](https://github.com/JobsKits/JobsOCBaseConfigDemo/tree/main/JobsOCBaseConfigDemo/JobsOCBaseCustomizeUIKitCore/UIViewController/UIViewController+Category/UIViewController+Others/UIViewController+SuspendBtn)
+> 关注实现类：[**@interface UIViewController (SuspendBtn)**](https://github.com/JobsKits/JobsOCBaseConfigDemo/tree/main/Libs/JobsOCBaseCustomizeUIKitCore/UIViewController/UIViewController+Category/UIViewController+Others/UIViewController+SuspendBtn)
 >
-> 关注实现类：[**@interface UIView (SuspendView)**](https://github.com/JobsKits/JobsOCBaseConfigDemo/tree/main/JobsOCBaseConfigDemo/JobsOCBaseCustomizeUIKitCore/UIView/UIView+Category/UIView+SuspendView)
+> 关注实现类：[**@interface UIView (SuspendView)**](https://github.com/JobsKits/JobsOCBaseConfigDemo/tree/main/Libs/JobsOCBaseCustomizeUIKitCore/UIView/UIView+Category/UIView+SuspendView)
 
   * 以分类的方式，定义在`view`层，针对全局所有的`UIView *`
 
@@ -6405,7 +6444,7 @@ Demo 根列表左下角显示“按”的悬浮按钮，短按会保留原有声
 
 ####  <span id="jobs-toc-heading-131" data-jobs-toc="v2">37.6、<font color=blue>**防止过多的`presented`模态推出`UIViewController`**</font>  <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a></span><!-- jobs-toc:heading-end -->
 
-  * 关注实现类：[**@interface UIViewController (SafeTransition)**](https://github.com/JobsKits/JobsOCBaseConfigDemo/tree/main/JobsOCBaseConfigDemo/JobsOCBaseCustomizeUIKitCore/UIViewController/UIViewController%2BCategory/UIViewController%2BOthers/UIViewController%2BSafeTransition)
+  * 关注实现类：[**@interface UIViewController (SafeTransition)**](https://github.com/JobsKits/JobsOCBaseConfigDemo/tree/main/Libs/JobsOCBaseCustomizeUIKitCore/UIViewController/UIViewController%2BCategory/UIViewController%2BOthers/UIViewController%2BSafeTransition)
 
 #### <span id="jobs-toc-heading-132" data-jobs-toc="v2">37.7、给当前控制器包裹一层导航控制器（使其具备Push其他控制器的能力）<a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a></span><!-- jobs-toc:heading-end -->
 
@@ -6416,7 +6455,7 @@ vc.navCtrl
 
 #### <span id="jobs-toc-heading-133" data-jobs-toc="v2">37.8、<font color=red id=寻找当前控制器>**寻找当前控制器**</font>  <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a></span><!-- jobs-toc:heading-end -->
 
-* 关注实现类：[**@interface NSObject (Extras)**](https://github.com/JobsKits/JobsOCBaseConfigDemo/tree/main/JobsOCBaseConfigDemo/JobsOCBaseCustomizeUIKitCore/NSObject/NSObject%2BCategory/NSObject%2BExtras)
+* 关注实现类：[**@interface NSObject (Extras)**](https://github.com/JobsKits/JobsOCBaseConfigDemo/tree/main/Libs/JobsOCBaseCustomizeUIKitCore/NSObject/NSObject%2BCategory/NSObject%2BExtras)
 
   ```objective-c
   /// 从一个视图（UIView）出发，获取它所在的视图控制器（UIViewController）
@@ -6429,7 +6468,7 @@ vc.navCtrl
   -(JobsRetVCByVC _Nullable )getCurrentViewControllerByRootVC;
   ```
 
-* 关注实现类：[**@interface UIView (ViewController)**](https://github.com/JobsKits/JobsOCBaseConfigDemo/tree/main/JobsOCBaseConfigDemo/JobsOCBaseCustomizeUIKitCore/UIView/UIView%2BCategory/UIView%2BViewController)
+* 关注实现类：[**@interface UIView (ViewController)**](https://github.com/JobsKits/JobsOCBaseConfigDemo/tree/main/Libs/JobsOCBaseCustomizeUIKitCore/UIView/UIView%2BCategory/UIView%2BViewController)
 
   ```objective-c
   -(UIViewController *_Nullable)currentController;
@@ -6437,7 +6476,7 @@ vc.navCtrl
 
 ### <span id="jobs-toc-heading-134" data-jobs-toc="v2">38、`KVC`的封装 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a></span><!-- jobs-toc:heading-end -->
 
-* 关注实现类：[**@interface NSObject (Extras)**](https://github.com/JobsKits/JobsOCBaseConfigDemo/tree/main/JobsOCBaseConfigDemo/JobsOCBaseCustomizeUIKitCore/NSObject/NSObject+Category/NSObject+Extras)
+* 关注实现类：[**@interface NSObject (Extras)**](https://github.com/JobsKits/JobsOCBaseConfigDemo/tree/main/Libs/JobsOCBaseCustomizeUIKitCore/NSObject/NSObject+Category/NSObject+Extras)
 
   * 存值
 
@@ -6463,7 +6502,7 @@ vc.navCtrl
 
 ### <span id="jobs-toc-heading-135" data-jobs-toc="v2">39、👂 **键盘监听** <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a></span><!-- jobs-toc:heading-end -->
 
-* 关注实现类：[**`@implementation NSObject (Extras)`**](https://github.com/JobsKits/JobsOCBaseConfigDemo/tree/main/JobsOCBaseConfigDemo/JobsOCBaseCustomizeUIKitCore/NSObject/NSObject+Category/NSObject+Extras)
+* 关注实现类：[**`@implementation NSObject (Extras)`**](https://github.com/JobsKits/JobsOCBaseConfigDemo/tree/main/Libs/JobsOCBaseCustomizeUIKitCore/NSObject/NSObject+Category/NSObject+Extras)
 
   ```objective-c
   /// 加入键盘通知的监听者
@@ -6532,7 +6571,7 @@ vc.navCtrl
     <true/>
     ```
 
-  * 关注实现类：[**`@interface BaseNavigationVC : UINavigationController`**](https://github.com/JobsKits/JobsOCBaseConfigDemo/tree/main/JobsOCBaseConfigDemo/JobsOCBaseCustomizeUIKitCore/UINavigationController/BaseNavigationVC)
+  * 关注实现类：[**`@interface BaseNavigationVC : UINavigationController`**](https://github.com/JobsKits/JobsOCBaseConfigDemo/tree/main/Libs/JobsOCBaseCustomizeUIKitCore/UINavigationController/BaseNavigationVC)
 
     *在 `BaseNavigationVC.m`里面写入*
 
@@ -6582,7 +6621,7 @@ vc.navCtrl
 
 #### <span id="jobs-toc-heading-141" data-jobs-toc="v2">41.1、使用<font color=red>**宏定义**</font>对`NSUserDefaults.standardUserDefaults` 的二次封装  <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a></span><!-- jobs-toc:heading-end -->
 
-* 关注实现类：[**`JobsUserDefaultDefine.h`**](https://github.com/JobsKits/JobsOCBaseConfigDemo/blob/main/JobsOCBaseConfigDemo/JobsOCBaseCustomizeUIKitCore/NSUserDefaults/JobsUserDefaultDefine.h)
+* 关注实现类：[**`JobsUserDefaultDefine.h`**](https://github.com/JobsKits/JobsOCBaseConfigDemo/blob/main/Libs/JobsOCBaseCustomizeUIKitCore/NSUserDefaults/JobsUserDefaultDefine.h)
 
 * 存数据
 
@@ -6694,7 +6733,7 @@ vc.navCtrl
 
 #### <span id="jobs-toc-heading-142" data-jobs-toc="v2">41.2、以<font color=red>**分类**</font>的形式对`NSUserDefaults.standardUserDefaults` 的二次封装  <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a></span><!-- jobs-toc:heading-end -->
 
-* 关注实现类：[**`@interface NSUserDefaults (Manager)`**](https://github.com/JobsKits/JobsOCBaseConfigDemo/tree/main/JobsOCBaseConfigDemo/JobsOCBaseCustomizeUIKitCore/NSUserDefaults/NSUserDefaults+Category/NSUserDefaults+Manager)
+* 关注实现类：[**`@interface NSUserDefaults (Manager)`**](https://github.com/JobsKits/JobsOCBaseConfigDemo/tree/main/Libs/JobsOCBaseCustomizeUIKitCore/NSUserDefaults/NSUserDefaults+Category/NSUserDefaults+Manager)
 
 * 存数据（包括父类直到`NSObject`的所有属性）。<font color=red>**将数据封装到对象`UserDefaultModel`里面进行存取**</font>
 
@@ -6718,7 +6757,7 @@ vc.navCtrl
 
   * 产生背景：方便临时调试，避免打印输出
 
-  * 关注Demo实现类：[**`@interface JobsShowObjInfoVC : BaseViewController`**](https://github.com/JobsKits/JobsOCBaseConfigDemo/tree/main/JobsOCBaseConfigDemo/OCBaseConfig/JobsMixFunc/Debug/DebugTools/%E6%9F%A5%E7%9C%8B%E5%AF%B9%E8%B1%A1)
+  * 关注Demo实现类：[**`@interface JobsShowObjInfoVC : BaseViewController`**](https://github.com/JobsKits/JobsOCBaseConfigDemo/tree/main/Libs/OCBaseConfig/JobsMixFunc/Debug/DebugTools/%E6%9F%A5%E7%9C%8B%E5%AF%B9%E8%B1%A1)
 
   * 因为是小型化的一些临时数据，所以数据本地化方案选用的是`NSUserDefaults.standardUserDefaults`
 
@@ -6733,7 +6772,7 @@ vc.navCtrl
 
 ### <span id="jobs-toc-heading-144" data-jobs-toc="v2">43、📺 视频播放器 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a></span><!-- jobs-toc:heading-end -->
 
-* 关注实现类：[**@interface UIView (ZFPlayer)**](https://github.com/JobsKits/JobsOCBaseConfigDemo/tree/main/JobsOCBaseConfigDemo/JobsOCBaseCustomizeUIKitCore/UIView/UIView+Category/UIView+ZFPlayer)
+* 关注实现类：[**@interface UIView (ZFPlayer)**](https://github.com/JobsKits/JobsOCBaseConfigDemo/tree/main/Libs/JobsOCBaseCustomizeUIKitCore/UIView/UIView+Category/UIView+ZFPlayer)
 
 * Demo 入口：根列表仅展示 `Douyin_ZFPlayer`；进入 `JobsZFPlayerDemoListVC` 后，通过 Cell 分别打开 `Douyin_ZFPlayer_1` 和 `Douyin_ZFPlayer_2`，避免同一播放器能力散落为多个根入口。
 
@@ -6756,7 +6795,7 @@ vc.navCtrl
   pod 'lottie-ios', '~> 2.5.3' # 这是OC终极版本 https://github.com/airbnb/lottie-ios
   ```
 
-* 关注实现类：[**@interface UIView (Animation)**](https://github.com/JobsKits/JobsOCBaseConfigDemo/tree/main/JobsOCBaseConfigDemo/JobsOCBaseCustomizeUIKitCore/UIView/UIView%2BCategory/UIView%2BAnimation)
+* 关注实现类：[**@interface UIView (Animation)**](https://github.com/JobsKits/JobsOCBaseConfigDemo/tree/main/Libs/JobsOCBaseCustomizeUIKitCore/UIView/UIView%2BCategory/UIView%2BAnimation)
 
 ### <span id="jobs-toc-heading-146" data-jobs-toc="v2">45、👋手势封装 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a></span><!-- jobs-toc:heading-end -->
 
@@ -6782,7 +6821,7 @@ vc.navCtrl
   
 * 封装方式3：
 
-  因为手势传递是在view层。所以对其进行了一次封装。关注实现类：[**@interface UIView (Gesture)**](https://github.com/JobsKits/JobsOCBaseConfigDemo/tree/main/JobsOCBaseConfigDemo/JobsOCBaseCustomizeUIKitCore/UIView/UIView%2BCategory/UIView%2BGesture)
+  因为手势传递是在view层。所以对其进行了一次封装。关注实现类：[**@interface UIView (Gesture)**](https://github.com/JobsKits/JobsOCBaseConfigDemo/tree/main/Libs/JobsOCBaseCustomizeUIKitCore/UIView/UIView%2BCategory/UIView%2BGesture)
 
   ```objective-c
   {
@@ -6830,7 +6869,7 @@ vc.navCtrl
 
   *  [**@interface  NSMutableAttributedString (Extra)**]()
   * [**@interface NSAttributedString (Extra)**]()
-  * [**@interface NSObject (RichText)**](https://github.com/JobsKits/JobsOCBaseConfigDemo/tree/main/JobsOCBaseConfigDemo/JobsOCBaseCustomizeUIKitCore/NSObject/NSObject+Category/NSObject+RichText)
+  * [**@interface NSObject (RichText)**](https://github.com/JobsKits/JobsOCBaseConfigDemo/tree/main/Libs/JobsOCBaseCustomizeUIKitCore/NSObject/NSObject+Category/NSObject+RichText)
 
 * ```objective-c
   #pragma mark —— 创建不可变富文本
@@ -7266,7 +7305,7 @@ vc.navCtrl
 
 * 产生背景：点击事件的带参回调
 
-* 关注实现类：[**@interface NSObject (CallBackInfoByBlock)**](https://github.com/JobsKits/JobsOCBaseConfigDemo/tree/main/JobsOCBaseConfigDemo/JobsOCBaseCustomizeUIKitCore/NSObject/NSObject%2BCategory/NSObject%2BCallBackInfoByBlock)
+* 关注实现类：[**@interface NSObject (CallBackInfoByBlock)**](https://github.com/JobsKits/JobsOCBaseConfigDemo/tree/main/Libs/JobsOCBaseCustomizeUIKitCore/NSObject/NSObject%2BCategory/NSObject%2BCallBackInfoByBlock)
 
 * 调用情况
 
@@ -7313,8 +7352,8 @@ vc.navCtrl
 
 * 对第三方[**`HXPhotoPicker`**](https://github.com/SilenceLove/HXPhotoPicker)的数据层进行二次封装，方便调用
 
-  * 关注实现类：[**@interface HXPhotoPickerModel : NSObject**](https://github.com/JobsKits/JobsOCBaseConfigDemo/tree/main/JobsOCBaseConfigDemo/JobsOCBaseCustomizeUIKitCore/NSObject/NSObject%2BCategory/NSObject%2BHXPhotoPicker)
-  * 关注实现类：[**@interface NSObject (HXPhotoPicker)<HXCustomNavigationControllerDelegate>**](https://github.com/JobsKits/JobsOCBaseConfigDemo/tree/main/JobsOCBaseConfigDemo/JobsOCBaseCustomizeUIKitCore/NSObject/NSObject%2BCategory/NSObject%2BHXPhotoPicker)
+  * 关注实现类：[**@interface HXPhotoPickerModel : NSObject**](https://github.com/JobsKits/JobsOCBaseConfigDemo/tree/main/Libs/JobsOCBaseCustomizeUIKitCore/NSObject/NSObject%2BCategory/NSObject%2BHXPhotoPicker)
+  * 关注实现类：[**@interface NSObject (HXPhotoPicker)<HXCustomNavigationControllerDelegate>**](https://github.com/JobsKits/JobsOCBaseConfigDemo/tree/main/Libs/JobsOCBaseCustomizeUIKitCore/NSObject/NSObject%2BCategory/NSObject%2BHXPhotoPicker)
 
 * [**需要对`info.plist` 文件进行相应字段的配置**](https://github.com/JobsKits/JobsOCBaseConfigDemo/blob/main/JobsOCBaseConfigDemo/%E9%85%8D%E7%BD%AEinfo.plist/%E9%85%8D%E7%BD%AEinfo.plist.md)。<font color=red>**系统需要主动索取用户权限。如果未授权，则以下代码将会调用失败**</font>
 
@@ -7672,7 +7711,7 @@ NSLog(@"%p %p %p %p" %p", m1, m2, m3, m4, m5);
 
 ### <span id="jobs-toc-heading-157" data-jobs-toc="v2">52、🔗 打开`URL` <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a></span><!-- jobs-toc:heading-end -->
 
-* 关注实现类：[**@interface NSObject (OpenURL)**](https://github.com/JobsKits/JobsOCBaseConfigDemo/tree/main/JobsOCBaseConfigDemo/JobsOCBaseCustomizeUIKitCore/NSObject/NSObject+Category/NSObject+OpenURL)
+* 关注实现类：[**@interface NSObject (OpenURL)**](https://github.com/JobsKits/JobsOCBaseConfigDemo/tree/main/Libs/JobsOCBaseCustomizeUIKitCore/NSObject/NSObject+Category/NSObject+OpenURL)
 
 * 处理警告，向下兼容API
 
@@ -8020,7 +8059,7 @@ NSLog(@"%p %p %p %p" %p", m1, m2, m3, m4, m5);
 
 ### <span id="jobs-toc-heading-162" data-jobs-toc="v2">54、🫆指纹识别 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a></span><!-- jobs-toc:heading-end -->
 
-* 关注实现类：[**@interface  TouchID : NSObject**](https://github.com/JobsKits/JobsOCBaseConfigDemo/tree/main/JobsOCBaseConfigDemo/JobsOCBaseCustomizeUIKitCore/NSObject/BaseObject/TouchID)
+* 关注实现类：[**@interface  TouchID : NSObject**](https://github.com/JobsKits/JobsOCBaseConfigDemo/tree/main/Libs/JobsOCBaseCustomizeUIKitCore/NSObject/BaseObject/TouchID)
 
 ### <span id="jobs-toc-heading-163" data-jobs-toc="v2">55、**`UIScrollView`** <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a></span><!-- jobs-toc:heading-end -->
 
@@ -8351,7 +8390,7 @@ NSLog(@"%p %p %p %p" %p", m1, m2, m3, m4, m5);
 
 * **`UICollectionView`** 本身并没有直接提供公开的 API 来检查某个 **reuseIdentifier** 是否已经注册。如果通过字符串索取不到**`UICollectionView`**（未注册），会直接崩溃
 
-* <font color=red>可以用方法交换去插入一个自定义标志位（**`NSMutableSet`**），如果没有在集合里面的即为未注册的**`UICollectionView`**，此时进入注册流程</font>。关注实现类：[**@interface UICollectionView (RegistrationTracking)**](https://github.com/JobsKits/JobsOCBaseConfigDemo/tree/main/JobsOCBaseConfigDemo/JobsOCBaseCustomizeUIKitCore/UICollectionView/UICollectionView%2BCategory/UICollectionView%2BRegistrationTracking)
+* <font color=red>可以用方法交换去插入一个自定义标志位（**`NSMutableSet`**），如果没有在集合里面的即为未注册的**`UICollectionView`**，此时进入注册流程</font>。关注实现类：[**@interface UICollectionView (RegistrationTracking)**](https://github.com/JobsKits/JobsOCBaseConfigDemo/tree/main/Libs/JobsOCBaseCustomizeUIKitCore/UICollectionView/UICollectionView%2BCategory/UICollectionView%2BRegistrationTracking)
 
   *  正常情况下，如果用字符串无法取**`UICollectionViewCell`**会直接崩溃，即`collectionViewCellClass`无意义。但是添加了上述的方法交换以后这里不会崩溃，其作用机制是：<font color=red>**利用方法交换，在进行复用时候，先检测标志位里面是否包含已经注册的对象索引，如果没有即进行注册，再进行复用**</font>。所以第一步得到的**Cell**一定会存在，不会出现<font color=red>**nil**</font>的情况。而保留`!cell`写法的作用更多是向下兼容，同时方便代码的阅读。同时，这个字符串是根据需要注册的cell的类名字符串化得到的，为了避免可能得命名冲突，保证全局的唯一性，在必要的时候，可以通过"<u>**加盐**</u>"的形式进行字符串拼接。（注意在用字符串进行索取的时候，也对应需要"<u>**加盐**</u>"）
 
@@ -8881,7 +8920,7 @@ didSelectItemAtIndexPath:(NSIndexPath *)indexPath {//@@6
     BaseTableView.initWithStyleGrouped;
     ```
 
-* 对父类**`UIScrollView`**三要素（**`contentOffset`**、**`contentSize`**、**`contentInset`**）的封装设置。关注实现类[**@interface UIView (Measure)**](https://github.com/JobsKits/JobsOCBaseConfigDemo/tree/main/JobsOCBaseConfigDemo/JobsOCBaseCustomizeUIKitCore/UIView/UIView%2BCategory/UIView%2BMeasure)
+* 对父类**`UIScrollView`**三要素（**`contentOffset`**、**`contentSize`**、**`contentInset`**）的封装设置。关注实现类[**@interface UIView (Measure)**](https://github.com/JobsKits/JobsOCBaseConfigDemo/tree/main/Libs/JobsOCBaseCustomizeUIKitCore/UIView/UIView%2BCategory/UIView%2BMeasure)
 
   ```objective-c
   #pragma mark —— UIScrollView.contentSize
@@ -8942,7 +8981,7 @@ didSelectItemAtIndexPath:(NSIndexPath *)indexPath {//@@6
 
 * `tableHeaderView`也会随着**`UITableView`**的滚动而滚动
 
-* **`UITableView`** 的可折叠效果。第三方分类实现，关注：[**@interface UITableView (WWFoldableTableView)**](https://github.com/JobsKits/JobsOCBaseConfigDemo/tree/main/JobsOCBaseConfigDemo/JobsOCBaseCustomizeUIKitCore/UITableView/UITableView+Category/UITableView+WWFoldableTableView)
+* **`UITableView`** 的可折叠效果。第三方分类实现，关注：[**@interface UITableView (WWFoldableTableView)**](https://github.com/JobsKits/JobsOCBaseConfigDemo/tree/main/Libs/JobsOCBaseCustomizeUIKitCore/UITableView/UITableView+Category/UITableView+WWFoldableTableView)
 
   ```objective-c
   _tableView.byFoldable(YES);
@@ -9701,7 +9740,7 @@ didSelectItemAtIndexPath:(NSIndexPath *)indexPath {//@@6
           }
           ```
       
-      * 关注实现类：[**@interface BaseTableViewHeaderFooterView : UITableViewHeaderFooterView**](https://github.com/JobsKits/JobsOCBaseConfigDemo/tree/main/JobsOCBaseConfigDemo/JobsOCBaseCustomizeUIKitCore/UITableViewHeaderFooterView/BaseTableViewHeaderFooterView) + [**@interface UITableViewHeaderFooterView (Attribute)**](https://github.com/JobsKits/JobsOCBaseConfigDemo/tree/main/JobsOCBaseConfigDemo/JobsOCBaseCustomizeUIKitCore/UITableViewHeaderFooterView/BaseTableViewHeaderFooterView)
+      * 关注实现类：[**@interface BaseTableViewHeaderFooterView : UITableViewHeaderFooterView**](https://github.com/JobsKits/JobsOCBaseConfigDemo/tree/main/Libs/JobsOCBaseCustomizeUIKitCore/UITableViewHeaderFooterView/BaseTableViewHeaderFooterView) + [**@interface UITableViewHeaderFooterView (Attribute)**](https://github.com/JobsKits/JobsOCBaseConfigDemo/tree/main/Libs/JobsOCBaseCustomizeUIKitCore/UITableViewHeaderFooterView/BaseTableViewHeaderFooterView)
       
       * ```objective-c
         /// 这里涉及到复用机制，return出去的是UITableViewHeaderFooterView的派生类
@@ -9877,7 +9916,7 @@ didSelectItemAtIndexPath:(NSIndexPath *)indexPath {//@@6
    @end
    ```
 
-#### <span id="jobs-toc-heading-177" data-jobs-toc="v2">57.3、锚定点击的控件下方（动画）出现的下拉菜单[**`JobsDropDownListView`**](https://github.com/JobsKits/JobsOCBaseConfigDemo/tree/main/JobsOCBaseConfigDemo/OCBaseConfig/JobsMixFunc/JobsDropDownListView) <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a></span><!-- jobs-toc:heading-end -->
+#### <span id="jobs-toc-heading-177" data-jobs-toc="v2">57.3、锚定点击的控件下方（动画）出现的下拉菜单[**`JobsDropDownListView`**](https://github.com/JobsKits/JobsOCBaseConfigDemo/tree/main/Libs/OCBaseConfig/JobsMixFunc/JobsDropDownListView) <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a></span><!-- jobs-toc:heading-end -->
 
 <img src="./assets/image-20240803101851035.png" alt="image-20240803101851035" style="zoom:67%;" />
 
@@ -9946,7 +9985,7 @@ didSelectItemAtIndexPath:(NSIndexPath *)indexPath {//@@6
 
 ### <span id="jobs-toc-heading-178" data-jobs-toc="v2">58、**`UITableViewCell`** <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a></span><!-- jobs-toc:heading-end -->
 
-* **`UITableViewCell`** 的自带样式。关注实现类：[**@implementation UITableViewCell (UITableViewCellProtocol)**](https://github.com/JobsKits/JobsOCBaseConfigDemo/blob/main/JobsOCBaseConfigDemo/JobsOCBaseCustomizeUIKitCore/UITableViewCell/UITableViewCell%2BCategory/UITableViewCell%2BUITableViewCellProtocol/UITableViewCell%2BUITableViewCellProtocoll.m)
+* **`UITableViewCell`** 的自带样式。关注实现类：[**@implementation UITableViewCell (UITableViewCellProtocol)**](https://github.com/JobsKits/JobsOCBaseConfigDemo/blob/main/Libs/JobsOCBaseCustomizeUIKitCore/UITableViewCell/UITableViewCell%2BCategory/UITableViewCell%2BUITableViewCellProtocol/UITableViewCell%2BUITableViewCellProtocoll.m)
 
   * <font color=blue>**UITableViewCellStyleDefault**</font>
 
@@ -10212,7 +10251,7 @@ didSelectItemAtIndexPath:(NSIndexPath *)indexPath {//@@6
   * `LZTabBarConfig` ：**`NSObject`**
   * `LZTabBarItem`：**`UIView`**
 
-#### <span id="jobs-toc-heading-182" data-jobs-toc="v2">60.2、[自定义 **`UITabBarController`**](https://github.com/JobsKits/JobsOCBaseConfigDemo/blob/main/JobsOCBaseConfigDemo/OCBaseConfig/JobsMixFunc/UITabBarCtr/%E8%87%AA%E5%AE%9A%E4%B9%89%20UITabBarController.md/%E8%87%AA%E5%AE%9A%E4%B9%89%20UITabBarController.md) <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a></span><!-- jobs-toc:heading-end -->
+#### <span id="jobs-toc-heading-182" data-jobs-toc="v2">60.2、[自定义 **`UITabBarController`**](https://github.com/JobsKits/JobsOCBaseConfigDemo/blob/main/Libs/OCBaseConfig/JobsMixFunc/UITabBarCtr/%E8%87%AA%E5%AE%9A%E4%B9%89%20UITabBarController.md/%E8%87%AA%E5%AE%9A%E4%B9%89%20UITabBarController.md) <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a></span><!-- jobs-toc:heading-end -->
 
 ### <span id="jobs-toc-heading-183" data-jobs-toc="v2">61、🔪切角 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a></span><!-- jobs-toc:heading-end -->
 
@@ -11459,11 +11498,11 @@ didSelectItemAtIndexPath:(NSIndexPath *)indexPath {//@@6
   }
   ```
 
-* 关注实现类 [**@interface NSObject (NTESVerifyCodeManager)<NTESVerifyCodeManagerDelegate>**](https://github.com/JobsKits/JobsOCBaseConfigDemo/tree/main/JobsOCBaseConfigDemo/JobsOCBaseCustomizeUIKitCore/NSObject/NSObject%2BCategory/NSObject%2BNTESVerifyCodeManager)
+* 关注实现类 [**@interface NSObject (NTESVerifyCodeManager)<NTESVerifyCodeManagerDelegate>**](https://github.com/JobsKits/JobsOCBaseConfigDemo/tree/main/Libs/JobsOCBaseCustomizeUIKitCore/NSObject/NSObject%2BCategory/NSObject%2BNTESVerifyCodeManager)
 
 #### <span id="jobs-toc-heading-192" data-jobs-toc="v2">65.2、[极验验证码](https://www2.geetest.com/)的二次封装 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a></span><!-- jobs-toc:heading-end -->
 
-* 关注实现类 [**@interface NSObject (GTCaptcha4)<GTCaptcha4SessionTaskDelegate>**](https://github.com/JobsKits/JobsOCBaseConfigDemo/tree/main/JobsOCBaseConfigDemo/JobsOCBaseCustomizeUIKitCore/NSObject/NSObject%2BCategory/NSObject%2BNTESVerifyCodeManager)
+* 关注实现类 [**@interface NSObject (GTCaptcha4)<GTCaptcha4SessionTaskDelegate>**](https://github.com/JobsKits/JobsOCBaseConfigDemo/tree/main/Libs/JobsOCBaseCustomizeUIKitCore/NSObject/NSObject%2BCategory/NSObject%2BNTESVerifyCodeManager)
 
   ```objective-c
   #import "NSObject+GTCaptcha4.h"
@@ -11902,7 +11941,7 @@ didSelectItemAtIndexPath:(NSIndexPath *)indexPath {//@@6
 
 #### <span id="jobs-toc-heading-200" data-jobs-toc="v2">70.1、封装系统Api（关注 **`JobsMakes.h`**） <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a></span><!-- jobs-toc:heading-end -->
 
-[`JobsMakes.h`](./JobsOCBaseConfigDemo/JobsOCBaseCustomizeUIKitCore/JobsMakes.h) 的 `jobsMakeVolumeView(jobsByViewBlock _Nullable block)` 返回 `__kindof MPVolumeView *`，统一创建原生媒体音量控件并默认隐藏路由按钮；不访问系统私有滑条。模拟器不能通过该控件改变系统音量，AppDoor 使用局部滑条回退；硬件键与实际输出需分别在真机和当前模拟器环境验证。
+[`JobsMakes.h`](./Libs/JobsOCBaseCustomizeUIKitCore/JobsMakes.h) 的 `jobsMakeVolumeView(jobsByViewBlock _Nullable block)` 返回 `__kindof MPVolumeView *`，统一创建原生媒体音量控件并默认隐藏路由按钮；不访问系统私有滑条。模拟器不能通过该控件改变系统音量，AppDoor 使用局部滑条回退；硬件键与实际输出需分别在真机和当前模拟器环境验证。
 
 `NSObject+Data` 的 `byRequestParams` 使用 `JobsRetNSObjectByIDBlock` 绑定请求参数并返回 `__kindof NSObject *` 原对象，适用于视图与输入框；`UINavigationItem.byTitle` 使用 `JobsRetUINavigationItemByNSStringBlock` 设置可空标题，`byLeftBarButtonItems` / `byRightBarButtonItems` 复用 `JobsRetNavigationItemByBarButtonItemsBlock` 设置可空按钮组，均返回原导航项。两类能力由主工程对应基础层的真实实现承接，继续支持链式配置，不新增 Pod 依赖。
 
@@ -12744,11 +12783,11 @@ cell.contentView.layerBy(jobsMakeLocationModel(^(__kindof JobsLocationModel * _N
 
 | 项目 | `main` 主工程集成 | `byPods` 本地 Pod 管理 |
 | --- | --- | --- |
-| 入口 | `JobsOCBaseConfigDemo/启动配置/AppDelegate & SceneDelegate/`；`main.m` 启动 | `JobsOCBaseConfigDemo/入口/main.m`、`AppDelegate/`、`SceneDelegate/` |
+| 入口 | `JobsOCBaseConfigDemo/入口/main.m`、`AppDelegate/`、`SceneDelegate/` | `JobsOCBaseConfigDemo/入口/main.m`、`AppDelegate/`、`SceneDelegate/` |
 | 演示与业务源码 | `JobsOCBaseConfigDemo/业务逻辑/` | `JobsOCBaseConfigDemo/业务逻辑/` |
 | 自研基座 | 主工程内 `OCBaseConfig/`、`JobsMakes/`、`JobsOCDSL/`、系统与第三方扩展等 | `JobsByPods/*@Pods/` 中的非 `ManualBy` 模块 |
 | 外部依赖 | `Pods/`、`PodsManual/`、手工第三方及 `JobsByPods/ManualByOCPods@Pods/` | `Pods/`、`JobsByPods/ManualByOCPods@Pods/` 及供应商源码 |
-| 工程与脚本 | `JobsOCBaseConfigDemo.xcworkspace`、`JobsOCBaseConfigDemo.xcodeproj/`、`ScriptsByPods/`、`ScriptsByDevTools/` | 同名工程与脚本目录；本地组件测试由独立门禁管理 |
+| 工程与脚本 | `JobsOCBaseConfigDemo.xcworkspace`、`JobsOCBaseConfigDemo.xcodeproj/`、`ScriptsByPods/`、`ScriptsByPods/自动化测试相关脚本/` | 同名工程与脚本目录；本地组件测试由独立门禁管理 |
 
 本项目的两种形态共用 [GitHub 仓库](https://github.com/JobsKits/JobsOCBaseConfigDemo)，分别使用 `main`、`byPods` 分支；[Gitee 仓库](https://gitee.com/JobsGo/JobsOCBaseConfigDemo) 使用同名远端分支。`byPods` 的 Gitee 发布源为既有 `Gitee@snapshot` 链，文件树对齐不要求提交号或历史相同，不能把快照提交数作为开发活跃度。当前 OC 根目录均无 `.gitmodules`，不为本地 Pod 虚构私有 Git 子库；外层 `JobsBaseConfig` 才将 `main` 工作树登记为子模块，登记路径与仓名是不同概念。
 
@@ -12762,7 +12801,7 @@ cell.contentView.layerBy(jobsMakeLocationModel(^(__kindof JobsLocationModel * _N
 | 构建工具 | [**Xcode**](https://developer.apple.com/xcode/) / iOS SDK | CI 显式选择 Xcode **26**，SDK 跟随所选安装；具体小版本未固定 | [模拟器工作流](./.github/workflows/build_simulator_app.yml)；主工程 `SDKROOT = iphoneos` |
 | 最低系统 | 主 App / Podfile | 两边主 App target 均为 iOS **16.6**；工程级默认 `main` **17.2**、`byPods` **26.4**，其它 target 需独立核对覆盖值 | [Podfile](./Podfile) 与工程 target，不再以旧徽章 17.5 作为最低要求；最终以实际 target 展开值为准 |
 | 包管理 | [**CocoaPods**](https://cocoapods.org/) | 两边本地锁文件记录 **1.17.0** | `Podfile.lock` 在磁盘存在，但 `git ls-files Podfile.lock` 两边均为空，**未纳入当前索引** |
-| 脚本解释器 | [**Ruby**](https://www.ruby-lang.org/) / 系统 zsh | Podfile、Podspec 与门禁用 Ruby；版本未由 Gemfile.lock 统一固定；Shell 入口按文件解释器运行 | `Podfile`、`Podfile.deps`、`ScriptsByPods/`、`ScriptsByDevTools/` |
+| 脚本解释器 | [**Ruby**](https://www.ruby-lang.org/) / 系统 zsh | Podfile、Podspec 与门禁用 Ruby；版本未由 Gemfile.lock 统一固定；Shell 入口按文件解释器运行 | `Podfile`、`Podfile.deps`、`ScriptsByPods/`、`ScriptsByPods/自动化测试相关脚本/` |
 | 跨端容器 | [**Flutter**](https://flutter.dev/) | 通过 `pod 'Flutter'` 接入；锁内 Pod 版本不等于 Flutter SDK 版本 | Flutter SDK 精确版本需核对实际容器工程 / 安装记录，当前 OC 统计不猜测 |
 
 ### <span id="jobs-toc-heading-230" data-jobs-toc="v2">7.3、建库与提交历史 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a></span><!-- jobs-toc:heading-end -->
@@ -12863,7 +12902,7 @@ flowchart TD
     Gate -->|是| Blocked["跳过业务初始化 Scene 创建独立原生拦截根页面"]
     Gate -->|否| Init["继续原有启动配置"]
     Init --> Root["SceneDelegate 建立窗口与正常根控制器"]
-    Root --> List["ViewController@1.m：分类 / 搜索 / 收藏"]
+    Root --> List["ViewController@1.m：分类 / 搜索 / 置顶 / 最近使用"]
     List --> Pick["具名 byCls 目标或二级 Demo 列表"]
     Pick --> Screen["实例化目标并导航"]
     Screen --> Local["组件交互 / 本地数据 / 权限请求"]
@@ -13188,7 +13227,7 @@ xcodebuild \
   test
 
 # 仅 byPods，完整门禁会构建 Pod、执行回归并构建 App；细节先读该目录 README。
-ruby ./ScriptsByPods/jobs_pods_stability_verify.rb/jobs_pods_stability_verify.rb \
+ruby ./ScriptsByPods/自动化测试相关脚本/jobs_pods_stability_verify.rb/jobs_pods_stability_verify.rb \
   --configuration Debug \
   --architecture arm64 \
   --simulator SIMULATOR_UDID

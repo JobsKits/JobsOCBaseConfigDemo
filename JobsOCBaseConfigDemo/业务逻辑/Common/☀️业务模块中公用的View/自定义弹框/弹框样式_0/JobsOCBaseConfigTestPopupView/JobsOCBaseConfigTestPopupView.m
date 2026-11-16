@@ -106,7 +106,7 @@ static dispatch_once_t static_testPopupViewOnceToken;
                 JobsLog(@"");
             });
         _containerView.addOn(self).byAdd(^(MASConstraintMaker *make) {
-            make.size.mas_equalTo(_containerView.jobsSize);
+            make.size.mas_equalTo(self->_containerView.jobsSize);
             make.center.equalTo(self);
         });
     };return _containerView;

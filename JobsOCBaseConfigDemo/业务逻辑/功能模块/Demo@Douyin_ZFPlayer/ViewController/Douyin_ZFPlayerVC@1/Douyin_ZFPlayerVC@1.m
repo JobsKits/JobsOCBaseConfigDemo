@@ -165,7 +165,7 @@ Prop_strong()NSMutableArray <VideoModel_Core *>*__block dataMutArr;
     return ^{
         @jobs_strongify(self)
         if (!self) return;
-        for (__kindof UITableViewCell *cell in _tableView.visibleCells) {
+        for (__kindof UITableViewCell *cell in self->_tableView.visibleCells) {
             if ([cell isKindOfClass:JobsPlayerTBVCell.class]) {
                 ((JobsPlayerTBVCell *)cell).stopPlayer();
             }

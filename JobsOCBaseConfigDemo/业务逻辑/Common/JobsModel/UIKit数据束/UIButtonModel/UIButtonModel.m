@@ -87,9 +87,9 @@ UITextModelProtocol_synthesize_part2
     return ^CGFloat{
         @jobs_strongify(self)
         if (!self) return (CGFloat){0};
-        if(!_subTitleWidth){
-            if(isValue(self.subTitle)) _subTitleWidth = self.subTitle.widthBy(self.subTitleFont);
-        };return _subTitleWidth;
+        if(!self->_subTitleWidth){
+            if(isValue(self.subTitle)) self->_subTitleWidth = self.subTitle.widthBy(self.subTitleFont);
+        };return self->_subTitleWidth;
     };
 }
 
@@ -120,12 +120,12 @@ UITextModelProtocol_synthesize_part2
     return ^NSString *{
         @jobs_strongify(self)
         if (!self) return nil;
-        if(!_subTitle){
+        if(!self->_subTitle){
     #ifdef DEBUG
     //        _subTitle = TextModelDataString2.jobsTr();
-            _subTitle = @"";
+            self->_subTitle = @"";
     #endif
-        };return _subTitle;
+        };return self->_subTitle;
     };
 }
 

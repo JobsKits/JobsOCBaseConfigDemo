@@ -13,10 +13,10 @@
 #import "JobsBaseProtocolHeader.h"
 #endif
 
-#if __has_include(<JobsMakes/JobsMakes.h>)
-#import <JobsMakes/JobsMakes.h>
+#if __has_include(<JobsByOCPods/JobsByOCPods.h>)
+#import <JobsByOCPods/JobsByOCPods.h>
 #else
-#import "JobsMakes.h"
+#import "JobsByOCPods.h"
 #endif
 
 #if __has_include(<JobsLanMgr/JobsLanMgr.h>)
@@ -25,10 +25,22 @@
 #import "JobsLanMgr.h"
 #endif
 
-#if __has_include(<JobsByOCPods/JobsByOCPods.h>)
-#import <JobsByOCPods/JobsByOCPods.h>
+#if __has_include(<JobsMakes/JobsMakes.h>)
+#import <JobsMakes/JobsMakes.h>
 #else
-#import "JobsByOCPods.h"
+#import "JobsMakes.h"
+#endif
+
+#if __has_include(<JobsOCDSL/JobsOCDSL.h>)
+#import <JobsOCDSL/JobsOCDSL.h>
+#else
+#import "JobsOCDSL.h"
+#endif
+
+#if __has_include(<JobsOCSearcher/JobsOCSearcher.h>)
+#import <JobsOCSearcher/JobsOCSearcher.h>
+#else
+#import "JobsOCSearcher.h"
 #endif
 
 #if __has_include(<JobsBlock/JobsBlock.h>)
@@ -41,12 +53,6 @@
 #import <JobsOCDefs/JobsDefines.h>
 #else
 #import "JobsDefines.h"
-#endif
-
-#if __has_include(<JobsOCDSL/JobsOCDSL.h>)
-#import <JobsOCDSL/JobsOCDSL.h>
-#else
-#import "JobsOCDSL.h"
 #endif
 
 NS_ASSUME_NONNULL_BEGIN
@@ -63,7 +69,6 @@ Prop_assign()BOOL cancelBtnHidden;
 // JOBS_PROPERTY_DSL_DECLARATION_AUTOGEN_BEGIN JobsOCSearcherBar
 -(JobsRetJobsOCSearcherBarByBOOLBlock _Nonnull)byCancelBtnHidden;
 // JOBS_PROPERTY_DSL_DECLARATION_AUTOGEN_END JobsOCSearcherBar
-
 @end
 
 NS_ASSUME_NONNULL_END

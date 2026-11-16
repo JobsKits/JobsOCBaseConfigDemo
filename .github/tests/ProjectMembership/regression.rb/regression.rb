@@ -343,4 +343,54 @@ Dir.mktmpdir('jobs-project-membership-') do |root|
   assert.call(!status.success? && text.include?('越过仓库'), '真实 CLI 未拒绝越界同步组路径')
 end
 
+
+# 自动成员与传统 Pod Sources 也接受相同的 Git 精确路径门禁。
+Dir.mktmpdir('jobs-project-membership-automatic-') do |root|
+  source='App/Source/ExactName.m'
+  vendor='JobsByPods/Fixture@Pods/Core/Source.m'
+  [source,vendor].each do |path|
+    FileUtils.mkdir_p(File.dirname(File.join(root,path)))
+    File.write(File.join(root,path),'// fixture source')
+  end
+  tracked=[source,vendor]
+  project={ 'objects'=>{
+    'root'=>{'isa'=>'PBXGroup','children'=>['app']},
+    'app'=>{'isa'=>'PBXFileSystemSynchronizedRootGroup','path'=>'App','sourceTree'=>'<group>','exceptions'=>['exclusions']},
+    'exclusions'=>{'isa'=>'PBXFileSystemSynchronizedBuildFileExceptionSet','target'=>'target','membershipExceptions'=>[]},
+    'target'=>{'isa'=>'PBXNativeTarget','name'=>'FixtureApp','fileSystemSynchronizedGroups'=>['app']}
+  }}
+  result=JobsProjectMembership.validate(root,project,tracked,include_automatic:true)
+  assert.call(result.fetch('checked')==1 && result.fetch('failures').empty?, '自动包含组未校验实际源码')
+  result=JobsProjectMembership.validate(root,project,tracked.map(&:downcase),include_automatic:true)
+  assert.call(result.fetch('failures').length==1 && result.fetch('failures').first.fetch('reason').include?('大小写'), '自动包含组未保留Git大小写门禁')
+  project['objects']['exclusions']['membershipExceptions']=['Source']
+  assert.call(JobsProjectMembership.validate(root,project,tracked,include_automatic:true).fetch('checked').zero?, '自动包含组目录排除没有生效')
+
+  pod_project={ 'objects'=>{
+    'root'=>{'isa'=>'PBXGroup','children'=>['pod']},
+    'pod'=>{'isa'=>'PBXGroup','path'=>'../JobsByPods/Fixture@Pods/Core','sourceTree'=>'<group>','children'=>['source']},
+    'source'=>{'isa'=>'PBXFileReference','path'=>'Source.m','sourceTree'=>'<group>'},
+    'build'=>{'isa'=>'PBXBuildFile','fileRef'=>'source'},
+    'sources'=>{'isa'=>'PBXSourcesBuildPhase','files'=>['build']},
+    'target'=>{'isa'=>'PBXNativeTarget','name'=>'Fixture','buildPhases'=>['sources']}
+  }}
+  result=JobsProjectMembership.validate(root,pod_project,tracked,source_root:'Pods',include_build_phases:true,only_roots:['JobsByPods/'])
+  assert.call(result.fetch('checked')==1 && result.fetch('failures').empty?, 'Pod Sources相对根解析未通过')
+  pod_project['objects']['source']['path']='source.m'
+  result=JobsProjectMembership.validate(root,pod_project,tracked,source_root:'Pods',include_build_phases:true,only_roots:['JobsByPods/'])
+  assert.call(result.fetch('failures').length==1 && result.fetch('failures').first.fetch('git_paths')==[vendor], 'Pod Sources大小写差异未指向Git真实路径')
+  pod_project['objects']['source']['path']='Source.m'
+  File.delete(File.join(root,vendor))
+  result=JobsProjectMembership.validate(root,pod_project,tracked,source_root:'Pods',include_build_phases:true,only_roots:['JobsByPods/'])
+  assert.call(result.fetch('failures').length==1 && result.fetch('failures').first.fetch('reason').include?('工作区缺失'), 'Pod Sources磁盘缺失未拒绝')
+  pod_project['objects']['pod']['path']='../../Outside'
+  rejected=false
+  begin
+    JobsProjectMembership.validate(root,pod_project,tracked,source_root:'Pods',include_build_phases:true)
+  rescue RuntimeError => error
+    rejected=error.message.include?('越过仓库')
+  end
+  assert.call(rejected,'Pod source root越界未拒绝')
+end
+
 puts "PASS #{checks} isolated project membership checks; no business index, installation or build changed"

@@ -90,7 +90,7 @@ Prop_strong()UITextModel *postTextModel;
             .byNavBgCor(RGBA_COLOR(255, 238, 221, 1))
             .byNavBgImage(@"导航栏左侧底图".img);
         {
-            JobsPostDelViewHeight = JobsPostDelView.viewSizeByModel(nil).height;
+            self->JobsPostDelViewHeight = JobsPostDelView.viewSizeByModel(nil).height;
             if (!JobsOCCoverageGestureProbeEnabled()) {
                 self.byHistoryPhotoDataArr([self.photoManager getLocalModelsInFileWithAddData:YES]);
                 if (isValue(((JobsUserModel *)JobsUserModel.jobsSharedManager()).postDraftURLStr)) {

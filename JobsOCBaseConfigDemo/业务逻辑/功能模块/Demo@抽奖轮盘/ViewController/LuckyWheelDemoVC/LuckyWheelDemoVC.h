@@ -6,6 +6,7 @@
 //
 
 #import "LuckyWheelView.h"
+#import "JobsOCCoverageGestureProbe.h"
 
 #if __has_include(<JobsBaseUI/JobsBaseUI.h>)
 #import <JobsBaseUI/JobsBaseUI.h>

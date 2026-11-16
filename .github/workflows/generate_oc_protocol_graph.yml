@@ -6,7 +6,7 @@ on:
       - main
       - byPods
     paths:
-      - JobsOCBaseConfigDemo/JobsOCBaseCustomizeUIKitCore/BaseProtocol/**/*.h
+      - JobsLibs/JobsOCBaseCustomizeUIKitCore/BaseProtocol/**/*.h
       - .github/scripts/generate_objc_protocol_graph.rb
       - .github/workflows/generate_oc_protocol_graph.yml
   pull_request:
@@ -14,7 +14,7 @@ on:
       - main
       - byPods
     paths:
-      - JobsOCBaseConfigDemo/JobsOCBaseCustomizeUIKitCore/BaseProtocol/**/*.h
+      - JobsLibs/JobsOCBaseCustomizeUIKitCore/BaseProtocol/**/*.h
       - .github/scripts/generate_objc_protocol_graph.rb
       - .github/workflows/generate_oc_protocol_graph.yml
   workflow_dispatch:
@@ -32,9 +32,9 @@ jobs:
     timeout-minutes: 20
 
     env:
-      PROTOCOL_SOURCE_DIR: JobsOCBaseConfigDemo/JobsOCBaseCustomizeUIKitCore/BaseProtocol
+      PROTOCOL_SOURCE_DIR: JobsLibs/JobsOCBaseCustomizeUIKitCore/BaseProtocol
       GRAPH_MMD_PATH: /tmp/BaseProtocol-ProtocolGraph.mmd
-      GRAPH_PNG_PATH: JobsOCBaseConfigDemo/JobsOCBaseCustomizeUIKitCore/BaseProtocol/BaseProtocol-ProtocolGraph.png
+      GRAPH_PNG_PATH: JobsLibs/JobsOCBaseCustomizeUIKitCore/BaseProtocol/BaseProtocol-ProtocolGraph.png
       GRAPH_ARTIFACT_NAME: BaseProtocol-ProtocolGraph
 
     steps:

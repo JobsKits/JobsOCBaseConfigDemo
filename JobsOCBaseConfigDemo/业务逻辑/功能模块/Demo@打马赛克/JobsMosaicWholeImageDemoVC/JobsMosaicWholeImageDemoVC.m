@@ -59,7 +59,7 @@ Prop_assign()NSUInteger renderVersion;
         if (!self) return;
         jobsByImageBlock action = [super onImageLoaded];
         if (action) action(image);
-        if (_controlView) self.applyCurrentMosaic();
+        if (self->_controlView) self.applyCurrentMosaic();
     };
 }
 
@@ -130,10 +130,10 @@ Prop_assign()NSUInteger renderVersion;
             label
                 .byTextCor(JobsLabelColor)
                 .byFont(UIFontWeightMediumSize(14))
-                .addOn(_controlView)
+                .addOn(self->_controlView)
                 .byAdd(^(MASConstraintMaker *make) {
-                    make.left.equalTo(_controlView).offset(JobsWidth(14));
-                    make.top.equalTo(_controlView).offset(JobsWidth(8));
+                    make.left.equalTo(self->_controlView).offset(JobsWidth(14));
+                    make.top.equalTo(self->_controlView).offset(JobsWidth(8));
                 });
         });
     };return _valueLabel;
@@ -150,10 +150,10 @@ Prop_assign()NSUInteger renderVersion;
                 .onJobsChange(^(__kindof UIControl * _Nullable control) {
                     weak_self.sliderValueChanged((UISlider *)control);
                 })
-                .addOn(_controlView)
+                .addOn(self->_controlView)
                 .byAdd(^(MASConstraintMaker *make) {
-                    make.left.right.equalTo(_controlView).inset(JobsWidth(14));
-                    make.bottom.equalTo(_controlView).offset(-JobsWidth(8));
+                    make.left.right.equalTo(self->_controlView).inset(JobsWidth(14));
+                    make.bottom.equalTo(self->_controlView).offset(-JobsWidth(8));
                 });
         });
     };return _blockSizeSlider;

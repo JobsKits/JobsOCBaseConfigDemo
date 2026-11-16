@@ -44,9 +44,12 @@ UILocationProtocol_synthesize
     @jobs_weakify(self)
     return ^__kindof UICollectionViewCell *_Nullable(GoodsClassModel *_Nullable model) {
         @jobs_strongify(self)
+        if (!self) {
+            return nil;
+        }
         self.dataModel = model;
-        if (_logoImgView) _logoImgView.hidden = YES;
-        if (_nameLabel) _nameLabel.hidden = YES;
+        if (self->_logoImgView) self->_logoImgView.hidden = YES;
+        if (self->_nameLabel) self->_nameLabel.hidden = YES;
         self.btn.byAlpha(1);
         return self;
     };

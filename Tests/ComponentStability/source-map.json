@@ -1,0 +1,2246 @@
+{
+  "version": 1,
+  "source_project": "oc-new",
+  "destination_project": "oc-old",
+  "scope": "Jobs自维护Stability测试与宿主测试；不含第三方",
+  "files": [
+    {
+      "source": "JobsByPods/FMDatabaseExtra@Pods/Tests/FMDatabaseExtraStabilityTests/FMDatabaseExtraStabilityTests.h",
+      "destination": "Tests/ComponentStability/FMDatabaseExtra/FMDatabaseExtraStabilityTests/FMDatabaseExtraStabilityTests.h",
+      "source_sha256": "31819f7cc0bb4e669bf7589d2f99b9ed22e18801a7908404a64dca32cfe877ed",
+      "adaptations": [
+
+      ],
+      "test_methods": [
+
+      ],
+      "destination_sha256": "43d68b6d9da2a99511629447e69668d9a8579908e08e4ac7932e28018d642019"
+    },
+    {
+      "source": "JobsByPods/FMDatabaseExtra@Pods/Tests/FMDatabaseExtraStabilityTests/FMDatabaseExtraStabilityTests.m",
+      "destination": "Tests/ComponentStability/FMDatabaseExtra/FMDatabaseExtraStabilityTests/FMDatabaseExtraStabilityTests.m",
+      "source_sha256": "c80e343216c1377e1c0d928292fe37550c533582e909e0d492ea2e7a593e4cb0",
+      "adaptations": [
+
+      ],
+      "test_methods": [
+        "testFailedSQLAndExceptionRollbackWithoutClosingCallerConnection",
+        "testNestedTransactionDoesNotConsumeCallerTransaction"
+      ],
+      "destination_sha256": "a88a75c2b832b040ca89c0498b7dd5ae82be14f897163de498bdffe25c673bc2",
+      "test_implementation_sha256": "d6a27f06bf92a0a4bb7d70ebc4fa8814d3921869af7f64d92db550430880cf02",
+      "test_implementation_unchanged": true
+    },
+    {
+      "source": "JobsByPods/FMDatabaseExtra@Pods/Tests/run_regression.rb",
+      "destination": "Tests/ComponentStability/FMDatabaseExtra/run_regression.rb",
+      "source_sha256": "ae3441eafdabe94190a8bc35796433ba2ba8b0a62cd7e78c5e3f1fea2dad29f4",
+      "adaptations": [
+        "仅替换真实旧主工程生产源码定位；使用Support/ProductionPaths.rb，不改变原有断言"
+      ],
+      "test_methods": [
+
+      ],
+      "destination_sha256": "cfe1ea5f0e546e3f90314e6d55a95624f8a88689e65e57956831010a2b0e9653"
+    },
+    {
+      "source": "JobsByPods/FileFolderHandleTool@Pods/Tests/FileFolderHandleToolStabilityTests/FileFolderHandleToolStabilityTests.h",
+      "destination": "Tests/ComponentStability/FileFolderHandleTool/FileFolderHandleToolStabilityTests/FileFolderHandleToolStabilityTests.h",
+      "source_sha256": "6360d4fc779da04f6ce873a05577b58133257ce752bf2016b58f0ec0ef5a70f5",
+      "adaptations": [
+
+      ],
+      "test_methods": [
+
+      ],
+      "destination_sha256": "bc8b1ebb9de18015fa2b276aea3ce9cdac053f904d592bf4ab36b45a8a6715f5"
+    },
+    {
+      "source": "JobsByPods/FileFolderHandleTool@Pods/Tests/FileFolderHandleToolStabilityTests/FileFolderHandleToolStabilityTests.m",
+      "destination": "Tests/ComponentStability/FileFolderHandleTool/FileFolderHandleToolStabilityTests/FileFolderHandleToolStabilityTests.m",
+      "source_sha256": "73fdc6c1616ab754780b9b11ee24a33643dc5c838d204668120e2fa5230c9816",
+      "adaptations": [
+
+      ],
+      "test_methods": [
+        "testFirstCreateNoOverwriteAtomicReplaceAndDirectoryConflict",
+        "testConcurrentExclusiveCreateAlwaysPreservesOneWholePayload",
+        "testUnwritableParentReturnsErrorWithoutCreatingFile"
+      ],
+      "destination_sha256": "d620e3a0714608855d4ea4bc2424084625d70b9285f4164597b2e554acc2eded",
+      "test_implementation_sha256": "e3133654a4a00aba7a50a3258dde12f9c480f44a2b444312a10f04ffdb0df7fb",
+      "test_implementation_unchanged": true
+    },
+    {
+      "source": "JobsByPods/JobsAPIs@Pods/Tests/JobsAPIRequestConstraintFixture/JobsAPIRequestConstraintFixture.h",
+      "destination": "Tests/ComponentStability/JobsAPIs/JobsAPIRequestConstraintFixture/JobsAPIRequestConstraintFixture.h",
+      "source_sha256": "671c1b8d1a70e1d362fdd0a83ae1a35ea9b182b453809c0495bdd4cbd20c87e9",
+      "adaptations": [
+        "主工程聚合头/同名头双通道；实现层生产依赖上提同名测试头"
+      ],
+      "test_methods": [
+
+      ],
+      "destination_sha256": "a33fedfdada54ff4b8242786929e192ee9bcd857ce719d254d846e10e9576a59"
+    },
+    {
+      "source": "JobsByPods/JobsAPIs@Pods/Tests/JobsAPIRequestConstraintFixture/JobsAPIRequestConstraintFixture.m",
+      "destination": "Tests/ComponentStability/JobsAPIs/JobsAPIRequestConstraintFixture/JobsAPIRequestConstraintFixture.m",
+      "source_sha256": "6fd166942b5aa7722fc761ebe85e7ffad52016b20f16d3503b8a4bbb970f0592",
+      "adaptations": [
+
+      ],
+      "test_methods": [
+
+      ],
+      "destination_sha256": "6fd166942b5aa7722fc761ebe85e7ffad52016b20f16d3503b8a4bbb970f0592"
+    },
+    {
+      "source": "JobsByPods/JobsAPIs@Pods/Tests/JobsAPIRequestProtocolFixture/JobsAPIRequestProtocolFixture.h",
+      "destination": "Tests/ComponentStability/JobsAPIs/JobsAPIRequestProtocolFixture/JobsAPIRequestProtocolFixture.h",
+      "source_sha256": "6bdd1ea496b36b1e356530486e495dd1dcfc3d07827b3b536d3b1bf26450ceeb",
+      "adaptations": [
+
+      ],
+      "test_methods": [
+
+      ],
+      "destination_sha256": "6bdd1ea496b36b1e356530486e495dd1dcfc3d07827b3b536d3b1bf26450ceeb"
+    },
+    {
+      "source": "JobsByPods/JobsAPIs@Pods/Tests/JobsAPIRequestProtocolFixture/JobsAPIRequestProtocolFixture.m",
+      "destination": "Tests/ComponentStability/JobsAPIs/JobsAPIRequestProtocolFixture/JobsAPIRequestProtocolFixture.m",
+      "source_sha256": "76d50f69c1fdd50b5cf78ff698235745201a4aeae78f84090350dcf6d1aa8a18",
+      "adaptations": [
+
+      ],
+      "test_methods": [
+
+      ],
+      "destination_sha256": "76d50f69c1fdd50b5cf78ff698235745201a4aeae78f84090350dcf6d1aa8a18"
+    },
+    {
+      "source": "JobsByPods/JobsAPIs@Pods/Tests/JobsAPIUploadConstraintFixture/JobsAPIUploadConstraintFixture.h",
+      "destination": "Tests/ComponentStability/JobsAPIs/JobsAPIUploadConstraintFixture/JobsAPIUploadConstraintFixture.h",
+      "source_sha256": "5c25e487af97693587ca2687a4f2d3bf4a689a3613ccd5e5fe434a63bbd8ade1",
+      "adaptations": [
+        "主工程聚合头/同名头双通道；实现层生产依赖上提同名测试头"
+      ],
+      "test_methods": [
+
+      ],
+      "destination_sha256": "ac3c6db42cf5f4db7c1fd32c8f51697b56303356465e2510af2133fa4323b877"
+    },
+    {
+      "source": "JobsByPods/JobsAPIs@Pods/Tests/JobsAPIUploadConstraintFixture/JobsAPIUploadConstraintFixture.m",
+      "destination": "Tests/ComponentStability/JobsAPIs/JobsAPIUploadConstraintFixture/JobsAPIUploadConstraintFixture.m",
+      "source_sha256": "0d126217fc4addfe7488974c9f405c368aacd675e2025d79df9d03c048fffb7f",
+      "adaptations": [
+
+      ],
+      "test_methods": [
+
+      ],
+      "destination_sha256": "0d126217fc4addfe7488974c9f405c368aacd675e2025d79df9d03c048fffb7f"
+    },
+    {
+      "source": "JobsByPods/JobsAPIs@Pods/Tests/JobsAPIsStabilityTests/JobsAPIsStabilityTests.h",
+      "destination": "Tests/ComponentStability/JobsAPIs/JobsAPIsStabilityTests/JobsAPIsStabilityTests.h",
+      "source_sha256": "32be86043baf1e7732f22b6b56204380bc768ee4b089283f0a0175e5b7dc6eee",
+      "adaptations": [
+        "主工程聚合头/同名头双通道；实现层生产依赖上提同名测试头"
+      ],
+      "test_methods": [
+
+      ],
+      "destination_sha256": "f1f0d2c31bf634b6711182828adf1539dedac1cc1b335ebb59a589020f144234"
+    },
+    {
+      "source": "JobsByPods/JobsAPIs@Pods/Tests/JobsAPIsStabilityTests/JobsAPIsStabilityTests.m",
+      "destination": "Tests/ComponentStability/JobsAPIs/JobsAPIsStabilityTests/JobsAPIsStabilityTests.m",
+      "source_sha256": "89c3c86f0a81c506482e18806a8bf8db8fc0846e62545fcb34c9f6964dae2fb0",
+      "adaptations": [
+
+      ],
+      "test_methods": [
+        "testUploadUsesMultipartCapableStandardPath",
+        "testActualStandardGETEncodesParametersAndPreservesRequestConstraints",
+        "testActualRawHelperCarriesTimeoutAndDisallowsCellular",
+        "testActualAgentUploadContainsJPEGPartAndParameters",
+        "testActualAgentPropagatesErrorAndCancellationStopsProtocol"
+      ],
+      "destination_sha256": "921fa16c9d94a5b112680f628d3325d5d2f0cfa4bbdf551257c5d09722241950",
+      "test_implementation_sha256": "dc6c730f9608848b3a5f7c1a91867d94458d464f1585dcc07442bd27743e0aa4",
+      "test_implementation_unchanged": true
+    },
+    {
+      "source": "Libs/构建工具/JobsAppIconRibbon@Pods/Tests/run_regression.rb",
+      "destination": "Tests/ComponentStability/JobsAppIconRibbon/run_regression.rb",
+      "source_sha256": "ad6d9c782ee253567f7f0e180d56411e3326eeb65ae116a394413756ea178ccd",
+      "adaptations": [
+        "仅替换真实旧主工程生产源码定位；使用Support/ProductionPaths.rb，不改变原有断言",
+        "Ribbon整体归入Libs/构建工具；实际生产generator路径随包迁移"
+      ],
+      "test_methods": [
+
+      ],
+      "destination_sha256": "3401f094c09530113b6625d320822db3841a8bd22da81af15e3e7198abced8f9",
+      "original_source": "JobsByPods/JobsAppIconRibbon@Pods/Tests/run_regression.rb",
+      "current_source_sha256": "9beaa85754eb6c5ef6a1a15067c280b2177974068ddb98ca28d9314c47ec8554"
+    },
+    {
+      "source": "JobsByPods/JobsAppTools@Pods/Tests/JobsAppToolsResetTests/JobsAppToolsResetTests.h",
+      "destination": "Tests/ComponentStability/JobsAppTools/JobsAppToolsResetTests/JobsAppToolsResetTests.h",
+      "source_sha256": "eae906e087d99701b90f6085c099b3b1bc46bba76886eea9fb45223e5e3bfea8",
+      "adaptations": [
+        "主工程聚合头/同名头双通道；实现层生产依赖上提同名测试头"
+      ],
+      "test_methods": [
+
+      ],
+      "destination_sha256": "2ab7cfebaaa5dc491b4f3f0a8e4db823fd0debe4cc3ada89338dc43b214156f9"
+    },
+    {
+      "source": "JobsByPods/JobsAppTools@Pods/Tests/JobsAppToolsResetTests/JobsAppToolsResetTests.m",
+      "destination": "Tests/ComponentStability/JobsAppTools/JobsAppToolsResetTests/JobsAppToolsResetTests.m",
+      "source_sha256": "c259d65b66ed4c9182040e4aec2717a0530cbbf1c6d86ef95345590f21944344",
+      "adaptations": [
+
+      ],
+      "test_methods": [
+        "testConcurrentReadersShareOneGeneration",
+        "testConcurrentDestroyAndReadPreservesRetainedGenerations"
+      ],
+      "destination_sha256": "d63e001ce16d87a57679b82a2a29559a7a1cff5a7d88c5cce071c2e6525b9257",
+      "test_implementation_sha256": "ebdf3f28d3de43a0e6c2f12ec4e2eff49ceba0fdcba77898e08ded93366d6e17",
+      "test_implementation_unchanged": true
+    },
+    {
+      "source": "JobsByPods/JobsBaseUI@Pods/Tests/JobsKeychainIdentityTests/JobsKeychainIdentityTests.h",
+      "destination": "Tests/ComponentStability/JobsBaseUI/JobsKeychainIdentityTests/JobsKeychainIdentityTests.h",
+      "source_sha256": "fe01e45faae1f0d342c203f4a3cfa4bb4240f1415e25943a438b2c4f3eea6c5d",
+      "adaptations": [
+        "主工程聚合头/同名头双通道；实现层生产依赖上提同名测试头"
+      ],
+      "test_methods": [
+
+      ],
+      "destination_sha256": "6bd6ff177375025eec445d1d766acafcc53ed34170910bc6fcaf7610769f9805"
+    },
+    {
+      "source": "JobsByPods/JobsBaseUI@Pods/Tests/JobsKeychainIdentityTests/JobsKeychainIdentityTests.m",
+      "destination": "Tests/ComponentStability/JobsBaseUI/JobsKeychainIdentityTests/JobsKeychainIdentityTests.m",
+      "source_sha256": "ca3460a4a2fcf1cfcd40a844d93d6cae8692207d2bc21a2b611758de8780357a",
+      "adaptations": [
+
+      ],
+      "test_methods": [
+        "testAccountsAndTargetedDeleteAreIsolated",
+        "testFailedArchivePreservesPriorDataAndRestrictsClasses",
+        "testExplicitMigrationDoesNotOverwriteExistingAccount"
+      ],
+      "destination_sha256": "9c464c6bfe880792ba466c718ca2113fb9ae9eb9f201ce175512755a737fc9c9",
+      "test_implementation_sha256": "efd5c371c15194285eef4b6916ee6c09b3b9d6cb0b50aed254aa276f8586e772",
+      "test_implementation_unchanged": true
+    },
+    {
+      "source": "JobsByPods/JobsBaseUI@Pods/Tests/run_regression.rb",
+      "destination": "Tests/ComponentStability/JobsBaseUI/run_regression.rb",
+      "source_sha256": "c4cc0b0310a61744b1fd7fa189cda4db9677a65325c9a9fbeae352abe9eb03b8",
+      "adaptations": [
+        "仅替换真实旧主工程生产源码定位；使用Support/ProductionPaths.rb，不改变原有断言"
+      ],
+      "test_methods": [
+
+      ],
+      "destination_sha256": "3e37c58efd9e59bba1fe169169058899d1955a770a062335fb29162ad9afcab8"
+    },
+    {
+      "source": "JobsByPods/JobsBioKit@Pods/Tests/JobsBioKitStabilityTests/JobsBioKitStabilityTests.h",
+      "destination": "Tests/ComponentStability/JobsBioKit/JobsBioKitStabilityTests/JobsBioKitStabilityTests.h",
+      "source_sha256": "ffad6e540d51fcee4ea80b69662f050eb61f6388a0e89489e7f3e513fe6dae26",
+      "adaptations": [
+
+      ],
+      "test_methods": [
+
+      ],
+      "destination_sha256": "c34e7d3c2cb3e81a40b28f69b333e759dbf5fe7a9da385b4c3309ff449fe3cb1"
+    },
+    {
+      "source": "JobsByPods/JobsBioKit@Pods/Tests/JobsBioKitStabilityTests/JobsBioKitStabilityTests.m",
+      "destination": "Tests/ComponentStability/JobsBioKit/JobsBioKitStabilityTests/JobsBioKitStabilityTests.m",
+      "source_sha256": "e74006106febee632787f3d40bfa1821950c4b1946e8aea38a79b182551441c5",
+      "adaptations": [
+
+      ],
+      "test_methods": [
+        "testBiometryAndInteractionErrorsStayDistinct"
+      ],
+      "destination_sha256": "961b5c2b025f4d7fffd84e27b0c94928eac99f42ae8741ca7e4809760bf54524",
+      "test_implementation_sha256": "5848741f769d765abacbe6fdb38f7a6eb62e379df5d8d172dce36bf1f8b91c1d",
+      "test_implementation_unchanged": true
+    },
+    {
+      "source": "JobsByPods/JobsBitsMonitor@Pods/Tests/JobsBitsMonitorStabilityTests/JobsBitsMonitorStabilityTests.h",
+      "destination": "Tests/ComponentStability/JobsBitsMonitor/JobsBitsMonitorStabilityTests/JobsBitsMonitorStabilityTests.h",
+      "source_sha256": "46c8fdb776b5e73b589072649edca12d52e83eba5267f64134949228636591bf",
+      "adaptations": [
+        "主工程聚合头/同名头双通道；实现层生产依赖上提同名测试头"
+      ],
+      "test_methods": [
+
+      ],
+      "destination_sha256": "b6674c22973cedfedeedb286be2952dd9ee219cf499b786473e2b8aa116bd950"
+    },
+    {
+      "source": "JobsByPods/JobsBitsMonitor@Pods/Tests/JobsBitsMonitorStabilityTests/JobsBitsMonitorStabilityTests.m",
+      "destination": "Tests/ComponentStability/JobsBitsMonitor/JobsBitsMonitorStabilityTests/JobsBitsMonitorStabilityTests.m",
+      "source_sha256": "fb165050645942be0e9acaa1a2cfe30939092df5393f6dd83250484ddb089392",
+      "adaptations": [
+
+      ],
+      "test_methods": [
+        "testTwoRealLabelsKeepIndependentUpdatesAfterFirstIsRemoved",
+        "testBothDisplayStylesReleaseWithTheirRealControllerOwners100Times"
+      ],
+      "destination_sha256": "8d4beb720bd821acf09f490df684a3961957c7916be10e311d66c9b162a92881",
+      "test_implementation_sha256": "3bb64f1cf1ff980869aad8b07160dccbf8d52dfb608d71d01411dfb7697ec1da",
+      "test_implementation_unchanged": true
+    },
+    {
+      "source": "JobsByPods/JobsBluetooth@Pods/Tests/JobsBluetoothStabilityTests/JobsBluetoothStabilityTests.h",
+      "destination": "Tests/ComponentStability/JobsBluetooth/JobsBluetoothStabilityTests/JobsBluetoothStabilityTests.h",
+      "source_sha256": "fdb06e44f2ad9c97e26868615da3a378448ddefe03cf33c84243b1764b5559a5",
+      "adaptations": [
+
+      ],
+      "test_methods": [
+
+      ],
+      "destination_sha256": "4687c1f41c1ee3702db0846f91a0096641eb38b7a405c941a60328beb69cdb06"
+    },
+    {
+      "source": "JobsByPods/JobsBluetooth@Pods/Tests/JobsBluetoothStabilityTests/JobsBluetoothStabilityTests.m",
+      "destination": "Tests/ComponentStability/JobsBluetooth/JobsBluetoothStabilityTests/JobsBluetoothStabilityTests.m",
+      "source_sha256": "7526d7dec45b72a3af9b8497f20669744e4b6f17404ab40acb1cf99fff6a3c36",
+      "adaptations": [
+
+      ],
+      "test_methods": [
+        "testMatcherTimeoutAndCancellationCompleteOnce",
+        "testFirstMockConnectionClearsOldCharacteristicsAndCancelsOnce",
+        "testACKErrorPropagatesOnceAndOldPeripheralACKCannotAdvance",
+        "testNativeMTUChunksWaitForEachACKBeforeCompleting",
+        "testMatchedResponseBeforeFinalACKDoesNotCompleteEarly"
+      ],
+      "destination_sha256": "e9f6713e1d787de71656a03faa7cac1b8a8a45a61cb63300a9934d2425d3c8e5",
+      "test_implementation_sha256": "7bd499170d7719745b1a5ebdaca38cebd6575f3f34a67f1ef89c207f18efa37f",
+      "test_implementation_unchanged": true
+    },
+    {
+      "source": "JobsByPods/JobsBluetooth@Pods/Tests/JobsBluetoothWriteFixture/JobsBluetoothWriteFixture.h",
+      "destination": "Tests/ComponentStability/JobsBluetooth/JobsBluetoothWriteFixture/JobsBluetoothWriteFixture.h",
+      "source_sha256": "271c733f4757de1a4e224412c2aa50ec13bb2625bdaacaaedbadc48c95f7390f",
+      "adaptations": [
+
+      ],
+      "test_methods": [
+
+      ],
+      "destination_sha256": "271c733f4757de1a4e224412c2aa50ec13bb2625bdaacaaedbadc48c95f7390f"
+    },
+    {
+      "source": "JobsByPods/JobsBluetooth@Pods/Tests/JobsBluetoothWriteFixture/JobsBluetoothWriteFixture.m",
+      "destination": "Tests/ComponentStability/JobsBluetooth/JobsBluetoothWriteFixture/JobsBluetoothWriteFixture.m",
+      "source_sha256": "466d51341fc21a98c8c6b17897b03be9a5f50b6f5c013a440134439016296bc0",
+      "adaptations": [
+
+      ],
+      "test_methods": [
+
+      ],
+      "destination_sha256": "466d51341fc21a98c8c6b17897b03be9a5f50b6f5c013a440134439016296bc0"
+    },
+    {
+      "source": "JobsByPods/JobsByOCPods@Pods/Tests/JobsUIKitRegistrationTests/JobsRegistrationFixtureCell.xib",
+      "destination": "Tests/ComponentStability/JobsByOCPods/JobsUIKitRegistrationTests/JobsRegistrationFixtureCell.xib",
+      "source_sha256": "f6015d7bab3543735c62095f940d9bb072954aa3bde04b56861abaf159fd399a",
+      "adaptations": [
+
+      ],
+      "test_methods": [
+
+      ],
+      "destination_sha256": "f6015d7bab3543735c62095f940d9bb072954aa3bde04b56861abaf159fd399a"
+    },
+    {
+      "source": "JobsByPods/JobsByOCPods@Pods/Tests/JobsUIKitRegistrationTests/JobsUIKitRegistrationTests.h",
+      "destination": "Tests/ComponentStability/JobsByOCPods/JobsUIKitRegistrationTests/JobsUIKitRegistrationTests.h",
+      "source_sha256": "ba04cbff443ae74604f5de0d3a95d4d836b0f92898fdf6549e878ca46c722e53",
+      "adaptations": [
+        "主工程聚合头/同名头双通道；实现层生产依赖上提同名测试头"
+      ],
+      "test_methods": [
+
+      ],
+      "destination_sha256": "4fe0e7ef62d69d88f633259bf44ca82e6ab707e880321d42d73df67561de8986"
+    },
+    {
+      "source": "JobsByPods/JobsByOCPods@Pods/Tests/JobsUIKitRegistrationTests/JobsUIKitRegistrationTests.m",
+      "destination": "Tests/ComponentStability/JobsByOCPods/JobsUIKitRegistrationTests/JobsUIKitRegistrationTests.m",
+      "source_sha256": "826cd599738e2811b1739af45f273e501fe91cbf69e15186d29ef88f3335b078",
+      "adaptations": [
+        "主工程聚合头/同名头双通道；实现层生产依赖上提同名测试头"
+      ],
+      "test_methods": [
+        "testClassAndNibRegistrationAndNilReset",
+        "testPopToRootHandlesAnimatedAndEmptyStacks",
+        "testLogoutPopupFirstAccessReuseAndConfirmedNotification",
+        "testReleasedLogoutOwnerMakesCallbackInert",
+        "testPlistReadRejectsInvalidNamesAndLoadsExistingBundleDictionary",
+        "testLanguageChangeFromBackgroundDeliversTheRealUINotificationOnMain",
+        "testRealLanguageManagerAllowsConcurrentFoundationReadsAndWrites",
+        "testLanguageBundleMatchesRealHostLocalizationsAndMissingKeyFallsBack",
+        "testWeakTargetZeroesAndDoesNotRetainSelf",
+        "testExternalWeakTargetsDoNotRetainTheirControllerOwnedViews",
+        "testSavedGestureFactoryActionsReturnNilAfterTheirViewReleases",
+        "testArbitraryNibAndSupplementaryRegistrationPreserveUIKitViews"
+      ],
+      "destination_sha256": "bf485c42b2647d26bc3db20eae7369c081906411203f244474ba888ca9f54ae2",
+      "test_implementation_sha256": "19cf9eef19b34376ac256611b4f285145cab5b34ea7165ee027cf55cbb709f9c",
+      "test_implementation_unchanged": true
+    },
+    {
+      "source": "JobsByPods/JobsCallBackBlockDSL@Pods/Tests/JobsCallbackLifecycleTests/JobsCallbackLifecycleTests.h",
+      "destination": "Tests/ComponentStability/JobsCallBackBlockDSL/JobsCallbackLifecycleTests/JobsCallbackLifecycleTests.h",
+      "source_sha256": "e69b25907e8b7af3e26f1ab3c7695430cf448aba16932a8c4cd4a40a4bd73969",
+      "adaptations": [
+        "主工程聚合头/同名头双通道；实现层生产依赖上提同名测试头"
+      ],
+      "test_methods": [
+
+      ],
+      "destination_sha256": "5930e8057cb8b7f91bdcd0f1585b2a6e66e81f4afb6401e14e852c670d1022b9"
+    },
+    {
+      "source": "JobsByPods/JobsCallBackBlockDSL@Pods/Tests/JobsCallbackLifecycleTests/JobsCallbackLifecycleTests.m",
+      "destination": "Tests/ComponentStability/JobsCallBackBlockDSL/JobsCallbackLifecycleTests/JobsCallbackLifecycleTests.m",
+      "source_sha256": "79a7e3d3d8871d8d596f3539e7b5df5adab1ad46242592dd466310a2117762d0",
+      "adaptations": [
+
+      ],
+      "test_methods": [
+        "testSavedCallbackSetterAfterOwnerRelease",
+        "testUniqueObjectCallbackOwnerStoresAndCalls"
+      ],
+      "destination_sha256": "791f541cc9ae7183f92490d261442f5586b14ca0f531fdcea68511154cd3ae06",
+      "test_implementation_sha256": "e81be9b922997b261c565f5b7a46050fb25487d73ca785ed20ed98235bdce772",
+      "test_implementation_unchanged": true
+    },
+    {
+      "source": "JobsByPods/JobsClass@Pods/Tests/JobsClassLifecycleTests/JobsClassLifecycleTests.h",
+      "destination": "Tests/ComponentStability/JobsClass/JobsClassLifecycleTests/JobsClassLifecycleTests.h",
+      "source_sha256": "01aa4faf143af7d6a68ba500a17d9dcf673874ee203c9384d53ca51322455ceb",
+      "adaptations": [
+        "主工程聚合头/同名头双通道；实现层生产依赖上提同名测试头"
+      ],
+      "test_methods": [
+
+      ],
+      "destination_sha256": "af4083db33178c015ab3c2ea8c6dbc909da5a2035de00e28f6a287bd8ed11203"
+    },
+    {
+      "source": "JobsByPods/JobsClass@Pods/Tests/JobsClassLifecycleTests/JobsClassLifecycleTests.m",
+      "destination": "Tests/ComponentStability/JobsClass/JobsClassLifecycleTests/JobsClassLifecycleTests.m",
+      "source_sha256": "479c3e804d85928ba43ef9589433be6400114f28a08de3d4b4aff638709ae2d8",
+      "adaptations": [
+
+      ],
+      "test_methods": [
+        "testSavedOrderedPropertyReaderAfterOwnerRelease"
+      ],
+      "destination_sha256": "18b8abf2d0b7beb38555059ce01e35463e9b07c9a0dab25df14373277bec2f15",
+      "test_implementation_sha256": "9a76f75d7757cc535dee29cc4727fec78e3365a0c1ad013724356da26573933c",
+      "test_implementation_unchanged": true
+    },
+    {
+      "source": "JobsByPods/JobsClockView@Pods/Tests/JobsClockViewStabilityTests/JobsClockViewStabilityTests.h",
+      "destination": "Tests/ComponentStability/JobsClockView/JobsClockViewStabilityTests/JobsClockViewStabilityTests.h",
+      "source_sha256": "b7f6ff18187c97bbd2f2d196837464a29d4ccb895321064288c1ce959c4cd8c1",
+      "adaptations": [
+        "主工程聚合头/同名头双通道；实现层生产依赖上提同名测试头"
+      ],
+      "test_methods": [
+
+      ],
+      "destination_sha256": "17b5c6d9a14a34d6cc61e9dfb722c6bc43554c157dc02c523d8b126f728f8390"
+    },
+    {
+      "source": "JobsByPods/JobsClockView@Pods/Tests/JobsClockViewStabilityTests/JobsClockViewStabilityTests.m",
+      "destination": "Tests/ComponentStability/JobsClockView/JobsClockViewStabilityTests/JobsClockViewStabilityTests.m",
+      "source_sha256": "b57fe327ed12e0217b805edab7de695488898797c91b90514fc06d3f6ce4293d",
+      "adaptations": [
+
+      ],
+      "test_methods": [
+        "testUnstartedClockReleasesWithoutCreatingTimer",
+        "testRunningClockReleaseStopsAlreadyCreatedTimer",
+        "testSavedAndQueuedStartCannotReviveReleasedClock"
+      ],
+      "destination_sha256": "bbae7d9f77e00f3c325181820c9369256edb8e4de75f0ebd97cf4883dc1029ed",
+      "test_implementation_sha256": "a862162430156b08412ba51101dd1102573c2fc102db1cf879559e459a793a1c",
+      "test_implementation_unchanged": true
+    },
+    {
+      "source": "JobsByPods/JobsCryptography@Pods/Tests/JobsCipherCompatibilityTests/JobsCipherCompatibilityTests.h",
+      "destination": "Tests/ComponentStability/JobsCryptography/JobsCipherCompatibilityTests/JobsCipherCompatibilityTests.h",
+      "source_sha256": "802c8a93e7b2dd9e8303dbe125097041f2a78f91f5d5f7b479b75864d8aacb77",
+      "adaptations": [
+        "主工程聚合头/同名头双通道；实现层生产依赖上提同名测试头"
+      ],
+      "test_methods": [
+
+      ],
+      "destination_sha256": "8ed4c567ce4ea1b398ebfea473f78d3b2f4bc88aba91ed42d56eda4bc96d0dee"
+    },
+    {
+      "source": "JobsByPods/JobsCryptography@Pods/Tests/JobsCipherCompatibilityTests/JobsCipherCompatibilityTests.m",
+      "destination": "Tests/ComponentStability/JobsCryptography/JobsCipherCompatibilityTests/JobsCipherCompatibilityTests.m",
+      "source_sha256": "7c5bc28ab2efe1bb48946659407fde60b560a63f698fc3cc9da4a565cdf2984d",
+      "adaptations": [
+
+      ],
+      "test_methods": [
+        "testAuthenticatedEmptyUnicodeAndRandomness",
+        "testAuthenticationAndVersionRejectWithoutDowngrade",
+        "testLegacyReadsAndFailureAreDistinctFromEmptyText"
+      ],
+      "destination_sha256": "18a4558abed57fe0ea8ed381693f125eefee1d56cc6ab5ac023beec0296ba3a1",
+      "test_implementation_sha256": "fba9779bae73fdff88c5d1267ae3821072b57a6006765a24f07395d6444c90e6",
+      "test_implementation_unchanged": true
+    },
+    {
+      "source": "JobsByPods/JobsCryptography@Pods/Tests/run_regression.rb",
+      "destination": "Tests/ComponentStability/JobsCryptography/run_regression.rb",
+      "source_sha256": "037b72de751775b293b0640d31631bea49259ce2138d877f7e4c180183630cbb",
+      "adaptations": [
+        "仅替换真实旧主工程生产源码定位；使用Support/ProductionPaths.rb，不改变原有断言"
+      ],
+      "test_methods": [
+
+      ],
+      "destination_sha256": "84964334362254a439c4743b26ab08b5fd6223d5be724de1b7fc2b3182b2d5c4"
+    },
+    {
+      "source": "JobsByPods/JobsDebug@Pods/Tests/JobsDebugJSONTests/JobsDebugJSONTests.h",
+      "destination": "Tests/ComponentStability/JobsDebug/JobsDebugJSONTests/JobsDebugJSONTests.h",
+      "source_sha256": "02d70554fe60e37a54a6424858dc26262caae1fbf36cac597da3e44260660b1f",
+      "adaptations": [
+        "主工程聚合头/同名头双通道；实现层生产依赖上提同名测试头"
+      ],
+      "test_methods": [
+
+      ],
+      "destination_sha256": "f6c2d97274ee86d6d73b91a4c6730eb5639c212ed3cb7136b9e3c0315be3fe2d"
+    },
+    {
+      "source": "JobsByPods/JobsDebug@Pods/Tests/JobsDebugJSONTests/JobsDebugJSONTests.m",
+      "destination": "Tests/ComponentStability/JobsDebug/JobsDebugJSONTests/JobsDebugJSONTests.m",
+      "source_sha256": "91bc9e9ce81eefc3bba2218eb612a529d2f6bda04737b56e42d53670a4ca7375",
+      "adaptations": [
+
+      ],
+      "test_methods": [
+        "testSortedJSONAndInvalidContainerFallback",
+        "testSavedJSONBlockAfterContainerRelease"
+      ],
+      "destination_sha256": "650778efd9642ada6b5367af18effb173d1104f0538a6afdc595f3adfa3a33be",
+      "test_implementation_sha256": "be70bb9acb3b934f0f2d1911698965b18f980d65a7c9583542a83b4f7383ccda",
+      "test_implementation_unchanged": true
+    },
+    {
+      "source": "JobsByPods/JobsDeviceInfo@Pods/Tests/run_regression.rb",
+      "destination": "Tests/ComponentStability/JobsDeviceInfo/run_regression.rb",
+      "source_sha256": "7a3d2c177c864acb01386e6b9283615205c95970f4876d8f31d7d3e48c296e1b",
+      "adaptations": [
+        "仅替换真实旧主工程生产源码定位；使用Support/ProductionPaths.rb，不改变原有断言"
+      ],
+      "test_methods": [
+
+      ],
+      "destination_sha256": "fc89941c1c797f0a6c280bedda2d5fdcc282049bc1a3c5978d7275a023e68c1d"
+    },
+    {
+      "source": "JobsByPods/JobsGetWindow@Pods/Tests/JobsWindowFixture/JobsWindowFixture.h",
+      "destination": "Tests/ComponentStability/JobsGetWindow/JobsWindowFixture/JobsWindowFixture.h",
+      "source_sha256": "49ec41b18eadd14915555278b841b98f6114ab18b9837ae32ce19676c711ca50",
+      "adaptations": [
+
+      ],
+      "test_methods": [
+
+      ],
+      "destination_sha256": "49ec41b18eadd14915555278b841b98f6114ab18b9837ae32ce19676c711ca50"
+    },
+    {
+      "source": "JobsByPods/JobsGetWindow@Pods/Tests/JobsWindowFixture/JobsWindowFixture.m",
+      "destination": "Tests/ComponentStability/JobsGetWindow/JobsWindowFixture/JobsWindowFixture.m",
+      "source_sha256": "6c3c03861c35fdd658f0ab6cb4ba3224ef6d3f147a217aea1c864e2e95538dc5",
+      "adaptations": [
+
+      ],
+      "test_methods": [
+
+      ],
+      "destination_sha256": "6c3c03861c35fdd658f0ab6cb4ba3224ef6d3f147a217aea1c864e2e95538dc5"
+    },
+    {
+      "source": "JobsByPods/JobsGetWindow@Pods/Tests/JobsWindowSceneFixture/JobsWindowSceneFixture.h",
+      "destination": "Tests/ComponentStability/JobsGetWindow/JobsWindowSceneFixture/JobsWindowSceneFixture.h",
+      "source_sha256": "941353578e22cdcde99f47cefadf684539aa51df9ebbf84473fd730f73705c32",
+      "adaptations": [
+
+      ],
+      "test_methods": [
+
+      ],
+      "destination_sha256": "941353578e22cdcde99f47cefadf684539aa51df9ebbf84473fd730f73705c32"
+    },
+    {
+      "source": "JobsByPods/JobsGetWindow@Pods/Tests/JobsWindowSceneFixture/JobsWindowSceneFixture.m",
+      "destination": "Tests/ComponentStability/JobsGetWindow/JobsWindowSceneFixture/JobsWindowSceneFixture.m",
+      "source_sha256": "d2027030a361acf4e8c0983da574eeddfd29c4253db2910907db938f9b3dec5f",
+      "adaptations": [
+
+      ],
+      "test_methods": [
+
+      ],
+      "destination_sha256": "d2027030a361acf4e8c0983da574eeddfd29c4253db2910907db938f9b3dec5f"
+    },
+    {
+      "source": "JobsByPods/JobsGetWindow@Pods/Tests/JobsWindowSelectionTests/JobsWindowSelectionTests.h",
+      "destination": "Tests/ComponentStability/JobsGetWindow/JobsWindowSelectionTests/JobsWindowSelectionTests.h",
+      "source_sha256": "a4fe91b2e23705b31fc0b2d4b2b121c655e53504ced579807f88ff88da56d989",
+      "adaptations": [
+        "主工程聚合头/同名头双通道；实现层生产依赖上提同名测试头"
+      ],
+      "test_methods": [
+
+      ],
+      "destination_sha256": "bb366dc7ca2adaa1db1a5af0f09f0a10020fd6b497d12817f85ca89686d6149f"
+    },
+    {
+      "source": "JobsByPods/JobsGetWindow@Pods/Tests/JobsWindowSelectionTests/JobsWindowSelectionTests.m",
+      "destination": "Tests/ComponentStability/JobsGetWindow/JobsWindowSelectionTests/JobsWindowSelectionTests.m",
+      "source_sha256": "e7eb18d05bf6246b7095222fddee5cd966b570c99910f6e703151582ced661ee",
+      "adaptations": [
+
+      ],
+      "test_methods": [
+        "testForegroundSearchSkipsBackgroundAndFindsLaterKeyWindow",
+        "testContextWindowAndBackgroundThreadBoundary"
+      ],
+      "destination_sha256": "4b5a0a5053a95fb8d294a16bcb968689c76d6f48712d77b3658db6756b8991b0",
+      "test_implementation_sha256": "1a73a856aa67fe2fdab2409533c39d4724b5a380bb5f6fc219194783c8bc48be",
+      "test_implementation_unchanged": true
+    },
+    {
+      "source": "JobsByPods/JobsIconfont@Pods/Tests/JobsIconfontLifecycleTests/JobsIconfontLifecycleTests.h",
+      "destination": "Tests/ComponentStability/JobsIconfont/JobsIconfontLifecycleTests/JobsIconfontLifecycleTests.h",
+      "source_sha256": "adb7b33f7831d208c7cb8d63b718b805913ba094d0befe6b58cd90f6ef57ab13",
+      "adaptations": [
+        "主工程聚合头/同名头双通道；实现层生产依赖上提同名测试头"
+      ],
+      "test_methods": [
+
+      ],
+      "destination_sha256": "5bdf028b85628cbd32d154e955e1e94ac93d223d659f20c7570e3a0a3b914554"
+    },
+    {
+      "source": "JobsByPods/JobsIconfont@Pods/Tests/JobsIconfontLifecycleTests/JobsIconfontLifecycleTests.m",
+      "destination": "Tests/ComponentStability/JobsIconfont/JobsIconfontLifecycleTests/JobsIconfontLifecycleTests.m",
+      "source_sha256": "e2bcc835a5ae48f262241df8921ef50a395e966608dac84facd4b321c69b68b6",
+      "adaptations": [
+
+      ],
+      "test_methods": [
+        "testCancellationRunsOnceAndOnDeallocation",
+        "testSavedCancellationBlockAfterOwnerReleaseIsSafe",
+        "testConcurrentCancellationClaimsCallbackOnce",
+        "testActualLoaderReplacementCancellationAndLateCompletionsKeepCurrentImage"
+      ],
+      "destination_sha256": "dc123a5b4140345c204508149e0e70bda8133c1d140fbda07b5cad66e2ee088e",
+      "test_implementation_sha256": "d37298fc4fbb815ead929cf99a292534a94324868576f66138e932f99c144ee1",
+      "test_implementation_unchanged": true
+    },
+    {
+      "source": "JobsByPods/JobsImageNumberView@Pods/Tests/JobsImageNumberViewStabilityTests/JobsImageNumberViewStabilityTests.h",
+      "destination": "Tests/ComponentStability/JobsImageNumberView/JobsImageNumberViewStabilityTests/JobsImageNumberViewStabilityTests.h",
+      "source_sha256": "70ad16a55f7909e0a0f24048ef391386374d0cdde73c24e88d31347194860fb9",
+      "adaptations": [
+        "主工程聚合头/同名头双通道；实现层生产依赖上提同名测试头"
+      ],
+      "test_methods": [
+
+      ],
+      "destination_sha256": "bd0195a3eb74e2059762c8bf5fd939a19e3f08b694a73491486e38c2c972f3ee"
+    },
+    {
+      "source": "JobsByPods/JobsImageNumberView@Pods/Tests/JobsImageNumberViewStabilityTests/JobsImageNumberViewStabilityTests.m",
+      "destination": "Tests/ComponentStability/JobsImageNumberView/JobsImageNumberViewStabilityTests/JobsImageNumberViewStabilityTests.m",
+      "source_sha256": "f7db2e89df09a5abcf331c2a9a04fcdd33d09022f0fa974d3ef82c218a98e90c",
+      "adaptations": [
+
+      ],
+      "test_methods": [
+        "testSavedModelBlockAfterImageViewReleaseIsSafe"
+      ],
+      "destination_sha256": "419ec1c93c26b36202e771154c48b34306ef781c63284629a711caf0de7ae747",
+      "test_implementation_sha256": "be4a4b29ebe38819fa9fcfd8199fdfe6da40af8de6472c56eabd73ae756d48ef",
+      "test_implementation_unchanged": true
+    },
+    {
+      "source": "JobsByPods/JobsImageRotation@Pods/Tests/JobsImageRotationStabilityTests/JobsImageRotationStabilityTests.h",
+      "destination": "Tests/ComponentStability/JobsImageRotation/JobsImageRotationStabilityTests/JobsImageRotationStabilityTests.h",
+      "source_sha256": "cd65a562f5572ccbb2971bb2f4d76ec40b6b5ac4100f27bfdf88f4826a2ec01c",
+      "adaptations": [
+        "主工程聚合头/同名头双通道；实现层生产依赖上提同名测试头"
+      ],
+      "test_methods": [
+
+      ],
+      "destination_sha256": "15b47b14b4808bc81cebf4c7cc3a4daf19d69263f699d9c5a0fdf5fcf248c04a"
+    },
+    {
+      "source": "JobsByPods/JobsImageRotation@Pods/Tests/JobsImageRotationStabilityTests/JobsImageRotationStabilityTests.m",
+      "destination": "Tests/ComponentStability/JobsImageRotation/JobsImageRotationStabilityTests/JobsImageRotationStabilityTests.m",
+      "source_sha256": "41ec2f79a27af157cedee9029ac601757fd13eb8c32c618d89c0b173645aeed0",
+      "adaptations": [
+
+      ],
+      "test_methods": [
+        "testMissingTargetCanStartAndResetWithoutNilBlockCall",
+        "testRunningRotatorDoesNotRetainItsOwner"
+      ],
+      "destination_sha256": "c85e079e9877f46f4cce9a2a61411bb9afb96d95887e0b8381f64f6fa95b3714",
+      "test_implementation_sha256": "d2d048d3c86af6c9db6c5349a98799a3a207d3ca21667497549ac7808f5743eb",
+      "test_implementation_unchanged": true
+    },
+    {
+      "source": "JobsByPods/JobsMarqueeView@Pods/Tests/JobsMarqueeViewStabilityTests/JobsMarqueeViewStabilityTests.h",
+      "destination": "Tests/ComponentStability/JobsMarqueeView/JobsMarqueeViewStabilityTests/JobsMarqueeViewStabilityTests.h",
+      "source_sha256": "c4c718e4517bc4e9cbc822abd75135d9825378c43e427bebce967192513fbab4",
+      "adaptations": [
+        "主工程聚合头/同名头双通道；实现层生产依赖上提同名测试头"
+      ],
+      "test_methods": [
+
+      ],
+      "destination_sha256": "c9d81f6c6eacb422a04a39f5ec7bfb4832e32827f1bebce81c79eb945dbf635b"
+    },
+    {
+      "source": "JobsByPods/JobsMarqueeView@Pods/Tests/JobsMarqueeViewStabilityTests/JobsMarqueeViewStabilityTests.m",
+      "destination": "Tests/ComponentStability/JobsMarqueeView/JobsMarqueeViewStabilityTests/JobsMarqueeViewStabilityTests.m",
+      "source_sha256": "46a04934ef0b4fcbf945061922c03dd6fb9934348c34c876fc049252f8190af9",
+      "adaptations": [
+
+      ],
+      "test_methods": [
+        "testUnstartedViewReleasesWithoutWeakRegistrationInDealloc"
+      ],
+      "destination_sha256": "ff12fb09eed4244d00c6bb1a033df427cafeafd45b7186aee104a3506a26072d",
+      "test_implementation_sha256": "de205b1b3135e5c7fdbdce95f47dac94a0be54eafa14755cf3646e2228e6447e",
+      "test_implementation_unchanged": true
+    },
+    {
+      "source": "JobsByPods/JobsModel@Pods/Tests/JobsModelTimestampTests/JobsModelTimestampTests.h",
+      "destination": "Tests/ComponentStability/JobsModel/JobsModelTimestampTests/JobsModelTimestampTests.h",
+      "source_sha256": "072ba0dee0ba4af3595d6cd829dd54b128489a8a2d65697ae9d424cedb335e90",
+      "adaptations": [
+
+      ],
+      "test_methods": [
+
+      ],
+      "destination_sha256": "897c74b7d46dad091e72869fac3e51f75c48c5660ba8eb14c513e31f28a4d40b"
+    },
+    {
+      "source": "JobsByPods/JobsModel@Pods/Tests/JobsModelTimestampTests/JobsModelTimestampTests.m",
+      "destination": "Tests/ComponentStability/JobsModel/JobsModelTimestampTests/JobsModelTimestampTests.m",
+      "source_sha256": "533bbceec7a88e88ad2e31e329ddff2d1d338011ed3039510e65f92f95057f45",
+      "adaptations": [
+        "主工程聚合头/同名头双通道；实现层生产依赖上提同名测试头"
+      ],
+      "test_methods": [
+        "testExplicitUnitsAndModelFieldUseCanonicalChinaTime",
+        "testInvalidNumericInputDoesNotProduceEpochOrTruncateAtNUL"
+      ],
+      "destination_sha256": "246e2e751a105713564e08913888b5ae8a91e572b7ca2869db7d2bd19ddb0d94",
+      "test_implementation_sha256": "a6b67f6ebcfbb8395ce26430bd4efcd60fa7f147e3c31d326a42f9b81fdfcbc0",
+      "test_implementation_unchanged": true
+    },
+    {
+      "source": "JobsByPods/JobsModel@Pods/Tests/run_regression.rb",
+      "destination": "Tests/ComponentStability/JobsModel/run_regression.rb",
+      "source_sha256": "ab6766f21679b41c7849f89bd379ab1f12786eaa482d3d1e005b54e0ab7ee73d",
+      "adaptations": [
+        "仅替换真实旧主工程生产源码定位；使用Support/ProductionPaths.rb，不改变原有断言"
+      ],
+      "test_methods": [
+
+      ],
+      "destination_sha256": "602e043dfadd44f858871baa83bc3adf9b0b9cc01f7d91bf763599421c04a651"
+    },
+    {
+      "source": "JobsByPods/JobsNavigationTransitionMgr@Pods/Tests/JobsNavigationTransitionMgrStabilityTests/JobsNavigationTransitionMgrStabilityTests.h",
+      "destination": "Tests/ComponentStability/JobsNavigationTransitionMgr/JobsNavigationTransitionMgrStabilityTests/JobsNavigationTransitionMgrStabilityTests.h",
+      "source_sha256": "cccd66aa2e7bca1cdf82c5a4686e6c36fb4acc41801e6cc34837ff70dcf4ee19",
+      "adaptations": [
+        "主工程聚合头/同名头双通道；实现层生产依赖上提同名测试头"
+      ],
+      "test_methods": [
+
+      ],
+      "destination_sha256": "768b7100a571f552b96d101bf44a9bd3755c34a8148a5d0ffceb63a360b3c5d3"
+    },
+    {
+      "source": "JobsByPods/JobsNavigationTransitionMgr@Pods/Tests/JobsNavigationTransitionMgrStabilityTests/JobsNavigationTransitionMgrStabilityTests.m",
+      "destination": "Tests/ComponentStability/JobsNavigationTransitionMgr/JobsNavigationTransitionMgrStabilityTests/JobsNavigationTransitionMgrStabilityTests.m",
+      "source_sha256": "6f40b242524ecef842de33c32239d52d74aa79150961bc96c87a9a85509ff071",
+      "adaptations": [
+        "主工程聚合头/同名头双通道；实现层生产依赖上提同名测试头"
+      ],
+      "test_methods": [
+        "testNavigationDirectionIsScopedAndReattachingDoesNotAccumulateGestures",
+        "testCancelledTransitionRestoresFramesInSmallContainer",
+        "testTwoContainersCanReleaseAttachedControllers"
+      ],
+      "destination_sha256": "2929e859f3a9b30ef1e95db25c77288ae402a6d845884153b053195cb54f15e6",
+      "test_implementation_sha256": "a01932320435384497b53a6500c7b92561155448bc39f629805a2065da605ded",
+      "test_implementation_unchanged": true
+    },
+    {
+      "source": "JobsByPods/JobsNavigationTransitionMgr@Pods/Tests/JobsNavigationTransitionMgrStabilityTests/JobsNavigationTransitionTestContext/JobsNavigationTransitionTestContext.h",
+      "destination": "Tests/ComponentStability/JobsNavigationTransitionMgr/JobsNavigationTransitionMgrStabilityTests/JobsNavigationTransitionTestContext/JobsNavigationTransitionTestContext.h",
+      "source_sha256": "b436555b061e361a2bc6c43b46a32a6541e5d8b248e06a51dd6c8d6d3d527837",
+      "adaptations": [
+
+      ],
+      "test_methods": [
+
+      ],
+      "destination_sha256": "b436555b061e361a2bc6c43b46a32a6541e5d8b248e06a51dd6c8d6d3d527837"
+    },
+    {
+      "source": "JobsByPods/JobsNavigationTransitionMgr@Pods/Tests/JobsNavigationTransitionMgrStabilityTests/JobsNavigationTransitionTestContext/JobsNavigationTransitionTestContext.m",
+      "destination": "Tests/ComponentStability/JobsNavigationTransitionMgr/JobsNavigationTransitionMgrStabilityTests/JobsNavigationTransitionTestContext/JobsNavigationTransitionTestContext.m",
+      "source_sha256": "767e15a3a23686217866a8a6f46bba46d1cf73e2996bdc885870052499817a2c",
+      "adaptations": [
+
+      ],
+      "test_methods": [
+
+      ],
+      "destination_sha256": "767e15a3a23686217866a8a6f46bba46d1cf73e2996bdc885870052499817a2c"
+    },
+    {
+      "source": "JobsByPods/JobsNetWorkTools@Pods/Tests/JobsNetWorkToolsStabilityTests/JobsNetWorkToolsStabilityTests.h",
+      "destination": "Tests/ComponentStability/JobsNetWorkTools/JobsNetWorkToolsStabilityTests/JobsNetWorkToolsStabilityTests.h",
+      "source_sha256": "6b2ff039a88baf2b5d5f6dea86b28e9e9a330c5459db01d6f7bbe22a241ec397",
+      "adaptations": [
+
+      ],
+      "test_methods": [
+
+      ],
+      "destination_sha256": "10e72f87fa2ac7793b250737f61222c54d0e4f5edaf4272cb15b8abb67a15f3c"
+    },
+    {
+      "source": "JobsByPods/JobsNetWorkTools@Pods/Tests/JobsNetWorkToolsStabilityTests/JobsNetWorkToolsStabilityTests.m",
+      "destination": "Tests/ComponentStability/JobsNetWorkTools/JobsNetWorkToolsStabilityTests/JobsNetWorkToolsStabilityTests.m",
+      "source_sha256": "9f169aecb8e3cc6e6949608bda3817f66b61bf1d54a31f5b54018e5f4c067330",
+      "adaptations": [
+
+      ],
+      "test_methods": [
+        "testInstancesOwnBaselinesAndRestartValidatesInterval",
+        "testInvalidIntervalsAndRestartReplaceTheActualTimer",
+        "testTwoPublicSubscriptionsKeepTheRemainingSamplerRunning"
+      ],
+      "destination_sha256": "2156969a9c5e0d3bed3413652b454d7d1dd21d5bb14a577b2f7a36cd239b7d12",
+      "test_implementation_sha256": "aa9fb35724ca773facdb071803dfa2034e05b9b703edbc90de8cd4335de874e3",
+      "test_implementation_unchanged": true
+    },
+    {
+      "source": "JobsByPods/JobsOCAudioRecorder@Pods/Tests/JobsAudioPlayerInitializationFixture/JobsAudioPlayerInitializationFixture.h",
+      "destination": "Tests/ComponentStability/JobsOCAudioRecorder/JobsAudioPlayerInitializationFixture/JobsAudioPlayerInitializationFixture.h",
+      "source_sha256": "cbcf37a9e9a30a9c111d5d9525d1366b515242c08b9bc9889d8762e2aa53d508",
+      "adaptations": [
+
+      ],
+      "test_methods": [
+
+      ],
+      "destination_sha256": "cbcf37a9e9a30a9c111d5d9525d1366b515242c08b9bc9889d8762e2aa53d508"
+    },
+    {
+      "source": "JobsByPods/JobsOCAudioRecorder@Pods/Tests/JobsAudioPlayerInitializationFixture/JobsAudioPlayerInitializationFixture.m",
+      "destination": "Tests/ComponentStability/JobsOCAudioRecorder/JobsAudioPlayerInitializationFixture/JobsAudioPlayerInitializationFixture.m",
+      "source_sha256": "5a43e5167beb2c54e39325c9f51764af1c515b4c6c178606ee69bd3099839e4f",
+      "adaptations": [
+
+      ],
+      "test_methods": [
+
+      ],
+      "destination_sha256": "5a43e5167beb2c54e39325c9f51764af1c515b4c6c178606ee69bd3099839e4f"
+    },
+    {
+      "source": "JobsByPods/JobsOCAudioRecorder@Pods/Tests/JobsAudioRecorderInitializationFixture/JobsAudioRecorderInitializationFixture.h",
+      "destination": "Tests/ComponentStability/JobsOCAudioRecorder/JobsAudioRecorderInitializationFixture/JobsAudioRecorderInitializationFixture.h",
+      "source_sha256": "26749ea31fd6fffdb18c6d0f9b6caeb167849cc178fae3a6874e42fedc47a106",
+      "adaptations": [
+
+      ],
+      "test_methods": [
+
+      ],
+      "destination_sha256": "26749ea31fd6fffdb18c6d0f9b6caeb167849cc178fae3a6874e42fedc47a106"
+    },
+    {
+      "source": "JobsByPods/JobsOCAudioRecorder@Pods/Tests/JobsAudioRecorderInitializationFixture/JobsAudioRecorderInitializationFixture.m",
+      "destination": "Tests/ComponentStability/JobsOCAudioRecorder/JobsAudioRecorderInitializationFixture/JobsAudioRecorderInitializationFixture.m",
+      "source_sha256": "4d6f42cea726d7555f8441efc198762de90876629c347f458d5a5f97c104b0ba",
+      "adaptations": [
+
+      ],
+      "test_methods": [
+
+      ],
+      "destination_sha256": "4d6f42cea726d7555f8441efc198762de90876629c347f458d5a5f97c104b0ba"
+    },
+    {
+      "source": "JobsByPods/JobsOCAudioRecorder@Pods/Tests/JobsAudioSessionFixture/JobsAudioSessionFixture.h",
+      "destination": "Tests/ComponentStability/JobsOCAudioRecorder/JobsAudioSessionFixture/JobsAudioSessionFixture.h",
+      "source_sha256": "7753fc5e17143e96c69499b4ed457f2d7ea552794c76158e3d8bb38c46c6c339",
+      "adaptations": [
+        "主工程聚合头/同名头双通道；实现层生产依赖上提同名测试头"
+      ],
+      "test_methods": [
+
+      ],
+      "destination_sha256": "e6cc58722eae14915a015995d5e99bf2c1603a081cb9dd479b52356ccd9015a5"
+    },
+    {
+      "source": "JobsByPods/JobsOCAudioRecorder@Pods/Tests/JobsAudioSessionFixture/JobsAudioSessionFixture.m",
+      "destination": "Tests/ComponentStability/JobsOCAudioRecorder/JobsAudioSessionFixture/JobsAudioSessionFixture.m",
+      "source_sha256": "86a1bd772713e86d410a50a6a70974060149210a18778e141853ffde62d0c1e3",
+      "adaptations": [
+
+      ],
+      "test_methods": [
+
+      ],
+      "destination_sha256": "86a1bd772713e86d410a50a6a70974060149210a18778e141853ffde62d0c1e3"
+    },
+    {
+      "source": "JobsByPods/JobsOCAudioRecorder@Pods/Tests/JobsOCAudioRecorderStabilityTests/JobsOCAudioRecorderStabilityTests.h",
+      "destination": "Tests/ComponentStability/JobsOCAudioRecorder/JobsOCAudioRecorderStabilityTests/JobsOCAudioRecorderStabilityTests.h",
+      "source_sha256": "7c6a5cbe4bb0d7c924b208d4a68306b63016bf2fe283c6753279a1ddfbfda1b8",
+      "adaptations": [
+
+      ],
+      "test_methods": [
+
+      ],
+      "destination_sha256": "8a540218695db96a10f3c0e150cafe1708b381afd71f8ca2ccb9e254c6c94157"
+    },
+    {
+      "source": "JobsByPods/JobsOCAudioRecorder@Pods/Tests/JobsOCAudioRecorderStabilityTests/JobsOCAudioRecorderStabilityTests.m",
+      "destination": "Tests/ComponentStability/JobsOCAudioRecorder/JobsOCAudioRecorderStabilityTests/JobsOCAudioRecorderStabilityTests.m",
+      "source_sha256": "d0b3c765732a7e171f925652bf262a7c18ed2a03cdd3fee11bdd4d02750500d5",
+      "adaptations": [
+
+      ],
+      "test_methods": [
+        "testLateRecorderCallbackDoesNotClearNewRecorderAndStartRejectsBusySession",
+        "testNilRecorderInitializationPropagatesErrorAndCleansPartialFileWithoutHardware",
+        "testNilPlayerInitializationPropagatesErrorAndDeactivatesOnlyFixtureSession",
+        "testOldPlayerCompletionCannotStopCurrentPlayback"
+      ],
+      "destination_sha256": "a9255978562efa860565744d0dbdd59f33f318e30e629f572624a52777630f86",
+      "test_implementation_sha256": "746f6ca7df3c3340a049694584ca2341261e44559d9172b1fa1bf494c66ad866",
+      "test_implementation_unchanged": true
+    },
+    {
+      "source": "JobsByPods/JobsOCAudioRecorder@Pods/Tests/run_regression.rb",
+      "destination": "Tests/ComponentStability/JobsOCAudioRecorder/run_regression.rb",
+      "source_sha256": "da93f4a23e569359a87005fc85678991dd2778476586369594060ab91d6fa3b4",
+      "adaptations": [
+        "仅替换真实旧主工程生产源码定位；使用Support/ProductionPaths.rb，不改变原有断言"
+      ],
+      "test_methods": [
+
+      ],
+      "destination_sha256": "cfca8cb8a95e225a8f390a8b8dcd51da19a354a2ce74fcdfee5a96a4313b1cf8"
+    },
+    {
+      "source": "JobsByPods/JobsOCDSL@Pods/Tests/JobsOCDSLAnimatedNumberStabilityTests/JobsOCDSLAnimatedNumberStabilityTests.h",
+      "destination": "Tests/ComponentStability/JobsOCDSL/JobsOCDSLAnimatedNumberStabilityTests/JobsOCDSLAnimatedNumberStabilityTests.h",
+      "source_sha256": "dbb8af1d191b36ca0f12b94d6db5c9f74a86bbd2778183987e0203f1fe89000d",
+      "adaptations": [
+        "主工程聚合头/同名头双通道；实现层生产依赖上提同名测试头"
+      ],
+      "test_methods": [
+
+      ],
+      "destination_sha256": "d1e11ea71394a4f3e3d474812c3693f828190cb5d5eb1c9fd525abbab4dc613a"
+    },
+    {
+      "source": "JobsByPods/JobsOCDSL@Pods/Tests/JobsOCDSLAnimatedNumberStabilityTests/JobsOCDSLAnimatedNumberStabilityTests.m",
+      "destination": "Tests/ComponentStability/JobsOCDSL/JobsOCDSLAnimatedNumberStabilityTests/JobsOCDSLAnimatedNumberStabilityTests.m",
+      "source_sha256": "b1e38b719fdd2473e67a14062b3463a1c576beb84d774e345e4410d7b4287d4d",
+      "adaptations": [
+
+      ],
+      "test_methods": [
+        "testStoppingBeforeFirstStartAndRepeatedStopAreSafe",
+        "testSavedAnimationBlocksAreSafeAfterLabelReleases",
+        "testNonfiniteConfigurationCompletesWithoutSchedulingInvalidInterval",
+        "testCancelledRunCannotOverwriteNewValueOrComplete",
+        "testSavedLabelCompositionBlocksReturnNilAfterLabelRelease"
+      ],
+      "destination_sha256": "c5ed11d51546b4e7842070004f236778256d565a11636b11839861e30232078a",
+      "test_implementation_sha256": "b2b29e421830df6179c7c17b33ba763eea66c476f76d56a4842f965a84d71e48",
+      "test_implementation_unchanged": true
+    },
+    {
+      "source": "JobsByPods/JobsOCDeviceGuard@Pods/Tests/JobsOCDeviceGuardTests/JobsOCDeviceGuardTests.h",
+      "destination": "Tests/ComponentStability/JobsOCDeviceGuard/JobsOCDeviceGuardTests/JobsOCDeviceGuardTests.h",
+      "source_sha256": "2bd7a08368303c79a2c0288aad4ba5dad138543afeab6126042742115065a794",
+      "adaptations": [
+        "主工程聚合头/同名头双通道；实现层生产依赖上提同名测试头"
+      ],
+      "test_methods": [
+
+      ],
+      "destination_sha256": "4ed3e9eccbb9e83986cdbc9066d4a2042ab44f2158c368804bd1541a9963a346"
+    },
+    {
+      "source": "JobsByPods/JobsOCDeviceGuard@Pods/Tests/JobsOCDeviceGuardTests/JobsOCDeviceGuardTests.m",
+      "destination": "Tests/ComponentStability/JobsOCDeviceGuard/JobsOCDeviceGuardTests/JobsOCDeviceGuardTests.m",
+      "source_sha256": "705fa932dab59dfa7c4f23166d33627b942afc7f9a167bf4e67fcab460d0dfd8",
+      "adaptations": [
+
+      ],
+      "test_methods": [
+        "testRepeatedPathsCountAsOneCategory",
+        "testIndependentCategoriesMeetThreshold",
+        "testUnavailableAndEmptyNeverPass",
+        "testNoIndicatorsIsNotJailbroken",
+        "testUnsupportedOverridesEvidence",
+        "testConfigurationIsCopiedAndThresholdClamped",
+        "testAsyncCompletionReturnsOnMainOnce"
+      ],
+      "destination_sha256": "6d380d4252d000d27e74b0c63a1fc85da38e68a3204668927a90620372f77cb7",
+      "test_implementation_sha256": "9f32a1de3696376193ddd260f0dfaa83c572433c66803bff9e2bc05812b70912",
+      "test_implementation_unchanged": true
+    },
+    {
+      "source": "JobsByPods/JobsOCExcel@Pods/Tests/JobsOCExcelStabilityTests/JobsOCExcelStabilityTests.h",
+      "destination": "Tests/ComponentStability/JobsOCExcel/JobsOCExcelStabilityTests/JobsOCExcelStabilityTests.h",
+      "source_sha256": "11ba0ea4cc0a42d0aebbfac14a4827365c146cc995fb34188fe20407cdabb29c",
+      "adaptations": [
+        "主工程聚合头/同名头双通道；实现层生产依赖上提同名测试头"
+      ],
+      "test_methods": [
+
+      ],
+      "destination_sha256": "31fd00df139c39930d97b0cb20c98eaa3d9b7524b43dfdef27ab0c60181be1f3"
+    },
+    {
+      "source": "JobsByPods/JobsOCExcel@Pods/Tests/JobsOCExcelStabilityTests/JobsOCExcelStabilityTests.m",
+      "destination": "Tests/ComponentStability/JobsOCExcel/JobsOCExcelStabilityTests/JobsOCExcelStabilityTests.m",
+      "source_sha256": "c5a376d01e1272f7c92d94b32793cf8c163198de54d501c934660e1999b16b04",
+      "adaptations": [
+
+      ],
+      "test_methods": [
+        "testExcelLargeGridBoundsLiveViewsAndRebindsMissingCell",
+        "testExcelEmptyReloadButtonCallsHost"
+      ],
+      "destination_sha256": "64b4cfca30bd0c7fa7e89c3c6d66df176c26c6efadce0cbb678b88435e042ae5",
+      "test_implementation_sha256": "e7fa4b582d43a7ad20bfcde62e59888f45f2479391defbffe7c5008d2a9885af",
+      "test_implementation_unchanged": true
+    },
+    {
+      "source": "JobsByPods/JobsOCKeyboardMgr@Pods/Tests/JobsOCKeyboardMgrStabilityTests/JobsOCKeyboardMgrStabilityTests.h",
+      "destination": "Tests/ComponentStability/JobsOCKeyboardMgr/JobsOCKeyboardMgrStabilityTests/JobsOCKeyboardMgrStabilityTests.h",
+      "source_sha256": "23fb7cf0303083fa815494406e139982255486a771ce0853eadcaf41e1f1e00f",
+      "adaptations": [
+        "主工程聚合头/同名头双通道；实现层生产依赖上提同名测试头"
+      ],
+      "test_methods": [
+
+      ],
+      "destination_sha256": "7f938c69831a43b1e9c52ac0605fd1c346a87b5f7b08f0d40c93cff105876669"
+    },
+    {
+      "source": "JobsByPods/JobsOCKeyboardMgr@Pods/Tests/JobsOCKeyboardMgrStabilityTests/JobsOCKeyboardMgrStabilityTests.m",
+      "destination": "Tests/ComponentStability/JobsOCKeyboardMgr/JobsOCKeyboardMgrStabilityTests/JobsOCKeyboardMgrStabilityTests.m",
+      "source_sha256": "71d0859a4f1a69a2a3871a86f1228f2a29269f11e41cfd92a3d9b734ddcf5832",
+      "adaptations": [
+
+      ],
+      "test_methods": [
+        "testSavedStartAndStopReturnNilAfterManagerReleases"
+      ],
+      "destination_sha256": "003f6eb058c2870d51bd35d1539d0fd5200409215d563b7dddd7ef6a0692bf82",
+      "test_implementation_sha256": "bacb68f2a38e99a96334d4a86b67ba15ea4fe33bc04f9d5ee8a1b1bf0129cce3",
+      "test_implementation_unchanged": true
+    },
+    {
+      "source": "JobsByPods/JobsOCMarkdown@Pods/Tests/JobsOCMarkdownStabilityTests/JobsOCMarkdownStabilityTests.h",
+      "destination": "Tests/ComponentStability/JobsOCMarkdown/JobsOCMarkdownStabilityTests/JobsOCMarkdownStabilityTests.h",
+      "source_sha256": "26e603d167e8cbcfb06999209d119fd2c1ad56edb901f0e898ec2aef9b7e2fb4",
+      "adaptations": [
+        "主工程聚合头/同名头双通道；实现层生产依赖上提同名测试头"
+      ],
+      "test_methods": [
+
+      ],
+      "destination_sha256": "3021cfacaa25d90ea26cbcbdf75d058d51df5331812825003027d4c504877ee5"
+    },
+    {
+      "source": "JobsByPods/JobsOCMarkdown@Pods/Tests/JobsOCMarkdownStabilityTests/JobsOCMarkdownStabilityTests.m",
+      "destination": "Tests/ComponentStability/JobsOCMarkdown/JobsOCMarkdownStabilityTests/JobsOCMarkdownStabilityTests.m",
+      "source_sha256": "a9d6c53f9ea2f93b25cf494dd6f39d9ecf221ddcacbf8bfba09723658711c775",
+      "adaptations": [
+
+      ],
+      "test_methods": [
+        "testMarkdownDocumentChainDoesNotReenter",
+        "testUnstartedViewReleasesWithoutWeakRegistrationInDealloc"
+      ],
+      "destination_sha256": "2bde075a1509bdaa48992629de897c9a9949e31b56f34288a23cc7615ecf17ce",
+      "test_implementation_sha256": "23489bf19270378c9eddb1d6857acceb47d3118fe36839e5a965df300418b10c",
+      "test_implementation_unchanged": true
+    },
+    {
+      "source": "JobsByPods/JobsOCNumberStepper@Pods/Tests/JobsOCNumberStepperStabilityTests/JobsOCNumberStepperStabilityTests.h",
+      "destination": "Tests/ComponentStability/JobsOCNumberStepper/JobsOCNumberStepperStabilityTests/JobsOCNumberStepperStabilityTests.h",
+      "source_sha256": "441f213353f6f73dc4fe647bb05c8146a95f0ee6a9f645710df29dbf35759701",
+      "adaptations": [
+        "主工程聚合头/同名头双通道；实现层生产依赖上提同名测试头"
+      ],
+      "test_methods": [
+
+      ],
+      "destination_sha256": "74c2550b10c5fadfc7891104808919f016709e85a5bc625f1385739e528a85b9"
+    },
+    {
+      "source": "JobsByPods/JobsOCNumberStepper@Pods/Tests/JobsOCNumberStepperStabilityTests/JobsOCNumberStepperStabilityTests.m",
+      "destination": "Tests/ComponentStability/JobsOCNumberStepper/JobsOCNumberStepperStabilityTests/JobsOCNumberStepperStabilityTests.m",
+      "source_sha256": "58f55aa143c9b25be305756a496b9aa7ac43d5fa8340e821cd6778306f441e39",
+      "adaptations": [
+
+      ],
+      "test_methods": [
+        "testStepperChainsSynchronizeAndStayWithinBounds"
+      ],
+      "destination_sha256": "ef397bee7f50a0590431bd5e3ba2b4b9cb968f08958d07b6ed33584aefb406ec",
+      "test_implementation_sha256": "223cfb2e1806ae51278e131259dc0b5289f2a1b03e0802d0fe594291a8c6e227",
+      "test_implementation_unchanged": true
+    },
+    {
+      "source": "JobsByPods/JobsOCPatch@Pods/Tests/JobsPatchRollbackTests/JobsPatchRollbackTests.h",
+      "destination": "Tests/ComponentStability/JobsOCPatch/JobsPatchRollbackTests/JobsPatchRollbackTests.h",
+      "source_sha256": "38cf3809d3edb5882f7a592d2778eced5caa000c0ceb4ec6c366082b36380c6b",
+      "adaptations": [
+        "主工程聚合头/同名头双通道；实现层生产依赖上提同名测试头"
+      ],
+      "test_methods": [
+
+      ],
+      "destination_sha256": "ab4699b82f5fa5f40723203f9d33d6f687cbf55d084cc85382836aa57f6bb828"
+    },
+    {
+      "source": "JobsByPods/JobsOCPatch@Pods/Tests/JobsPatchRollbackTests/JobsPatchRollbackTests.m",
+      "destination": "Tests/ComponentStability/JobsOCPatch/JobsPatchRollbackTests/JobsPatchRollbackTests.m",
+      "source_sha256": "d1e606f37ae364cc838e578cee345aec0e733ed5feeed754bb81d4993a6a8a68",
+      "adaptations": [
+
+      ],
+      "test_methods": [
+        "testRollbackKeepsPreviouslyLoadedIMPCallable",
+        "testSameSlotRejectsDifferentIdentifierAndScalarABI",
+        "testSavedPatchBlockAfterManagerRelease",
+        "testInheritedSlotsSameIdentifierUpdateAndExplicitRollbackAll",
+        "testConcurrentInstallInvokeAndRollbackUsesOnlyValidImplementations"
+      ],
+      "destination_sha256": "2c943d73b729dbdba2afe2a44942b204dd86689f769da163335b1f6e8c9a1429",
+      "test_implementation_sha256": "98810afb334eaf268436880b8084d72cc1e88afda444ee798d8be08928ec0d71",
+      "test_implementation_unchanged": true
+    },
+    {
+      "source": "JobsByPods/JobsOCRefresher@Pods/Tests/JobsOCRefresherStabilityTests/JobsOCRefresherStabilityTests.h",
+      "destination": "Tests/ComponentStability/JobsOCRefresher/JobsOCRefresherStabilityTests/JobsOCRefresherStabilityTests.h",
+      "source_sha256": "ba023051938b99f7c1e5a0bd06d01fe0e87c7399224edf0563d6892cacc1dd5a",
+      "adaptations": [
+        "主工程聚合头/同名头双通道；实现层生产依赖上提同名测试头"
+      ],
+      "test_methods": [
+
+      ],
+      "destination_sha256": "ad3f815ef5984ba0bbf0ba0e2f5e62132b14db79d7f7a554ea78cb1f60647637"
+    },
+    {
+      "source": "JobsByPods/JobsOCRefresher@Pods/Tests/JobsOCRefresherStabilityTests/JobsOCRefresherStabilityTests.m",
+      "destination": "Tests/ComponentStability/JobsOCRefresher/JobsOCRefresherStabilityTests/JobsOCRefresherStabilityTests.m",
+      "source_sha256": "2f6edbf3da7e8968a2b504d330718ed423fb547d38809f560d76e2daa43d2d77",
+      "adaptations": [
+
+      ],
+      "test_methods": [
+        "testRefreshWithOnlyOneSlotAndRepeatedRemoval",
+        "testRefreshRemovalAndReplacementRestoreOnlyOwnInset",
+        "testRefreshFailureAndNoMoreDataDrainContribution"
+      ],
+      "destination_sha256": "d903b7757edd0c0f682ce586f6e9b35a12f7dddd1f0b5e699773832ea9f65a26",
+      "test_implementation_sha256": "3e82748d4303039b1db1b8eac8258e5f170aee73d3f2fe3c4b870bea8663c2f5",
+      "test_implementation_unchanged": true
+    },
+    {
+      "source": "JobsByPods/JobsOCRuntimeKits@Pods/Tests/JobsRuntimeSafetyTests/JobsRuntimeSafetyTests.h",
+      "destination": "Tests/ComponentStability/JobsOCRuntimeKits/JobsRuntimeSafetyTests/JobsRuntimeSafetyTests.h",
+      "source_sha256": "56464124c977d0d02e9007e8ea5d76abe3b8ec1990fe19e834d222f6e42f2e66",
+      "adaptations": [
+        "主工程聚合头/同名头双通道；实现层生产依赖上提同名测试头"
+      ],
+      "test_methods": [
+
+      ],
+      "destination_sha256": "468894fc8b4ef327ad9f29267cc12eb8dc5491748a0594d2be6cdd2dce3916f7"
+    },
+    {
+      "source": "JobsByPods/JobsOCRuntimeKits@Pods/Tests/JobsRuntimeSafetyTests/JobsRuntimeSafetyTests.m",
+      "destination": "Tests/ComponentStability/JobsOCRuntimeKits/JobsRuntimeSafetyTests/JobsRuntimeSafetyTests.m",
+      "source_sha256": "95608b20a6bf7ff482081fad81ff9a35900bba4a8da03011a4138f48ea9801fd",
+      "adaptations": [
+
+      ],
+      "test_methods": [
+        "testTypedScalarsAndStructures",
+        "testRejectedABIAndArityNeverInvokeTarget",
+        "testOnceIsPerOwnerAndSelector",
+        "testWeakAssociationDoesNotChangeClassOrRetainValue"
+      ],
+      "destination_sha256": "d70b02f59d0721d9154c3c58aee1c87607dbde36fa4fc43565cbe56d59265496",
+      "test_implementation_sha256": "d999df07dc6c8a3ff9bd4efe3a1b64b1c027590e05102ce69a7535b1622e66fd",
+      "test_implementation_unchanged": true
+    },
+    {
+      "source": "JobsByPods/JobsOCRuntimeKits@Pods/Tests/run_regression.rb",
+      "destination": "Tests/ComponentStability/JobsOCRuntimeKits/run_regression.rb",
+      "source_sha256": "2d2f11b78846242d243c07009500dcffc70b9d4f4506dca2250ed2fe67657d80",
+      "adaptations": [
+        "仅替换真实旧主工程生产源码定位；使用Support/ProductionPaths.rb，不改变原有断言"
+      ],
+      "test_methods": [
+
+      ],
+      "destination_sha256": "12a84a6f3f0fa47495069189ebe8f388399c214c4a4d1b039991c9378263217f"
+    },
+    {
+      "source": "JobsByPods/JobsOCSearcher@Pods/Tests/JobsOCSearcherStabilityTests/JobsOCSearcherStabilityTests.h",
+      "destination": "Tests/ComponentStability/JobsOCSearcher/JobsOCSearcherStabilityTests/JobsOCSearcherStabilityTests.h",
+      "source_sha256": "278c4b322083f2dcc022e7291cee4b99b4bd7d4fe7c52bfda310e8812425f86c",
+      "adaptations": [
+
+      ],
+      "test_methods": [
+
+      ],
+      "destination_sha256": "278c4b322083f2dcc022e7291cee4b99b4bd7d4fe7c52bfda310e8812425f86c"
+    },
+    {
+      "source": "JobsByPods/JobsOCSearcher@Pods/Tests/JobsOCSearcherStabilityTests/JobsOCSearcherStabilityTests.m",
+      "destination": "Tests/ComponentStability/JobsOCSearcher/JobsOCSearcherStabilityTests/JobsOCSearcherStabilityTests.m",
+      "source_sha256": "6e056e276b8790ce9d7a595002624b4bdee63f213d519d8da747b27a130d7b95",
+      "adaptations": [
+
+      ],
+      "test_methods": [
+        "testSearcherHistoryIsolationAndLegacyStorage",
+        "testSearcherQueryCallbacksAndResultsAreIndependent",
+        "testSearcherConfigRefreshPreservesQueryAndCustomField",
+        "testSearcherUsesNativeAttributedTextForRendering",
+        "testSearcherSameConfigReloadsCurrentLanguage",
+        "testSearcherLaysOutVisibleNativeInput"
+      ],
+      "destination_sha256": "6e056e276b8790ce9d7a595002624b4bdee63f213d519d8da747b27a130d7b95",
+      "test_implementation_sha256": "17cfd991e1f91dbcc1cd403cbf0cccbe1c68d743e7fea0e4038e11f70c573201",
+      "test_implementation_unchanged": true
+    },
+    {
+      "source": "JobsByPods/JobsOCSkeletonView@Pods/Tests/JobsOCSkeletonViewStabilityTests/JobsOCSkeletonViewStabilityTests.h",
+      "destination": "Tests/ComponentStability/JobsOCSkeletonView/JobsOCSkeletonViewStabilityTests/JobsOCSkeletonViewStabilityTests.h",
+      "source_sha256": "8acca1fc66e59a88a26906d64991d7b8975f33b99dfb217b2cf9f6f4ce4d31f4",
+      "adaptations": [
+        "主工程聚合头/同名头双通道；实现层生产依赖上提同名测试头"
+      ],
+      "test_methods": [
+
+      ],
+      "destination_sha256": "27a78b0604a234d537e4c6ce608d19ce72ce5181acf2ff1a3f26e10a8db7f6df"
+    },
+    {
+      "source": "JobsByPods/JobsOCSkeletonView@Pods/Tests/JobsOCSkeletonViewStabilityTests/JobsOCSkeletonViewStabilityTests.m",
+      "destination": "Tests/ComponentStability/JobsOCSkeletonView/JobsOCSkeletonViewStabilityTests/JobsOCSkeletonViewStabilityTests.m",
+      "source_sha256": "83dfd7329b4e5ea2daa5c19763f2474afa17ce47a0047e031e47405b94fe1c75",
+      "adaptations": [
+
+      ],
+      "test_methods": [
+        "testSavedSkeletonBlocksReturnNilAfterViewReleases"
+      ],
+      "destination_sha256": "ecef11cb65157c3696851dc39e0e1a6862cefe66a8bbefc7be7f37f34f6f1f08",
+      "test_implementation_sha256": "167f458d95e25274b92d55ea787365fab158388063cb28f5f08b49db50fa1a3f",
+      "test_implementation_unchanged": true
+    },
+    {
+      "source": "JobsByPods/JobsOCSnowflake@Pods/Tests/JobsOCSnowflakeStabilityTests/JobsOCSnowflakeStabilityTests.h",
+      "destination": "Tests/ComponentStability/JobsOCSnowflake/JobsOCSnowflakeStabilityTests/JobsOCSnowflakeStabilityTests.h",
+      "source_sha256": "2b14162340896b35b63b41e0d8771cb1954e6ebc3e07353a373e3725448f8790",
+      "adaptations": [
+
+      ],
+      "test_methods": [
+
+      ],
+      "destination_sha256": "348406a499cb7becf9b892c495d0694288d7dae464eb4446c4314f10e122ee74"
+    },
+    {
+      "source": "JobsByPods/JobsOCSnowflake@Pods/Tests/JobsOCSnowflakeStabilityTests/JobsOCSnowflakeStabilityTests.m",
+      "destination": "Tests/ComponentStability/JobsOCSnowflake/JobsOCSnowflakeStabilityTests/JobsOCSnowflakeStabilityTests.m",
+      "source_sha256": "09d9ef2702706d8c3cf17f4d2412b519d51c77cf5b4929034a86f75798de412b",
+      "adaptations": [
+
+      ],
+      "test_methods": [
+        "testFrozenMillisecondSequenceWrapAndDecode",
+        "testRollbackRejectionAndRecovery",
+        "testNodeAndTimestampBoundsInAllBuildConfigurations",
+        "testConcurrentUniqueness"
+      ],
+      "destination_sha256": "3b64f20d7163121855cedbae9dd697eea2101740af929347ac5234d07371a266",
+      "test_implementation_sha256": "b21f01f1393e6a6215947e36cee2374d54375b63961d81bdc0c37a8086b504a9",
+      "test_implementation_unchanged": true
+    },
+    {
+      "source": "JobsByPods/JobsOCSplash@Pods/Tests/JobsOCSplashStabilityTests/JobsOCSplashStabilityTests.h",
+      "destination": "Tests/ComponentStability/JobsOCSplash/JobsOCSplashStabilityTests/JobsOCSplashStabilityTests.h",
+      "source_sha256": "aa2413ae33fb82035533c555a4e0a6d8dffbc80bc61ec123a7dcf5fbba7613f2",
+      "adaptations": [
+        "主工程聚合头/同名头双通道；实现层生产依赖上提同名测试头"
+      ],
+      "test_methods": [
+
+      ],
+      "destination_sha256": "ca802f50e0704b3da82fb219875460d97b54e39bd2feee21886caf08c60f3285"
+    },
+    {
+      "source": "JobsByPods/JobsOCSplash@Pods/Tests/JobsOCSplashStabilityTests/JobsOCSplashStabilityTests.m",
+      "destination": "Tests/ComponentStability/JobsOCSplash/JobsOCSplashStabilityTests/JobsOCSplashStabilityTests.m",
+      "source_sha256": "d8cbef48afa74bd9b2f11d8e8328cce4e164ad031f20e729d914b4ed153b0dc9",
+      "adaptations": [
+
+      ],
+      "test_methods": [
+        "testAtomicReplacementAndEmptyFileDoesNotEraseCache",
+        "testRetryBudgetTerminatesAndCompletesOnceWithoutNetwork",
+        "testGIFDecoderRejectsInvalidAndOversizedEncodedContent",
+        "testSharedImageTransferHasIndependentCancellationAndIgnoresOldCompletion",
+        "testCacheEvictsOldestFilesWithinLogicalByteLimit"
+      ],
+      "destination_sha256": "4b007a972be4360a3d3cea38bfb3629863c46a888efe40922e279a0fcfbee082",
+      "test_implementation_sha256": "8723b786756ddb37e61942f4da3f724df11aac228733acf528f0d7ca9fc65eab",
+      "test_implementation_unchanged": true
+    },
+    {
+      "source": "JobsByPods/JobsOCSplash@Pods/Tests/JobsSplashCacheFixture/JobsSplashCacheFixture.h",
+      "destination": "Tests/ComponentStability/JobsOCSplash/JobsSplashCacheFixture/JobsSplashCacheFixture.h",
+      "source_sha256": "41753ab0a6623bf6f2b8002f21fa8356ed601c5d64f8167789656352815e27b3",
+      "adaptations": [
+        "主工程聚合头/同名头双通道；实现层生产依赖上提同名测试头"
+      ],
+      "test_methods": [
+
+      ],
+      "destination_sha256": "04f8ee217a3d6863974997c3256e0538c7726efd720480ac3ee32a14e970c8d0"
+    },
+    {
+      "source": "JobsByPods/JobsOCSplash@Pods/Tests/JobsSplashCacheFixture/JobsSplashCacheFixture.m",
+      "destination": "Tests/ComponentStability/JobsOCSplash/JobsSplashCacheFixture/JobsSplashCacheFixture.m",
+      "source_sha256": "85e613b77e2ee2057fa3cd8826dc38fc75b858a0dab1669728249c0507c82f87",
+      "adaptations": [
+
+      ],
+      "test_methods": [
+
+      ],
+      "destination_sha256": "85e613b77e2ee2057fa3cd8826dc38fc75b858a0dab1669728249c0507c82f87"
+    },
+    {
+      "source": "JobsByPods/JobsOCSplash@Pods/Tests/JobsSplashTransferTaskFixture/JobsSplashTransferTaskFixture.h",
+      "destination": "Tests/ComponentStability/JobsOCSplash/JobsSplashTransferTaskFixture/JobsSplashTransferTaskFixture.h",
+      "source_sha256": "9511f8d50b54f977102cd747c49c5c26451dafccc765ca4b945e056b9764a35e",
+      "adaptations": [
+
+      ],
+      "test_methods": [
+
+      ],
+      "destination_sha256": "9511f8d50b54f977102cd747c49c5c26451dafccc765ca4b945e056b9764a35e"
+    },
+    {
+      "source": "JobsByPods/JobsOCSplash@Pods/Tests/JobsSplashTransferTaskFixture/JobsSplashTransferTaskFixture.m",
+      "destination": "Tests/ComponentStability/JobsOCSplash/JobsSplashTransferTaskFixture/JobsSplashTransferTaskFixture.m",
+      "source_sha256": "0758b78991d8962b836c0fc479e1cf457ca6a8fc6750c3835d9483dbaf013a94",
+      "adaptations": [
+
+      ],
+      "test_methods": [
+
+      ],
+      "destination_sha256": "0758b78991d8962b836c0fc479e1cf457ca6a8fc6750c3835d9483dbaf013a94"
+    },
+    {
+      "source": "JobsByPods/JobsOCSplash@Pods/Tests/run_regression.rb",
+      "destination": "Tests/ComponentStability/JobsOCSplash/run_regression.rb",
+      "source_sha256": "6074881039fde2fd88b5fa700ccc5dd2ba3efe20a96ec64c6ac253253c10917d",
+      "adaptations": [
+        "仅替换真实旧主工程生产源码定位；使用Support/ProductionPaths.rb，不改变原有断言"
+      ],
+      "test_methods": [
+
+      ],
+      "destination_sha256": "38519183fd2525d4bc7a729f1e0ffcc57ac65af225deb23b4245fcbee791ba9e"
+    },
+    {
+      "source": "JobsByPods/JobsOCTimerMgr@Pods/Tests/JobsTimerMgrStabilityTests/JobsTimerMgrStabilityTests.h",
+      "destination": "Tests/ComponentStability/JobsOCTimerMgr/JobsTimerMgrStabilityTests/JobsTimerMgrStabilityTests.h",
+      "source_sha256": "0f509ab10cbf9cb4edf45f902c796d042396b78b3de84446f75e737726bd87e7",
+      "adaptations": [
+        "主工程聚合头/同名头双通道；实现层生产依赖上提同名测试头"
+      ],
+      "test_methods": [
+
+      ],
+      "destination_sha256": "189cb2da4d9a68b885c02b91fd5c961f5d0c3b7f00197cff4d514c18421d31a4"
+    },
+    {
+      "source": "JobsByPods/JobsOCTimerMgr@Pods/Tests/JobsTimerMgrStabilityTests/JobsTimerMgrStabilityTests.m",
+      "destination": "Tests/ComponentStability/JobsOCTimerMgr/JobsTimerMgrStabilityTests/JobsTimerMgrStabilityTests.m",
+      "source_sha256": "462884eb81422315d41ace48c4df4ea49a187a1dd690528ed72e1653374700a0",
+      "adaptations": [
+
+      ],
+      "test_methods": [
+        "testForceFinishDeliversOnceAfterRemovalAndDoesNotRemoveReplacement",
+        "testStartedManagerCanReleaseAndStopsRetainedTimer"
+      ],
+      "destination_sha256": "7c1ca4a238989936231315aa89b41a0d91e93b04c3dd9dd3a689d3e6512b6ef2",
+      "test_implementation_sha256": "92a9b8d647a03c05da3d0fd5809c454637f99b98327a661ce93c04c4d33742bd",
+      "test_implementation_unchanged": true
+    },
+    {
+      "source": "JobsByPods/JobsOCTools@Pods/Tests/JobsCrashLogImportStabilityTests/JobsCrashLogImportStabilityTests.h",
+      "destination": "Tests/ComponentStability/JobsOCTools/JobsCrashLogImportStabilityTests/JobsCrashLogImportStabilityTests.h",
+      "source_sha256": "57251d03fac95d40b338646bc0b67789fe2baf635245322027d72b58b7b4cc13",
+      "adaptations": [
+        "主工程聚合头/同名头双通道；实现层生产依赖上提同名测试头"
+      ],
+      "test_methods": [
+
+      ],
+      "destination_sha256": "2b6535d2288f556651c9411d920238bd54d6178a551739079292b5c2788447de"
+    },
+    {
+      "source": "JobsByPods/JobsOCTools@Pods/Tests/JobsCrashLogImportStabilityTests/JobsCrashLogImportStabilityTests.m",
+      "destination": "Tests/ComponentStability/JobsOCTools/JobsCrashLogImportStabilityTests/JobsCrashLogImportStabilityTests.m",
+      "source_sha256": "b9d832725d25f2ecc373d80a3d37b022149841c3a748edd31d754c5004f163da",
+      "adaptations": [
+
+      ],
+      "test_methods": [
+        "testFailedLogOpenPreservesSignalJournalThenSuccessfulImportClearsIt",
+        "testMalformedJournalPreservesEveryByteAndDoesNotImportValidPrefix",
+        "testImportFromOwnIOQueueDoesNotDeadlock"
+      ],
+      "destination_sha256": "69398d020243a811929362a6994ec32eed900e27ebeadff3e478c851a3deac17",
+      "test_implementation_sha256": "8db7e2c517e10a75bc2986e2d4922382898d949b4414f36a58c847b1eac2b144",
+      "test_implementation_unchanged": true
+    },
+    {
+      "source": "JobsByPods/JobsOCTools@Pods/Tests/JobsCrashSignalRecorderTests/JobsCrashSignalRecorderTests.c",
+      "destination": "Tests/ComponentStability/JobsOCTools/JobsCrashSignalRecorderTests/JobsCrashSignalRecorderTests.c",
+      "source_sha256": "fdba0eeb805b6daea2c9cb586ee346b5216423d3a6f0076b99e40ca9272b0ef6",
+      "adaptations": [
+
+      ],
+      "test_methods": [
+
+      ],
+      "destination_sha256": "fdba0eeb805b6daea2c9cb586ee346b5216423d3a6f0076b99e40ca9272b0ef6"
+    },
+    {
+      "source": "JobsByPods/JobsOCTools@Pods/Tests/JobsImageCodeViewStabilityTests/JobsImageCodeViewStabilityTests.h",
+      "destination": "Tests/ComponentStability/JobsOCTools/JobsImageCodeViewStabilityTests/JobsImageCodeViewStabilityTests.h",
+      "source_sha256": "a9affd5b93385dfd1ec7955f56dd9caa55d5c5f577e897376aac30e434b85fda",
+      "adaptations": [
+        "主工程聚合头/同名头双通道；实现层生产依赖上提同名测试头"
+      ],
+      "test_methods": [
+
+      ],
+      "destination_sha256": "82a711bc39731d0de0e9b1ccdfcb6014da02a9fc04a8ba838198165e4ae9f96c"
+    },
+    {
+      "source": "JobsByPods/JobsOCTools@Pods/Tests/JobsImageCodeViewStabilityTests/JobsImageCodeViewStabilityTests.m",
+      "destination": "Tests/ComponentStability/JobsOCTools/JobsImageCodeViewStabilityTests/JobsImageCodeViewStabilityTests.m",
+      "source_sha256": "c2757f0438b3a3c2d3c462f1a927afba4c881d17237a26c9781eb4f4bb08b533",
+      "adaptations": [
+
+      ],
+      "test_methods": [
+        "testInitializationAndBackgroundDSLTerminate"
+      ],
+      "destination_sha256": "19c68de33af7a3d2b380be0305043a2d3b2b80309e30476ce31d48b85c748f66",
+      "test_implementation_sha256": "3690a5836f5388cfdc82e2a032e0cf4c1ae2e309677fc8451aa6cb5a5c31580e",
+      "test_implementation_unchanged": true
+    },
+    {
+      "source": "JobsByPods/JobsOCTools@Pods/Tests/run_regression.rb",
+      "destination": "Tests/ComponentStability/JobsOCTools/run_regression.rb",
+      "source_sha256": "13e67cd76d450790903d0de0d4b516191055ee940438ee54c20390aa98aa880a",
+      "adaptations": [
+        "仅替换真实旧主工程生产源码定位；使用Support/ProductionPaths.rb，不改变原有断言"
+      ],
+      "test_methods": [
+
+      ],
+      "destination_sha256": "51539230ffe66147dc483bdfdd245c62626907ccbd2313c03f1f2d9a097dcac8"
+    },
+    {
+      "source": "JobsByPods/JobsOCUILabelScrolling@Pods/Tests/JobsOCUILabelScrollingStabilityTests/JobsOCUILabelScrollingStabilityTests.h",
+      "destination": "Tests/ComponentStability/JobsOCUILabelScrolling/JobsOCUILabelScrollingStabilityTests/JobsOCUILabelScrollingStabilityTests.h",
+      "source_sha256": "8b5911bf47adc2f1735f8dea92e446ab7fb42b687e5400187a570b911872244c",
+      "adaptations": [
+        "主工程聚合头/同名头双通道；实现层生产依赖上提同名测试头"
+      ],
+      "test_methods": [
+
+      ],
+      "destination_sha256": "7720477faa3b9551150732fd86722beb7bf92019ac10c6fba38d939ad43e44d6"
+    },
+    {
+      "source": "JobsByPods/JobsOCUILabelScrolling@Pods/Tests/JobsOCUILabelScrollingStabilityTests/JobsOCUILabelScrollingStabilityTests.m",
+      "destination": "Tests/ComponentStability/JobsOCUILabelScrolling/JobsOCUILabelScrollingStabilityTests/JobsOCUILabelScrollingStabilityTests.m",
+      "source_sha256": "179cf05e200e1977b73bab44fde4a24141f6f9791084a0ca2c5af63de9362898",
+      "adaptations": [
+
+      ],
+      "test_methods": [
+        "testNonfiniteScrollConfigurationNormalizes",
+        "testVeryLargeFiniteSpeedDoesNotBlockMainRunLoop"
+      ],
+      "destination_sha256": "331674f1dadce2ff603bd7497f31147185b0a6f44ef35c51dc54f8020fd8e768",
+      "test_implementation_sha256": "236b60a99f437a47e0822022185f3f65ce7d59bf88bfa46c706985f16e6565da",
+      "test_implementation_unchanged": true
+    },
+    {
+      "source": "JobsByPods/JobsOCVideoRecorder@Pods/Tests/JobsOCVideoRecorderStabilityTests/JobsOCVideoRecorderStabilityTests.h",
+      "destination": "Tests/ComponentStability/JobsOCVideoRecorder/JobsOCVideoRecorderStabilityTests/JobsOCVideoRecorderStabilityTests.h",
+      "source_sha256": "c99c9ee78404dd02a98e6ce0df2746cfcdd70250bd21a0c90a5e21db72a55283",
+      "adaptations": [
+
+      ],
+      "test_methods": [
+
+      ],
+      "destination_sha256": "5c054466998d8959154f1bf5fd1f58a50813bc48190203c6acb39aa220ea75e3"
+    },
+    {
+      "source": "JobsByPods/JobsOCVideoRecorder@Pods/Tests/JobsOCVideoRecorderStabilityTests/JobsOCVideoRecorderStabilityTests.m",
+      "destination": "Tests/ComponentStability/JobsOCVideoRecorder/JobsOCVideoRecorderStabilityTests/JobsOCVideoRecorderStabilityTests.m",
+      "source_sha256": "4d5e5c9810fa23a9fc58b382dc18f8d018b031a2136a489cab00821efe4a6b45",
+      "adaptations": [
+
+      ],
+      "test_methods": [
+        "testFinishingRejectsNewSessionAndFormatDescriptionsCanBeClearedConcurrently"
+      ],
+      "destination_sha256": "144c882124b1cf507c797f61c6a39cdb1ba93ca6d4532ef625a5384082bdb63a",
+      "test_implementation_sha256": "ba097e5adcf9fdb09e20b795bfec61d687f44d05c66249bdf1de3a847b71516d",
+      "test_implementation_unchanged": true
+    },
+    {
+      "source": "JobsByPods/JobsOCWebSocket@Pods/Tests/JobsOCWebSocketStabilityTests/JobsOCWebSocketStabilityTests.h",
+      "destination": "Tests/ComponentStability/JobsOCWebSocket/JobsOCWebSocketStabilityTests/JobsOCWebSocketStabilityTests.h",
+      "source_sha256": "0129d68793d24c4b286c98f2f4780955f2ac0577fdba6cf97644c787120ad651",
+      "adaptations": [
+        "主工程聚合头/同名头双通道；实现层生产依赖上提同名测试头"
+      ],
+      "test_methods": [
+
+      ],
+      "destination_sha256": "d75ef0f8b5529ff0959b58c9e1db5212b06efab93f3b29a2d8855d90649b0fab"
+    },
+    {
+      "source": "JobsByPods/JobsOCWebSocket@Pods/Tests/JobsOCWebSocketStabilityTests/JobsOCWebSocketStabilityTests.m",
+      "destination": "Tests/ComponentStability/JobsOCWebSocket/JobsOCWebSocketStabilityTests/JobsOCWebSocketStabilityTests.m",
+      "source_sha256": "1c6b4dfae4ab4eafa73eff87e144ad55c99af5fdfd36b7f9d31487a411d40095",
+      "adaptations": [
+
+      ],
+      "test_methods": [
+        "testOnlyCurrentSocketAndMatchingPongClearProbe",
+        "testUnansweredProbeTerminatesConnectionWithoutNetwork",
+        "testNeverConnectedClientCanDisconnectAndRelease"
+      ],
+      "destination_sha256": "9b7464dc60999e33bcad8a6d7b98a772ce11c8a16e806677d31ed22d0805ad07",
+      "test_implementation_sha256": "24bd1016028db1f9f5099c4995bc1764be9a523d41046bcc1ab5afe204b9e606",
+      "test_implementation_unchanged": true
+    },
+    {
+      "source": "JobsByPods/JobsOCWebSocket@Pods/Tests/JobsWebSocketTransportFixture/JobsWebSocketTransportFixture.h",
+      "destination": "Tests/ComponentStability/JobsOCWebSocket/JobsWebSocketTransportFixture/JobsWebSocketTransportFixture.h",
+      "source_sha256": "22f5edc51d59db3f21fdcd27efea7a28c54e06e7788cdfde02c6ca7ab1c1adef",
+      "adaptations": [
+        "主工程聚合头/同名头双通道；实现层生产依赖上提同名测试头"
+      ],
+      "test_methods": [
+
+      ],
+      "destination_sha256": "34fa0208c005210f3521d2cf91355764331417d946eedd1ede2a5eb45f0da2e4"
+    },
+    {
+      "source": "JobsByPods/JobsOCWebSocket@Pods/Tests/JobsWebSocketTransportFixture/JobsWebSocketTransportFixture.m",
+      "destination": "Tests/ComponentStability/JobsOCWebSocket/JobsWebSocketTransportFixture/JobsWebSocketTransportFixture.m",
+      "source_sha256": "38ec70200877de27cfc3459fc9eec0aad4e17d91eeebe08846ac77af4f323c2a",
+      "adaptations": [
+
+      ],
+      "test_methods": [
+
+      ],
+      "destination_sha256": "38ec70200877de27cfc3459fc9eec0aad4e17d91eeebe08846ac77af4f323c2a"
+    },
+    {
+      "source": "JobsByPods/JobsProgressBar@Pods/Tests/JobsProgressBarStabilityTests/JobsProgressBarStabilityTests.h",
+      "destination": "Tests/ComponentStability/JobsProgressBar/JobsProgressBarStabilityTests/JobsProgressBarStabilityTests.h",
+      "source_sha256": "b648c63992322dfcc68913fc7d1acf433f30a6eea636e1b949dbfd2eab93759f",
+      "adaptations": [
+        "主工程聚合头/同名头双通道；实现层生产依赖上提同名测试头"
+      ],
+      "test_methods": [
+
+      ],
+      "destination_sha256": "ffa4e863ac8f0ea6fb5116cb05f139fb7636309d0d6077217f20b40b9972bebd"
+    },
+    {
+      "source": "JobsByPods/JobsProgressBar@Pods/Tests/JobsProgressBarStabilityTests/JobsProgressBarStabilityTests.m",
+      "destination": "Tests/ComponentStability/JobsProgressBar/JobsProgressBarStabilityTests/JobsProgressBarStabilityTests.m",
+      "source_sha256": "0d6382a61e98ae1883347823a7efb7392df73a80c5e63f1baddc289a67b7e878",
+      "adaptations": [
+
+      ],
+      "test_methods": [
+        "testRunningProgressDoesNotRetainViewAndNormalizesNonfiniteInput",
+        "testUnstartedViewReleasesWithoutWeakRegistrationInDealloc"
+      ],
+      "destination_sha256": "05a069fee4e14e63460381a2cb47f76535508809f9bf9bbad222cf2166cea326",
+      "test_implementation_sha256": "2367986afe061cd4c1db88c268922e97d82b767635090ae336609d31fc9c7e59",
+      "test_implementation_unchanged": true
+    },
+    {
+      "source": "JobsByPods/JobsRandomUtils@Pods/Tests/JobsRandomUtilsStabilityTests/JobsRandomUtilsStabilityTests.h",
+      "destination": "Tests/ComponentStability/JobsRandomUtils/JobsRandomUtilsStabilityTests/JobsRandomUtilsStabilityTests.h",
+      "source_sha256": "3ce4788cee81feb7f55850a3afc7fac30dd50f073aa79a4ca3bf01f8e55c5de2",
+      "adaptations": [
+
+      ],
+      "test_methods": [
+
+      ],
+      "destination_sha256": "6bf03bd96cd927a0de018e1c30b734561e985456c91398ca6d8bd20bcee558ca"
+    },
+    {
+      "source": "JobsByPods/JobsRandomUtils@Pods/Tests/JobsRandomUtilsStabilityTests/JobsRandomUtilsStabilityTests.m",
+      "destination": "Tests/ComponentStability/JobsRandomUtils/JobsRandomUtilsStabilityTests/JobsRandomUtilsStabilityTests.m",
+      "source_sha256": "fbed8fefe52ac14923708a4813c2d1361ece520cee0eee636573e9ea732ac9a0",
+      "adaptations": [
+
+      ],
+      "test_methods": [
+        "testSingleValuesAndReversedBounds",
+        "testEntireSignedIntRangeAndAliases"
+      ],
+      "destination_sha256": "25492985c5a7da7cd1304859e0a968fdb810d6806aaaf0fdc6ae056ec5ccdd19",
+      "test_implementation_sha256": "04ba420e8fccf2fcc388dd11c5df18d06d17d59520c347a4e9cd776b947c6da7",
+      "test_implementation_unchanged": true
+    },
+    {
+      "source": "JobsByPods/JobsRichTextUtils@Pods/Tests/JobsRichTextUtilsStabilityTests/JobsRichTextUtilsStabilityTests.h",
+      "destination": "Tests/ComponentStability/JobsRichTextUtils/JobsRichTextUtilsStabilityTests/JobsRichTextUtilsStabilityTests.h",
+      "source_sha256": "d95b7cd1a64a969cd5448b4267a3659dd0e4460149841cbce8b4688274e4f1c7",
+      "adaptations": [
+
+      ],
+      "test_methods": [
+
+      ],
+      "destination_sha256": "fd39cc6d87efc893f5bda76e9666cb8bfeea4c938ae7e953d15d7328cc59aad1"
+    },
+    {
+      "source": "JobsByPods/JobsRichTextUtils@Pods/Tests/JobsRichTextUtilsStabilityTests/JobsRichTextUtilsStabilityTests.m",
+      "destination": "Tests/ComponentStability/JobsRichTextUtils/JobsRichTextUtilsStabilityTests/JobsRichTextUtilsStabilityTests.m",
+      "source_sha256": "8bf32cadf71bf8a4bf8d6144c45df206e55783e456393d4b47b008d4f648acd4",
+      "adaptations": [
+
+      ],
+      "test_methods": [
+        "testUnderlineColorAndOverflowRangeAreHandled"
+      ],
+      "destination_sha256": "b91b8301efbdd915dd5572a32564df48c8b4ceb744f6e704ad31e51fa43371bd",
+      "test_implementation_sha256": "bc41a200558e66f0d9f570d0f288a70cdc78986268775778fb27b36a60625e89",
+      "test_implementation_unchanged": true
+    },
+    {
+      "source": "JobsByPods/JobsStringUtils@Pods/Tests/JobsStringUtilsStabilityTests/JobsStringUtilsStabilityTests.h",
+      "destination": "Tests/ComponentStability/JobsStringUtils/JobsStringUtilsStabilityTests/JobsStringUtilsStabilityTests.h",
+      "source_sha256": "b2f17b3a7066e46211752f4cfb0ec581b9e70738e852dbc969b24f980e121b5e",
+      "adaptations": [
+
+      ],
+      "test_methods": [
+
+      ],
+      "destination_sha256": "16b5356aea5087839f3d896427f029983b269822f4a8bb817dd4dbacf265f1f2"
+    },
+    {
+      "source": "JobsByPods/JobsStringUtils@Pods/Tests/JobsStringUtilsStabilityTests/JobsStringUtilsStabilityTests.m",
+      "destination": "Tests/ComponentStability/JobsStringUtils/JobsStringUtilsStabilityTests/JobsStringUtilsStabilityTests.m",
+      "source_sha256": "965da0468bb1ec85912e13949d87d3161eade9c9c8b071422ebe0db24936bf53",
+      "adaptations": [
+
+      ],
+      "test_methods": [
+        "testInvalidUTF8AndNumericShortContract"
+      ],
+      "destination_sha256": "f8f9baeef01a1682ebc049f7b0f2a0c11d7a109c9e5737aacbeb562bb4508486",
+      "test_implementation_sha256": "5bccc5b60648a655c66e080d423b2faac6a404162eb29c6d39a4f973748841cc",
+      "test_implementation_unchanged": true
+    },
+    {
+      "source": "JobsByPods/JobsSuspend@Pods/Tests/JobsSuspendStabilityTests/JobsSuspendStabilityTests.h",
+      "destination": "Tests/ComponentStability/JobsSuspend/JobsSuspendStabilityTests/JobsSuspendStabilityTests.h",
+      "source_sha256": "e12169f96275f23046a358be1244a2e0183d16499d46bb69e64cb12b5243ea77",
+      "adaptations": [
+        "主工程聚合头/同名头双通道；实现层生产依赖上提同名测试头"
+      ],
+      "test_methods": [
+
+      ],
+      "destination_sha256": "70d756ea6ddce8cc721455910144dae0e643cc9b5d59b2f68a382306d80fd133"
+    },
+    {
+      "source": "JobsByPods/JobsSuspend@Pods/Tests/JobsSuspendStabilityTests/JobsSuspendStabilityTests.m",
+      "destination": "Tests/ComponentStability/JobsSuspend/JobsSuspendStabilityTests/JobsSuspendStabilityTests.m",
+      "source_sha256": "740396aa0136d4284507ed02b59c604e878c5cbd3f6b659a22f10db281000c01",
+      "adaptations": [
+
+      ],
+      "test_methods": [
+        "testSuspendControllerReferenceZeros"
+      ],
+      "destination_sha256": "3a28fa096c50ba5446c1513a413f92a9262dccf99dc4b5ff7c78271e42b5ad90",
+      "test_implementation_sha256": "2dfab81519fcb5284119b2b21689d24f1f9a35ccecaefe5b6ee1ab224a9b182d",
+      "test_implementation_unchanged": true
+    },
+    {
+      "source": "JobsByPods/JobsTimeUtils@Pods/Tests/JobsTimeUtilsStabilityTests/JobsTimeUtilsStabilityTests.h",
+      "destination": "Tests/ComponentStability/JobsTimeUtils/JobsTimeUtilsStabilityTests/JobsTimeUtilsStabilityTests.h",
+      "source_sha256": "d268bd81d3be58dbbf9069d212098cb7bdbc414b614234ce717c8198b1745954",
+      "adaptations": [
+
+      ],
+      "test_methods": [
+
+      ],
+      "destination_sha256": "039bfbd7726a44af60eff30126670273fd39dae637df1804ee10c0e15eebf0a7"
+    },
+    {
+      "source": "JobsByPods/JobsTimeUtils@Pods/Tests/JobsTimeUtilsStabilityTests/JobsTimeUtilsStabilityTests.m",
+      "destination": "Tests/ComponentStability/JobsTimeUtils/JobsTimeUtilsStabilityTests/JobsTimeUtilsStabilityTests.m",
+      "source_sha256": "bc4b03acf9aee5a6ddf3923c4f6fc19b098d7d2da373ee2ee5904ca53e69a532",
+      "adaptations": [
+
+      ],
+      "test_methods": [
+        "testExplicitFormatAndZeroVersusInvalidInterval",
+        "testTimestampUnitsAndInvalidFailClosed"
+      ],
+      "destination_sha256": "ae7ca98c0ce12f28ecd6d81a4fc10bc91ed4075b8650cc0707185780afe1be7d",
+      "test_implementation_sha256": "63656c6e4d0c239a2feb9eead74d24bdb3227582f186ff6518f652bb6bc32f74",
+      "test_implementation_unchanged": true
+    },
+    {
+      "source": "JobsByPods/JobsUploadingProgressView@Pods/Tests/JobsUploadingProgressViewStabilityTests/JobsUploadingProgressViewStabilityTests.h",
+      "destination": "Tests/ComponentStability/JobsUploadingProgressView/JobsUploadingProgressViewStabilityTests/JobsUploadingProgressViewStabilityTests.h",
+      "source_sha256": "dd0a4d1e3a1a7508d4981b3f5a9b3cb6d9b3985260acfceff61ce914e8c1d723",
+      "adaptations": [
+        "先导入旧UIKitCore自有聚合头完成声明，再精确相对导入当前owner；避免继承声明循环和manual同名头误选；测试实现及断言未变"
+      ],
+      "test_methods": [
+
+      ],
+      "destination_sha256": "2d790aa5eba8b7deaa5ac60e385eaffc0dddedb6d7ccbf7a3d1837b0a6a0c3fc"
+    },
+    {
+      "source": "JobsByPods/JobsUploadingProgressView@Pods/Tests/JobsUploadingProgressViewStabilityTests/JobsUploadingProgressViewStabilityTests.m",
+      "destination": "Tests/ComponentStability/JobsUploadingProgressView/JobsUploadingProgressViewStabilityTests/JobsUploadingProgressViewStabilityTests.m",
+      "source_sha256": "881ec96b5d6d9f62fca4c7387553f452607e610b18a3136d60c234eb8c63a5fa",
+      "adaptations": [
+
+      ],
+      "test_methods": [
+        "testDismissThenShowRestartsAnimationInExplicitHost",
+        "testExplicitHostReferenceDoesNotKeepContainerAlive"
+      ],
+      "destination_sha256": "8d1b9246e90952a2b7f585df1ec86e45468cc0ccfb81c61d447377a3590c11a9",
+      "test_implementation_sha256": "036ba56c49eb0f6ccf718caf008d6c856ff04375e7c0e7718dd0fb2a1d91a499",
+      "test_implementation_unchanged": true
+    },
+    {
+      "source": "JobsByPods/MJRefreshExtra@Pods/Tests/MJRefreshExtraStabilityTests/MJRefreshExtraStabilityTests.h",
+      "destination": "Tests/ComponentStability/MJRefreshExtra/MJRefreshExtraStabilityTests/MJRefreshExtraStabilityTests.h",
+      "source_sha256": "f2e7c18907c77e9eb37c23946ecc9c3aa2041793ad1a1e38afd9f3d561d7e098",
+      "adaptations": [
+        "主工程聚合头/同名头双通道；实现层生产依赖上提同名测试头",
+        "迁移残留Support相对import移到同名测试头，精确指向old真实UIButton+TextView所有者"
+      ],
+      "test_methods": [
+
+      ],
+      "destination_sha256": "08d4e924f0667be45ae29b216ab3a09d1f39bed7f21e51d5bc79d964e2e6c498"
+    },
+    {
+      "source": "JobsByPods/MJRefreshExtra@Pods/Tests/MJRefreshExtraStabilityTests/MJRefreshExtraStabilityTests.m",
+      "destination": "Tests/ComponentStability/MJRefreshExtra/MJRefreshExtraStabilityTests/MJRefreshExtraStabilityTests.m",
+      "source_sha256": "fd870cd7b2137d6466928520cb417cac04c5f8d580bb9cd5b54a2c6e25a97b20",
+      "adaptations": [
+        "迁移残留Support相对import移到同名测试头，精确指向old真实UIButton+TextView所有者"
+      ],
+      "test_methods": [
+        "testDefaultTextViewResolverUsesOnlyAvailableRuntimeProvider",
+        "testMissingAndInvalidTextViewProvidersReturnNilAndCanRecover",
+        "testProvidedTextViewsKeepConfigurationAndCachedIdentity",
+        "testNilTextViewInitializationDoesNotCacheOrConfigureAView",
+        "testSavedRefreshCompletionAfterFooterReleaseIsSafe",
+        "testHeaderInitializationAndSavedCompletionKeepIndependentPodContract"
+      ],
+      "destination_sha256": "efb3e9ab602a4eec68591b107763b311b3d0bd08fcdfd6490160c036963a10ce",
+      "test_implementation_sha256": "90be9b010f3635f0301624fab15b0a59704fcfc11593b7b13fd924c1eb8dbb83",
+      "test_implementation_unchanged": true
+    },
+    {
+      "source": "JobsByPods/UIBaseTextFieldDSL@Pods/Tests/UIBaseTextFieldDSLStabilityTests/UIBaseTextFieldDSLStabilityTests.h",
+      "destination": "Tests/ComponentStability/UIBaseTextFieldDSL/UIBaseTextFieldDSLStabilityTests/UIBaseTextFieldDSLStabilityTests.h",
+      "source_sha256": "7ea1b5f87c44293fecbebc31ff0d89b148061924c755ba00cdfc8c95b1b0c542",
+      "adaptations": [
+        "先导入旧UIKitCore自有聚合头完成声明，再精确相对导入当前owner；避免继承声明循环和manual同名头误选；测试实现及断言未变"
+      ],
+      "test_methods": [
+
+      ],
+      "destination_sha256": "0856d96aef52655868772e624bba1b4664ff3441140f879ba84facec0668f714"
+    },
+    {
+      "source": "JobsByPods/UIBaseTextFieldDSL@Pods/Tests/UIBaseTextFieldDSLStabilityTests/UIBaseTextFieldDSLStabilityTests.m",
+      "destination": "Tests/ComponentStability/UIBaseTextFieldDSL/UIBaseTextFieldDSLStabilityTests/UIBaseTextFieldDSLStabilityTests.m",
+      "source_sha256": "8ac9ee526b994d725e8c94a8d3602c64bfcfa0dfcf4ceec264d6beaa34faa1e8",
+      "adaptations": [
+
+      ],
+      "test_methods": [
+        "testSavedWarningBlockReturnsNilAfterFieldReleases"
+      ],
+      "destination_sha256": "8cdaefaea5da832d15532b03d2bae26c5f8bef12d5a9490442a0be7fd605a243",
+      "test_implementation_sha256": "3c40de671a54c06e468d710919c0f20d582ca3e21576e7953d0c8fe13c96add8",
+      "test_implementation_unchanged": true
+    },
+    {
+      "source": "JobsOCBaseConfigDemoTests/JobsOCDeviceGuardLaunchTests/JobsOCDeviceGuardLaunchTests.m",
+      "destination": "Tests/ComponentStability/Host/JobsOCDeviceGuardLaunchTests/JobsOCDeviceGuardLaunchTests.m",
+      "source_sha256": "f9a955dbaa09bde1417b24f69430ba5b921ed7c4318aa42aa62cd76eb3b42a36",
+      "adaptations": [
+
+      ],
+      "test_methods": [
+        "testDefaultPolicyBlocksOnlyJailbroken",
+        "testDecisionFreezesPolicyResult",
+        "testProcessDecisionIsStableAndConfigurationFrozen",
+        "testBlockedControllerHasNoBusinessBaseClass",
+        "testActualSceneMatchesFrozenDecision"
+      ],
+      "destination_sha256": "f9a955dbaa09bde1417b24f69430ba5b921ed7c4318aa42aa62cd76eb3b42a36",
+      "test_implementation_sha256": "7578f59ed9009b4b47dd5117c032d540373a4c49099b5307f9b565424fff9851",
+      "test_implementation_unchanged": true
+    },
+    {
+      "source": "JobsOCBaseConfigDemoTests/JobsOCDeviceGuardLaunchTests/JobsOCDeviceGuardLaunchTests.h",
+      "destination": "Tests/ComponentStability/Host/JobsOCDeviceGuardLaunchTests/JobsOCDeviceGuardLaunchTests.h",
+      "source_sha256": "ab02c4498ef4cd4d15cd64ab634590893e0955cddc8e9b10eaca9fd7aa6b6462",
+      "adaptations": [
+
+      ],
+      "test_methods": [
+
+      ],
+      "destination_sha256": "ab02c4498ef4cd4d15cd64ab634590893e0955cddc8e9b10eaca9fd7aa6b6462"
+    }
+  ],
+  "ownership": {
+    "objc_and_c": "全部源文件头核对Created by Jobs，未包含其它Created by或外援版权测试",
+    "ruby_harnesses": "用户明确要求新旧测试并集，十个自建模块维护的生产实现回归入口；未引入第三方测试",
+    "excluded_foreign_production": "AQToolkit/Jim Dovey NSData+CommonCrypto未复制；旧vendor原文保留"
+  },
+  "verification": {
+    "test_methods": 149,
+    "test_implementations_unchanged": true,
+    "macos_harnesses_passed": 10,
+    "ios_xctest_executed": false,
+    "legacy_aes_compatibility": "实际新增AES/AESCipher和既有JobsAuthenticatedCipher编译运行，固定legacy向量/空串/解密失败/现代往返与错误口令/短key通过",
+    "ribbon_final_location_harness_passed": true,
+    "uploading_block_owner_header_visibility": "iOS 27.2 arm64 Simulator，实际ReturnByCertainParametersBlock.h导入与2个Block调用签名语法检查通过；生产实现全量编译待验",
+    "legacy_aes_ios_owner_header_visibility": "iOS 27.2 arm64 Simulator，真实AES.m cc1参数重放，PCH改为当前源头编译，-fsyntax-only通过；JobsCryptography精确先导出owned AES/AESCipher/Auth，供应商聚合仍保留",
+    "mjrefresh_owner_and_test_ios_syntax": "iOS27.2 arm64 Simulator，实际App cc1/PCH源参数重放；UIButton+TextView.m与保留6原方法的MJRefreshExtraStabilityTests.m（补XCTest framework path）语法均通过；尚未执行这6例XCTest",
+    "test_relative_imports_exist": true,
+    "private_fixture_selector_definitions": "其它6个声明私有测试入口模块的13个selector均在真实生产.m有定义；补VideoRecorder/BioKit明确实现映射，仅静态存在性，不等于行为通过",
+    "test_owner_import_binding_ios_syntax": "iOS27.2 arm64 Simulator，两份真实失败UnitTest cc1参数原环境重放，精确owner头/旧UIKitCore聚合头顺序适配后 -fsyntax-only均exit0/零error；未加App PCH，未改.m与断言；XCTest仍须真实执行",
+    "test_target_build_context": "旧UnitTest与App共用既有Headers PCH；只从现有aggregate继承搜索路径，OTHER_LDFLAGS为空，BUNDLE_LOADER解析宿主；真实Xcode构建与XCTest仍待当次记录",
+    "scope": "移植时的静态、harness与独立语法验证快照；当前iOS实际构建/XCTest另以执行器results.json和xcresult记账，不由本文件代替",
+    "shared_app_pch_ios_syntax": "两份后续真实失败UnitTest cc1以当前App PCH源重编；隔离重建所需SDK模块图后均exit0/零error，无新增duplicate错误。实际Xcode完整构建仍须重新生成真实依赖图",
+    "application_timer_api_adaptation": {
+      "scope": "MainAppTests12中的4个timer用例；组件149方法未改",
+      "assertion_count_each": 67,
+      "normalized_assertion_sha256": "72face502e69b28f239e16745169f7fd2fd19533b44fdf7cfe55eb7a6c7b9386",
+      "old_app_pch_cc1_syntax_passed": true,
+      "ios_xctest_executed_by_this_check": false,
+      "new_original_cc1_isolated_module_graph_syntax_passed": true,
+      "new_timer_macro_preprocessed_as_1": true,
+      "system_import_dependency": "objc/message归同名头，UIView.byFrame显式导入JobsOCDSL聚合头，不依赖隐式PCH或降低测试可用性"
+    },
+    "application_splash_factory_api_adaptation": {
+      "scope": "MainAppTests12内单个Splash用例动态工厂，组件149不变",
+      "selector": "localImage:bundle:",
+      "arguments": [
+        "空NSString",
+        "NSBundle.mainBundle"
+      ],
+      "equivalent_production_block": "localImage(@\"\")",
+      "normalized_assertions_each": 67,
+      "old_cc1_syntax_passed": true,
+      "new_cc1_isolated_module_graph_syntax_passed": true,
+      "ios_xctest_executed_by_this_check": false
+    },
+    "navigation_owner_ios_syntax": "保留最新真实cc1的全部header maps和搜索顺序，源重编App PCH后维护版owner与原3例测试TU均exit0/零error；第三方/PCH正文不改，行为由真实XCTest记录",
+    "clock_owner_ios_syntax": "最新真实UnitTest cc1源重编App PCH，owner与原3测试TU均exit0/零error；原start/stop保存与执行断言不变；真实运行待当次结果",
+    "release_host_testability": {
+      "target": "JobsOCBaseConfigDemo",
+      "configuration": "Release",
+      "sdk": "iphonesimulator*",
+      "settings": {
+        "GCC_SYMBOLS_PRIVATE_EXTERN": "NO",
+        "ENABLE_TESTABILITY": "YES"
+      },
+      "reason": "Hosted XCTest经BUNDLE_LOADER解析已集成App真实类/C函数与常量；旧Release默认hidden使同一已存在符号变private external。仅Simulator测试基线公开，不改变device Release/Pods链接。"
+    },
+    "weak_target_dispatch_sync": {
+      "scope": "旧自有入口按Jobs API opt-in限定，并保留未参与对象原IMP回退；原JobsByOCPods12与149测试不改，待真实修复后回执",
+      "status": "待修复后真实XCTest记录，不以静态声明代替通过"
+    }
+  },
+  "production_dependencies": {
+    "JobsUploadingProgressView": [
+      {
+        "path": "Libs/OCBaseConfig/JobsBlock/JobsBlockHeader.h",
+        "sha256": "d49824f9cfdd3dfa66762351cd5f5ad76ceeb414d4edadcd7f995757ea9110bc"
+      },
+      {
+        "path": "Libs/OCBaseConfig/JobsBlock/Core/确定参数的Block/ReturnByCertainParametersBlock.h",
+        "sha256": "4e3c53e00bb8225e910f459bb6d2121d05bb35221f1aa665305eb13cbc180138"
+      }
+    ],
+    "JobsCryptography": [
+      {
+        "path": "Libs/OCBaseConfig/JobsMixFunc/JobsCryptography/JobsCryptography.h",
+        "sha256": "5ee5c81c514142c957939c0e1e7502e19ce9c53c178516933eb7ec6977e744c5"
+      }
+    ],
+    "MJRefreshExtra": [
+      {
+        "path": "Libs/JobsOCBaseCustomizeUIKitCore/UIButton/UIButton+Category/UIButtonMake/UIButton+TextView/UIButton+TextView.h",
+        "sha256": "88a70866e619296fa6c676f2291f44b0a31020f590ae9d44d2834a4e33b50697",
+        "adaptation": "旧JobsBasePopupTextView公开类型/默认子类保留；同源可选Class provider、无效/初始化nil恢复、安全缓存、统一link attributes；旧delegate/DSL保持"
+      },
+      {
+        "path": "Libs/JobsOCBaseCustomizeUIKitCore/UIButton/UIButton+Category/UIButtonMake/UIButton+TextView/UIButton+TextView.m",
+        "sha256": "d4933039d368993ee482ab60f11a672592a1881886380ae401fd9482effc6192"
+      },
+      {
+        "path": "Libs/JobsOCBaseCustomizeUIKitCore/UITextView/BaseTextView/BaseTextView.h",
+        "sha256": "a58130af2a15a4b12a0ecd4bcc2230e09ea051ab32c7a6e1245b5456257316ec"
+      },
+      {
+        "path": "Libs/JobsOCBaseCustomizeUIKitCore/UITextView/BaseTextView/BaseTextView.m",
+        "sha256": "6304fc25e36d60e9f05c318368b19afbf5e41caad71bb6ac59d4fa10337b0a5f"
+      },
+      {
+        "path": "Libs/JobsOCBaseCustomizeUIKitCore/UIViewController/UIViewController+Category/UIViewController+3rd/UIViewController+MJRefresh/LOTAnimationMJRefreshHeader/LOTAnimationMJRefreshHeader.h",
+        "sha256": "b3d7c5196548ab054576263cda4a4c6cb2077c106bebd9ffc85a2fca06d80111"
+      },
+      {
+        "path": "Libs/JobsOCBaseCustomizeUIKitCore/UIViewController/UIViewController+Category/UIViewController+3rd/UIViewController+MJRefresh/LOTAnimationMJRefreshHeader/LOTAnimationMJRefreshHeader.m",
+        "sha256": "508d78eff7bf54607ff0e34fe31ff0e2949c57b64597da127938abac5fd1b3f1"
+      },
+      {
+        "path": "Libs/JobsOCBaseCustomizeUIKitCore/UIViewController/UIViewController+Category/UIViewController+3rd/UIViewController+MJRefresh/LOTAnimationMJRefreshFooter/LOTAnimationMJRefreshFooter.h",
+        "sha256": "a870fe92b08f45c83b9742fc5b420927a29cbbe4ae6103a3728a40551ef82315"
+      },
+      {
+        "path": "Libs/JobsOCBaseCustomizeUIKitCore/UIViewController/UIViewController+Category/UIViewController+3rd/UIViewController+MJRefresh/LOTAnimationMJRefreshFooter/LOTAnimationMJRefreshFooter.m",
+        "sha256": "72a4250f80432da7ba1097f0e329f3d854c5a6dd49507a3d2e05d8b6ceaa79c6"
+      }
+    ],
+    "JobsOCVideoRecorder": [
+      {
+        "path": "Libs/OCBaseConfig/JobsMixFunc/JobsOCVideoRecorder/JobsOCVideoRecorderVC/JobsOCVideoRecorderVC.h",
+        "sha256": "ddc23a884d31c8b7fa34119b1df9865f3edc6ebde7eba33765a0fbaa6b863372"
+      },
+      {
+        "path": "Libs/OCBaseConfig/JobsMixFunc/JobsOCVideoRecorder/JobsOCVideoRecorderVC/JobsOCVideoRecorderVC.m",
+        "sha256": "e9e8aa042d61b644ef8f05da442b3156f0c687415d8363db8937e2df0dd90efb"
+      }
+    ],
+    "JobsBioKit": [
+      {
+        "path": "Libs/OCBaseConfig/JobsMixFunc/JobsBioKit/JobsBioKit.h",
+        "sha256": "e89b3307f16d2d4d1c38de32ec394fa9ecc002c9b42df8ae181e30fea5b0afb3"
+      },
+      {
+        "path": "Libs/OCBaseConfig/JobsMixFunc/JobsBioKit/JobsBioKit.m",
+        "sha256": "5437026d951711d6cfe7741926c8841520f6db46148290c6561e1e07e25756d2"
+      }
+    ],
+    "UIBaseTextFieldDSL": [
+      {
+        "path": "Libs/JobsOCBaseCustomizeUIKitCore/JobsBaseCustomizeUIKitCoreHeader.h",
+        "sha256": "af659f36e7e92ac8f998b4c29f50f0b8279694bd04ceb6f001b2ac2913a107ac"
+      },
+      {
+        "path": "Libs/JobsOCBaseCustomizeUIKitCore/UITextField/UIBaseTextFieldDSL.h",
+        "sha256": "21c37fe68293651c57e3885c6ed9eb0a5c3c62d7d4eb175275a607d787c6ef7f"
+      },
+      {
+        "path": "Libs/JobsOCBaseCustomizeUIKitCore/UITextField/UIBaseTextFieldDSL/UIBaseTextField+DSL/UIBaseTextField+DSL.h",
+        "sha256": "735986a38bcc12804380a0325297af04e479600bcde49b2e69c9cff3c6dc0b94"
+      },
+      {
+        "path": "Libs/JobsOCBaseCustomizeUIKitCore/UITextField/UIBaseTextFieldDSL/UIBaseTextField+DSL/UIBaseTextField+DSL.m",
+        "sha256": "32ebb58a56a3d1ab1fb3b535f2caf8da1e793e914f9e3036940ebe22af67d228"
+      },
+      {
+        "path": "Libs/JobsOCBaseCustomizeUIKitCore/UITextField/BaseTextField/CJTextField（iOS监听键盘删除事件）/CJTextField/CJTextField.h",
+        "sha256": "995f1d68581b0f353d97781dc2446f4e9dc48db96a648ae1b7f5a8a8b7d2f3a1"
+      },
+      {
+        "path": "Libs/JobsOCBaseCustomizeUIKitCore/UITextField/BaseTextField/CJTextField（iOS监听键盘删除事件）/CJTextField/CJTextField.m",
+        "sha256": "d56365d10f49d8fac892e4824624cee2ea833c587f93ec2ed0ff10c125f6a132"
+      },
+      {
+        "path": "Libs/JobsOCBaseCustomizeUIKitCore/UITextField/BaseTextField/HQTextField（警示框动画）/HQTextField/HQTextField.h",
+        "sha256": "3e191de99ba0c7f0afe55a4055e23b06f725f750bfd4d376ab48663b8bbb9620"
+      },
+      {
+        "path": "Libs/JobsOCBaseCustomizeUIKitCore/UITextField/BaseTextField/HQTextField（警示框动画）/HQTextField/HQTextField.m",
+        "sha256": "69fcc77133b4a5319568caf541f3a361dfad34635a57338aeb8657f559512272"
+      }
+    ],
+    "JobsOCKeyboardMgr": [
+      {
+        "path": "Libs/OCBaseConfig/JobsMixFunc/JobsOCKeyboardMgr/JobsOCKeyboardMgr.h",
+        "sha256": "19b92efe580cf1f81efcc8dddebf30b5536a7fe6268b17e96455cf735231f5c3",
+        "adaptation": "stop显式readonly copy Block属性遮蔽通用TimerProtocol BOOL同名属性；getter实现、selector与原测试不变"
+      },
+      {
+        "path": "Libs/OCBaseConfig/JobsMixFunc/JobsOCKeyboardMgr/JobsOCKeyboardMgr.m",
+        "sha256": "9c5b714a5a760580d152b019916035153b1dc7404a42a82cbd469065f328fa1a"
+      }
+    ],
+    "JobsNavigationTransitionMgr": [
+      {
+        "path": "Libs/JobsOCBaseCustomizeUIKitCore/UIViewController/UIViewController+Category/UIViewController+Sys/UIViewController+Extra/UIViewController+Extra.h",
+        "sha256": "a0e59adcb21e44dc5eb3184b3dd1cbcbf04e5e094a900dbcf1e0bfcc44a10c45"
+      },
+      {
+        "path": "Libs/JobsOCBaseCustomizeUIKitCore/UIViewController/UIViewController+Category/UIViewController+Sys/UIViewController+Extra/UIViewController+Extra.m",
+        "sha256": "2cca779ca7909a0237aa819c161f04ea718b6fe6da1cb2f53440aa8e1bdae5d1"
+      },
+      {
+        "path": "Libs/OCBaseConfig/JobsMixFunc/JobsNavigationTransitionMgr/JobsNavigationTransitionMgrHeader.h",
+        "sha256": "fbdd42e5468a60ccf93e3ae2ed5819ab93450fbb05c54707e72827a98d094a0b"
+      },
+      {
+        "path": "Libs/OCBaseConfig/JobsMixFunc/JobsNavigationTransitionMgr/JobsNavigationTransitionMgr/JobsNavigationTransitionMgr.h",
+        "sha256": "94637aaa4e59133ea2ca8d096e9b01c41bc01f1c99d29f832c3ae471657d9e7c"
+      },
+      {
+        "path": "Libs/OCBaseConfig/JobsMixFunc/JobsNavigationTransitionMgr/JobsNavigationTransitionMgr/JobsNavigationTransitionMgr.m",
+        "sha256": "52c0683bfd0b3bdfcbc489cddf6a8174234649c7086807afe5fc7f28b7ccfa71"
+      },
+      {
+        "path": "Libs/OCBaseConfig/JobsBlock/Core/确定参数的Block/ReturnByCertainParametersBlock.h",
+        "sha256": "4e3c53e00bb8225e910f459bb6d2121d05bb35221f1aa665305eb13cbc180138"
+      }
+    ],
+    "JobsClockView": [
+      {
+        "path": "Libs/OCBaseConfig/JobsMixFunc/JobsClockView/JobsClockViewHeader.h",
+        "sha256": "98de0ebad85110b268ecf911e1af341490b424b784f1802ed31f3609a4265bf6"
+      },
+      {
+        "path": "Libs/OCBaseConfig/JobsMixFunc/JobsClockView/JobsClockView/JobsClockView.h",
+        "sha256": "485f618f99ed8c958caa21a05ff07c76533731796fa44dfb17a905c7811a4544"
+      },
+      {
+        "path": "Libs/OCBaseConfig/JobsMixFunc/JobsClockView/JobsClockView/JobsClockView.m",
+        "sha256": "c5da4937ce8edc9ebc9e549939824c61ffdc5c4704dc16ac3736d033f9a617b4"
+      },
+      {
+        "path": "Libs/OCBaseConfig/JobsBlock/JobsBlockHeader.h",
+        "sha256": "d49824f9cfdd3dfa66762351cd5f5ad76ceeb414d4edadcd7f995757ea9110bc"
+      },
+      {
+        "path": "Libs/OCBaseConfig/JobsBlock/Core/确定参数的Block/ReturnByCertainParametersBlock.h",
+        "sha256": "4e3c53e00bb8225e910f459bb6d2121d05bb35221f1aa665305eb13cbc180138"
+      },
+      {
+        "path": "JobsOCBaseConfigDemo/业务逻辑/功能模块/Demo@钟/JobsClockDemoVC/JobsClockDemoVC.h",
+        "sha256": "8f2be6ed2bc16f734a193f845d3dfbea6ac7c8ce02e4b8df4897181609806f10"
+      },
+      {
+        "path": "JobsOCBaseConfigDemo/业务逻辑/功能模块/Demo@钟/JobsClockDemoVC/JobsClockDemoVC.m",
+        "sha256": "f81b7c69184d0ad8f21df8ff87f6c3b10158f2cdea020a7eddbd03237ee3502b"
+      }
+    ],
+    "JobsByOCPods": [
+      {
+        "path": "Libs/JobsOCBaseCustomizeUIKitCore/NSObject/BaseObject/JobsSEL_IMP/JobsSEL_IMP.h",
+        "sha256": "c01abe50936c16cbd6a8aaaba06155dbb75cbdf582cb167c9eb525d500c1f527"
+      },
+      {
+        "path": "Libs/JobsOCBaseCustomizeUIKitCore/NSObject/BaseObject/JobsSEL_IMP/JobsSEL_IMP.m",
+        "sha256": "7c2d4972e0613dcf63a00ee2901035851c3a67d67a83cdb5db87b77f2b209d66"
+      },
+      {
+        "path": "Libs/JobsOCBaseCustomizeUIKitCore/NSObject/NSObject+Category/NSObject+DynamicInvoke/NSObject+DynamicInvoke.h",
+        "sha256": "5068263f6681c193d25f420bd97c01f286056db32ea64147241155b722eadc60"
+      },
+      {
+        "path": "Libs/JobsOCBaseCustomizeUIKitCore/NSObject/NSObject+Category/NSObject+DynamicInvoke/NSObject+DynamicInvoke.m",
+        "sha256": "3ecd8f96d502b44553b42f7787b1c30a6d274862ef0d1be19be6b9935e2471f6"
+      },
+      {
+        "path": "Libs/JobsOCBaseCustomizeUIKitCore/NSObject/NSObject+Category/NSObject+Extra/NSObject+Extra.h",
+        "sha256": "8f94e9acd61bf7c6595539763e89a1f3dccf45688ed779ea08f9a1fc7c2caa49"
+      },
+      {
+        "path": "Libs/JobsOCBaseCustomizeUIKitCore/NSObject/NSObject+Category/NSObject+Extra/NSObject+Extra.m",
+        "sha256": "2a10b50f8d3cf705c014b47d4146d377627fd9f2674dd5f5c8b6eedd07e3f013"
+      },
+      {
+        "path": "Libs/JobsOCBaseCustomizeUIKitCore/NSObject/NSObject+Category/NSObject+Notification/NSObject+Notification.h",
+        "sha256": "31ddf7f92c70aa250426f196c829ba18ea2621c8d220eecdbaa73a7c7d86bfa3"
+      },
+      {
+        "path": "Libs/JobsOCBaseCustomizeUIKitCore/NSObject/NSObject+Category/NSObject+Notification/NSObject+Notification.m",
+        "sha256": "b35c311aa5d41367fea9608252d929731432d2dca8a416a1837363d1d86c2ab2"
+      },
+      {
+        "path": "Libs/JobsOCBaseCustomizeUIKitCore/NSObject/NSObject+Category/NSObject+PopViewToLogOut/NSObject+PopViewToLogOut.h",
+        "sha256": "9402163dff3e09c6c6d04de686926ba626aa8faf9d0d456504dc22a0f1d86d3f"
+      },
+      {
+        "path": "Libs/JobsOCBaseCustomizeUIKitCore/NSObject/NSObject+Category/NSObject+PopViewToLogOut/NSObject+PopViewToLogOut.m",
+        "sha256": "56f5ab6fcef5767413a3b8a92cf5639aabccc32194f255f31d3e056a2594096f"
+      },
+      {
+        "path": "Libs/JobsOCBaseCustomizeUIKitCore/UICollectionView/UICollectionView+Category/UICollectionView+RegistrationTracking/UICollectionView+RegistrationTracking.h",
+        "sha256": "f9679ed9160386bbd1a3d2ab1d70815ca8e76fc31d54b80426ccf81a9c390134"
+      },
+      {
+        "path": "Libs/JobsOCBaseCustomizeUIKitCore/UICollectionView/UICollectionView+Category/UICollectionView+RegistrationTracking/UICollectionView+RegistrationTracking.m",
+        "sha256": "b23079a70073743315d1b2f5eba0c4dd6d93cc422a14e5a1ac2f63f75d6d052e"
+      },
+      {
+        "path": "Libs/JobsOCBaseCustomizeUIKitCore/UIGestureRecognizer/UIGestureRecognizer+Extra/UIGestureRecognizer+Extra.h",
+        "sha256": "0bc7e2467140b0faa135fcf4ec07d642dc77fc4352c62c2582fc789a85734cb5"
+      },
+      {
+        "path": "Libs/JobsOCBaseCustomizeUIKitCore/UIGestureRecognizer/UIGestureRecognizer+Extra/UIGestureRecognizer+Extra.m",
+        "sha256": "a66d5ed4b3dcbb33c072752760e398ea0707cc35499044c818b0c5eb5542aec7"
+      },
+      {
+        "path": "Libs/JobsOCBaseCustomizeUIKitCore/UINavigationController/UINavigationController+Category/UINavigationController+SafeTransition/UINavigationController+SafeTransition.h",
+        "sha256": "9f5b39435c9a1360fab69f27eaccf4b416bc3346856b8fe2e40b9720f4b40c68"
+      },
+      {
+        "path": "Libs/JobsOCBaseCustomizeUIKitCore/UINavigationController/UINavigationController+Category/UINavigationController+SafeTransition/UINavigationController+SafeTransition.m",
+        "sha256": "06b17246c11782c1d913415f6cbd5273f975cd44dace7cb74ecf5872a516ef91"
+      },
+      {
+        "path": "Libs/JobsOCDSL/UIKit/UIView+DSLs/UIView+Gesture/UIView+Gesture/UIView+Gesture.h",
+        "sha256": "7ac50e37d8afd5703067a0fbe83395cba3494ac35536efc8e01ed8e983b4beda"
+      },
+      {
+        "path": "Libs/JobsOCDSL/UIKit/UIView+DSLs/UIView+Gesture/UIView+Gesture/UIView+Gesture.m",
+        "sha256": "1b0724de3ffd7e22bdc71c9bc7ef9f03a78ff1a467a284f190e8a7301c931c2e"
+      },
+      {
+        "path": "Libs/OCBaseConfig/JobsMixFunc/JobsLanMgr/JobsLanMgr.h",
+        "sha256": "ca31767158c513d843b2d10182be04ee9adb8cbea566fb935f751b184c23bc19"
+      },
+      {
+        "path": "Libs/OCBaseConfig/JobsMixFunc/JobsWeakAssociation/JobsWeakAssociation.h",
+        "sha256": "b97a7bd64ddb024047ca8ece002124148f0ee6237ec9417b79382f6373abb2ac"
+      },
+      {
+        "path": "Libs/OCBaseConfig/JobsMixFunc/JobsWeakAssociation/JobsWeakAssociation.m",
+        "sha256": "06afa1d50b48777b682dc0f37f0ea9301ace5994be94ab1a12f56c865f9b8b7d"
+      },
+      {
+        "path": "Libs/JobsOCBaseCustomizeUIKitCore/UIView/UIView+Category/UIView+Gesture/UIView+Gesture.h",
+        "sha256": "6f5fdbf7ff8e155c8a56e05789a5f2b34d1b0c4f094766c9554a6597236c9517"
+      },
+      {
+        "path": "Libs/JobsOCBaseCustomizeUIKitCore/UIView/UIView+Category/UIView+Gesture/UIView+Gesture.m",
+        "sha256": "97d9cae841fe10002fd159f44da83ef7361824e05e2c1550a504a688cce1fd78"
+      }
+    ]
+  }
+}

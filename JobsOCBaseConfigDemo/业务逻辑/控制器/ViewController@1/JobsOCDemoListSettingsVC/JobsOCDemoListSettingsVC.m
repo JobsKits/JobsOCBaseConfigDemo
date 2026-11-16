@@ -10,6 +10,7 @@
 
 static NSString *const JobsOCDemoListSettingsCellReuseIdentifier = @"JobsOCDemoListSettingsCell";
 static NSString *const JobsOCSplashEnabledUserDefaultsKey = @"com.BSports.JobsOCSplashEnabledUserDefaultsKey";
+static NSString *const JobsOCDemoCollapseOnReturnKey = @"com.BSports.JobsOCDemoListCollapseOnDemoReturn";
 static NSString *const JobsOCDemoListReturnToTopAndRefreshUserDefaultsKey = @"com.BSports.JobsOCDemoListReturnToTopAndRefreshUserDefaultsKey";
 static NSString *const JobsOCDemoSuspendTimeButtonVisibleUserDefaultsKey = @"com.jobs.demoList.showsSuspendTimeButton";
 static NSString *const JobsOCDemoListCellTextDisplayStrategyUserDefaultsKey = @"com.jobs.demoList.cellTextDisplayStrategy";
@@ -41,7 +42,8 @@ typedef NS_ENUM(NSInteger, JobsOCDemoListSettingItem) {
     JobsOCDemoListSettingItemTheme,
     JobsOCDemoListSettingItemSideDrawerMode,
     JobsOCDemoListSettingItemAppEntry,
-    JobsOCDemoListSettingItemDeallocTips
+    JobsOCDemoListSettingItemDeallocTips,
+    JobsOCDemoListSettingItemCollapseOnReturn
 };
 
 typedef NS_ENUM(NSInteger, JobsOCDemoListSettingSection) {
@@ -200,7 +202,7 @@ numberOfRowsInSection:(NSInteger)section{
 
 -(CGFloat)tableView:(UITableView *)tableView
 heightForHeaderInSection:(NSInteger)section{
-    return section == JobsOCDemoListSettingSectionGeneral ? JobsWidth(16) : JobsWidth(12);
+    return section == JobsOCDemoListSettingSectionGeneral ? JobsWidth(16) : JobsWidth(6);
 }
 
 -(CGFloat)tableView:(UITableView *)tableView
@@ -237,7 +239,19 @@ titleForHeaderInSection:(NSInteger)section{
     cell.byIndentationWidth(JobsWidth(20));
     if (indexPath.section != JobsOCDemoListSettingSectionGeneral && indexPath.row == 0) {
         cell.byAccessoryView(self.expansionAccessoryViewBySection(indexPath.section));
-    };return cell
+    }
+    if (indexPath.section == JobsOCDemoListSettingSectionGeneral && indexPath.row == JobsOCDemoListSettingItemCollapseOnReturn) {
+        UISwitch *toggle = jobsMakeSwitch(^(UISwitch *control) {
+            id saved = [NSUserDefaults.standardUserDefaults objectForKey:JobsOCDemoCollapseOnReturnKey];
+            control.byOn(saved ? [saved boolValue] : YES)
+                .onJobsChange(^(__kindof UIControl *sender) {
+                    [NSUserDefaults.standardUserDefaults setBool:((UISwitch *)sender).on forKey:JobsOCDemoCollapseOnReturnKey];
+                })
+                .byAccessibilityIdentifier(@"jobs.settings.collapseOnDemoReturn");
+        });
+        cell.byAccessoryView(toggle);
+    }
+    return cell
         .byTextLabel(^(__kindof UILabel * _Nullable label) {
             label.byText(self.titleByIndexPath(indexPath))
                 .byFont([UIFontMetrics.defaultMetrics scaledFontForFont:UIFontWeightRegularSize(16)])
@@ -260,6 +274,9 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
         }
         [tableView reloadSections:[NSIndexSet indexSetWithIndex:indexPath.section]
                  withRowAnimation:UITableViewRowAnimationAutomatic];
+        return;
+    }
+    if (indexPath.section == JobsOCDemoListSettingSectionGeneral && indexPath.row == JobsOCDemoListSettingItemCollapseOnReturn) {
         return;
     }
     NSInteger optionRow = indexPath.row - 1;
@@ -441,9 +458,9 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
         self.backBtnCategory.bySize(CGSizeMake(MAX(44, CGRectGetWidth(self.backBtnCategory.bounds)), 44));
         self.applyDemoListNavigationInterfaceStyle();
         self.applyDemoListTabBarInterfaceStyle();
-        if (_tableView) {
-            _tableView.bySeparatorColor(self.demoListSeparatorColor());
-            [_tableView reloadData];
+        if (self->_tableView) {
+            self->_tableView.bySeparatorColor(self.demoListSeparatorColor());
+            [self->_tableView reloadData];
         }
     };
 }
@@ -649,7 +666,8 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
             self.themeSwitchTitle(),
             [NSUserDefaults.standardUserDefaults boolForKey:@"JobsOCDemoSideDrawerFixed"] ? @"侧滑菜单：内容固定".jobsTr() : @"侧滑菜单：内容跟随".jobsTr(),
             JobsOCDemoListUsesTabBarEntry() ? @"启动入口：TabBar".jobsTr() : @"启动入口：Demo 列表".jobsTr(),
-            self.deallocTipsSwitchTitle()
+            self.deallocTipsSwitchTitle(),
+            @"返回首页时收缩分组".jobsTr()
         ];
     };
 }

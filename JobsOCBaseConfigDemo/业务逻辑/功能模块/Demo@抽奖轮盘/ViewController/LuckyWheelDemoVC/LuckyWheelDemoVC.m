@@ -6,7 +6,6 @@
 //
 
 #import "LuckyWheelDemoVC.h"
-#import "../../../../Common/App工具类/测试支持/JobsOCCoverageGestureProbe/JobsOCCoverageGestureProbe.h"
 
 @interface LuckyWheelDemoVC ()
 
@@ -83,11 +82,13 @@ Prop_strong()NSMutableArray<LuckyWheelSegment *> *segments;
         self.stageView.byVisible(YES);
         self.stageTitleLab.byVisible(YES);
         self.stageSubTitleLab.byVisible(YES);
-        @jobs_weakify(self)
-        self.byRightBarButtonItems(jobsMakeMutArr(^(NSMutableArray <UIBarButtonItem *>* _Nullable data) {
+        self.spinToggleBtn.addOn(self.stageView).byAdd(^(MASConstraintMaker *make) {
             @jobs_strongify(self)
-            data.add(UIBarButtonItem.initBy(self.spinToggleBtn));
-        }));
+            make.top.equalTo(self.stageSubTitleLab.mas_bottom).offset(JobsWidth(16));
+            make.centerX.equalTo(self.stageView);
+            make.width.greaterThanOrEqualTo(@(JobsWidth(100)));
+            make.height.mas_equalTo(JobsWidth(36));
+        });
         self.makeNavByAlpha(1);
         self.wheelView.byVisible(YES);
         self.updateSpinToggleBtnBySpinning(self.wheelView.isSpinning);

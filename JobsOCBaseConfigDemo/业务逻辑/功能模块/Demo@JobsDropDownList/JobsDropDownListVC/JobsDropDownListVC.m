@@ -166,13 +166,13 @@ Prop_assign()JobsDropDownListViewDirection dropDownListViewDirection;
     return ^{
         @jobs_strongify(self)
         if (!self) return;
-        JobsDropDownListView *dropDownListView = _dropDownListView;
-        _dropDownListView = nil;
+        JobsDropDownListView *dropDownListView = self->_dropDownListView;
+        self->_dropDownListView = nil;
         if (dropDownListView.superview) {
             jobsByCtrlBlock disappearBlock = dropDownListView.dropDownListViewDisappear;
-            if (disappearBlock) disappearBlock(_btn);
+            if (disappearBlock) disappearBlock(self->_btn);
         }
-        _btn.bySelected(NO);
+        self->_btn.bySelected(NO);
         self.refreshDirectionUIWithOpened(NO);
     };
 }
@@ -184,25 +184,25 @@ Prop_assign()JobsDropDownListViewDirection dropDownListViewDirection;
         if (!self) return;
         BOOL up = self.dropDownListViewDirection == JobsDropDownListViewDirection_UP;
         UIColor *mainCor = up ? self.cor : JobsLabelColor;
-        if (_titleLab) {
-            _titleLab
+        if (self->_titleLab) {
+            self->_titleLab
                 .byText(up ? @"上拉列表".jobsTr() : @"下拉列表".jobsTr())
                 .byTextCor(up ? HEXCOLOR(0xA06A18) : JobsLabelColor);
         }
-        if (_directionBtn) {
-            _directionBtn
+        if (self->_directionBtn) {
+            self->_directionBtn
                 .jobsResetBtnTitle(up ? @"下拉".jobsTr() : @"上拉".jobsTr())
                 .jobsResetBtnTitleCor(up ? HEXCOLOR(0xA06A18) : JobsLabelColor)
                 .jobsResetBtnBgCor(JobsClearColor)
                 .jobsResetBtnLayerBorderWidth(0);
         }
-        if (_btn) {
-            _btn
+        if (self->_btn) {
+            self->_btn
                 .jobsResetBtnTitle(opened ? @"收起列表".jobsTr() : (up ? @"展开上拉列表".jobsTr() : @"展开下拉列表".jobsTr()))
                 .jobsResetBtnTitleCor(opened ? JobsWhiteColor : JobsSystemBackgroundColor)
                 .jobsResetBtnBgCor(opened ? HEXCOLOR(0xC96E42) : mainCor)
                 .jobsResetBtnLayerBorderWidth(0);
-            [_btn mas_remakeConstraints:^(MASConstraintMaker *make) {
+            [self->_btn mas_remakeConstraints:^(MASConstraintMaker *make) {
                 make.centerX.equalTo(self.panelView);
                 make.centerY.equalTo(self.panelView).offset(JobsWidth(82));
                 make.width.mas_equalTo(JobsWidth(240));
@@ -230,10 +230,10 @@ Prop_assign()JobsDropDownListViewDirection dropDownListViewDirection;
         if (!self) return;
         NSString *title = data.textModel.text.length ? data.textModel.text : @"未选择".jobsTr();
         NSString *subTitle = data.subTextModel.text.length ? data.subTextModel.text : @"请选择列表内容".jobsTr();
-        _selectedTitleLab
+        self->_selectedTitleLab
             .byText([NSString stringWithFormat:@"%@%@",@"点选：".jobsTr(),title])
             .byTextCor(JobsLabelColor);
-        _selectedSubTitleLab
+        self->_selectedSubTitleLab
             .byText(subTitle)
             .byTextCor(JobsSecondaryLabelColor);
     };

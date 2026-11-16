@@ -1,0 +1,227 @@
+//
+//  ImageCodeView.m
+//  JobsOCTools
+//
+//  Created by Jobs on 2026年5月13日，星期三.
+//
+
+#import "ImageCodeView.h"
+
+#define CODE_LENGTH 4
+
+@interface ImageCodeView ()
+
+Prop_copy()jobsByIDBlock imageCodeViewBlock;
+
+@end
+
+@implementation ImageCodeView
+
+-(JobsRetImageCodeViewByArrBlock _Nonnull)byCodeArr{
+    @jobs_weakify(self)
+    return ^__kindof ImageCodeView *_Nullable(NSArray<NSString *> *_Nullable data){
+        @jobs_strongify(self)
+        self.CodeArr = data;
+        return self;
+    };
+}
+
+-(JobsRetImageCodeViewByStrBlock _Nonnull)byCodeStr{
+    @jobs_weakify(self)
+    return ^__kindof ImageCodeView *_Nullable(NSString *_Nullable data){
+        @jobs_strongify(self)
+        self.CodeStr = data;
+        return self;
+    };
+}
+
+-(JobsRetImageCodeViewByCorBlock _Nonnull)byColor{
+    @jobs_weakify(self)
+    return ^__kindof ImageCodeView *_Nullable(UIColor *_Nullable data){
+        @jobs_strongify(self)
+        self.color = data;
+        return self;
+    };
+}
+
+-(JobsRetImageCodeViewByFontBlock _Nonnull)byFont{
+    @jobs_weakify(self)
+    return ^__kindof ImageCodeView *_Nullable(UIFont *_Nullable data){
+        @jobs_strongify(self)
+        self.font = data;
+        return self;
+    };
+}
+
+-(JobsRetImageCodeViewByCorBlock _Nonnull)byBgColor{
+    @jobs_weakify(self)
+    return ^__kindof ImageCodeView *_Nullable(UIColor *_Nullable data){
+        @jobs_strongify(self)
+        self.bgColor = data;
+        return self;
+    };
+}
+
+- (void)dealloc {
+    JobsLog(@"%@",JobsLocalFunc);
+}
+
+-(instancetype)init{
+    if (self = [super init]) {
+        self.setupUI();
+    };return self;
+}
+/// 兼容nib使用
+-(void)awakeFromNib{
+    jobsByVoidBlock action = ((jobsByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(ImageCodeView.class, @selector(jobsAwakeFromNib)))(self, @selector(jobsAwakeFromNib));
+    if (action) action();
+}
+
+-(jobsByVoidBlock _Nonnull)jobsAwakeFromNib{
+    @jobs_weakify(self)
+    return ^{
+        @jobs_strongify(self)
+        if (!self) return;
+        [super awakeFromNib];
+        self.setupUI();
+    };
+}
+///设置默认参数
+-(jobsByVoidBlock _Nonnull)setupUI{
+    @jobs_weakify(self)
+    return ^{
+        @jobs_strongify(self)
+        if (!self) return;
+        self.byBgColor(self.bgColor);
+        self.addGesture((jobsMakeLongPressGesture(^(UILongPressGestureRecognizer * _Nullable gesture) {
+            /// 这里写手势的配置
+        })).gestureActionBy(^{
+            /// 这里写手势的触发
+    //        [NSObject getAuthCode_networking:^(id data) {
+    //            @jobs_strongify(self)
+    //            if ([data isKindOfClass:NSDictionary.class]) {
+    //                self.CodeStr = data[@"imgCode"];
+    //                self.backgroundColor = self.bgColorBy;
+    //                JobsLog(@"我是验证码：%@",self.CodeStr);
+    //                [self setNeedsDisplay];
+    //                if (self.imageCodeViewBlock) {
+    //                    self.imageCodeViewBlock(data);
+    //                }
+    //            }
+    //        }];
+        }));
+    };
+}
+
+-(void)drawRect:(CGRect)rect{
+    jobsByFrameBlock action = ((jobsByFrameBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(ImageCodeView.class, @selector(jobsDrawRect)))(self, @selector(jobsDrawRect));
+    if (action) action(rect);
+}
+
+-(jobsByFrameBlock _Nonnull)jobsDrawRect{
+    @jobs_weakify(self)
+    return ^(CGRect rect){
+        @jobs_strongify(self)
+        if (!self) return;
+        [super drawRect:rect];
+        CGSize cSize = [@"A" sizeWithAttributes:@{NSFontAttributeName:self.font,
+                                                  NSForegroundColorAttributeName:self.color}];//计算单个字所需空间
+        if (!isfinite(rect.size.width) || !isfinite(rect.size.height) ||
+            rect.size.width <= 0 || rect.size.height <= 0 || self.CodeStr.length == 0) {
+            return;
+        }
+        CGFloat slotWidth = rect.size.width / self.CodeStr.length;
+        CGFloat width = MAX(0, slotWidth - cSize.width);
+        CGFloat height = MAX(0, rect.size.height - cSize.height);
+        CGPoint point;
+        /// 绘码
+        float pX, pY;
+        for (int i = 0; i < self.CodeStr.length; i++){
+            pX = ((double)arc4random() / UINT32_MAX) * width + slotWidth * i;
+            pY = ((double)arc4random() / UINT32_MAX) * height;
+            point = CGPointMake(pX, pY);
+            unichar c = [self.CodeStr characterAtIndex:i];
+            NSString *textC = [NSString stringWithFormat:@"%C", c];
+            [textC drawAtPoint:point
+                withAttributes:@{NSFontAttributeName:self.font,
+                                 NSForegroundColorAttributeName:self.color}];
+        }
+        /// 干扰线
+        CGContextRef context = UIGraphicsGetCurrentContext();
+        CGContextSetLineWidth(context, 1.0);
+        for(int cout = 0; cout < 10; cout++){
+            CGContextSetStrokeColorWithColor(context, JobsRandomColor.CGColor);
+            pX = ((double)arc4random() / UINT32_MAX) * rect.size.width;
+            pY = ((double)arc4random() / UINT32_MAX) * rect.size.height;
+            CGContextMoveToPoint(context, pX, pY);
+            pX = ((double)arc4random() / UINT32_MAX) * rect.size.width;
+            pY = ((double)arc4random() / UINT32_MAX) * rect.size.height;
+            CGContextAddLineToPoint(context, pX, pY);
+            CGContextStrokePath(context);
+        }
+    };
+}
+
+-(jobsByjobsByIDBlockBlock _Nonnull)actionBlockImageCodeView{
+    @jobs_weakify(self)
+    return ^(jobsByIDBlock _Nullable imageCodeViewBlock){
+        @jobs_strongify(self)
+        if (!self) return;
+        self->_imageCodeViewBlock = imageCodeViewBlock;
+    };
+}
+
+-(void)setCodeStr:(NSString *)CodeStr{
+    _CodeStr = CodeStr;
+    [self setNeedsDisplay];
+}
+
+-(void)setBgColor:(UIColor *)bgColor{
+    _bgColor = bgColor;
+    // DSL 的属性内核直接落到 UIKit，避免再次分派到本类 byBgColor。
+    [super setBackgroundColor:_bgColor];
+    [self setNeedsDisplay];
+}
+#pragma mark —— lazyLoad
+@synthesize CodeStr = _CodeStr;
+-(NSString *)CodeStr{
+    if (!_CodeStr) {
+        _CodeStr = self.randomCodeBy(self.CodeArr,CODE_LENGTH);
+    };return _CodeStr;
+}
+
+-(__kindof NSArray <NSString *>*)CodeArr{
+    if (!_CodeArr) {
+        _CodeArr = jobsMakeMutArr(^(__kindof NSMutableArray * _Nullable arr) {
+            arr.add(@"0").add(@"1").add(@"2").add(@"3").add(@"4").add(@"5").add(@"6").add(@"7").add(@"8").add(@"9")
+                .add(@"A").add(@"B").add(@"C").add(@"D").add(@"E").add(@"F")
+                .add(@"G").add(@"H").add(@"I").add(@"J").add(@"K").add(@"L")
+                .add(@"M").add(@"N").add(@"O").add(@"P").add(@"Q").add(@"R")
+                .add(@"S").add(@"T").add(@"U").add(@"V").add(@"W").add(@"X")
+                .add(@"Y").add(@"Z")
+                .add(@"a").add(@"b").add(@"c").add(@"d").add(@"e").add(@"f")
+                .add(@"g").add(@"h").add(@"i").add(@"j").add(@"k").add(@"l")
+                .add(@"m").add(@"n").add(@"o").add(@"p").add(@"q").add(@"r")
+                .add(@"s").add(@"t").add(@"u").add(@"v").add(@"w").add(@"x")
+                .add(@"y").add(@"z");
+        });
+    };return _CodeArr;
+}
+
+-(UIColor *)color{
+    if (!_color) {
+        _color = JobsWhiteColor;
+    };return _color;
+}
+
+-(UIFont *)font{
+    if (!_font) {
+        _font = UIFontWeightRegularSize(JobsWidth(9.6));
+    };return _font;
+}
+@synthesize bgColor = _bgColor;
+-(UIColor *)bgColor{
+    return _bgColor ? : JobsRandomColor;
+}
+
+@end

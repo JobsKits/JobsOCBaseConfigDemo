@@ -1,0 +1,70 @@
+# <span id="前言">JobsOCMarkdown</span>
+
+<!-- jobs-toc:start -->
+<!-- jobs-toc:source {"v":2,"token":"[toc]"} -->
+<details>
+<summary>📚 目录（点击展开 / 收起）</summary>
+
+- [一、能力](#jobs-toc-heading-1)
+- [二、接入](#jobs-toc-heading-2)
+- [三、读取与渲染](#jobs-toc-heading-3)
+- [四、第三方内核](#jobs-toc-heading-4)
+
+</details>
+<!-- jobs-toc:end -->
+
+---
+
+## <span id="jobs-toc-heading-1" data-jobs-toc="v2">一、能力 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a></span><!-- jobs-toc:heading-end -->
+
+`JobsOCMarkdown` 是直接集成于 Jobs Objective-C 老工程主工程的本地 Markdown
+渲染组件。它使用 `WKWebView` 承载成熟的 Web 解析内核，支持：
+
+- CommonMark / GFM、表格、删除线、任务列表；
+- `[toc]`、标题锚点、文档内跳转；
+- Objective-C、Swift、Shell 等代码高亮与复制；
+- Mermaid、KaTeX；
+- 原始 HTML、项目相对图片和其它本地资源；
+- 浅色、深色、跟随系统与自定义 CSS；
+- UTF-8 文本在原生层与 JavaScript 运行时之间安全传输；
+- 构建期文档清单，以及 Markdown 文件之间的链接。
+
+## <span id="jobs-toc-heading-2" data-jobs-toc="v2">二、接入 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a></span><!-- jobs-toc:heading-end -->
+
+源码位于 `OCBaseConfig/JobsMixFunc/JobsOCMarkdown`，并由 `JobsMixFunc.h` 对外
+暴露。老工程不新增 `JobsOCMarkdown` Pod 依赖。公开类在 `Core/类名/`，资源定位辅助类在 `Support/Native/JobsOCMarkdownResourceLocator/`，每组源码以完整基名目录管理。
+
+宿主 App 的构建阶段调用 `Support/JobsMarkdownPackager.rb`，把当前仓库的
+Markdown 和被引用的本地资源写入 App 内的 `JobsMarkdownDocuments.bundle`。
+打包器会主动把 Xcode 非交互 Shell 返回的文件系统路径规范为 UTF-8，中文目录
+不会因为构建进程缺少 `LANG` / `LC_ALL` 而导致清单 JSON 生成失败。
+
+打包器固定排除 `Products`、`Intermediates`、自有验证树
+`work/JobsPodsStability/full`，以及任意位置的 `JobsMarkdownDocuments.bundle`
+组件，避免旧构建文档再次进入清单。文档扫描和本地引用资源共用这组静态规则；
+普通 `worknotes` / `work/notes` 文档及构建树外的 proof JSON 仍按原规则复制，
+不整体排除 `work`。新旧主工程沿用三个构建参数，无须临时环境变量。
+
+文档图片只复制主工程 `JobsOCBaseConfigDemo/其他/libs/` 或 `JobsByPods/<Pod名>@Pods/` 内的图片，扩展名不区分大小写；既有第三方排除规则优先。主工程 libs 外和仓库根 `assets/` 的示意图不随文档进入 App，原 Markdown 正文、图片替代文字和链接不改写，JSON、音视频等非图片附件继续按原规则复制。
+
+## <span id="jobs-toc-heading-3" data-jobs-toc="v2">三、读取与渲染 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a></span><!-- jobs-toc:heading-end -->
+
+```objective-c
+NSError *error = nil;
+JobsOCMarkdownCatalog *catalog = [JobsOCMarkdownCatalog bundledCatalogWithError:&error];
+JobsOCMarkdownDocument *document = catalog.documents.firstObject;
+[markdownView loadDocument:document];
+```
+
+文档列表属于宿主 Demo；组件只负责清单模型、文件读取与渲染。宿主 Demo 的
+详情导航标题跟随当前文档标题，列表点按态使用主题语义背景色。
+
+WebView 构造功能 Block 在弱引用提升并判空后，通过 `self->_webView` 检查、创建和返回缓存，避免隐式捕获原始 `self`，并保留已有构造顺序。
+
+## <span id="jobs-toc-heading-4" data-jobs-toc="v2">四、第三方内核 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a></span><!-- jobs-toc:heading-end -->
+
+资源包内原样包含 `markdown-it`、`highlight.js`、`Mermaid`、`KaTeX` 和
+`DOMPurify` 的浏览器发行文件。版本与许可证见 `ThirdPartyLicenses`，Jobs 自有
+代码不修改这些第三方文件。
+
+<a id="🔚" href="#前言" style="font-size:17px; color:green; font-weight:bold;">我是有底线的➤点我回到首页</a>

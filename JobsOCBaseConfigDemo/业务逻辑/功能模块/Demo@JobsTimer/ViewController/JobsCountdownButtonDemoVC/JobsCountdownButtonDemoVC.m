@@ -88,7 +88,7 @@ Prop_strong()UITextView *tipsTextView;
         @jobs_strongify(self)
         if (!self) return;
         [super viewWillDisappear:animated];
-        if (_countdownBtn) _countdownBtn.timerDestroy();
+        if (self->_countdownBtn) self->_countdownBtn.timerDestroy();
     };
 }
 #pragma mark —— 一些私有方法

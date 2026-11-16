@@ -6,11 +6,24 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "JobsOCCoverageGestureProbe.h"
+
+#if __has_include(<Masonry/Masonry.h>)
+#import <Masonry/Masonry.h>
+#else
+#import "Masonry.h"
+#endif
 
 #if __has_include(<JobsBaseUI/JobsBaseUI.h>)
 #import <JobsBaseUI/JobsBaseUI.h>
 #else
 #import "JobsBaseUI.h"
+#endif
+
+#if __has_include(<JobsOCDSL/JobsOCDSL.h>)
+#import <JobsOCDSL/JobsOCDSL.h>
+#else
+#import "JobsOCDSL.h"
 #endif
 
 #if __has_include(<JobsOCSearcher/JobsOCSearcher.h>)
@@ -29,18 +42,6 @@
 #import <JobsOCDefs/JobsDefines.h>
 #else
 #import "JobsDefines.h"
-#endif
-
-#if __has_include(<JobsOCDSL/JobsOCDSL.h>)
-#import <JobsOCDSL/JobsOCDSL.h>
-#else
-#import "JobsOCDSL.h"
-#endif
-
-#if __has_include(<Masonry/Masonry.h>)
-#import <Masonry/Masonry.h>
-#else
-#import "Masonry.h"
 #endif
 
 NS_ASSUME_NONNULL_BEGIN

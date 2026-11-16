@@ -67,6 +67,13 @@ UITableViewDelegate
 >
 
 +(JobsRetCGFloatByVoidBlock _Nonnull)collapsedHeight;
++(CGFloat)collapsedHeightByTitle:(NSString *)title
+                      itemCount:(NSUInteger)itemCount
+                     tableWidth:(CGFloat)tableWidth;
++(CGFloat)expandedHeightByTitle:(NSString *)title
+                     itemCount:(NSUInteger)itemCount
+            sectionDescription:(NSString *_Nullable)sectionDescription
+                    tableWidth:(CGFloat)tableWidth;
 +(JobsRetCGFloatByVoidBlock _Nonnull)innerRowHeight;
 -(JobsRetJobsOCRootFoldTableCellByStrBlock _Nonnull)bySectionDescription;
 +(CGFloat)expandedHeightByItemCount:(NSUInteger)itemCount

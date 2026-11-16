@@ -181,7 +181,7 @@ Prop_assign()BOOL sphereItemsPrepared;
         [_sphereView mas_makeConstraints:^(MASConstraintMaker *make) {
             make.left.right.equalTo(self.view).inset(JobsWidth(20));
             make.top.equalTo(self.gk_navigationBar.mas_bottom).offset(JobsWidth(24));
-            make.height.equalTo(_sphereView.mas_width);
+            make.height.equalTo(self->_sphereView.mas_width);
         }];
     }
 #if DEBUG

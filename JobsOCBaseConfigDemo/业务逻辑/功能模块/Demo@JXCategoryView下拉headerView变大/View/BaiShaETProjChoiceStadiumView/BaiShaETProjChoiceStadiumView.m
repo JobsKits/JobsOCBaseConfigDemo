@@ -159,13 +159,13 @@ static dispatch_once_t static_choiceStadiumViewOnceToken;
         @jobs_strongify(self)
         if (!self) return;
         [super layoutSubviews];
-        if (_tableView) {
-            CGFloat width = CGRectGetWidth(_tableView.bounds);
-            if (_tbvHeaderView && width > 0 && CGRectGetWidth(_tbvHeaderView.bounds) != width) {
-                _tbvHeaderView.bySize(CGSizeMake(width, JobsWidth(46)));
-                _tableView.byTableHeaderView(_tbvHeaderView);
+        if (self->_tableView) {
+            CGFloat width = CGRectGetWidth(self->_tableView.bounds);
+            if (self->_tbvHeaderView && width > 0 && CGRectGetWidth(self->_tbvHeaderView.bounds) != width) {
+                self->_tbvHeaderView.bySize(CGSizeMake(width, JobsWidth(46)));
+                self->_tableView.byTableHeaderView(self->_tbvHeaderView);
             }
-            for (UITableViewCell *cell in _tableView.visibleCells) {
+            for (UITableViewCell *cell in self->_tableView.visibleCells) {
                 CGFloat imageOffset = MAX(0, CGRectGetWidth(cell.contentView.bounds) - JobsWidth(50));
                 if (fabs(cell.imageViewFrameOffsetX - imageOffset) > 0.5) {
                     cell.byImageViewFrameOffsetX(imageOffset).bySetNeedsLayout();

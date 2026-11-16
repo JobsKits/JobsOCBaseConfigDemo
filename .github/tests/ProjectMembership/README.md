@@ -39,7 +39,7 @@ ruby ./validate_membership.rb/validate_membership.rb
 
 [模拟器工作流](../../workflows/build_simulator_app.yml)在检出后、安装依赖前执行同一组命令。校验失败会阻止后续安装和构建；不会自动修改工程引用、暂存、提交或推送。
 
-在 Xcode 的“自动化测试 → CI Tests → ProjectMembership”可查看本目录；它仅作文件展示，不加入 App 的编译或资源阶段。
+在 Xcode 的“自动化测试 → .github/tests → ProjectMembership”可查看本目录；它仅作文件展示，不加入 App 的编译或资源阶段。同步组直接使用真实路径作为显示名，不设置 `name` 属性，以兼容现有 [**Xcodeproj**](https://github.com/CocoaPods/Xcodeproj) 的同步组解析。
 
 ## 三、<span id="scope">范围与结果</span> <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 

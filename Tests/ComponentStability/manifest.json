@@ -1,0 +1,2242 @@
+{
+  "version": 1,
+  "status": "149个测试方法实现与新工程逐字一致；10个macOS生产harness通过；iOS编译与XCTest待工作流验证",
+  "components": [
+    {
+      "name": "FMDatabaseExtra",
+      "test_sources": [
+        "Tests/ComponentStability/FMDatabaseExtra/FMDatabaseExtraStabilityTests/FMDatabaseExtraStabilityTests.m"
+      ],
+      "support_sources": [
+
+      ],
+      "test_classes": [
+        "FMDatabaseExtraStabilityTests"
+      ],
+      "expected_test_count": 2,
+      "harness": "Tests/ComponentStability/FMDatabaseExtra/run_regression.rb",
+      "production_sources": [
+        "Libs/JobsOCBaseCustomize3rdCore/FMDB/FMDatabaseExtra.h",
+        "Libs/OCBaseConfig/JobsMixFunc/FMDatabaseExtra/FMDatabase+Manager/FMDatabase+Manager.m"
+      ],
+      "resources": [
+
+      ],
+      "source_test_methods": [
+        "testFailedSQLAndExceptionRollbackWithoutClosingCallerConnection",
+        "testNestedTransactionDoesNotConsumeCallerTransaction"
+      ],
+      "source_ownership": "Jobs自有测试；module import适配主工程集成，不减少断言"
+    },
+    {
+      "name": "FileFolderHandleTool",
+      "test_sources": [
+        "Tests/ComponentStability/FileFolderHandleTool/FileFolderHandleToolStabilityTests/FileFolderHandleToolStabilityTests.m"
+      ],
+      "support_sources": [
+
+      ],
+      "test_classes": [
+        "FileFolderHandleToolStabilityTests"
+      ],
+      "expected_test_count": 3,
+      "harness": null,
+      "production_sources": [
+        "Libs/OCBaseConfig/JobsMixFunc/FileFolderHandleTool/FileFolderHandleToolHeader.h"
+      ],
+      "resources": [
+
+      ],
+      "source_test_methods": [
+        "testFirstCreateNoOverwriteAtomicReplaceAndDirectoryConflict",
+        "testConcurrentExclusiveCreateAlwaysPreservesOneWholePayload",
+        "testUnwritableParentReturnsErrorWithoutCreatingFile"
+      ],
+      "source_ownership": "Jobs自有测试；module import适配主工程集成，不减少断言"
+    },
+    {
+      "name": "JobsAPIs",
+      "test_sources": [
+        "Tests/ComponentStability/JobsAPIs/JobsAPIsStabilityTests/JobsAPIsStabilityTests.m"
+      ],
+      "support_sources": [
+        "Tests/ComponentStability/JobsAPIs/JobsAPIRequestConstraintFixture/JobsAPIRequestConstraintFixture.m",
+        "Tests/ComponentStability/JobsAPIs/JobsAPIRequestProtocolFixture/JobsAPIRequestProtocolFixture.m",
+        "Tests/ComponentStability/JobsAPIs/JobsAPIUploadConstraintFixture/JobsAPIUploadConstraintFixture.m"
+      ],
+      "test_classes": [
+        "JobsAPIsStabilityTests"
+      ],
+      "expected_test_count": 5,
+      "harness": null,
+      "production_sources": [
+        "JobsOCBaseConfigDemo/业务逻辑/Common/网络请求/App 的所有网络请求Api/YTKNetwork.API/JobsBaseApi/JobsBaseApi.h",
+        "JobsOCBaseConfigDemo/业务逻辑/Common/网络请求/App 的所有网络请求Api/YTKNetwork.API/JobsBaseApi/JobsBaseApi.m",
+        "JobsOCBaseConfigDemo/业务逻辑/功能模块/Demo@探究猿题库网络框架（YTKNetwork）/Api/UploadImageApi/UploadImageApi.h",
+        "JobsOCBaseConfigDemo/业务逻辑/功能模块/Demo@探究猿题库网络框架（YTKNetwork）/Api/UploadImageApi/UploadImageApi.m"
+      ],
+      "resources": [
+
+      ],
+      "source_test_methods": [
+        "testUploadUsesMultipartCapableStandardPath",
+        "testActualStandardGETEncodesParametersAndPreservesRequestConstraints",
+        "testActualRawHelperCarriesTimeoutAndDisallowsCellular",
+        "testActualAgentUploadContainsJPEGPartAndParameters",
+        "testActualAgentPropagatesErrorAndCancellationStopsProtocol"
+      ],
+      "source_ownership": "Jobs自有测试；module import适配主工程集成，不减少断言"
+    },
+    {
+      "name": "JobsAppIconRibbon",
+      "test_sources": [
+
+      ],
+      "support_sources": [
+
+      ],
+      "test_classes": [
+
+      ],
+      "expected_test_count": 0,
+      "harness": "Tests/ComponentStability/JobsAppIconRibbon/run_regression.rb",
+      "production_sources": [
+        "Libs/构建工具/JobsAppIconRibbon/Scripts/JobsAppIconRibbonGenerator.swift",
+        "Libs/OCBaseConfig/JobsBlock/Resource/icon.png"
+      ],
+      "resources": [
+
+      ],
+      "source_test_methods": [
+
+      ],
+      "source_ownership": "Jobs自有测试；module import适配主工程集成，不减少断言"
+    },
+    {
+      "name": "JobsAppTools",
+      "test_sources": [
+        "Tests/ComponentStability/JobsAppTools/JobsAppToolsResetTests/JobsAppToolsResetTests.m"
+      ],
+      "support_sources": [
+
+      ],
+      "test_classes": [
+        "JobsAppToolsResetTests"
+      ],
+      "expected_test_count": 2,
+      "harness": null,
+      "production_sources": [
+        "Libs/JobsOCBaseCustomizeUIKitCore/NSObject/BaseObject/JobsAppTools/JobsAppTools.h",
+        "Libs/JobsOCBaseCustomizeUIKitCore/NSObject/BaseObject/JobsAppTools/JobsAppTools.m"
+      ],
+      "resources": [
+
+      ],
+      "source_test_methods": [
+        "testConcurrentReadersShareOneGeneration",
+        "testConcurrentDestroyAndReadPreservesRetainedGenerations"
+      ],
+      "source_ownership": "Jobs自有测试；module import适配主工程集成，不减少断言"
+    },
+    {
+      "name": "JobsBaseUI",
+      "test_sources": [
+        "Tests/ComponentStability/JobsBaseUI/JobsKeychainIdentityTests/JobsKeychainIdentityTests.m"
+      ],
+      "support_sources": [
+
+      ],
+      "test_classes": [
+        "JobsKeychainIdentityTests"
+      ],
+      "expected_test_count": 3,
+      "harness": "Tests/ComponentStability/JobsBaseUI/run_regression.rb",
+      "production_sources": [
+        "Libs/JobsOCBaseCustomizeUIKitCore/NSObject/BaseObject/JobsKeychainHelper/JobsKeychainHelper.h",
+        "Libs/JobsOCBaseCustomizeUIKitCore/NSObject/BaseObject/JobsKeychainHelper/JobsKeychainHelper.m",
+        "Libs/OCBaseConfig/JobsBlock/Core/JobsBizBlock.h",
+        "Libs/OCBaseConfig/JobsBlock/Core/JobsBlock+SDWebImage.h",
+        "Libs/OCBaseConfig/JobsBlock/Core/JobsBlock.h",
+        "Libs/OCBaseConfig/JobsBlock/Core/JobsDebugPanelBlock/JobsDebugPanelBlock.h",
+        "Libs/OCBaseConfig/JobsBlock/Core/Tools/NSObject+CallBackInfoByBlock/NSObject+CallBackInfoByBlock.h",
+        "Libs/OCBaseConfig/JobsBlock/Core/Tools/NSObject+CallBackInfoByBlock/NSObject+CallBackInfoByBlock.m",
+        "Libs/OCBaseConfig/JobsBlock/Core/不定参数的Block/ReturnByUnCertainParameters.h",
+        "Libs/OCBaseConfig/JobsBlock/Core/不定参数的Block/VoidByUnCertainParameters.h",
+        "Libs/OCBaseConfig/JobsBlock/Core/确定参数的Block/ReturnByCertainParametersBlock.h",
+        "Libs/OCBaseConfig/JobsBlock/Core/确定参数的Block/VoidByCertainParametersBlock.h"
+      ],
+      "resources": [
+
+      ],
+      "source_test_methods": [
+        "testAccountsAndTargetedDeleteAreIsolated",
+        "testFailedArchivePreservesPriorDataAndRestrictsClasses",
+        "testExplicitMigrationDoesNotOverwriteExistingAccount"
+      ],
+      "source_ownership": "Jobs自有测试；module import适配主工程集成，不减少断言"
+    },
+    {
+      "name": "JobsBioKit",
+      "test_sources": [
+        "Tests/ComponentStability/JobsBioKit/JobsBioKitStabilityTests/JobsBioKitStabilityTests.m"
+      ],
+      "support_sources": [
+
+      ],
+      "test_classes": [
+        "JobsBioKitStabilityTests"
+      ],
+      "expected_test_count": 1,
+      "harness": null,
+      "production_sources": [
+        "Libs/OCBaseConfig/JobsMixFunc/JobsBioKit/JobsBioKitHeader.h",
+        "Libs/OCBaseConfig/JobsMixFunc/JobsBioKit/JobsBioKit.h",
+        "Libs/OCBaseConfig/JobsMixFunc/JobsBioKit/JobsBioKit.m"
+      ],
+      "resources": [
+
+      ],
+      "source_test_methods": [
+        "testBiometryAndInteractionErrorsStayDistinct"
+      ],
+      "source_ownership": "Jobs自有测试；module import适配主工程集成，不减少断言"
+    },
+    {
+      "name": "JobsBitsMonitor",
+      "test_sources": [
+        "Tests/ComponentStability/JobsBitsMonitor/JobsBitsMonitorStabilityTests/JobsBitsMonitorStabilityTests.m"
+      ],
+      "support_sources": [
+
+      ],
+      "test_classes": [
+        "JobsBitsMonitorStabilityTests"
+      ],
+      "expected_test_count": 2,
+      "harness": null,
+      "production_sources": [
+        "Libs/OCBaseConfig/JobsMixFunc/JobsBitsMonitor/JobsBitsMonitor.h"
+      ],
+      "resources": [
+
+      ],
+      "source_test_methods": [
+        "testTwoRealLabelsKeepIndependentUpdatesAfterFirstIsRemoved",
+        "testBothDisplayStylesReleaseWithTheirRealControllerOwners100Times"
+      ],
+      "source_ownership": "Jobs自有测试；module import适配主工程集成，不减少断言"
+    },
+    {
+      "name": "JobsBluetooth",
+      "test_sources": [
+        "Tests/ComponentStability/JobsBluetooth/JobsBluetoothStabilityTests/JobsBluetoothStabilityTests.m"
+      ],
+      "support_sources": [
+        "Tests/ComponentStability/JobsBluetooth/JobsBluetoothWriteFixture/JobsBluetoothWriteFixture.m"
+      ],
+      "test_classes": [
+        "JobsBluetoothStabilityTests"
+      ],
+      "expected_test_count": 5,
+      "harness": null,
+      "production_sources": [
+        "Libs/OCBaseConfig/JobsMixFunc/JobsBluetooth/JobsBluetooth.h"
+      ],
+      "resources": [
+
+      ],
+      "source_test_methods": [
+        "testMatcherTimeoutAndCancellationCompleteOnce",
+        "testFirstMockConnectionClearsOldCharacteristicsAndCancelsOnce",
+        "testACKErrorPropagatesOnceAndOldPeripheralACKCannotAdvance",
+        "testNativeMTUChunksWaitForEachACKBeforeCompleting",
+        "testMatchedResponseBeforeFinalACKDoesNotCompleteEarly"
+      ],
+      "source_ownership": "Jobs自有测试；module import适配主工程集成，不减少断言"
+    },
+    {
+      "name": "JobsByOCPods",
+      "test_sources": [
+        "Tests/ComponentStability/JobsByOCPods/JobsUIKitRegistrationTests/JobsUIKitRegistrationTests.m"
+      ],
+      "support_sources": [
+
+      ],
+      "test_classes": [
+        "JobsUIKitRegistrationTests"
+      ],
+      "expected_test_count": 12,
+      "harness": null,
+      "production_sources": [
+        "Libs/JobsOCBaseCustomizeUIKitCore/NSObject/BaseObject/JobsSEL_IMP/JobsSEL_IMP.h",
+        "Libs/JobsOCBaseCustomizeUIKitCore/NSObject/BaseObject/JobsSEL_IMP/JobsSEL_IMP.m",
+        "Libs/JobsOCBaseCustomizeUIKitCore/NSObject/NSObject+Category/NSObject+DynamicInvoke/NSObject+DynamicInvoke.h",
+        "Libs/JobsOCBaseCustomizeUIKitCore/NSObject/NSObject+Category/NSObject+DynamicInvoke/NSObject+DynamicInvoke.m",
+        "Libs/JobsOCBaseCustomizeUIKitCore/NSObject/NSObject+Category/NSObject+Extra/NSObject+Extra.h",
+        "Libs/JobsOCBaseCustomizeUIKitCore/NSObject/NSObject+Category/NSObject+Extra/NSObject+Extra.m",
+        "Libs/JobsOCBaseCustomizeUIKitCore/NSObject/NSObject+Category/NSObject+Notification/NSObject+Notification.h",
+        "Libs/JobsOCBaseCustomizeUIKitCore/NSObject/NSObject+Category/NSObject+Notification/NSObject+Notification.m",
+        "Libs/JobsOCBaseCustomizeUIKitCore/NSObject/NSObject+Category/NSObject+PopViewToLogOut/NSObject+PopViewToLogOut.h",
+        "Libs/JobsOCBaseCustomizeUIKitCore/NSObject/NSObject+Category/NSObject+PopViewToLogOut/NSObject+PopViewToLogOut.m",
+        "Libs/JobsOCBaseCustomizeUIKitCore/UICollectionView/UICollectionView+Category/UICollectionView+RegistrationTracking/UICollectionView+RegistrationTracking.h",
+        "Libs/JobsOCBaseCustomizeUIKitCore/UICollectionView/UICollectionView+Category/UICollectionView+RegistrationTracking/UICollectionView+RegistrationTracking.m",
+        "Libs/JobsOCBaseCustomizeUIKitCore/UIGestureRecognizer/UIGestureRecognizer+Extra/UIGestureRecognizer+Extra.h",
+        "Libs/JobsOCBaseCustomizeUIKitCore/UIGestureRecognizer/UIGestureRecognizer+Extra/UIGestureRecognizer+Extra.m",
+        "Libs/JobsOCBaseCustomizeUIKitCore/UINavigationController/UINavigationController+Category/UINavigationController+SafeTransition/UINavigationController+SafeTransition.h",
+        "Libs/JobsOCBaseCustomizeUIKitCore/UINavigationController/UINavigationController+Category/UINavigationController+SafeTransition/UINavigationController+SafeTransition.m",
+        "Libs/JobsOCDSL/UIKit/UIView+DSLs/UIView+Gesture/UIView+Gesture/UIView+Gesture.h",
+        "Libs/JobsOCDSL/UIKit/UIView+DSLs/UIView+Gesture/UIView+Gesture/UIView+Gesture.m",
+        "Libs/OCBaseConfig/JobsMixFunc/JobsLanMgr/JobsLanMgr.h",
+        "Libs/OCBaseConfig/JobsMixFunc/JobsWeakAssociation/JobsWeakAssociation.h",
+        "Libs/OCBaseConfig/JobsMixFunc/JobsWeakAssociation/JobsWeakAssociation.m",
+        "Libs/JobsOCBaseCustomizeUIKitCore/UIView/UIView+Category/UIView+Gesture/UIView+Gesture.h",
+        "Libs/JobsOCBaseCustomizeUIKitCore/UIView/UIView+Category/UIView+Gesture/UIView+Gesture.m"
+      ],
+      "resources": [
+        "Tests/ComponentStability/JobsByOCPods/JobsUIKitRegistrationTests/JobsRegistrationFixtureCell.xib"
+      ],
+      "source_test_methods": [
+        "testClassAndNibRegistrationAndNilReset",
+        "testPopToRootHandlesAnimatedAndEmptyStacks",
+        "testLogoutPopupFirstAccessReuseAndConfirmedNotification",
+        "testReleasedLogoutOwnerMakesCallbackInert",
+        "testPlistReadRejectsInvalidNamesAndLoadsExistingBundleDictionary",
+        "testLanguageChangeFromBackgroundDeliversTheRealUINotificationOnMain",
+        "testRealLanguageManagerAllowsConcurrentFoundationReadsAndWrites",
+        "testLanguageBundleMatchesRealHostLocalizationsAndMissingKeyFallsBack",
+        "testWeakTargetZeroesAndDoesNotRetainSelf",
+        "testExternalWeakTargetsDoNotRetainTheirControllerOwnedViews",
+        "testSavedGestureFactoryActionsReturnNilAfterTheirViewReleases",
+        "testArbitraryNibAndSupplementaryRegistrationPreserveUIKitViews"
+      ],
+      "source_ownership": "Jobs自有测试；module import适配主工程集成，不减少断言"
+    },
+    {
+      "name": "JobsCallBackBlockDSL",
+      "test_sources": [
+        "Tests/ComponentStability/JobsCallBackBlockDSL/JobsCallbackLifecycleTests/JobsCallbackLifecycleTests.m"
+      ],
+      "support_sources": [
+
+      ],
+      "test_classes": [
+        "JobsCallbackLifecycleTests"
+      ],
+      "expected_test_count": 2,
+      "harness": null,
+      "production_sources": [
+        "Libs/JobsOCBaseCustomizeUIKitCore/NSObject/NSObject+Category/NSObject+CallBackInfoByBlock/JobsCallBackBlockDSL/NSObject+CallBackInfoByBlock+DSL/NSObject+CallBackInfoByBlock+DSL.h",
+        "Libs/JobsOCBaseCustomizeUIKitCore/NSObject/NSObject+Category/NSObject+CallBackInfoByBlock/JobsCallBackBlockDSL/NSObject+CallBackInfoByBlock+DSL/NSObject+CallBackInfoByBlock+DSL.m"
+      ],
+      "resources": [
+
+      ],
+      "source_test_methods": [
+        "testSavedCallbackSetterAfterOwnerRelease",
+        "testUniqueObjectCallbackOwnerStoresAndCalls"
+      ],
+      "source_ownership": "Jobs自有测试；module import适配主工程集成，不减少断言"
+    },
+    {
+      "name": "JobsClass",
+      "test_sources": [
+        "Tests/ComponentStability/JobsClass/JobsClassLifecycleTests/JobsClassLifecycleTests.m"
+      ],
+      "support_sources": [
+
+      ],
+      "test_classes": [
+        "JobsClassLifecycleTests"
+      ],
+      "expected_test_count": 1,
+      "harness": null,
+      "production_sources": [
+        "Libs/JobsOCBaseCustomizeUIKitCore/NSObject/NSObject+Category/NSObject+Class/NSObject+Class.h",
+        "Libs/JobsOCBaseCustomizeUIKitCore/NSObject/NSObject+Category/NSObject+Class/NSObject+Class.m"
+      ],
+      "resources": [
+
+      ],
+      "source_test_methods": [
+        "testSavedOrderedPropertyReaderAfterOwnerRelease"
+      ],
+      "source_ownership": "Jobs自有测试；module import适配主工程集成，不减少断言"
+    },
+    {
+      "name": "JobsClockView",
+      "test_sources": [
+        "Tests/ComponentStability/JobsClockView/JobsClockViewStabilityTests/JobsClockViewStabilityTests.m"
+      ],
+      "support_sources": [
+
+      ],
+      "test_classes": [
+        "JobsClockViewStabilityTests"
+      ],
+      "expected_test_count": 3,
+      "harness": null,
+      "production_sources": [
+        "Libs/OCBaseConfig/JobsMixFunc/JobsClockView/JobsClockViewHeader.h",
+        "Libs/OCBaseConfig/JobsMixFunc/JobsClockView/JobsClockView/JobsClockView.h",
+        "Libs/OCBaseConfig/JobsMixFunc/JobsClockView/JobsClockView/JobsClockView.m",
+        "Libs/OCBaseConfig/JobsBlock/JobsBlockHeader.h",
+        "Libs/OCBaseConfig/JobsBlock/Core/确定参数的Block/ReturnByCertainParametersBlock.h",
+        "JobsOCBaseConfigDemo/业务逻辑/功能模块/Demo@钟/JobsClockDemoVC/JobsClockDemoVC.h",
+        "JobsOCBaseConfigDemo/业务逻辑/功能模块/Demo@钟/JobsClockDemoVC/JobsClockDemoVC.m"
+      ],
+      "resources": [
+
+      ],
+      "source_test_methods": [
+        "testUnstartedClockReleasesWithoutCreatingTimer",
+        "testRunningClockReleaseStopsAlreadyCreatedTimer",
+        "testSavedAndQueuedStartCannotReviveReleasedClock"
+      ],
+      "source_ownership": "Jobs自有测试；module import适配主工程集成，不减少断言"
+    },
+    {
+      "name": "JobsCryptography",
+      "test_sources": [
+        "Tests/ComponentStability/JobsCryptography/JobsCipherCompatibilityTests/JobsCipherCompatibilityTests.m"
+      ],
+      "support_sources": [
+
+      ],
+      "test_classes": [
+        "JobsCipherCompatibilityTests"
+      ],
+      "expected_test_count": 3,
+      "harness": "Tests/ComponentStability/JobsCryptography/run_regression.rb",
+      "production_sources": [
+        "Libs/OCBaseConfig/JobsMixFunc/JobsCryptography/AES/AES.h",
+        "Libs/OCBaseConfig/JobsMixFunc/JobsCryptography/AES/AES.m",
+        "Libs/OCBaseConfig/JobsMixFunc/JobsCryptography/AESCipher/AESCipher.h",
+        "Libs/OCBaseConfig/JobsMixFunc/JobsCryptography/AESCipher/AESCipher.m",
+        "Libs/OCBaseConfig/JobsMixFunc/JobsCryptography/JobsAuthenticatedCipher/JobsAuthenticatedCipher.h",
+        "Libs/OCBaseConfig/JobsMixFunc/JobsCryptography/JobsAuthenticatedCipher/JobsAuthenticatedCipher.m",
+        "Libs/OCBaseConfig/JobsMixFunc/JobsCryptography/JobsCryptography.h"
+      ],
+      "resources": [
+
+      ],
+      "source_test_methods": [
+        "testAuthenticatedEmptyUnicodeAndRandomness",
+        "testAuthenticationAndVersionRejectWithoutDowngrade",
+        "testLegacyReadsAndFailureAreDistinctFromEmptyText"
+      ],
+      "source_ownership": "Jobs自有测试；module import适配主工程集成，不减少断言"
+    },
+    {
+      "name": "JobsDebug",
+      "test_sources": [
+        "Tests/ComponentStability/JobsDebug/JobsDebugJSONTests/JobsDebugJSONTests.m"
+      ],
+      "support_sources": [
+
+      ],
+      "test_classes": [
+        "JobsDebugJSONTests"
+      ],
+      "expected_test_count": 2,
+      "harness": null,
+      "production_sources": [
+        "Libs/OCBaseConfig/JobsMixFunc/Debug/DebugLogDescription/DebugLogDescription.h",
+        "Libs/OCBaseConfig/JobsMixFunc/Debug/DebugLogDescription/DebugLogDescription.m"
+      ],
+      "resources": [
+
+      ],
+      "source_test_methods": [
+        "testSortedJSONAndInvalidContainerFallback",
+        "testSavedJSONBlockAfterContainerRelease"
+      ],
+      "source_ownership": "Jobs自有测试；module import适配主工程集成，不减少断言"
+    },
+    {
+      "name": "JobsDeviceInfo",
+      "test_sources": [
+
+      ],
+      "support_sources": [
+
+      ],
+      "test_classes": [
+
+      ],
+      "expected_test_count": 0,
+      "harness": "Tests/ComponentStability/JobsDeviceInfo/run_regression.rb",
+      "production_sources": [
+        "Libs/JobsOCBaseCustomizeUIKitCore/NSObject/NSObject+Category/NSObject+ID/NSObject+DeviceID/NSObject+DeviceID.m"
+      ],
+      "resources": [
+
+      ],
+      "source_test_methods": [
+
+      ],
+      "source_ownership": "Jobs自有测试；module import适配主工程集成，不减少断言"
+    },
+    {
+      "name": "JobsGetWindow",
+      "test_sources": [
+        "Tests/ComponentStability/JobsGetWindow/JobsWindowSelectionTests/JobsWindowSelectionTests.m"
+      ],
+      "support_sources": [
+        "Tests/ComponentStability/JobsGetWindow/JobsWindowFixture/JobsWindowFixture.m",
+        "Tests/ComponentStability/JobsGetWindow/JobsWindowSceneFixture/JobsWindowSceneFixture.m"
+      ],
+      "test_classes": [
+        "JobsWindowSelectionTests"
+      ],
+      "expected_test_count": 2,
+      "harness": null,
+      "production_sources": [
+        "Libs/OCBaseConfig/JobsOCDefs/Core/JobsGetWindow/window.h"
+      ],
+      "resources": [
+
+      ],
+      "source_test_methods": [
+        "testForegroundSearchSkipsBackgroundAndFindsLaterKeyWindow",
+        "testContextWindowAndBackgroundThreadBoundary"
+      ],
+      "source_ownership": "Jobs自有测试；module import适配主工程集成，不减少断言"
+    },
+    {
+      "name": "JobsIconfont",
+      "test_sources": [
+        "Tests/ComponentStability/JobsIconfont/JobsIconfontLifecycleTests/JobsIconfontLifecycleTests.m"
+      ],
+      "support_sources": [
+
+      ],
+      "test_classes": [
+        "JobsIconfontLifecycleTests"
+      ],
+      "expected_test_count": 4,
+      "harness": null,
+      "production_sources": [
+        "Libs/OCBaseConfig/JobsMixFunc/JobsIconfont/Core/JobsIconfont/JobsIconfont.h",
+        "Libs/OCBaseConfig/JobsMixFunc/JobsIconfont/Core/JobsIconfont/JobsIconfont.m"
+      ],
+      "resources": [
+
+      ],
+      "source_test_methods": [
+        "testCancellationRunsOnceAndOnDeallocation",
+        "testSavedCancellationBlockAfterOwnerReleaseIsSafe",
+        "testConcurrentCancellationClaimsCallbackOnce",
+        "testActualLoaderReplacementCancellationAndLateCompletionsKeepCurrentImage"
+      ],
+      "source_ownership": "Jobs自有测试；module import适配主工程集成，不减少断言"
+    },
+    {
+      "name": "JobsImageNumberView",
+      "test_sources": [
+        "Tests/ComponentStability/JobsImageNumberView/JobsImageNumberViewStabilityTests/JobsImageNumberViewStabilityTests.m"
+      ],
+      "support_sources": [
+
+      ],
+      "test_classes": [
+        "JobsImageNumberViewStabilityTests"
+      ],
+      "expected_test_count": 1,
+      "harness": null,
+      "production_sources": [
+        "Libs/OCBaseConfig/JobsMixFunc/JobsImageNumberView/JobsImageNumberViewHeader.h"
+      ],
+      "resources": [
+
+      ],
+      "source_test_methods": [
+        "testSavedModelBlockAfterImageViewReleaseIsSafe"
+      ],
+      "source_ownership": "Jobs自有测试；module import适配主工程集成，不减少断言"
+    },
+    {
+      "name": "JobsImageRotation",
+      "test_sources": [
+        "Tests/ComponentStability/JobsImageRotation/JobsImageRotationStabilityTests/JobsImageRotationStabilityTests.m"
+      ],
+      "support_sources": [
+
+      ],
+      "test_classes": [
+        "JobsImageRotationStabilityTests"
+      ],
+      "expected_test_count": 2,
+      "harness": null,
+      "production_sources": [
+        "Libs/OCBaseConfig/JobsMixFunc/JobsImageRotation/JobsImageRotation.h"
+      ],
+      "resources": [
+
+      ],
+      "source_test_methods": [
+        "testMissingTargetCanStartAndResetWithoutNilBlockCall",
+        "testRunningRotatorDoesNotRetainItsOwner"
+      ],
+      "source_ownership": "Jobs自有测试；module import适配主工程集成，不减少断言"
+    },
+    {
+      "name": "JobsMarqueeView",
+      "test_sources": [
+        "Tests/ComponentStability/JobsMarqueeView/JobsMarqueeViewStabilityTests/JobsMarqueeViewStabilityTests.m"
+      ],
+      "support_sources": [
+
+      ],
+      "test_classes": [
+        "JobsMarqueeViewStabilityTests"
+      ],
+      "expected_test_count": 1,
+      "harness": null,
+      "production_sources": [
+        "JobsOCBaseConfigDemo/业务逻辑/功能模块/Demo@JobsTimer/JobsMarqueeView/JobsMarqueeView.h"
+      ],
+      "resources": [
+
+      ],
+      "source_test_methods": [
+        "testUnstartedViewReleasesWithoutWeakRegistrationInDealloc"
+      ],
+      "source_ownership": "Jobs自有测试；module import适配主工程集成，不减少断言"
+    },
+    {
+      "name": "JobsModel",
+      "test_sources": [
+        "Tests/ComponentStability/JobsModel/JobsModelTimestampTests/JobsModelTimestampTests.m"
+      ],
+      "support_sources": [
+
+      ],
+      "test_classes": [
+        "JobsModelTimestampTests"
+      ],
+      "expected_test_count": 2,
+      "harness": "Tests/ComponentStability/JobsModel/run_regression.rb",
+      "production_sources": [
+        "JobsOCBaseConfigDemo/业务逻辑/Common/JobsModel/DAO/FMDoorModel/FMDoorModel.h",
+        "JobsOCBaseConfigDemo/业务逻辑/Common/JobsModel/DAO/FMDoorModel/FMDoorModel.m",
+        "JobsOCBaseConfigDemo/业务逻辑/Common/JobsModel/Json处理/JobsUserModel/JobsUserModel.h",
+        "JobsOCBaseConfigDemo/业务逻辑/Common/JobsModel/Json处理/JobsUserModel/JobsUserModel.m",
+        "Libs/OCBaseConfig/JobsBlock/Core/JobsBizBlock.h",
+        "Libs/OCBaseConfig/JobsBlock/Core/JobsBlock+SDWebImage.h",
+        "Libs/OCBaseConfig/JobsBlock/Core/JobsBlock.h",
+        "Libs/OCBaseConfig/JobsBlock/Core/JobsDebugPanelBlock/JobsDebugPanelBlock.h",
+        "Libs/OCBaseConfig/JobsBlock/Core/Tools/NSObject+CallBackInfoByBlock/NSObject+CallBackInfoByBlock.h",
+        "Libs/OCBaseConfig/JobsBlock/Core/Tools/NSObject+CallBackInfoByBlock/NSObject+CallBackInfoByBlock.m",
+        "Libs/OCBaseConfig/JobsBlock/Core/不定参数的Block/ReturnByUnCertainParameters.h",
+        "Libs/OCBaseConfig/JobsBlock/Core/不定参数的Block/VoidByUnCertainParameters.h",
+        "Libs/OCBaseConfig/JobsBlock/Core/确定参数的Block/ReturnByCertainParametersBlock.h",
+        "Libs/OCBaseConfig/JobsBlock/Core/确定参数的Block/VoidByCertainParametersBlock.h",
+        "Libs/OCBaseConfig/JobsBlock/JobsBlockDef.h",
+        "Libs/OCBaseConfig/JobsBlock/JobsBlockHeader.h",
+        "Libs/OCBaseConfig/JobsMixFunc/CustomerContactStyle/CasinoCustomerServiceView/CasinoCustomerServiceView.h",
+        "Libs/OCBaseConfig/JobsMixFunc/CustomerContactStyle/CasinoCustomerServiceView/CasinoCustomerServiceView.m",
+        "Libs/OCBaseConfig/JobsMixFunc/Debug/DebugLogDescription/DebugLogDescription.h",
+        "Libs/OCBaseConfig/JobsMixFunc/Debug/DebugLogDescription/DebugLogDescription.m",
+        "Libs/OCBaseConfig/JobsMixFunc/Debug/DebugTools/CheckMemFreeVC/CheckMemFreeVC.h",
+        "Libs/OCBaseConfig/JobsMixFunc/Debug/DebugTools/CheckMemFreeVC/CheckMemFreeVC.m",
+        "Libs/OCBaseConfig/JobsMixFunc/Debug/DebugTools/查看对象/JobsShowObjInfoVC/JobsShowObjInfoVC.h",
+        "Libs/OCBaseConfig/JobsMixFunc/Debug/DebugTools/查看对象/JobsShowObjInfoVC/JobsShowObjInfoVC.m",
+        "Libs/OCBaseConfig/JobsMixFunc/Debug/JobsDebug.h",
+        "Libs/OCBaseConfig/JobsMixFunc/FMDatabaseExtra/FMDatabase+Manager/FMDatabase+Manager.h",
+        "Libs/OCBaseConfig/JobsMixFunc/FMDatabaseExtra/FMDatabase+Manager/FMDatabase+Manager.m",
+        "Libs/OCBaseConfig/JobsMixFunc/FileFolderHandleTool/FileFolderHandleToolHeader.h",
+        "Libs/OCBaseConfig/JobsMixFunc/GestureLock/JobsGestureLock.h",
+        "Libs/OCBaseConfig/JobsMixFunc/GestureLock/JobsGestureLockConfiguration/JobsGestureLockConfiguration.h",
+        "Libs/OCBaseConfig/JobsMixFunc/GestureLock/JobsGestureLockConfiguration/JobsGestureLockConfiguration.m",
+        "Libs/OCBaseConfig/JobsMixFunc/GestureLock/JobsGestureLockIndicator/JobsGestureLockIndicator.h",
+        "Libs/OCBaseConfig/JobsMixFunc/GestureLock/JobsGestureLockIndicator/JobsGestureLockIndicator.m",
+        "Libs/OCBaseConfig/JobsMixFunc/GestureLock/JobsGestureLockResource/JobsGestureLockResource.h",
+        "Libs/OCBaseConfig/JobsMixFunc/GestureLock/JobsGestureLockResource/JobsGestureLockResource.m",
+        "Libs/OCBaseConfig/JobsMixFunc/GestureLock/JobsGestureLockStorage/JobsGestureLockStorage.h",
+        "Libs/OCBaseConfig/JobsMixFunc/GestureLock/JobsGestureLockStorage/JobsGestureLockStorage.m",
+        "Libs/OCBaseConfig/JobsMixFunc/GestureLock/JobsGestureLockVC/JobsGestureLockVC.h",
+        "Libs/OCBaseConfig/JobsMixFunc/GestureLock/JobsGestureLockVC/JobsGestureLockVC.m",
+        "Libs/OCBaseConfig/JobsMixFunc/GestureLock/JobsGestureLockView/JobsGestureLockView.h",
+        "Libs/OCBaseConfig/JobsMixFunc/GestureLock/JobsGestureLockView/JobsGestureLockView.m",
+        "Libs/OCBaseConfig/JobsMixFunc/GestureLock/ZLGestureLockIndicator.h",
+        "Libs/OCBaseConfig/JobsMixFunc/GestureLock/ZLGestureLockIndicator.m",
+        "Libs/OCBaseConfig/JobsMixFunc/GestureLock/ZLGestureLockView.h",
+        "Libs/OCBaseConfig/JobsMixFunc/GestureLock/ZLGestureLockView.m",
+        "Libs/OCBaseConfig/JobsMixFunc/GestureLock/ZLGestureLockViewController.h",
+        "Libs/OCBaseConfig/JobsMixFunc/GestureLock/ZLGestureLockViewController.m",
+        "Libs/OCBaseConfig/JobsMixFunc/JobsAPIs/DeviceIP/DeviceIP.h",
+        "Libs/OCBaseConfig/JobsMixFunc/JobsAPIs/JobsAPIs.h",
+        "Libs/OCBaseConfig/JobsMixFunc/JobsAPIs/URLMgr/This+URLMgr/This+URLMgr.h",
+        "Libs/OCBaseConfig/JobsMixFunc/JobsAPIs/URLMgr/This+URLMgr/This+URLMgr.m",
+        "Libs/OCBaseConfig/JobsMixFunc/JobsAPIs/URLMgr/URLMgr.h",
+        "Libs/OCBaseConfig/JobsMixFunc/JobsAPIs/URLMgr/URLMgr/URLMgr@1/NSObject+URLMgr_1/NSObject+URLMgr_1.h",
+        "Libs/OCBaseConfig/JobsMixFunc/JobsAPIs/URLMgr/URLMgr/URLMgr@1/NSObject+URLMgr_1/NSObject+URLMgr_1.m",
+        "Libs/OCBaseConfig/JobsMixFunc/JobsAPIs/URLMgr/URLMgr/URLMgr@2/NSObject+URLMgr_2/NSObject+URLMgr_2.h",
+        "Libs/OCBaseConfig/JobsMixFunc/JobsAPIs/URLMgr/URLMgr/URLMgr@2/NSObject+URLMgr_2/NSObject+URLMgr_2.m",
+        "Libs/OCBaseConfig/JobsMixFunc/JobsAPIs/URLMgr/URLMgr/URLMgr@3/NSObject+URLMgr_3/NSObject+URLMgr_3.h",
+        "Libs/OCBaseConfig/JobsMixFunc/JobsAPIs/URLMgr/URLMgr/URLMgr@3/NSObject+URLMgr_3/NSObject+URLMgr_3.m",
+        "Libs/OCBaseConfig/JobsMixFunc/JobsAPIs/URLMgr/URLMgr/URLMgr@4/NSObject+URLMgr_4/NSObject+URLMgr_4.h",
+        "Libs/OCBaseConfig/JobsMixFunc/JobsAPIs/URLMgr/URLMgr/URLMgr@4/NSObject+URLMgr_4/NSObject+URLMgr_4.m",
+        "Libs/OCBaseConfig/JobsMixFunc/JobsAPIs/URLMgr/URLMgr/URLMgr@5/NSObject+URLMgr_5/NSObject+URLMgr_5.h",
+        "Libs/OCBaseConfig/JobsMixFunc/JobsAPIs/URLMgr/URLMgr/URLMgr@5/NSObject+URLMgr_5/NSObject+URLMgr_5.m",
+        "Libs/OCBaseConfig/JobsMixFunc/JobsAPIs/URLMgr/URLMgr/URLMgr@6/NSObject+URLMgr_6/NSObject+URLMgr_6.h",
+        "Libs/OCBaseConfig/JobsMixFunc/JobsAPIs/URLMgr/URLMgr/URLMgr@6/NSObject+URLMgr_6/NSObject+URLMgr_6.m",
+        "Libs/OCBaseConfig/JobsMixFunc/JobsAPIs/URLMgr/URLMgr/URLMgr@7/NSObject+URLMgr_7/NSObject+URLMgr_7.h",
+        "Libs/OCBaseConfig/JobsMixFunc/JobsAPIs/URLMgr/URLMgr/URLMgr@7/NSObject+URLMgr_7/NSObject+URLMgr_7.m",
+        "Libs/OCBaseConfig/JobsMixFunc/JobsAdNoticeView/JobsAdNoticeView.h",
+        "Libs/OCBaseConfig/JobsMixFunc/JobsAdNoticeView/JobsAdNoticeView.m",
+        "Libs/OCBaseConfig/JobsMixFunc/JobsAppDoor/JobsAppDoor.h",
+        "Libs/OCBaseConfig/JobsMixFunc/JobsAppDoor/JobsAppDoorStyle2/View/ContentView/JobsAppDoorLoginContentView/JobsAppDoorLoginContentView.h",
+        "Libs/OCBaseConfig/JobsMixFunc/JobsAppDoor/JobsAppDoorStyle2/View/ContentView/JobsAppDoorLoginContentView/JobsAppDoorLoginContentView.m",
+        "Libs/OCBaseConfig/JobsMixFunc/JobsAppDoor/JobsAppDoorStyle2/View/ContentView/JobsAppDoorRegisterContentView/JobsAppDoorRegisterContentView.h",
+        "Libs/OCBaseConfig/JobsMixFunc/JobsAppDoor/JobsAppDoorStyle2/View/ContentView/JobsAppDoorRegisterContentView/JobsAppDoorRegisterContentView.m",
+        "Libs/OCBaseConfig/JobsMixFunc/JobsAppDoor/JobsAppDoorStyle2/ViewController/JobsAppDoorVC_Style2/JobsAppDoorVC_Style2.h",
+        "Libs/OCBaseConfig/JobsMixFunc/JobsAppDoor/JobsAppDoorStyle2/ViewController/JobsAppDoorVC_Style2/JobsAppDoorVC_Style2.m",
+        "Libs/OCBaseConfig/JobsMixFunc/JobsAppDoor/View/BaseContentView/BaseContentView.h",
+        "Libs/OCBaseConfig/JobsMixFunc/JobsAppDoor/View/BaseContentView/BaseContentView.m",
+        "Libs/OCBaseConfig/JobsMixFunc/JobsAppDoor/View/JobsAppDoorContentView/JobsAppDoorContentView.h",
+        "Libs/OCBaseConfig/JobsMixFunc/JobsAppDoor/View/JobsAppDoorContentView/JobsAppDoorContentView.m",
+        "Libs/OCBaseConfig/JobsMixFunc/JobsAppDoor/View/JobsAppDoorForgotCodeContentView/JobsAppDoorForgotCodeContentView.h",
+        "Libs/OCBaseConfig/JobsMixFunc/JobsAppDoor/View/JobsAppDoorForgotCodeContentView/JobsAppDoorForgotCodeContentView.m",
+        "Libs/OCBaseConfig/JobsMixFunc/JobsAppDoor/ViewController/JobsAppDoorVC/JobsAppDoorVC.h",
+        "Libs/OCBaseConfig/JobsMixFunc/JobsAppDoor/ViewController/JobsAppDoorVC/JobsAppDoorVC.m",
+        "Libs/OCBaseConfig/JobsMixFunc/JobsAppDoor/测试支持/JobsAppDoorCoverageProbe/JobsAppDoorCoverageProbe.h",
+        "Libs/OCBaseConfig/JobsMixFunc/JobsAppDoor/登录注册模块公共件/Resource/JobsAppDoorResource/JobsAppDoorResource.h",
+        "Libs/OCBaseConfig/JobsMixFunc/JobsAppDoor/登录注册模块公共件/Resource/JobsAppDoorResource/JobsAppDoorResource.m",
+        "Libs/OCBaseConfig/JobsMixFunc/JobsAppDoor/登录注册模块公共件/View/JobsAppDoorLogoContentView/JobsAppDoorLogoContentView.h",
+        "Libs/OCBaseConfig/JobsMixFunc/JobsAppDoor/登录注册模块公共件/View/JobsAppDoorLogoContentView/JobsAppDoorLogoContentView.m",
+        "Libs/OCBaseConfig/JobsMixFunc/JobsAppDoor/登录注册模块公共件/View/输入框样式/DoorInputView/JobsAppDoorInputViewBaseStyle/JobsAppDoorInputViewBaseStyle.h",
+        "Libs/OCBaseConfig/JobsMixFunc/JobsAppDoor/登录注册模块公共件/View/输入框样式/DoorInputView/JobsAppDoorInputViewBaseStyle/JobsAppDoorInputViewBaseStyle.m",
+        "Libs/OCBaseConfig/JobsMixFunc/JobsAppDoor/登录注册模块公共件/View/输入框样式/DoorInputView/JobsAppDoorInputViewHeader.h",
+        "Libs/OCBaseConfig/JobsMixFunc/JobsAppDoor/登录注册模块公共件/View/输入框样式/DoorInputView/JobsDoorInputViewProtocol.h",
+        "Libs/OCBaseConfig/JobsMixFunc/JobsAppDoor/登录注册模块公共件/View/输入框样式/DoorInputView/输入框样式_1/JobsAppDoorInputViewBaseStyle_1/JobsAppDoorInputViewBaseStyle_1.h",
+        "Libs/OCBaseConfig/JobsMixFunc/JobsAppDoor/登录注册模块公共件/View/输入框样式/DoorInputView/输入框样式_1/JobsAppDoorInputViewBaseStyle_1/JobsAppDoorInputViewBaseStyle_1.m",
+        "Libs/OCBaseConfig/JobsMixFunc/JobsAppDoor/登录注册模块公共件/View/输入框样式/DoorInputView/输入框样式_10/JobsAppDoorInputViewBaseStyle_10/JobsAppDoorInputViewBaseStyle_10.h",
+        "Libs/OCBaseConfig/JobsMixFunc/JobsAppDoor/登录注册模块公共件/View/输入框样式/DoorInputView/输入框样式_10/JobsAppDoorInputViewBaseStyle_10/JobsAppDoorInputViewBaseStyle_10.m",
+        "Libs/OCBaseConfig/JobsMixFunc/JobsAppDoor/登录注册模块公共件/View/输入框样式/DoorInputView/输入框样式_2/JobsAppDoorInputViewBaseStyle_2/JobsAppDoorInputViewBaseStyle_2.h",
+        "Libs/OCBaseConfig/JobsMixFunc/JobsAppDoor/登录注册模块公共件/View/输入框样式/DoorInputView/输入框样式_2/JobsAppDoorInputViewBaseStyle_2/JobsAppDoorInputViewBaseStyle_2.m",
+        "Libs/OCBaseConfig/JobsMixFunc/JobsAppDoor/登录注册模块公共件/View/输入框样式/DoorInputView/输入框样式_3/JobsAppDoorInputViewBaseStyle_3/JobsAppDoorInputViewBaseStyle_3.h",
+        "Libs/OCBaseConfig/JobsMixFunc/JobsAppDoor/登录注册模块公共件/View/输入框样式/DoorInputView/输入框样式_3/JobsAppDoorInputViewBaseStyle_3/JobsAppDoorInputViewBaseStyle_3.m",
+        "Libs/OCBaseConfig/JobsMixFunc/JobsAppDoor/登录注册模块公共件/View/输入框样式/DoorInputView/输入框样式_4/JobsAppDoorInputViewBaseStyle_4/JobsAppDoorInputViewBaseStyle_4.h",
+        "Libs/OCBaseConfig/JobsMixFunc/JobsAppDoor/登录注册模块公共件/View/输入框样式/DoorInputView/输入框样式_4/JobsAppDoorInputViewBaseStyle_4/JobsAppDoorInputViewBaseStyle_4.m",
+        "Libs/OCBaseConfig/JobsMixFunc/JobsAppDoor/登录注册模块公共件/View/输入框样式/DoorInputView/输入框样式_5/JobsAppDoorInputViewBaseStyle_5/JobsAppDoorInputViewBaseStyle_5.h",
+        "Libs/OCBaseConfig/JobsMixFunc/JobsAppDoor/登录注册模块公共件/View/输入框样式/DoorInputView/输入框样式_5/JobsAppDoorInputViewBaseStyle_5/JobsAppDoorInputViewBaseStyle_5.m",
+        "Libs/OCBaseConfig/JobsMixFunc/JobsAppDoor/登录注册模块公共件/View/输入框样式/DoorInputView/输入框样式_6/AuthCodeLab/AuthCodeLab.h",
+        "Libs/OCBaseConfig/JobsMixFunc/JobsAppDoor/登录注册模块公共件/View/输入框样式/DoorInputView/输入框样式_6/AuthCodeLab/AuthCodeLab.m",
+        "Libs/OCBaseConfig/JobsMixFunc/JobsAppDoor/登录注册模块公共件/View/输入框样式/DoorInputView/输入框样式_6/JobsAppDoorInputViewBaseStyle_6/JobsAppDoorInputViewBaseStyle_6.h",
+        "Libs/OCBaseConfig/JobsMixFunc/JobsAppDoor/登录注册模块公共件/View/输入框样式/DoorInputView/输入框样式_6/JobsAppDoorInputViewBaseStyle_6/JobsAppDoorInputViewBaseStyle_6.m",
+        "Libs/OCBaseConfig/JobsMixFunc/JobsAppDoor/登录注册模块公共件/View/输入框样式/DoorInputView/输入框样式_7/JobsAppDoorInputViewBaseStyle_7/JobsAppDoorInputViewBaseStyle_7.h",
+        "Libs/OCBaseConfig/JobsMixFunc/JobsAppDoor/登录注册模块公共件/View/输入框样式/DoorInputView/输入框样式_7/JobsAppDoorInputViewBaseStyle_7/JobsAppDoorInputViewBaseStyle_7.m",
+        "Libs/OCBaseConfig/JobsMixFunc/JobsAppDoor/登录注册模块公共件/View/输入框样式/DoorInputView/输入框样式_8/JobsAppDoorInputViewBaseStyle_8/JobsAppDoorInputViewBaseStyle_8.h",
+        "Libs/OCBaseConfig/JobsMixFunc/JobsAppDoor/登录注册模块公共件/View/输入框样式/DoorInputView/输入框样式_8/JobsAppDoorInputViewBaseStyle_8/JobsAppDoorInputViewBaseStyle_8.m",
+        "Libs/OCBaseConfig/JobsMixFunc/JobsAppDoor/登录注册模块公共件/View/输入框样式/DoorInputView/输入框样式_9/JobsAppDoorInputViewBaseStyle_9/JobsAppDoorInputViewBaseStyle_9.h",
+        "Libs/OCBaseConfig/JobsMixFunc/JobsAppDoor/登录注册模块公共件/View/输入框样式/DoorInputView/输入框样式_9/JobsAppDoorInputViewBaseStyle_9/JobsAppDoorInputViewBaseStyle_9.m",
+        "Libs/OCBaseConfig/JobsMixFunc/JobsAppDoor/登录注册模块公共件/配置文件/JobsAppDoorConfig/JobsAppDoorConfig.h",
+        "Libs/OCBaseConfig/JobsMixFunc/JobsAppDoor/登录注册模块公共件/配置文件/JobsAppDoorConfig/JobsAppDoorConfig.m",
+        "Libs/OCBaseConfig/JobsMixFunc/JobsAppDoor/登录注册模块公共件/配置文件/JobsAppDoorGraphicCaptchaConfig/JobsAppDoorGraphicCaptchaConfig.h",
+        "Libs/OCBaseConfig/JobsMixFunc/JobsAppDoor/登录注册模块公共件/配置文件/JobsAppDoorGraphicCaptchaConfig/JobsAppDoorGraphicCaptchaConfig.m",
+        "Libs/OCBaseConfig/JobsMixFunc/JobsAppDoor/登录注册模块公共件/配置文件/JobsAppDoorRegisterConfig/JobsAppDoorRegisterConfig.h",
+        "Libs/OCBaseConfig/JobsMixFunc/JobsAppDoor/登录注册模块公共件/配置文件/JobsAppDoorRegisterConfig/JobsAppDoorRegisterConfig.m",
+        "Libs/OCBaseConfig/JobsMixFunc/JobsBasePopupView/JobsBasePopupView.h",
+        "Libs/OCBaseConfig/JobsMixFunc/JobsBasePopupView/JobsBasePopupView.m",
+        "Libs/OCBaseConfig/JobsMixFunc/JobsBasePopupView/JobsBasePopupViewHeader.h",
+        "Libs/OCBaseConfig/JobsMixFunc/JobsBioKit/JobsBioKit.h",
+        "Libs/OCBaseConfig/JobsMixFunc/JobsBioKit/JobsBioKit.m",
+        "Libs/OCBaseConfig/JobsMixFunc/JobsBioKit/JobsBioKitHeader.h",
+        "Libs/OCBaseConfig/JobsMixFunc/JobsBitsMonitor/JobsBitsMonitor.h",
+        "Libs/OCBaseConfig/JobsMixFunc/JobsBitsMonitor/JobsBitsMonitorSuspendLab/JobsBitsMonitorSuspendLab.h",
+        "Libs/OCBaseConfig/JobsMixFunc/JobsBitsMonitor/JobsBitsMonitorSuspendLab/JobsBitsMonitorSuspendLab.m",
+        "Libs/OCBaseConfig/JobsMixFunc/JobsBluetooth/Core/JobsBluetoothCommand/JobsBluetoothCommand.h",
+        "Libs/OCBaseConfig/JobsMixFunc/JobsBluetooth/Core/JobsBluetoothCommand/JobsBluetoothCommand.m",
+        "Libs/OCBaseConfig/JobsMixFunc/JobsBluetooth/Core/JobsBluetoothManager/JobsBluetoothManager.h",
+        "Libs/OCBaseConfig/JobsMixFunc/JobsBluetooth/Core/JobsBluetoothManager/JobsBluetoothManager.m",
+        "Libs/OCBaseConfig/JobsMixFunc/JobsBluetooth/Core/JobsBluetoothMockTransport/JobsBluetoothMockTransport.h",
+        "Libs/OCBaseConfig/JobsMixFunc/JobsBluetooth/Core/JobsBluetoothMockTransport/JobsBluetoothMockTransport.m",
+        "Libs/OCBaseConfig/JobsMixFunc/JobsBluetooth/Core/JobsBluetoothPeripheral/JobsBluetoothPeripheral.h",
+        "Libs/OCBaseConfig/JobsMixFunc/JobsBluetooth/Core/JobsBluetoothPeripheral/JobsBluetoothPeripheral.m",
+        "Libs/OCBaseConfig/JobsMixFunc/JobsBluetooth/Core/JobsBluetoothProfile/JobsBluetoothProfile.h",
+        "Libs/OCBaseConfig/JobsMixFunc/JobsBluetooth/Core/JobsBluetoothProfile/JobsBluetoothProfile.m",
+        "Libs/OCBaseConfig/JobsMixFunc/JobsBluetooth/Core/JobsBluetoothTypes/JobsBluetoothTypes.h",
+        "Libs/OCBaseConfig/JobsMixFunc/JobsBluetooth/Core/JobsBluetoothTypes/JobsBluetoothTypes.m",
+        "Libs/OCBaseConfig/JobsMixFunc/JobsBluetooth/JobsBluetooth.h",
+        "Libs/OCBaseConfig/JobsMixFunc/JobsClockView/JobsClockViewHeader.h",
+        "Libs/OCBaseConfig/JobsMixFunc/JobsCountdownBtn/JobsCountdownBtn.h",
+        "Libs/OCBaseConfig/JobsMixFunc/JobsCountdownBtn/JobsCountdownButton/JobsCountdownButton.h",
+        "Libs/OCBaseConfig/JobsMixFunc/JobsCountdownBtn/JobsCountdownButton/JobsCountdownButton.m",
+        "Libs/OCBaseConfig/JobsMixFunc/JobsCryptography/AES/AES.h",
+        "Libs/OCBaseConfig/JobsMixFunc/JobsCryptography/AES/AES.m",
+        "Libs/OCBaseConfig/JobsMixFunc/JobsCryptography/AESCipher/AESCipher.h",
+        "Libs/OCBaseConfig/JobsMixFunc/JobsCryptography/AESCipher/AESCipher.m",
+        "Libs/OCBaseConfig/JobsMixFunc/JobsCryptography/JobsAuthenticatedCipher/JobsAuthenticatedCipher.h",
+        "Libs/OCBaseConfig/JobsMixFunc/JobsCryptography/JobsAuthenticatedCipher/JobsAuthenticatedCipher.m",
+        "Libs/OCBaseConfig/JobsMixFunc/JobsCryptography/JobsCryptography.h",
+        "Libs/OCBaseConfig/JobsMixFunc/JobsCustomView/JobsCustomView.h",
+        "Libs/OCBaseConfig/JobsMixFunc/JobsCustomView/JobsCustomView.m",
+        "Libs/OCBaseConfig/JobsMixFunc/JobsCustomView/JobsCustomViewHeader.h",
+        "Libs/OCBaseConfig/JobsMixFunc/JobsDebugPanel/Core/JobsDebugAction/JobsDebugAction.h",
+        "Libs/OCBaseConfig/JobsMixFunc/JobsDebugPanel/Core/JobsDebugAction/JobsDebugAction.m",
+        "Libs/OCBaseConfig/JobsMixFunc/JobsDebugPanel/Core/JobsDebugEnvironment/JobsDebugEnvironment.h",
+        "Libs/OCBaseConfig/JobsMixFunc/JobsDebugPanel/Core/JobsDebugEnvironment/JobsDebugEnvironment.m",
+        "Libs/OCBaseConfig/JobsMixFunc/JobsDebugPanel/Core/JobsDebugEnvironmentsVC/JobsDebugEnvironmentsVC.h",
+        "Libs/OCBaseConfig/JobsMixFunc/JobsDebugPanel/Core/JobsDebugEnvironmentsVC/JobsDebugEnvironmentsVC.m",
+        "Libs/OCBaseConfig/JobsMixFunc/JobsDebugPanel/Core/JobsDebugOverlayVC/JobsDebugOverlayVC.h",
+        "Libs/OCBaseConfig/JobsMixFunc/JobsDebugPanel/Core/JobsDebugOverlayVC/JobsDebugOverlayVC.m",
+        "Libs/OCBaseConfig/JobsMixFunc/JobsDebugPanel/Core/JobsDebugOverlayWindow/JobsDebugOverlayWindow.h",
+        "Libs/OCBaseConfig/JobsMixFunc/JobsDebugPanel/Core/JobsDebugOverlayWindow/JobsDebugOverlayWindow.m",
+        "Libs/OCBaseConfig/JobsMixFunc/JobsDebugPanel/Core/JobsDebugPanelCell/JobsDebugPanelCell.h",
+        "Libs/OCBaseConfig/JobsMixFunc/JobsDebugPanel/Core/JobsDebugPanelCell/JobsDebugPanelCell.m",
+        "Libs/OCBaseConfig/JobsMixFunc/JobsDebugPanel/Core/JobsDebugPanelManager/JobsDebugPanelManager.h",
+        "Libs/OCBaseConfig/JobsMixFunc/JobsDebugPanel/Core/JobsDebugPanelManager/JobsDebugPanelManager.m",
+        "Libs/OCBaseConfig/JobsMixFunc/JobsDebugPanel/Core/JobsDebugPanelNavigationController/JobsDebugPanelNavigationController.h",
+        "Libs/OCBaseConfig/JobsMixFunc/JobsDebugPanel/Core/JobsDebugPanelNavigationController/JobsDebugPanelNavigationController.m",
+        "Libs/OCBaseConfig/JobsMixFunc/JobsDebugPanel/Core/JobsDebugPanelVC/JobsDebugPanelVC.h",
+        "Libs/OCBaseConfig/JobsMixFunc/JobsDebugPanel/Core/JobsDebugPanelVC/JobsDebugPanelVC.m",
+        "Libs/OCBaseConfig/JobsMixFunc/JobsDebugPanel/JobsDebugPanel.h",
+        "Libs/OCBaseConfig/JobsMixFunc/JobsDropDownListView/JobsDropDownListTBVCell/JobsDropDownListTBVCell.h",
+        "Libs/OCBaseConfig/JobsMixFunc/JobsDropDownListView/JobsDropDownListTBVCell/JobsDropDownListTBVCell.m",
+        "Libs/OCBaseConfig/JobsMixFunc/JobsDropDownListView/JobsDropDownListView.h",
+        "Libs/OCBaseConfig/JobsMixFunc/JobsDropDownListView/JobsDropDownListView.m",
+        "Libs/OCBaseConfig/JobsMixFunc/JobsDropDownListView/JobsDropDownListViewHeader.h",
+        "Libs/OCBaseConfig/JobsMixFunc/JobsDropDownListView/NSObject+JobsDropDownListView/NSObject+JobsDropDownListView.h",
+        "Libs/OCBaseConfig/JobsMixFunc/JobsDropDownListView/NSObject+JobsDropDownListView/NSObject+JobsDropDownListView.m",
+        "Libs/OCBaseConfig/JobsMixFunc/JobsFiltrationView/JobsFiltrationView.h",
+        "Libs/OCBaseConfig/JobsMixFunc/JobsFiltrationView/JobsFiltrationView.m",
+        "Libs/OCBaseConfig/JobsMixFunc/JobsFiltrationView/JobsFiltrationViewHeader.h",
+        "Libs/OCBaseConfig/JobsMixFunc/JobsFuseAnimation/JobsDouyinRefreshConfig/JobsDouyinRefreshConfig.h",
+        "Libs/OCBaseConfig/JobsMixFunc/JobsFuseAnimation/JobsDouyinRefreshConfig/JobsDouyinRefreshConfig.m",
+        "Libs/OCBaseConfig/JobsMixFunc/JobsFuseAnimation/JobsDouyinRefreshView/JobsDouyinRefreshView.h",
+        "Libs/OCBaseConfig/JobsMixFunc/JobsFuseAnimation/JobsDouyinRefreshView/JobsDouyinRefreshView.m",
+        "Libs/OCBaseConfig/JobsMixFunc/JobsFuseAnimation/JobsFuseAnimation.h",
+        "Libs/OCBaseConfig/JobsMixFunc/JobsFuseAnimation/JobsFuseBubbleConfig/JobsFuseBubbleConfig/JobsFuseBubbleConfig.h",
+        "Libs/OCBaseConfig/JobsMixFunc/JobsFuseAnimation/JobsFuseBubbleConfig/JobsFuseBubbleConfig/JobsFuseBubbleConfig.m",
+        "Libs/OCBaseConfig/JobsMixFunc/JobsFuseAnimation/JobsFuseOuterRingConfig/JobsFuseOuterRingConfig.h",
+        "Libs/OCBaseConfig/JobsMixFunc/JobsFuseAnimation/JobsFuseOuterRingConfig/JobsFuseOuterRingConfig.m",
+        "Libs/OCBaseConfig/JobsMixFunc/JobsFuseAnimation/JobsGIFRefreshView/JobsGIFRefreshView.h",
+        "Libs/OCBaseConfig/JobsMixFunc/JobsFuseAnimation/JobsGIFRefreshView/JobsGIFRefreshView.m",
+        "Libs/OCBaseConfig/JobsMixFunc/JobsFuseAnimation/JobsImageRefreshView/JobsImageRefreshView.h",
+        "Libs/OCBaseConfig/JobsMixFunc/JobsFuseAnimation/JobsImageRefreshView/JobsImageRefreshView.m",
+        "Libs/OCBaseConfig/JobsMixFunc/JobsFuseAnimation/JobsLottieRefreshView/JobsLottieRefreshView.h",
+        "Libs/OCBaseConfig/JobsMixFunc/JobsFuseAnimation/JobsLottieRefreshView/JobsLottieRefreshView.m",
+        "Libs/OCBaseConfig/JobsMixFunc/JobsFuseAnimation/JobsRefreshAnimatorProtocol/JobsRefreshAnimatorProtocol.h",
+        "Libs/OCBaseConfig/JobsMixFunc/JobsFuseAnimation/JobsSystemRefreshView/JobsSystemRefreshView.h",
+        "Libs/OCBaseConfig/JobsMixFunc/JobsFuseAnimation/JobsSystemRefreshView/JobsSystemRefreshView.m",
+        "Libs/OCBaseConfig/JobsMixFunc/JobsFuseAnimation/JobsTodayNewsRefreshConfig/JobsTodayNewsRefreshConfig.h",
+        "Libs/OCBaseConfig/JobsMixFunc/JobsFuseAnimation/JobsTodayNewsRefreshConfig/JobsTodayNewsRefreshConfig.m",
+        "Libs/OCBaseConfig/JobsMixFunc/JobsFuseAnimation/JobsTodayNewsRefreshView/JobsTodayNewsRefreshView.h",
+        "Libs/OCBaseConfig/JobsMixFunc/JobsFuseAnimation/JobsTodayNewsRefreshView/JobsTodayNewsRefreshView.m",
+        "Libs/OCBaseConfig/JobsMixFunc/JobsFuseAnimation/UIView+JobsFuseAnimation/UIView+JobsFuseAnimation.h",
+        "Libs/OCBaseConfig/JobsMixFunc/JobsFuseAnimation/UIView+JobsFuseAnimation/UIView+JobsFuseAnimation.m",
+        "Libs/OCBaseConfig/JobsMixFunc/JobsGetWindow/JobsGetWindow.h",
+        "Libs/OCBaseConfig/JobsMixFunc/JobsHotLabel/JobsHotLabel.h",
+        "Libs/OCBaseConfig/JobsMixFunc/JobsHotLabel/JobsHotLabelByMultiLine/JobsHotLabelByMultiLine.h",
+        "Libs/OCBaseConfig/JobsMixFunc/JobsHotLabel/JobsHotLabelByMultiLine/JobsHotLabelByMultiLine.m",
+        "Libs/OCBaseConfig/JobsMixFunc/JobsHotLabel/JobsHotLabelByMultiLineCVCell/JobsHotLabelByMultiLineCVCell.h",
+        "Libs/OCBaseConfig/JobsMixFunc/JobsHotLabel/JobsHotLabelByMultiLineCVCell/JobsHotLabelByMultiLineCVCell.m",
+        "Libs/OCBaseConfig/JobsMixFunc/JobsHotLabel/JobsHotLabelBySingleLine/JobsHotLabelBySingleLine.h",
+        "Libs/OCBaseConfig/JobsMixFunc/JobsHotLabel/JobsHotLabelBySingleLine/JobsHotLabelBySingleLine.m",
+        "Libs/OCBaseConfig/JobsMixFunc/JobsHotLabel/JobsHotLabelConfig.h",
+        "Libs/OCBaseConfig/JobsMixFunc/JobsHotLabel/JobsHotLabelWithMultiLineModel/JobsHotLabelWithMultiLineModel.h",
+        "Libs/OCBaseConfig/JobsMixFunc/JobsHotLabel/JobsHotLabelWithMultiLineModel/JobsHotLabelWithMultiLineModel.m",
+        "Libs/OCBaseConfig/JobsMixFunc/JobsIconfont/Core/JobsIconfont/JobsIconfont.h",
+        "Libs/OCBaseConfig/JobsMixFunc/JobsIconfont/Core/JobsIconfont/JobsIconfont.m",
+        "Libs/OCBaseConfig/JobsMixFunc/JobsImageNumberView/JobsImageNumberView.h",
+        "Libs/OCBaseConfig/JobsMixFunc/JobsImageNumberView/JobsImageNumberView.m",
+        "Libs/OCBaseConfig/JobsMixFunc/JobsImageNumberView/JobsImageNumberViewCVCell/JobsImageNumberViewCVCell.h",
+        "Libs/OCBaseConfig/JobsMixFunc/JobsImageNumberView/JobsImageNumberViewCVCell/JobsImageNumberViewCVCell.m",
+        "Libs/OCBaseConfig/JobsMixFunc/JobsImageNumberView/JobsImageNumberViewHeader.h",
+        "Libs/OCBaseConfig/JobsMixFunc/JobsImageRotation/JobsClockIconView/JobsClockIconView.h",
+        "Libs/OCBaseConfig/JobsMixFunc/JobsImageRotation/JobsClockIconView/JobsClockIconView.m",
+        "Libs/OCBaseConfig/JobsMixFunc/JobsImageRotation/JobsImageRotation.h",
+        "Libs/OCBaseConfig/JobsMixFunc/JobsImageRotation/JobsImageRotator/JobsImageRotator.h",
+        "Libs/OCBaseConfig/JobsMixFunc/JobsImageRotation/JobsImageRotator/JobsImageRotator.m",
+        "Libs/OCBaseConfig/JobsMixFunc/JobsLanMgr/JobsLanMgr.h",
+        "Libs/OCBaseConfig/JobsMixFunc/JobsLanMgr/LanMgr/LanMgr.h",
+        "Libs/OCBaseConfig/JobsMixFunc/JobsLanMgr/LanMgr/LanMgr.m",
+        "Libs/OCBaseConfig/JobsMixFunc/JobsLanMgr/NSString+JobsLanMgr/NSString+JobsLanMgr.h",
+        "Libs/OCBaseConfig/JobsMixFunc/JobsLanMgr/NSString+JobsLanMgr/NSString+JobsLanMgr.m",
+        "Libs/OCBaseConfig/JobsMixFunc/JobsLinkageMenuView/JobsLinkageMenuView.h",
+        "Libs/OCBaseConfig/JobsMixFunc/JobsLinkageMenuView/JobsLinkageMenuView.m",
+        "Libs/OCBaseConfig/JobsMixFunc/JobsLinkageMenuView/JobsLinkageMenuViewConfig/JobsLinkageMenuViewConfig.h",
+        "Libs/OCBaseConfig/JobsMixFunc/JobsLinkageMenuView/JobsLinkageMenuViewConfig/JobsLinkageMenuViewConfig.m",
+        "Libs/OCBaseConfig/JobsMixFunc/JobsLinkageMenuView/JobsLinkageMenuViewHeader.h",
+        "Libs/OCBaseConfig/JobsMixFunc/JobsLoadingImage/JobsLoadingImage.m",
+        "Libs/OCBaseConfig/JobsMixFunc/JobsLoadingImage/JobsLoadingImageHeader.h",
+        "Libs/OCBaseConfig/JobsMixFunc/JobsLocker/Example/ExampleUsage/ExampleUsage.h",
+        "Libs/OCBaseConfig/JobsMixFunc/JobsLocker/Example/ExampleUsage/ExampleUsage.m",
+        "Libs/OCBaseConfig/JobsMixFunc/JobsLocker/JobsLocker+Once/JobsLocker+Once.h",
+        "Libs/OCBaseConfig/JobsMixFunc/JobsLocker/JobsLocker+Once/JobsLocker+Once.m",
+        "Libs/OCBaseConfig/JobsMixFunc/JobsLocker/JobsLockerUmbrella.h",
+        "Libs/OCBaseConfig/JobsMixFunc/JobsMenuView/JobsMenuSubViews/JobsMenuSubView@1/JobsMenuSubView@1.h",
+        "Libs/OCBaseConfig/JobsMixFunc/JobsMenuView/JobsMenuSubViews/JobsMenuSubView@1/JobsMenuSubView@1.m",
+        "Libs/OCBaseConfig/JobsMixFunc/JobsMenuView/JobsMenuSubViews/JobsMenuSubView@2/JobsMenuSubView@2.h",
+        "Libs/OCBaseConfig/JobsMixFunc/JobsMenuView/JobsMenuSubViews/JobsMenuSubView@2/JobsMenuSubView@2.m",
+        "Libs/OCBaseConfig/JobsMixFunc/JobsMenuView/JobsMenuSubViews/JobsMenuSubView@3/JobsMenuSubView@3.h",
+        "Libs/OCBaseConfig/JobsMixFunc/JobsMenuView/JobsMenuSubViews/JobsMenuSubView@3/JobsMenuSubView@3.m",
+        "Libs/OCBaseConfig/JobsMixFunc/JobsMenuView/JobsMenuSubViews/JobsMenuSubView@4/JobsMenuSubView@4.h",
+        "Libs/OCBaseConfig/JobsMixFunc/JobsMenuView/JobsMenuSubViews/JobsMenuSubView@4/JobsMenuSubView@4.m",
+        "Libs/OCBaseConfig/JobsMixFunc/JobsMenuView/JobsMenuView/JobsMenuView.h",
+        "Libs/OCBaseConfig/JobsMixFunc/JobsMenuView/JobsMenuView/JobsMenuView.m",
+        "Libs/OCBaseConfig/JobsMixFunc/JobsMenuView/JobsMenuViewHeader.h",
+        "Libs/OCBaseConfig/JobsMixFunc/JobsMixFunc.h",
+        "Libs/OCBaseConfig/JobsMixFunc/JobsModel/NSString+JobsModelTime/NSString+JobsModelTime.h",
+        "Libs/OCBaseConfig/JobsMixFunc/JobsModel/NSString+JobsModelTime/NSString+JobsModelTime.m",
+        "Libs/OCBaseConfig/JobsMixFunc/JobsNavBar/JobsNavBar.h",
+        "Libs/OCBaseConfig/JobsMixFunc/JobsNavBar/JobsNavBar.m",
+        "Libs/OCBaseConfig/JobsMixFunc/JobsNavBar/JobsNavBarConfig/JobsNavBarConfig.h",
+        "Libs/OCBaseConfig/JobsMixFunc/JobsNavBar/JobsNavBarConfig/JobsNavBarConfig.m",
+        "Libs/OCBaseConfig/JobsMixFunc/JobsNavBar/JobsNavBarHeader.h",
+        "Libs/OCBaseConfig/JobsMixFunc/JobsNavigationTransitionMgr/JobsNavigationTransitionMgrHeader.h",
+        "Libs/OCBaseConfig/JobsMixFunc/JobsNavigationTransitionMgr/JobsPresentTransitionMgr/JobsPresentTransitionMgr.h",
+        "Libs/OCBaseConfig/JobsMixFunc/JobsNavigationTransitionMgr/JobsPresentTransitionMgr/JobsPresentTransitionMgr.m",
+        "Libs/OCBaseConfig/JobsMixFunc/JobsNavigationTransitionMgr/JobsPresentTransitionMgrHeader.h",
+        "Libs/OCBaseConfig/JobsMixFunc/JobsNavigationTransitionMgr/UIViewController+JobsPresentTransition/UIViewController+JobsPresentTransition.h",
+        "Libs/OCBaseConfig/JobsMixFunc/JobsNavigationTransitionMgr/UIViewController+JobsPresentTransition/UIViewController+JobsPresentTransition.m",
+        "Libs/OCBaseConfig/JobsMixFunc/JobsNetWorkTools/JobsNetWorkToolsHeader.h",
+        "Libs/OCBaseConfig/JobsMixFunc/JobsOCCalendar/JobsOCCalendar.h",
+        "Libs/OCBaseConfig/JobsMixFunc/JobsOCCalendar/JobsOCCalendar.m",
+        "Libs/OCBaseConfig/JobsMixFunc/JobsOCCalendar/JobsOCCalendarAppearance/JobsOCCalendarAppearance.h",
+        "Libs/OCBaseConfig/JobsMixFunc/JobsOCCalendar/JobsOCCalendarAppearance/JobsOCCalendarAppearance.m",
+        "Libs/OCBaseConfig/JobsMixFunc/JobsOCCalendar/JobsOCCalendarDayCell/JobsOCCalendarDayCell.h",
+        "Libs/OCBaseConfig/JobsMixFunc/JobsOCCalendar/JobsOCCalendarDayCell/JobsOCCalendarDayCell.m",
+        "Libs/OCBaseConfig/JobsMixFunc/JobsOCCalendar/JobsOCCalendarDefines/JobsOCCalendarDefines.h",
+        "Libs/OCBaseConfig/JobsMixFunc/JobsOCCalendar/JobsOCCalendarHeader.h",
+        "Libs/OCBaseConfig/JobsMixFunc/JobsOCComment/JobsOCComment.h",
+        "Libs/OCBaseConfig/JobsMixFunc/JobsOCComment/JobsOCCommentCell/JobsOCCommentCell.h",
+        "Libs/OCBaseConfig/JobsMixFunc/JobsOCComment/JobsOCCommentCell/JobsOCCommentCell.m",
+        "Libs/OCBaseConfig/JobsMixFunc/JobsOCComment/JobsOCCommentConfig/JobsOCCommentConfig.h",
+        "Libs/OCBaseConfig/JobsMixFunc/JobsOCComment/JobsOCCommentConfig/JobsOCCommentConfig.m",
+        "Libs/OCBaseConfig/JobsMixFunc/JobsOCComment/JobsOCCommentDefines/JobsOCCommentDefines.h",
+        "Libs/OCBaseConfig/JobsMixFunc/JobsOCComment/JobsOCCommentModel/JobsOCCommentModel.h",
+        "Libs/OCBaseConfig/JobsMixFunc/JobsOCComment/JobsOCCommentModel/JobsOCCommentModel.m",
+        "Libs/OCBaseConfig/JobsMixFunc/JobsOCComment/JobsOCCommentView/JobsOCCommentView.h",
+        "Libs/OCBaseConfig/JobsMixFunc/JobsOCComment/JobsOCCommentView/JobsOCCommentView.m",
+        "Libs/OCBaseConfig/JobsMixFunc/JobsOCCountryCodeCtrl/JobsOCCountryCodeCtrlHeader.h",
+        "Libs/OCBaseConfig/JobsMixFunc/JobsOCCrashLog/JobsCrashSignalRecorder/JobsCrashSignalRecorder.c",
+        "Libs/OCBaseConfig/JobsMixFunc/JobsOCCrashLog/JobsCrashSignalRecorder/JobsCrashSignalRecorder.h",
+        "Libs/OCBaseConfig/JobsMixFunc/JobsOCCrashLog/JobsOCCrashLogCenter/JobsOCCrashLogCenter.h",
+        "Libs/OCBaseConfig/JobsMixFunc/JobsOCCrashLog/JobsOCCrashLogCenter/JobsOCCrashLogCenter.m",
+        "Libs/OCBaseConfig/JobsMixFunc/JobsOCCrashLog/JobsOCCrashLogFileInfo/JobsOCCrashLogFileInfo.h",
+        "Libs/OCBaseConfig/JobsMixFunc/JobsOCCrashLog/JobsOCCrashLogFileInfo/JobsOCCrashLogFileInfo.m",
+        "Libs/OCBaseConfig/JobsMixFunc/JobsOCCrashLog/JobsOCCrashLogMemorySnapshot/JobsOCCrashLogMemorySnapshot.h",
+        "Libs/OCBaseConfig/JobsMixFunc/JobsOCCrashLog/JobsOCCrashLogMemorySnapshot/JobsOCCrashLogMemorySnapshot.m",
+        "Libs/OCBaseConfig/JobsMixFunc/JobsOCDeviceGuard/Core/JobsOCDeviceGuardCheck/JobsOCDeviceGuardCheck.h",
+        "Libs/OCBaseConfig/JobsMixFunc/JobsOCDeviceGuard/Core/JobsOCDeviceGuardCheck/JobsOCDeviceGuardCheck.m",
+        "Libs/OCBaseConfig/JobsMixFunc/JobsOCDeviceGuard/Core/JobsOCDeviceGuardConfiguration/JobsOCDeviceGuardConfiguration.h",
+        "Libs/OCBaseConfig/JobsMixFunc/JobsOCDeviceGuard/Core/JobsOCDeviceGuardConfiguration/JobsOCDeviceGuardConfiguration.m",
+        "Libs/OCBaseConfig/JobsMixFunc/JobsOCDeviceGuard/Core/JobsOCDeviceGuardDetector/JobsOCDeviceGuardDetector.h",
+        "Libs/OCBaseConfig/JobsMixFunc/JobsOCDeviceGuard/Core/JobsOCDeviceGuardDetector/JobsOCDeviceGuardDetector.m",
+        "Libs/OCBaseConfig/JobsMixFunc/JobsOCDeviceGuard/Core/JobsOCDeviceGuardReport/JobsOCDeviceGuardReport.h",
+        "Libs/OCBaseConfig/JobsMixFunc/JobsOCDeviceGuard/Core/JobsOCDeviceGuardReport/JobsOCDeviceGuardReport.m",
+        "Libs/OCBaseConfig/JobsMixFunc/JobsOCDeviceGuard/Core/JobsOCDeviceGuardTypes/JobsOCDeviceGuardTypes.h",
+        "Libs/OCBaseConfig/JobsMixFunc/JobsOCDeviceGuard/Core/JobsOCDeviceGuardTypes/JobsOCDeviceGuardTypes.m",
+        "Libs/OCBaseConfig/JobsMixFunc/JobsOCDeviceGuard/JobsOCDeviceGuard.h",
+        "Libs/OCBaseConfig/JobsMixFunc/JobsOCExcel/Core/JobsOCExcelCell/JobsOCExcelCell.h",
+        "Libs/OCBaseConfig/JobsMixFunc/JobsOCExcel/Core/JobsOCExcelCell/JobsOCExcelCell.m",
+        "Libs/OCBaseConfig/JobsMixFunc/JobsOCExcel/Core/JobsOCExcelCellContext/JobsOCExcelCellContext.h",
+        "Libs/OCBaseConfig/JobsMixFunc/JobsOCExcel/Core/JobsOCExcelCellContext/JobsOCExcelCellContext.m",
+        "Libs/OCBaseConfig/JobsMixFunc/JobsOCExcel/Core/JobsOCExcelColumn/JobsOCExcelColumn.h",
+        "Libs/OCBaseConfig/JobsMixFunc/JobsOCExcel/Core/JobsOCExcelColumn/JobsOCExcelColumn.m",
+        "Libs/OCBaseConfig/JobsMixFunc/JobsOCExcel/Core/JobsOCExcelRow/JobsOCExcelRow.h",
+        "Libs/OCBaseConfig/JobsMixFunc/JobsOCExcel/Core/JobsOCExcelRow/JobsOCExcelRow.m",
+        "Libs/OCBaseConfig/JobsMixFunc/JobsOCExcel/Core/JobsOCExcelStyle/JobsOCExcelStyle.h",
+        "Libs/OCBaseConfig/JobsMixFunc/JobsOCExcel/Core/JobsOCExcelStyle/JobsOCExcelStyle.m",
+        "Libs/OCBaseConfig/JobsMixFunc/JobsOCExcel/Core/JobsOCExcelView/JobsOCExcelView.h",
+        "Libs/OCBaseConfig/JobsMixFunc/JobsOCExcel/Core/JobsOCExcelView/JobsOCExcelView.m",
+        "Libs/OCBaseConfig/JobsMixFunc/JobsOCExcel/JobsOCExcel.h",
+        "Libs/OCBaseConfig/JobsMixFunc/JobsOCGraphicCaptcha/JobsOCGraphicCaptchaConfig/JobsOCGraphicCaptchaConfig.h",
+        "Libs/OCBaseConfig/JobsMixFunc/JobsOCGraphicCaptcha/JobsOCGraphicCaptchaConfig/JobsOCGraphicCaptchaConfig.m",
+        "Libs/OCBaseConfig/JobsMixFunc/JobsOCGraphicCaptcha/JobsOCGraphicCaptchaGenerator/JobsOCGraphicCaptchaGenerator.h",
+        "Libs/OCBaseConfig/JobsMixFunc/JobsOCGraphicCaptcha/JobsOCGraphicCaptchaGenerator/JobsOCGraphicCaptchaGenerator.m",
+        "Libs/OCBaseConfig/JobsMixFunc/JobsOCGraphicCaptcha/JobsOCGraphicCaptchaHeader.h",
+        "Libs/OCBaseConfig/JobsMixFunc/JobsOCGraphicCaptcha/JobsOCGraphicCaptchaView+DSL/JobsOCGraphicCaptchaView+DSL.h",
+        "Libs/OCBaseConfig/JobsMixFunc/JobsOCGraphicCaptcha/JobsOCGraphicCaptchaView+DSL/JobsOCGraphicCaptchaView+DSL.m",
+        "Libs/OCBaseConfig/JobsMixFunc/JobsOCGraphicCaptcha/JobsOCGraphicCaptchaView/JobsOCGraphicCaptchaView.h",
+        "Libs/OCBaseConfig/JobsMixFunc/JobsOCGraphicCaptcha/JobsOCGraphicCaptchaView/JobsOCGraphicCaptchaView.m",
+        "Libs/OCBaseConfig/JobsMixFunc/JobsOCKeyboardMgr/JobsOCKeyboardCalculator/JobsOCKeyboardCalculator.h",
+        "Libs/OCBaseConfig/JobsMixFunc/JobsOCKeyboardMgr/JobsOCKeyboardCalculator/JobsOCKeyboardCalculator.m",
+        "Libs/OCBaseConfig/JobsMixFunc/JobsOCKeyboardMgr/JobsOCKeyboardConfig/JobsOCKeyboardConfig.h",
+        "Libs/OCBaseConfig/JobsMixFunc/JobsOCKeyboardMgr/JobsOCKeyboardConfig/JobsOCKeyboardConfig.m",
+        "Libs/OCBaseConfig/JobsMixFunc/JobsOCKeyboardMgr/JobsOCKeyboardMgr.h",
+        "Libs/OCBaseConfig/JobsMixFunc/JobsOCKeyboardMgr/JobsOCKeyboardMgr.m",
+        "Libs/OCBaseConfig/JobsMixFunc/JobsOCKeyboardMgr/JobsOCKeyboardResult/JobsOCKeyboardResult.h",
+        "Libs/OCBaseConfig/JobsMixFunc/JobsOCKeyboardMgr/JobsOCKeyboardResult/JobsOCKeyboardResult.m",
+        "Libs/OCBaseConfig/JobsMixFunc/JobsOCMarkdown/Core/JobsOCMarkdownCatalog/JobsOCMarkdownCatalog.h",
+        "Libs/OCBaseConfig/JobsMixFunc/JobsOCMarkdown/Core/JobsOCMarkdownCatalog/JobsOCMarkdownCatalog.m",
+        "Libs/OCBaseConfig/JobsMixFunc/JobsOCMarkdown/Core/JobsOCMarkdownConfiguration/JobsOCMarkdownConfiguration.h",
+        "Libs/OCBaseConfig/JobsMixFunc/JobsOCMarkdown/Core/JobsOCMarkdownConfiguration/JobsOCMarkdownConfiguration.m",
+        "Libs/OCBaseConfig/JobsMixFunc/JobsOCMarkdown/Core/JobsOCMarkdownDocument/JobsOCMarkdownDocument.h",
+        "Libs/OCBaseConfig/JobsMixFunc/JobsOCMarkdown/Core/JobsOCMarkdownDocument/JobsOCMarkdownDocument.m",
+        "Libs/OCBaseConfig/JobsMixFunc/JobsOCMarkdown/Core/JobsOCMarkdownView/JobsOCMarkdownView.h",
+        "Libs/OCBaseConfig/JobsMixFunc/JobsOCMarkdown/Core/JobsOCMarkdownView/JobsOCMarkdownView.m",
+        "Libs/OCBaseConfig/JobsMixFunc/JobsOCMarkdown/JobsOCMarkdown.h",
+        "Libs/OCBaseConfig/JobsMixFunc/JobsOCMarkdown/Support/Native/JobsOCMarkdownResourceLocator/JobsOCMarkdownResourceLocator.h",
+        "Libs/OCBaseConfig/JobsMixFunc/JobsOCMarkdown/Support/Native/JobsOCMarkdownResourceLocator/JobsOCMarkdownResourceLocator.m",
+        "Libs/OCBaseConfig/JobsMixFunc/JobsOCNumberStepper/JobsOCNumberStepper.h",
+        "Libs/OCBaseConfig/JobsMixFunc/JobsOCNumberStepper/JobsOCNumberStepper.m",
+        "Libs/OCBaseConfig/JobsMixFunc/JobsOCOpen/JobsOCOpen.h",
+        "Libs/OCBaseConfig/JobsMixFunc/JobsOCOpen/JobsOCOpenConfiguration/JobsOCOpenConfiguration.h",
+        "Libs/OCBaseConfig/JobsMixFunc/JobsOCOpen/JobsOCOpenConfiguration/JobsOCOpenConfiguration.m",
+        "Libs/OCBaseConfig/JobsMixFunc/JobsOCOpen/JobsOCOpenWebViewController/JobsOCOpenWebViewController.h",
+        "Libs/OCBaseConfig/JobsMixFunc/JobsOCOpen/JobsOCOpenWebViewController/JobsOCOpenWebViewController.m",
+        "Libs/OCBaseConfig/JobsMixFunc/JobsOCOpen/JobsOCOpener/JobsOCOpener.h",
+        "Libs/OCBaseConfig/JobsMixFunc/JobsOCOpen/JobsOCOpener/JobsOCOpener.m",
+        "Libs/OCBaseConfig/JobsMixFunc/JobsOCOpen/NSObject+JobsOCOpen/NSObject+JobsOCOpen.h",
+        "Libs/OCBaseConfig/JobsMixFunc/JobsOCOpen/NSObject+JobsOCOpen/NSObject+JobsOCOpen.m",
+        "Libs/OCBaseConfig/JobsMixFunc/JobsOCOpen/NSString+JobsOCOpen/NSString+JobsOCOpen.h",
+        "Libs/OCBaseConfig/JobsMixFunc/JobsOCOpen/NSString+JobsOCOpen/NSString+JobsOCOpen.m",
+        "Libs/OCBaseConfig/JobsMixFunc/JobsOCPatch/JobsOCPatchMgr/JobsOCPatchMgr.h",
+        "Libs/OCBaseConfig/JobsMixFunc/JobsOCPatch/JobsOCPatchMgr/JobsOCPatchMgr.m",
+        "Libs/OCBaseConfig/JobsMixFunc/JobsOCPatch/JobsOCPatchModel/JobsOCPatchModel.h",
+        "Libs/OCBaseConfig/JobsMixFunc/JobsOCPatch/JobsOCPatchModel/JobsOCPatchModel.m",
+        "Libs/OCBaseConfig/JobsMixFunc/JobsOCSearcher/JobsOCSearcher.h",
+        "Libs/OCBaseConfig/JobsMixFunc/JobsOCSearcher/JobsOCSearcherConfig/JobsOCSearcherConfig.h",
+        "Libs/OCBaseConfig/JobsMixFunc/JobsOCSearcher/JobsOCSearcherConfig/JobsOCSearcherConfig.m",
+        "Libs/OCBaseConfig/JobsMixFunc/JobsOCSearcher/JobsOCSearcherRecordCell/JobsOCSearcherRecordCell.h",
+        "Libs/OCBaseConfig/JobsMixFunc/JobsOCSearcher/JobsOCSearcherRecordCell/JobsOCSearcherRecordCell.m",
+        "Libs/OCBaseConfig/JobsMixFunc/JobsOCSearcher/JobsOCSearcherView/JobsOCSearcherView.h",
+        "Libs/OCBaseConfig/JobsMixFunc/JobsOCSearcher/JobsOCSearcherView/JobsOCSearcherView.m",
+        "Libs/OCBaseConfig/JobsMixFunc/JobsOCSkeletonView/JobsOCSkeletonConfig/JobsOCSkeletonConfig.h",
+        "Libs/OCBaseConfig/JobsMixFunc/JobsOCSkeletonView/JobsOCSkeletonConfig/JobsOCSkeletonConfig.m",
+        "Libs/OCBaseConfig/JobsMixFunc/JobsOCSkeletonView/JobsOCSkeletonView.h",
+        "Libs/OCBaseConfig/JobsMixFunc/JobsOCSkeletonView/UIImageView+JobsOCSkeletonView/UIImageView+JobsOCSkeletonView.h",
+        "Libs/OCBaseConfig/JobsMixFunc/JobsOCSkeletonView/UIImageView+JobsOCSkeletonView/UIImageView+JobsOCSkeletonView.m",
+        "Libs/OCBaseConfig/JobsMixFunc/JobsOCSkeletonView/UIView+JobsOCSkeletonView/UIView+JobsOCSkeletonView.h",
+        "Libs/OCBaseConfig/JobsMixFunc/JobsOCSkeletonView/UIView+JobsOCSkeletonView/UIView+JobsOCSkeletonView.m",
+        "Libs/OCBaseConfig/JobsMixFunc/JobsOCSnowflake/JobsOCSnowflake.h",
+        "Libs/OCBaseConfig/JobsMixFunc/JobsOCSnowflake/JobsOCSnowflake.m",
+        "Libs/OCBaseConfig/JobsMixFunc/JobsOCSnowflake/JobsOCSnowflakeHeader.h",
+        "Libs/OCBaseConfig/JobsMixFunc/JobsOCSplash/JobsOCSplash.h",
+        "Libs/OCBaseConfig/JobsMixFunc/JobsOCSplash/JobsOCSplashAction/JobsOCSplashAction.h",
+        "Libs/OCBaseConfig/JobsMixFunc/JobsOCSplash/JobsOCSplashAction/JobsOCSplashAction.m",
+        "Libs/OCBaseConfig/JobsMixFunc/JobsOCSplash/JobsOCSplashConfiguration/JobsOCSplashConfiguration.h",
+        "Libs/OCBaseConfig/JobsMixFunc/JobsOCSplash/JobsOCSplashConfiguration/JobsOCSplashConfiguration.m",
+        "Libs/OCBaseConfig/JobsMixFunc/JobsOCSplash/JobsOCSplashGIFDecoder/JobsOCSplashGIFDecoder.h",
+        "Libs/OCBaseConfig/JobsMixFunc/JobsOCSplash/JobsOCSplashGIFDecoder/JobsOCSplashGIFDecoder.m",
+        "Libs/OCBaseConfig/JobsMixFunc/JobsOCSplash/JobsOCSplashLocalization/JobsOCSplashLocalization.h",
+        "Libs/OCBaseConfig/JobsMixFunc/JobsOCSplash/JobsOCSplashLocalization/JobsOCSplashLocalization.m",
+        "Libs/OCBaseConfig/JobsMixFunc/JobsOCSplash/JobsOCSplashMediaCache/JobsOCSplashMediaCache.h",
+        "Libs/OCBaseConfig/JobsMixFunc/JobsOCSplash/JobsOCSplashMediaCache/JobsOCSplashMediaCache.m",
+        "Libs/OCBaseConfig/JobsMixFunc/JobsOCSplash/JobsOCSplashMediaDownloadToken/JobsOCSplashMediaDownloadToken.h",
+        "Libs/OCBaseConfig/JobsMixFunc/JobsOCSplash/JobsOCSplashMediaDownloadToken/JobsOCSplashMediaDownloadToken.m",
+        "Libs/OCBaseConfig/JobsMixFunc/JobsOCSplash/JobsOCSplashPreferences/JobsOCSplashPreferences.h",
+        "Libs/OCBaseConfig/JobsMixFunc/JobsOCSplash/JobsOCSplashPreferences/JobsOCSplashPreferences.m",
+        "Libs/OCBaseConfig/JobsMixFunc/JobsOCSplash/JobsOCSplashPresenter/JobsOCSplashPresenter.h",
+        "Libs/OCBaseConfig/JobsMixFunc/JobsOCSplash/JobsOCSplashPresenter/JobsOCSplashPresenter.m",
+        "Libs/OCBaseConfig/JobsMixFunc/JobsOCSplash/JobsOCSplashVC/JobsOCSplashVC.h",
+        "Libs/OCBaseConfig/JobsMixFunc/JobsOCSplash/JobsOCSplashVC/JobsOCSplashVC.m",
+        "Libs/OCBaseConfig/JobsMixFunc/JobsOCStabilitySupport/Core/JobsPodsStabilitySceneDelegate/JobsPodsStabilitySceneDelegate.h",
+        "Libs/OCBaseConfig/JobsMixFunc/JobsOCStabilitySupport/Core/JobsPodsStabilitySceneDelegate/JobsPodsStabilitySceneDelegate.m",
+        "Libs/OCBaseConfig/JobsMixFunc/JobsOCTimer/JobsOCTimer.h",
+        "Libs/OCBaseConfig/JobsMixFunc/JobsOCTimerMgr/JobsOCTimerMgr.h",
+        "Libs/OCBaseConfig/JobsMixFunc/JobsOCTimerMgr/JobsTimerMgr+DSL/JobsTimerMgr+DSL.h",
+        "Libs/OCBaseConfig/JobsMixFunc/JobsOCTimerMgr/JobsTimerMgr+DSL/JobsTimerMgr+DSL.m",
+        "Libs/OCBaseConfig/JobsMixFunc/JobsOCTimerMgr/JobsTimerMgr/JobsTimerMgr.h",
+        "Libs/OCBaseConfig/JobsMixFunc/JobsOCTimerMgr/JobsTimerMgr/JobsTimerMgr.m",
+        "Libs/OCBaseConfig/JobsMixFunc/JobsOCTimerMgr/_JobsTimerMgrEntry/_JobsTimerMgrEntry.h",
+        "Libs/OCBaseConfig/JobsMixFunc/JobsOCTimerMgr/_JobsTimerMgrEntry/_JobsTimerMgrEntry.m",
+        "Libs/OCBaseConfig/JobsMixFunc/JobsOCTools.h",
+        "Libs/OCBaseConfig/JobsMixFunc/JobsOCVideoRecorder/JobsOCVideoRecorder.h",
+        "Libs/OCBaseConfig/JobsMixFunc/JobsOCVideoRecorder/JobsOCVideoRecorderAlbumSaver/JobsOCVideoRecorderAlbumSaver.h",
+        "Libs/OCBaseConfig/JobsMixFunc/JobsOCVideoRecorder/JobsOCVideoRecorderAlbumSaver/JobsOCVideoRecorderAlbumSaver.m",
+        "Libs/OCBaseConfig/JobsMixFunc/JobsOCVideoRecorder/JobsOCVideoRecorderAssetWriter/JobsOCVideoRecorderAssetWriter.h",
+        "Libs/OCBaseConfig/JobsMixFunc/JobsOCVideoRecorder/JobsOCVideoRecorderAssetWriter/JobsOCVideoRecorderAssetWriter.m",
+        "Libs/OCBaseConfig/JobsMixFunc/JobsOCVideoRecorder/JobsOCVideoRecorderCaptureManager/JobsOCVideoRecorderCaptureManager.h",
+        "Libs/OCBaseConfig/JobsMixFunc/JobsOCVideoRecorder/JobsOCVideoRecorderCaptureManager/JobsOCVideoRecorderCaptureManager.m",
+        "Libs/OCBaseConfig/JobsMixFunc/JobsOCVideoRecorder/JobsOCVideoRecorderConfig/JobsOCVideoRecorderConfig.h",
+        "Libs/OCBaseConfig/JobsMixFunc/JobsOCVideoRecorder/JobsOCVideoRecorderConfig/JobsOCVideoRecorderConfig.m",
+        "Libs/OCBaseConfig/JobsMixFunc/JobsOCVideoRecorder/JobsOCVideoRecorderFilter/JobsOCVideoRecorderCIFilterProcessor/JobsOCVideoRecorderCIFilterProcessor.h",
+        "Libs/OCBaseConfig/JobsMixFunc/JobsOCVideoRecorder/JobsOCVideoRecorderFilter/JobsOCVideoRecorderCIFilterProcessor/JobsOCVideoRecorderCIFilterProcessor.m",
+        "Libs/OCBaseConfig/JobsMixFunc/JobsOCVideoRecorder/JobsOCVideoRecorderFilter/JobsOCVideoRecorderFilterProtocol.h",
+        "Libs/OCBaseConfig/JobsMixFunc/JobsOCVideoRecorder/JobsOCVideoRecorderPreviewView/JobsOCVideoRecorderPreviewView.h",
+        "Libs/OCBaseConfig/JobsMixFunc/JobsOCVideoRecorder/JobsOCVideoRecorderPreviewView/JobsOCVideoRecorderPreviewView.m",
+        "Libs/OCBaseConfig/JobsMixFunc/JobsOCVideoRecorder/JobsOCVideoRecorderRecordButton/JobsOCVideoRecorderRecordButton.h",
+        "Libs/OCBaseConfig/JobsMixFunc/JobsOCVideoRecorder/JobsOCVideoRecorderRecordButton/JobsOCVideoRecorderRecordButton.m",
+        "Libs/OCBaseConfig/JobsMixFunc/JobsOCVideoRecorder/JobsOCVideoRecorderResult/JobsOCVideoRecorderResult.h",
+        "Libs/OCBaseConfig/JobsMixFunc/JobsOCVideoRecorder/JobsOCVideoRecorderResult/JobsOCVideoRecorderResult.m",
+        "Libs/OCBaseConfig/JobsMixFunc/JobsOCVideoRecorder/JobsOCVideoRecorderVC/JobsOCVideoRecorderVC.h",
+        "Libs/OCBaseConfig/JobsMixFunc/JobsOCVideoRecorder/JobsOCVideoRecorderVC/JobsOCVideoRecorderVC.m",
+        "Libs/OCBaseConfig/JobsMixFunc/JobsOCWebSocket/JobsOCWebSocket.h",
+        "Libs/OCBaseConfig/JobsMixFunc/JobsOCWebSocket/JobsOCWebSocketClient/JobsOCWebSocketClient.h",
+        "Libs/OCBaseConfig/JobsMixFunc/JobsOCWebSocket/JobsOCWebSocketClient/JobsOCWebSocketClient.m",
+        "Libs/OCBaseConfig/JobsMixFunc/JobsPageTBV/JobsPageTBVCell/JobsPageTBVCell.h",
+        "Libs/OCBaseConfig/JobsMixFunc/JobsPageTBV/JobsPageTBVCell/JobsPageTBVCell.m",
+        "Libs/OCBaseConfig/JobsMixFunc/JobsPageTBV/JobsPageView/JobsPageView.h",
+        "Libs/OCBaseConfig/JobsMixFunc/JobsPageTBV/JobsPageView/JobsPageView.m",
+        "Libs/OCBaseConfig/JobsMixFunc/JobsRandomUtils/JobsRandomUtils.h",
+        "Libs/OCBaseConfig/JobsMixFunc/JobsRandomUtils/JobsRandomUtils.m",
+        "Libs/OCBaseConfig/JobsMixFunc/JobsRandomUtils/JobsRandomUtilsHeader.h",
+        "Libs/OCBaseConfig/JobsMixFunc/JobsRichTextUtils/JobsRichTextUtils.h",
+        "Libs/OCBaseConfig/JobsMixFunc/JobsRichTextUtils/UIKit/NSObject/NSObject+AttributedString/NSObject+AttributedString.h",
+        "Libs/OCBaseConfig/JobsMixFunc/JobsRichTextUtils/UIKit/NSObject/NSObject+AttributedString/NSObject+AttributedString.m",
+        "Libs/OCBaseConfig/JobsMixFunc/JobsScale/JobsScale.h",
+        "Libs/OCBaseConfig/JobsMixFunc/JobsScale/JobsScale.m",
+        "Libs/OCBaseConfig/JobsMixFunc/JobsScreenCapture/JobsScreenCapture.h",
+        "Libs/OCBaseConfig/JobsMixFunc/JobsScreenCapture/JobsScreenshotCapturer/JobsScreenshotCapturer.h",
+        "Libs/OCBaseConfig/JobsMixFunc/JobsScreenCapture/JobsScreenshotCapturer/JobsScreenshotCapturer.m",
+        "Libs/OCBaseConfig/JobsMixFunc/JobsScreenCapture/JobsScreenshotObserver/JobsScreenshotObserver.h",
+        "Libs/OCBaseConfig/JobsMixFunc/JobsScreenCapture/JobsScreenshotObserver/JobsScreenshotObserver.m",
+        "Libs/OCBaseConfig/JobsMixFunc/JobsScreenCapture/JobsScreenshotProtectionView/JobsScreenshotProtectionView.h",
+        "Libs/OCBaseConfig/JobsMixFunc/JobsScreenCapture/JobsScreenshotProtectionView/JobsScreenshotProtectionView.m",
+        "Libs/OCBaseConfig/JobsMixFunc/JobsShowNumView/JobsShowNumView.h",
+        "Libs/OCBaseConfig/JobsMixFunc/JobsShowNumView/JobsShowNumView.m",
+        "Libs/OCBaseConfig/JobsMixFunc/JobsSideDrawer/JobsSideDrawer.h",
+        "Libs/OCBaseConfig/JobsMixFunc/JobsSideDrawer/JobsSideDrawer.m",
+        "Libs/OCBaseConfig/JobsMixFunc/JobsStepView/JobsStepView.h",
+        "Libs/OCBaseConfig/JobsMixFunc/JobsStepView/JobsStepView.m",
+        "Libs/OCBaseConfig/JobsMixFunc/JobsStringUtils/JobsStringUtils.m",
+        "Libs/OCBaseConfig/JobsMixFunc/JobsStringUtils/JobsStringUtilsHeader.h",
+        "Libs/OCBaseConfig/JobsMixFunc/JobsSuspend/JobsSuspend.h",
+        "Libs/OCBaseConfig/JobsMixFunc/JobsSuspend/JobsSuspendBtn/JobsSuspendBtn.h",
+        "Libs/OCBaseConfig/JobsMixFunc/JobsSuspend/JobsSuspendBtn/JobsSuspendBtn.m",
+        "Libs/OCBaseConfig/JobsMixFunc/JobsSuspend/JobsSuspendLab/JobsSuspendLab.h",
+        "Libs/OCBaseConfig/JobsMixFunc/JobsSuspend/JobsSuspendLab/JobsSuspendLab.m",
+        "Libs/OCBaseConfig/JobsMixFunc/JobsSuspend/JobsSuspendView/JobsSuspendView.h",
+        "Libs/OCBaseConfig/JobsMixFunc/JobsSuspend/JobsSuspendView/JobsSuspendView.m",
+        "Libs/OCBaseConfig/JobsMixFunc/JobsTimeUtils/JobsTimeUtils.h",
+        "Libs/OCBaseConfig/JobsMixFunc/JobsTitleView01/JobsTitleView01.h",
+        "Libs/OCBaseConfig/JobsMixFunc/JobsTitleView01/JobsTitleView01.m",
+        "Libs/OCBaseConfig/JobsMixFunc/JobsToggleView/JobsToggleBaseView/JobsToggleBaseView.h",
+        "Libs/OCBaseConfig/JobsMixFunc/JobsToggleView/JobsToggleBaseView/JobsToggleBaseView.m",
+        "Libs/OCBaseConfig/JobsMixFunc/JobsToggleView/JobsToggleNavView/JobsToggleNavView.h",
+        "Libs/OCBaseConfig/JobsMixFunc/JobsToggleView/JobsToggleNavView/JobsToggleNavView.m",
+        "Libs/OCBaseConfig/JobsMixFunc/JobsToggleView/JobsToggleNavViewProtocol.h",
+        "Libs/OCBaseConfig/JobsMixFunc/JobsUploadingProgressView/JobsUploadingProgressView/JobsUploadingProgressView.h",
+        "Libs/OCBaseConfig/JobsMixFunc/JobsUploadingProgressView/JobsUploadingProgressView/JobsUploadingProgressView.m",
+        "Libs/OCBaseConfig/JobsMixFunc/JobsUserHeaderDataChoice/JobsUserHeaderDataChoiceHeader.h",
+        "Libs/OCBaseConfig/JobsMixFunc/JobsUserHeaderDataChoice/JobsUserHeaderDataView/JobsUserHeaderDataView.h",
+        "Libs/OCBaseConfig/JobsMixFunc/JobsUserHeaderDataChoice/JobsUserHeaderDataView/JobsUserHeaderDataView.m",
+        "Libs/OCBaseConfig/JobsMixFunc/JobsUserHeaderDataChoice/JobsUserHeaderDataViewForHeaderInSection/JobsUserHeaderDataViewForHeaderInSection.h",
+        "Libs/OCBaseConfig/JobsMixFunc/JobsUserHeaderDataChoice/JobsUserHeaderDataViewForHeaderInSection/JobsUserHeaderDataViewForHeaderInSection.m",
+        "Libs/OCBaseConfig/JobsMixFunc/JobsUserHeaderDataChoice/JobsUserHeaderDataViewTBVCell/JobsUserHeaderDataViewTBVCell.h",
+        "Libs/OCBaseConfig/JobsMixFunc/JobsUserHeaderDataChoice/JobsUserHeaderDataViewTBVCell/JobsUserHeaderDataViewTBVCell.m",
+        "Libs/OCBaseConfig/JobsMixFunc/JobsViewNavigator/JobsViewNavigator.h",
+        "Libs/OCBaseConfig/JobsMixFunc/JobsViewNavigator/JobsViewNavigator.m",
+        "Libs/OCBaseConfig/JobsMixFunc/JobsViewNavigator/JobsViewNavigatorHeader.h",
+        "Libs/OCBaseConfig/JobsMixFunc/JobsWeakAssociation/JobsWeakAssociation.h",
+        "Libs/OCBaseConfig/JobsMixFunc/JobsWeakAssociation/JobsWeakAssociation.m",
+        "Libs/OCBaseConfig/JobsMixFunc/JobsWelcomeVC/JobsWelcomeVC.h",
+        "Libs/OCBaseConfig/JobsMixFunc/JobsWelcomeVC/JobsWelcomeVC.m",
+        "Libs/OCBaseConfig/JobsMixFunc/This/ThisHeader.h",
+        "Libs/OCBaseConfig/JobsMixFunc/UITabBarCtr/JobsCustomTabBarCtr/JobsCustomTabBar/JobsCustomTabBar.h",
+        "Libs/OCBaseConfig/JobsMixFunc/UITabBarCtr/JobsCustomTabBarCtr/JobsCustomTabBar/JobsCustomTabBar.m",
+        "Libs/OCBaseConfig/JobsMixFunc/UITabBarCtr/JobsCustomTabBarCtr/JobsCustomTabBarButton/JobsCustomTabBarButton.h",
+        "Libs/OCBaseConfig/JobsMixFunc/UITabBarCtr/JobsCustomTabBarCtr/JobsCustomTabBarButton/JobsCustomTabBarButton.m",
+        "Libs/OCBaseConfig/JobsMixFunc/UITabBarCtr/JobsCustomTabBarCtr/JobsCustomTabBarConfig/JobsCustomTabBarConfig.h",
+        "Libs/OCBaseConfig/JobsMixFunc/UITabBarCtr/JobsCustomTabBarCtr/JobsCustomTabBarConfig/JobsCustomTabBarConfig.m",
+        "Libs/OCBaseConfig/JobsMixFunc/UITabBarCtr/JobsCustomTabBarCtr/JobsCustomTabBarVC/JobsCustomTabBarVC.h",
+        "Libs/OCBaseConfig/JobsMixFunc/UITabBarCtr/JobsCustomTabBarCtr/JobsCustomTabBarVC/JobsCustomTabBarVC.m",
+        "Libs/OCBaseConfig/JobsMixFunc/UITabBarCtr/JobsTabBarCtrl/JobsTabBarCtrl.h",
+        "Libs/OCBaseConfig/JobsMixFunc/UITabBarCtr/JobsTabBarCtrl/JobsTabBarCtrl.m",
+        "Libs/OCBaseConfig/JobsMixFunc/UITabBarCtr/JobsTabBarCtrl/JobsTabBarCtrlHeader.h",
+        "Libs/OCBaseConfig/JobsMixFunc/UITabBarCtr/LZTabBarController/LZTabBar/LZTabBar.h",
+        "Libs/OCBaseConfig/JobsMixFunc/UITabBarCtr/LZTabBarController/LZTabBar/LZTabBar.m",
+        "Libs/OCBaseConfig/JobsMixFunc/UITabBarCtr/LZTabBarController/LZTabBarConfig/LZTabBarConfig.h",
+        "Libs/OCBaseConfig/JobsMixFunc/UITabBarCtr/LZTabBarController/LZTabBarConfig/LZTabBarConfig.m",
+        "Libs/OCBaseConfig/JobsMixFunc/UITabBarCtr/LZTabBarController/LZTabBarController/LZTabBarController.h",
+        "Libs/OCBaseConfig/JobsMixFunc/UITabBarCtr/LZTabBarController/LZTabBarController/LZTabBarController.m",
+        "Libs/OCBaseConfig/JobsMixFunc/UITabBarCtr/LZTabBarController/LZTabBarItem/LZTabBarItem.h",
+        "Libs/OCBaseConfig/JobsMixFunc/UITabBarCtr/LZTabBarController/LZTabBarItem/LZTabBarItem.m",
+        "Libs/OCBaseConfig/JobsMixFunc/UITabBarCtr/UITabBarCtrExtra/JobsTabbarCtrlSysEx.h",
+        "Libs/OCBaseConfig/JobsMixFunc/UITabBarCtr/UITabBarCtrExtra/UITabBar/BaseTabBar/JobsTabBar/JobsTabBar.h",
+        "Libs/OCBaseConfig/JobsMixFunc/UITabBarCtr/UITabBarCtrExtra/UITabBar/BaseTabBar/JobsTabBar/JobsTabBar.m",
+        "Libs/OCBaseConfig/JobsMixFunc/UITabBarCtr/UITabBarCtrExtra/UITabBar/UITabBar+Category/UITabBar+Ex/UITabBar+Ex.h",
+        "Libs/OCBaseConfig/JobsMixFunc/UITabBarCtr/UITabBarCtrExtra/UITabBar/UITabBar+Category/UITabBar+Ex/UITabBar+Ex.m",
+        "Libs/OCBaseConfig/JobsMixFunc/UITabBarCtr/UITabBarCtrExtra/UITabBar/UITabBar+Category/UITabBar+TLAnimation/UITabBar+TLAnimation.h",
+        "Libs/OCBaseConfig/JobsMixFunc/UITabBarCtr/UITabBarCtrExtra/UITabBar/UITabBar+Category/UITabBar+TLAnimation/UITabBar+TLAnimation.m",
+        "Libs/OCBaseConfig/JobsMixFunc/UITabBarCtr/UITabBarCtrExtra/UITabBarController/BaseTabBarController/JobsTabbarVC/JobsTabBarVC.h",
+        "Libs/OCBaseConfig/JobsMixFunc/UITabBarCtr/UITabBarCtrExtra/UITabBarController/BaseTabBarController/JobsTabbarVC/JobsTabBarVC.m",
+        "Libs/OCBaseConfig/JobsMixFunc/UITabBarCtr/UITabBarCtrExtra/UITabBarItem/BaseTabBarItem/JobsTabBarItem/JobsTabBarItem.h",
+        "Libs/OCBaseConfig/JobsMixFunc/UITabBarCtr/UITabBarCtrExtra/UITabBarItem/BaseTabBarItem/JobsTabBarItem/JobsTabBarItem.m",
+        "Libs/OCBaseConfig/JobsMixFunc/UITabBarCtr/UITabBarCtrExtra/UITabBarItem/UITabBarItem+Category/UITabBarItem+TLAnimation/UITabBarItem+TLAnimation.h",
+        "Libs/OCBaseConfig/JobsMixFunc/UITabBarCtr/UITabBarCtrExtra/UITabBarItem/UITabBarItem+Category/UITabBarItem+TLAnimation/UITabBarItem+TLAnimation.m",
+        "Libs/OCBaseConfig/JobsMixFunc/UITabBarCtr/UITabBarCtrExtra/一些需要单独列出来的功能性模块/功能性动效：Tabbaritem的点击动效/TLAnimationProtocol.h",
+        "Libs/OCBaseConfig/JobsMixFunc/UITabBarCtr/UITabBarCtrExtra/一些需要单独列出来的功能性模块/功能性动效：Tabbaritem的点击动效/TLTabBarAnimation/TLTabBarAnimation.h",
+        "Libs/OCBaseConfig/JobsMixFunc/UITabBarCtr/UITabBarCtrExtra/一些需要单独列出来的功能性模块/功能性动效：Tabbaritem的点击动效/TLTabBarAnimation/TLTabBarAnimation.m",
+        "Libs/OCBaseConfig/JobsMixFunc/UITabBarCtr/UITabBarCtrExtra/一些需要单独列出来的功能性模块/功能性动效：手势横向滚动子VC联动Tabbar切换/TransitionAnimation/TransitionAnimation.h",
+        "Libs/OCBaseConfig/JobsMixFunc/UITabBarCtr/UITabBarCtrExtra/一些需要单独列出来的功能性模块/功能性动效：手势横向滚动子VC联动Tabbar切换/TransitionAnimation/TransitionAnimation.m",
+        "Libs/OCBaseConfig/JobsMixFunc/UITabBarCtr/UITabBarCtrExtra/一些需要单独列出来的功能性模块/功能性动效：手势横向滚动子VC联动Tabbar切换/TransitionController/TransitionController.h",
+        "Libs/OCBaseConfig/JobsMixFunc/UITabBarCtr/UITabBarCtrExtra/一些需要单独列出来的功能性模块/功能性动效：手势横向滚动子VC联动Tabbar切换/TransitionController/TransitionController.m",
+        "Libs/OCBaseConfig/JobsMixFunc/UITabBarCtr/UITabBarCtrExtra/一些需要单独列出来的功能性模块/功能性动效：高仿 Telegram，在指定位置出现菜单列表/JobsPullListAutoSizeView/JobsPullListAutoSizeView.h",
+        "Libs/OCBaseConfig/JobsMixFunc/UITabBarCtr/UITabBarCtrExtra/一些需要单独列出来的功能性模块/功能性动效：高仿 Telegram，在指定位置出现菜单列表/JobsPullListAutoSizeView/JobsPullListAutoSizeView.m",
+        "Libs/OCBaseConfig/JobsMixFunc/UITabBarCtr/UITabBarCtrExtra/一些需要单独列出来的功能性模块/功能性动效：高仿 Telegram，在指定位置出现菜单列表/JobsPullListTBVCell/JobsPullListTBVCell.h",
+        "Libs/OCBaseConfig/JobsMixFunc/UITabBarCtr/UITabBarCtrExtra/一些需要单独列出来的功能性模块/功能性动效：高仿 Telegram，在指定位置出现菜单列表/JobsPullListTBVCell/JobsPullListTBVCell.m",
+        "Libs/OCBaseConfig/JobsMixFunc/UITabBarCtr/UITabBarCtrExtra/全局配置文件/JobsTabBarCtrlConstruction.h",
+        "Libs/OCBaseConfig/JobsMixFunc/UITabBarCtr/UITabBarCtrExtra/全局配置文件/JobsTabBarItemConfig/JobsTabBarItemConfig.h",
+        "Libs/OCBaseConfig/JobsMixFunc/UITabBarCtr/UITabBarCtrExtra/全局配置文件/JobsTabBarItemConfig/JobsTabBarItemConfig.m",
+        "Libs/OCBaseConfig/JobsMixFunc/分享弹窗/JobsShareView/JobsShareView.h",
+        "Libs/OCBaseConfig/JobsMixFunc/分享弹窗/JobsShareView/JobsShareView.m",
+        "Libs/OCBaseConfig/JobsMixFunc/分享弹窗/MSMineView6CVCell/MSMineView6CVCell.h",
+        "Libs/OCBaseConfig/JobsMixFunc/分享弹窗/MSMineView6CVCell/MSMineView6CVCell.m",
+        "Libs/OCBaseConfig/JobsMixFunc/图形验证码/ImageCodeView/ImageCodeView.h",
+        "Libs/OCBaseConfig/JobsMixFunc/图形验证码/ImageCodeView/ImageCodeView.m",
+        "Libs/OCBaseConfig/JobsMixFunc/图形验证码/JobsGraphicCaptchaConfig/JobsGraphicCaptchaConfig.h",
+        "Libs/OCBaseConfig/JobsMixFunc/图形验证码/JobsGraphicCaptchaConfig/JobsGraphicCaptchaConfig.m",
+        "Libs/OCBaseConfig/JobsMixFunc/图形验证码/JobsGraphicCaptchaGenerator/JobsGraphicCaptchaGenerator.h",
+        "Libs/OCBaseConfig/JobsMixFunc/图形验证码/JobsGraphicCaptchaGenerator/JobsGraphicCaptchaGenerator.m",
+        "Libs/OCBaseConfig/JobsMixFunc/图形验证码/JobsGraphicCaptchaHeader.h",
+        "Libs/OCBaseConfig/JobsMixFunc/图形验证码/JobsGraphicCaptchaView/JobsGraphicCaptchaView.h",
+        "Libs/OCBaseConfig/JobsMixFunc/图形验证码/JobsGraphicCaptchaView/JobsGraphicCaptchaView.m",
+        "Libs/OCBaseConfig/JobsMixFunc/在指定的y区间内滑动视图/JobsScrollViewVC/JobsScrollViewVC.h",
+        "Libs/OCBaseConfig/JobsMixFunc/在指定的y区间内滑动视图/JobsScrollViewVC/JobsScrollViewVC.m",
+        "Libs/OCBaseConfig/JobsMixFunc/在指定的y区间内滑动视图/JobsScrollYView/JobsScrollYView.h",
+        "Libs/OCBaseConfig/JobsMixFunc/在指定的y区间内滑动视图/JobsScrollYView/JobsScrollYView.m",
+        "Libs/OCBaseConfig/JobsMixFunc/广告或者公示弹出框/JobsNoticePopupView/JobsNoticePopupView.h",
+        "Libs/OCBaseConfig/JobsMixFunc/广告或者公示弹出框/JobsNoticePopupView/JobsNoticePopupView.m",
+        "Libs/OCBaseConfig/JobsMixFunc/手势滑动返回/FDFullscreenPopGesture.h",
+        "Libs/OCBaseConfig/JobsMixFunc/手势滑动返回/UINavigationController+FDFullscreenPopGesture/UINavigationController+FDFullscreenPopGesture.h",
+        "Libs/OCBaseConfig/JobsMixFunc/手势滑动返回/UINavigationController+FDFullscreenPopGesture/UINavigationController+FDFullscreenPopGesture.m",
+        "Libs/OCBaseConfig/JobsMixFunc/手势滑动返回/UIScrollView+FDFullscreenPopGesture.h",
+        "Libs/OCBaseConfig/JobsMixFunc/手势滑动返回/UIScrollView+FDFullscreenPopGesture.m",
+        "Libs/OCBaseConfig/JobsMixFunc/播放器控制层/CustomZFPlayerControlView/CustomZFPlayerControlView.h",
+        "Libs/OCBaseConfig/JobsMixFunc/播放器控制层/CustomZFPlayerControlView/CustomZFPlayerControlView.m",
+        "Libs/OCBaseConfig/JobsMixFunc/播放器控制层/ZFCustomControlView/ZFCustomControlView.h",
+        "Libs/OCBaseConfig/JobsMixFunc/播放器控制层/ZFCustomControlView/ZFCustomControlView.m",
+        "Libs/OCBaseConfig/JobsOCDefs/Core/JobsDefines/JobsDefineConstString/JobsDefineConstString.h",
+        "Libs/OCBaseConfig/JobsOCDefs/Core/JobsDefines/JobsDefineConstString/JobsDefineConstString.m",
+        "Libs/OCBaseConfig/JobsOCDefs/Core/JobsDefines/JobsDefineEnums.h",
+        "Libs/OCBaseConfig/JobsOCDefs/Core/JobsDefines/JobsDefineEnums/JobsDefine3rdEnums.h",
+        "Libs/OCBaseConfig/JobsOCDefs/Core/JobsDefines/JobsDefineEnums/JobsDefineActivityEnums.h",
+        "Libs/OCBaseConfig/JobsOCDefs/Core/JobsDefines/JobsDefineEnums/JobsDefineBizEnums.h",
+        "Libs/OCBaseConfig/JobsOCDefs/Core/JobsDefines/JobsDefineEnums/JobsDefineCALayerEnums.h",
+        "Libs/OCBaseConfig/JobsOCDefs/Core/JobsDefines/JobsDefineEnums/JobsDefineDirectionEnums.h",
+        "Libs/OCBaseConfig/JobsOCDefs/Core/JobsDefines/JobsDefineEnums/JobsDefineDoorEnums.h",
+        "Libs/OCBaseConfig/JobsOCDefs/Core/JobsDefines/JobsDefineEnums/JobsDefineKeyboardEnums.h",
+        "Libs/OCBaseConfig/JobsOCDefs/Core/JobsDefines/JobsDefineEnums/JobsDefineLanguageEnums.h",
+        "Libs/OCBaseConfig/JobsOCDefs/Core/JobsDefines/JobsDefineEnums/JobsDefineMsgEnums.h",
+        "Libs/OCBaseConfig/JobsOCDefs/Core/JobsDefines/JobsDefineEnums/JobsDefineNetworkingEnums.h",
+        "Libs/OCBaseConfig/JobsOCDefs/Core/JobsDefines/JobsDefineEnums/JobsDefineOrderEnums.h",
+        "Libs/OCBaseConfig/JobsOCDefs/Core/JobsDefines/JobsDefineEnums/JobsDefineStateEnums.h",
+        "Libs/OCBaseConfig/JobsOCDefs/Core/JobsDefines/JobsDefineEnums/JobsDefineSysEnums.h",
+        "Libs/OCBaseConfig/JobsOCDefs/Core/JobsDefines/JobsDefineEnums/JobsDefineTimeEnums.h",
+        "Libs/OCBaseConfig/JobsOCDefs/Core/JobsDefines/JobsDefineEnums/JobsDefineToolsEnums.h",
+        "Libs/OCBaseConfig/JobsOCDefs/Core/JobsDefines/JobsDefineEnums/JobsDefineUsrEnums.h",
+        "Libs/OCBaseConfig/JobsOCDefs/Core/JobsDefines/JobsDefineFuncs.h",
+        "Libs/OCBaseConfig/JobsOCDefs/Core/JobsDefines/JobsDefineOCProtocol.h",
+        "Libs/OCBaseConfig/JobsOCDefs/Core/JobsDefines/JobsDefineProperty.h",
+        "Libs/OCBaseConfig/JobsOCDefs/Core/JobsDefines/JobsDefineStructs.h",
+        "Libs/OCBaseConfig/JobsOCDefs/Core/JobsDefines/JobsDefineURLs.h",
+        "Libs/OCBaseConfig/JobsOCDefs/Core/JobsDefines/JobsDefineUserDefault.h",
+        "Libs/OCBaseConfig/JobsOCDefs/Core/JobsDefines/JobsDefinesNetworkingConstant.h",
+        "Libs/OCBaseConfig/JobsOCDefs/Core/JobsDefines/JobsDefinesOCProtocol/JobsDefineAppToolsProtocol.h",
+        "Libs/OCBaseConfig/JobsOCDefs/Core/JobsDefines/JobsDefinesOCProtocol/JobsDefineBaseButtonProtocol.h",
+        "Libs/OCBaseConfig/JobsOCDefs/Core/JobsDefines/JobsDefinesOCProtocol/JobsDefineBaseLayerProtocol.h",
+        "Libs/OCBaseConfig/JobsOCDefs/Core/JobsDefines/JobsDefinesOCProtocol/JobsDefineBaseProtocol.h",
+        "Libs/OCBaseConfig/JobsOCDefs/Core/JobsDefines/JobsDefinesOCProtocol/JobsDefineBaseViewControllerProtocol.h",
+        "Libs/OCBaseConfig/JobsOCDefs/Core/JobsDefines/JobsDefinesOCProtocol/JobsDefineBaseViewProtocol.h",
+        "Libs/OCBaseConfig/JobsOCDefs/Core/JobsDefines/JobsDefinesOCProtocol/JobsDefineGestureProtocol.h",
+        "Libs/OCBaseConfig/JobsOCDefs/Core/JobsDefines/JobsDefinesOCProtocol/JobsDefineRACProtocol.h",
+        "Libs/OCBaseConfig/JobsOCDefs/Core/JobsDefines/JobsDefinesOCProtocol/JobsDefineTimerProtocol.h",
+        "Libs/OCBaseConfig/JobsOCDefs/Core/JobsDefines/JobsDefinesOCProtocol/JobsDefineUILocationProtocol.h",
+        "Libs/OCBaseConfig/JobsOCDefs/Core/JobsDefines/JobsDefinesOCProtocol/JobsDefineUIMarkProtocol.h",
+        "Libs/OCBaseConfig/JobsOCDefs/Core/JobsDefines/JobsDefinesOCProtocol/JobsDefineUIPictureAndBackGroundCorProtocol.h",
+        "Libs/OCBaseConfig/JobsOCDefs/Core/JobsDefines/JobsDefinesOCProtocol/JobsDefineUITableViewCellProtocol.h",
+        "Libs/OCBaseConfig/JobsOCDefs/Core/JobsDefines/JobsDefinesOCProtocol/JobsDefineUITextFieldProtocol.h",
+        "Libs/OCBaseConfig/JobsOCDefs/Core/JobsDefines/JobsDefinesOCProtocol/JobsDefineUITextModelProtocol.h",
+        "Libs/OCBaseConfig/JobsOCDefs/Core/JobsDefines/JobsDefinesOCProtocol/JobsDefineUIViewModelOthersProtocol.h",
+        "Libs/OCBaseConfig/JobsOCDefs/Core/JobsDefines/JobsDefinesOCProtocol/JobsDefineUIViewModelProtocol.h",
+        "Libs/OCBaseConfig/JobsOCDefs/Core/JobsDefines/JobsDefinesOCProtocol/JobsDefineYTKCustomBaseRequestProtocol.h",
+        "Libs/OCBaseConfig/JobsOCDefs/Core/JobsGetWindow/window.h",
+        "Libs/OCBaseConfig/JobsOCDefs/Core/JobsStringUtils.h",
+        "Libs/OCBaseConfig/JobsOCDefs/Core/JobsTheme/JobsTheme.h",
+        "Libs/OCBaseConfig/JobsOCDefs/Core/JobsTheme/JobsTheme.m",
+        "Libs/OCBaseConfig/JobsOCDefs/Core/MacroDef_App/MacroDef_App.h",
+        "Libs/OCBaseConfig/JobsOCDefs/Core/MacroDef_Others/MacroDef_Cor.h",
+        "Libs/OCBaseConfig/JobsOCDefs/Core/MacroDef_Others/MacroDef_Font.h",
+        "Libs/OCBaseConfig/JobsOCDefs/Core/MacroDef_Others/MacroDef_Func.h",
+        "Libs/OCBaseConfig/JobsOCDefs/Core/MacroDef_Others/MacroDef_Notification.h",
+        "Libs/OCBaseConfig/JobsOCDefs/Core/MacroDef_Others/MacroDef_QUEUE.h",
+        "Libs/OCBaseConfig/JobsOCDefs/Core/MacroDef_Others/MacroDef_Singleton.h",
+        "Libs/OCBaseConfig/JobsOCDefs/Core/MacroDef_Others/MacroDef_Size.h",
+        "Libs/OCBaseConfig/JobsOCDefs/Core/MacroDef_Others/MacroDef_String.h",
+        "Libs/OCBaseConfig/JobsOCDefs/Core/MacroDef_Others/MacroDef_Strong@Weak.h",
+        "Libs/OCBaseConfig/JobsOCDefs/Core/MacroDef_Others/MacroDef_Time.h",
+        "Libs/OCBaseConfig/JobsOCDefs/Core/MacroDef_Others/window.h",
+        "Libs/OCBaseConfig/JobsOCDefs/Core/MacroDef_Size/MacroDef_AppDeviceScreenSize.h",
+        "Libs/OCBaseConfig/JobsOCDefs/Core/MacroDef_Sys/MacroDef_Log.h",
+        "Libs/OCBaseConfig/JobsOCDefs/Core/MacroDef_Sys/MacroDef_SDK.h",
+        "Libs/OCBaseConfig/JobsOCDefs/Core/MacroDef_Sys/MacroDef_Sys.h",
+        "Libs/OCBaseConfig/JobsOCDefs/Core/MacroDef_Sys/MacroDef_SysWarning.h",
+        "Libs/OCBaseConfig/JobsOCDefs/JobsDefines.h",
+        "Libs/OCBaseConfig/JobsOCDefs/Support/UIKit/NSString/NSString+Extra/NSString+Extra.h",
+        "Libs/OCBaseConfig/JobsOCDefs/Support/UIKit/NSString/NSString+Extra/NSString+Extra.m",
+        "Libs/OCBaseConfig/JobsOCDefs/Support/UIKit/UIDevice/UIDevice+XMUtils/UIDevice+XMUtils.h",
+        "Libs/OCBaseConfig/JobsOCDefs/Support/UIKit/UIDevice/UIDevice+XMUtils/UIDevice+XMUtils.m",
+        "Libs/OCBaseConfig/JobsPods/JobsOCPatch.h",
+        "Libs/OCBaseConfig/JobsPods/JobsOCRuntimeKits.h",
+        "Libs/OCBaseConfig/JobsPods/JobsPods.h",
+        "Libs/OCBaseConfig/JobsPods/JobsPodsManual.h",
+        "Libs/OCBaseConfig/JobsPods/XYColorOC.h"
+      ],
+      "resources": [
+
+      ],
+      "source_test_methods": [
+        "testExplicitUnitsAndModelFieldUseCanonicalChinaTime",
+        "testInvalidNumericInputDoesNotProduceEpochOrTruncateAtNUL"
+      ],
+      "source_ownership": "Jobs自有测试；module import适配主工程集成，不减少断言"
+    },
+    {
+      "name": "JobsNavigationTransitionMgr",
+      "test_sources": [
+        "Tests/ComponentStability/JobsNavigationTransitionMgr/JobsNavigationTransitionMgrStabilityTests/JobsNavigationTransitionMgrStabilityTests.m"
+      ],
+      "support_sources": [
+        "Tests/ComponentStability/JobsNavigationTransitionMgr/JobsNavigationTransitionMgrStabilityTests/JobsNavigationTransitionTestContext/JobsNavigationTransitionTestContext.m"
+      ],
+      "test_classes": [
+        "JobsNavigationTransitionMgrStabilityTests"
+      ],
+      "expected_test_count": 3,
+      "harness": null,
+      "production_sources": [
+        "Libs/JobsOCBaseCustomizeUIKitCore/UIViewController/UIViewController+Category/UIViewController+Sys/UIViewController+Extra/UIViewController+Extra.h",
+        "Libs/JobsOCBaseCustomizeUIKitCore/UIViewController/UIViewController+Category/UIViewController+Sys/UIViewController+Extra/UIViewController+Extra.m",
+        "Libs/OCBaseConfig/JobsMixFunc/JobsNavigationTransitionMgr/JobsNavigationTransitionMgrHeader.h",
+        "Libs/OCBaseConfig/JobsMixFunc/JobsNavigationTransitionMgr/JobsNavigationTransitionMgr/JobsNavigationTransitionMgr.h",
+        "Libs/OCBaseConfig/JobsMixFunc/JobsNavigationTransitionMgr/JobsNavigationTransitionMgr/JobsNavigationTransitionMgr.m",
+        "Libs/OCBaseConfig/JobsBlock/Core/确定参数的Block/ReturnByCertainParametersBlock.h"
+      ],
+      "resources": [
+
+      ],
+      "source_test_methods": [
+        "testNavigationDirectionIsScopedAndReattachingDoesNotAccumulateGestures",
+        "testCancelledTransitionRestoresFramesInSmallContainer",
+        "testTwoContainersCanReleaseAttachedControllers"
+      ],
+      "source_ownership": "Jobs自有测试；module import适配主工程集成，不减少断言"
+    },
+    {
+      "name": "JobsNetWorkTools",
+      "test_sources": [
+        "Tests/ComponentStability/JobsNetWorkTools/JobsNetWorkToolsStabilityTests/JobsNetWorkToolsStabilityTests.m"
+      ],
+      "support_sources": [
+
+      ],
+      "test_classes": [
+        "JobsNetWorkToolsStabilityTests"
+      ],
+      "expected_test_count": 3,
+      "harness": null,
+      "production_sources": [
+        "Libs/OCBaseConfig/JobsMixFunc/JobsNetWorkTools/JobsNetWorkToolsHeader.h"
+      ],
+      "resources": [
+
+      ],
+      "source_test_methods": [
+        "testInstancesOwnBaselinesAndRestartValidatesInterval",
+        "testInvalidIntervalsAndRestartReplaceTheActualTimer",
+        "testTwoPublicSubscriptionsKeepTheRemainingSamplerRunning"
+      ],
+      "source_ownership": "Jobs自有测试；module import适配主工程集成，不减少断言"
+    },
+    {
+      "name": "JobsOCAudioRecorder",
+      "test_sources": [
+        "Tests/ComponentStability/JobsOCAudioRecorder/JobsOCAudioRecorderStabilityTests/JobsOCAudioRecorderStabilityTests.m"
+      ],
+      "support_sources": [
+        "Tests/ComponentStability/JobsOCAudioRecorder/JobsAudioPlayerInitializationFixture/JobsAudioPlayerInitializationFixture.m",
+        "Tests/ComponentStability/JobsOCAudioRecorder/JobsAudioRecorderInitializationFixture/JobsAudioRecorderInitializationFixture.m",
+        "Tests/ComponentStability/JobsOCAudioRecorder/JobsAudioSessionFixture/JobsAudioSessionFixture.m"
+      ],
+      "test_classes": [
+        "JobsOCAudioRecorderStabilityTests"
+      ],
+      "expected_test_count": 4,
+      "harness": "Tests/ComponentStability/JobsOCAudioRecorder/run_regression.rb",
+      "production_sources": [
+        "JobsOCBaseConfigDemo/业务逻辑/功能模块/录音与本地音频管理/Core/JobsOCAudioRecorder/JobsOCAudioRecorder.h",
+        "JobsOCBaseConfigDemo/业务逻辑/功能模块/录音与本地音频管理/Core/JobsOCAudioRecorder/JobsOCAudioRecorder.m"
+      ],
+      "resources": [
+
+      ],
+      "source_test_methods": [
+        "testLateRecorderCallbackDoesNotClearNewRecorderAndStartRejectsBusySession",
+        "testNilRecorderInitializationPropagatesErrorAndCleansPartialFileWithoutHardware",
+        "testNilPlayerInitializationPropagatesErrorAndDeactivatesOnlyFixtureSession",
+        "testOldPlayerCompletionCannotStopCurrentPlayback"
+      ],
+      "source_ownership": "Jobs自有测试；module import适配主工程集成，不减少断言"
+    },
+    {
+      "name": "JobsOCDSL",
+      "test_sources": [
+        "Tests/ComponentStability/JobsOCDSL/JobsOCDSLAnimatedNumberStabilityTests/JobsOCDSLAnimatedNumberStabilityTests.m"
+      ],
+      "support_sources": [
+
+      ],
+      "test_classes": [
+        "JobsOCDSLAnimatedNumberStabilityTests"
+      ],
+      "expected_test_count": 5,
+      "harness": null,
+      "production_sources": [
+        "Libs/JobsOCDSL/JobsOCDSL.h"
+      ],
+      "resources": [
+
+      ],
+      "source_test_methods": [
+        "testStoppingBeforeFirstStartAndRepeatedStopAreSafe",
+        "testSavedAnimationBlocksAreSafeAfterLabelReleases",
+        "testNonfiniteConfigurationCompletesWithoutSchedulingInvalidInterval",
+        "testCancelledRunCannotOverwriteNewValueOrComplete",
+        "testSavedLabelCompositionBlocksReturnNilAfterLabelRelease"
+      ],
+      "source_ownership": "Jobs自有测试；module import适配主工程集成，不减少断言"
+    },
+    {
+      "name": "JobsOCDeviceGuard",
+      "test_sources": [
+        "Tests/ComponentStability/JobsOCDeviceGuard/JobsOCDeviceGuardTests/JobsOCDeviceGuardTests.m"
+      ],
+      "support_sources": [
+
+      ],
+      "test_classes": [
+        "JobsOCDeviceGuardTests"
+      ],
+      "expected_test_count": 7,
+      "harness": null,
+      "production_sources": [
+        "Libs/OCBaseConfig/JobsMixFunc/JobsOCDeviceGuard/JobsOCDeviceGuard.h"
+      ],
+      "resources": [
+
+      ],
+      "source_test_methods": [
+        "testRepeatedPathsCountAsOneCategory",
+        "testIndependentCategoriesMeetThreshold",
+        "testUnavailableAndEmptyNeverPass",
+        "testNoIndicatorsIsNotJailbroken",
+        "testUnsupportedOverridesEvidence",
+        "testConfigurationIsCopiedAndThresholdClamped",
+        "testAsyncCompletionReturnsOnMainOnce"
+      ],
+      "source_ownership": "Jobs自有测试；module import适配主工程集成，不减少断言"
+    },
+    {
+      "name": "JobsOCExcel",
+      "test_sources": [
+        "Tests/ComponentStability/JobsOCExcel/JobsOCExcelStabilityTests/JobsOCExcelStabilityTests.m"
+      ],
+      "support_sources": [
+
+      ],
+      "test_classes": [
+        "JobsOCExcelStabilityTests"
+      ],
+      "expected_test_count": 2,
+      "harness": null,
+      "production_sources": [
+        "Libs/OCBaseConfig/JobsMixFunc/JobsOCExcel/JobsOCExcel.h"
+      ],
+      "resources": [
+
+      ],
+      "source_test_methods": [
+        "testExcelLargeGridBoundsLiveViewsAndRebindsMissingCell",
+        "testExcelEmptyReloadButtonCallsHost"
+      ],
+      "source_ownership": "Jobs自有测试；module import适配主工程集成，不减少断言"
+    },
+    {
+      "name": "JobsOCKeyboardMgr",
+      "test_sources": [
+        "Tests/ComponentStability/JobsOCKeyboardMgr/JobsOCKeyboardMgrStabilityTests/JobsOCKeyboardMgrStabilityTests.m"
+      ],
+      "support_sources": [
+
+      ],
+      "test_classes": [
+        "JobsOCKeyboardMgrStabilityTests"
+      ],
+      "expected_test_count": 1,
+      "harness": null,
+      "production_sources": [
+        "Libs/OCBaseConfig/JobsMixFunc/JobsOCKeyboardMgr/JobsOCKeyboardMgr.h",
+        "Libs/OCBaseConfig/JobsMixFunc/JobsOCKeyboardMgr/JobsOCKeyboardMgr.m"
+      ],
+      "resources": [
+
+      ],
+      "source_test_methods": [
+        "testSavedStartAndStopReturnNilAfterManagerReleases"
+      ],
+      "source_ownership": "Jobs自有测试；module import适配主工程集成，不减少断言"
+    },
+    {
+      "name": "JobsOCMarkdown",
+      "test_sources": [
+        "Tests/ComponentStability/JobsOCMarkdown/JobsOCMarkdownStabilityTests/JobsOCMarkdownStabilityTests.m"
+      ],
+      "support_sources": [
+
+      ],
+      "test_classes": [
+        "JobsOCMarkdownStabilityTests"
+      ],
+      "expected_test_count": 2,
+      "harness": null,
+      "production_sources": [
+        "Libs/OCBaseConfig/JobsMixFunc/JobsOCMarkdown/JobsOCMarkdown.h"
+      ],
+      "resources": [
+
+      ],
+      "source_test_methods": [
+        "testMarkdownDocumentChainDoesNotReenter",
+        "testUnstartedViewReleasesWithoutWeakRegistrationInDealloc"
+      ],
+      "source_ownership": "Jobs自有测试；module import适配主工程集成，不减少断言"
+    },
+    {
+      "name": "JobsOCNumberStepper",
+      "test_sources": [
+        "Tests/ComponentStability/JobsOCNumberStepper/JobsOCNumberStepperStabilityTests/JobsOCNumberStepperStabilityTests.m"
+      ],
+      "support_sources": [
+
+      ],
+      "test_classes": [
+        "JobsOCNumberStepperStabilityTests"
+      ],
+      "expected_test_count": 1,
+      "harness": null,
+      "production_sources": [
+        "Libs/OCBaseConfig/JobsMixFunc/JobsOCNumberStepper/JobsOCNumberStepper.h",
+        "Libs/OCBaseConfig/JobsMixFunc/JobsOCNumberStepper/JobsOCNumberStepper.m"
+      ],
+      "resources": [
+
+      ],
+      "source_test_methods": [
+        "testStepperChainsSynchronizeAndStayWithinBounds"
+      ],
+      "source_ownership": "Jobs自有测试；module import适配主工程集成，不减少断言"
+    },
+    {
+      "name": "JobsOCPatch",
+      "test_sources": [
+        "Tests/ComponentStability/JobsOCPatch/JobsPatchRollbackTests/JobsPatchRollbackTests.m"
+      ],
+      "support_sources": [
+
+      ],
+      "test_classes": [
+        "JobsPatchRollbackTests"
+      ],
+      "expected_test_count": 5,
+      "harness": null,
+      "production_sources": [
+        "Libs/OCBaseConfig/JobsMixFunc/JobsOCPatch/JobsOCPatchMgr/JobsOCPatchMgr.h",
+        "Libs/OCBaseConfig/JobsMixFunc/JobsOCPatch/JobsOCPatchMgr/JobsOCPatchMgr.m"
+      ],
+      "resources": [
+
+      ],
+      "source_test_methods": [
+        "testRollbackKeepsPreviouslyLoadedIMPCallable",
+        "testSameSlotRejectsDifferentIdentifierAndScalarABI",
+        "testSavedPatchBlockAfterManagerRelease",
+        "testInheritedSlotsSameIdentifierUpdateAndExplicitRollbackAll",
+        "testConcurrentInstallInvokeAndRollbackUsesOnlyValidImplementations"
+      ],
+      "source_ownership": "Jobs自有测试；module import适配主工程集成，不减少断言"
+    },
+    {
+      "name": "JobsOCRefresher",
+      "test_sources": [
+        "Tests/ComponentStability/JobsOCRefresher/JobsOCRefresherStabilityTests/JobsOCRefresherStabilityTests.m"
+      ],
+      "support_sources": [
+
+      ],
+      "test_classes": [
+        "JobsOCRefresherStabilityTests"
+      ],
+      "expected_test_count": 3,
+      "harness": null,
+      "production_sources": [
+        "Libs/JobsOCBaseCustomizeUIKitCore/UIScrollView/UIScrollView+Category/UIScrollView+JobsOCRefresher/JobsOCRefresher.h"
+      ],
+      "resources": [
+
+      ],
+      "source_test_methods": [
+        "testRefreshWithOnlyOneSlotAndRepeatedRemoval",
+        "testRefreshRemovalAndReplacementRestoreOnlyOwnInset",
+        "testRefreshFailureAndNoMoreDataDrainContribution"
+      ],
+      "source_ownership": "Jobs自有测试；module import适配主工程集成，不减少断言"
+    },
+    {
+      "name": "JobsOCRuntimeKits",
+      "test_sources": [
+        "Tests/ComponentStability/JobsOCRuntimeKits/JobsRuntimeSafetyTests/JobsRuntimeSafetyTests.m"
+      ],
+      "support_sources": [
+
+      ],
+      "test_classes": [
+        "JobsRuntimeSafetyTests"
+      ],
+      "expected_test_count": 4,
+      "harness": "Tests/ComponentStability/JobsOCRuntimeKits/run_regression.rb",
+      "production_sources": [
+        "Libs/JobsOCBaseCustomizeUIKitCore/NSObject/NSObject+Category/NSObject+DynamicInvoke/NSObject+DynamicInvoke.h",
+        "Libs/JobsOCBaseCustomizeUIKitCore/NSObject/NSObject+Category/NSObject+DynamicInvoke/NSObject+DynamicInvoke.m",
+        "Libs/OCBaseConfig/JobsMixFunc/JobsWeakAssociation/JobsWeakAssociation.h",
+        "Libs/OCBaseConfig/JobsMixFunc/JobsWeakAssociation/JobsWeakAssociation.m"
+      ],
+      "resources": [
+
+      ],
+      "source_test_methods": [
+        "testTypedScalarsAndStructures",
+        "testRejectedABIAndArityNeverInvokeTarget",
+        "testOnceIsPerOwnerAndSelector",
+        "testWeakAssociationDoesNotChangeClassOrRetainValue"
+      ],
+      "source_ownership": "Jobs自有测试；module import适配主工程集成，不减少断言"
+    },
+    {
+      "name": "JobsOCSearcher",
+      "test_sources": [
+        "Tests/ComponentStability/JobsOCSearcher/JobsOCSearcherStabilityTests/JobsOCSearcherStabilityTests.m"
+      ],
+      "support_sources": [
+
+      ],
+      "test_classes": [
+        "JobsOCSearcherStabilityTests"
+      ],
+      "expected_test_count": 6,
+      "harness": null,
+      "production_sources": [
+        "Libs/OCBaseConfig/JobsMixFunc/JobsOCSearcher/JobsOCSearcher.h"
+      ],
+      "resources": [
+
+      ],
+      "source_test_methods": [
+        "testSearcherHistoryIsolationAndLegacyStorage",
+        "testSearcherQueryCallbacksAndResultsAreIndependent",
+        "testSearcherConfigRefreshPreservesQueryAndCustomField",
+        "testSearcherUsesNativeAttributedTextForRendering",
+        "testSearcherSameConfigReloadsCurrentLanguage",
+        "testSearcherLaysOutVisibleNativeInput"
+      ],
+      "source_ownership": "Jobs自有测试；module import适配主工程集成，不减少断言"
+    },
+    {
+      "name": "JobsOCSkeletonView",
+      "test_sources": [
+        "Tests/ComponentStability/JobsOCSkeletonView/JobsOCSkeletonViewStabilityTests/JobsOCSkeletonViewStabilityTests.m"
+      ],
+      "support_sources": [
+
+      ],
+      "test_classes": [
+        "JobsOCSkeletonViewStabilityTests"
+      ],
+      "expected_test_count": 1,
+      "harness": null,
+      "production_sources": [
+        "Libs/OCBaseConfig/JobsMixFunc/JobsOCSkeletonView/JobsOCSkeletonView.h"
+      ],
+      "resources": [
+
+      ],
+      "source_test_methods": [
+        "testSavedSkeletonBlocksReturnNilAfterViewReleases"
+      ],
+      "source_ownership": "Jobs自有测试；module import适配主工程集成，不减少断言"
+    },
+    {
+      "name": "JobsOCSnowflake",
+      "test_sources": [
+        "Tests/ComponentStability/JobsOCSnowflake/JobsOCSnowflakeStabilityTests/JobsOCSnowflakeStabilityTests.m"
+      ],
+      "support_sources": [
+
+      ],
+      "test_classes": [
+        "JobsOCSnowflakeStabilityTests"
+      ],
+      "expected_test_count": 4,
+      "harness": null,
+      "production_sources": [
+        "Libs/OCBaseConfig/JobsMixFunc/JobsOCSnowflake/JobsOCSnowflakeHeader.h"
+      ],
+      "resources": [
+
+      ],
+      "source_test_methods": [
+        "testFrozenMillisecondSequenceWrapAndDecode",
+        "testRollbackRejectionAndRecovery",
+        "testNodeAndTimestampBoundsInAllBuildConfigurations",
+        "testConcurrentUniqueness"
+      ],
+      "source_ownership": "Jobs自有测试；module import适配主工程集成，不减少断言"
+    },
+    {
+      "name": "JobsOCSplash",
+      "test_sources": [
+        "Tests/ComponentStability/JobsOCSplash/JobsOCSplashStabilityTests/JobsOCSplashStabilityTests.m"
+      ],
+      "support_sources": [
+        "Tests/ComponentStability/JobsOCSplash/JobsSplashCacheFixture/JobsSplashCacheFixture.m",
+        "Tests/ComponentStability/JobsOCSplash/JobsSplashTransferTaskFixture/JobsSplashTransferTaskFixture.m"
+      ],
+      "test_classes": [
+        "JobsOCSplashStabilityTests"
+      ],
+      "expected_test_count": 5,
+      "harness": "Tests/ComponentStability/JobsOCSplash/run_regression.rb",
+      "production_sources": [
+        "Libs/OCBaseConfig/JobsMixFunc/JobsOCSplash/JobsOCSplashGIFDecoder/JobsOCSplashGIFDecoder.h",
+        "Libs/OCBaseConfig/JobsMixFunc/JobsOCSplash/JobsOCSplashGIFDecoder/JobsOCSplashGIFDecoder.m",
+        "Libs/OCBaseConfig/JobsMixFunc/JobsOCSplash/JobsOCSplashMediaCache/JobsOCSplashMediaCache.h",
+        "Libs/OCBaseConfig/JobsMixFunc/JobsOCSplash/JobsOCSplashMediaCache/JobsOCSplashMediaCache.m",
+        "Libs/OCBaseConfig/JobsMixFunc/JobsOCSplash/JobsOCSplashMediaDownloadToken/JobsOCSplashMediaDownloadToken.m"
+      ],
+      "resources": [
+
+      ],
+      "source_test_methods": [
+        "testAtomicReplacementAndEmptyFileDoesNotEraseCache",
+        "testRetryBudgetTerminatesAndCompletesOnceWithoutNetwork",
+        "testGIFDecoderRejectsInvalidAndOversizedEncodedContent",
+        "testSharedImageTransferHasIndependentCancellationAndIgnoresOldCompletion",
+        "testCacheEvictsOldestFilesWithinLogicalByteLimit"
+      ],
+      "source_ownership": "Jobs自有测试；module import适配主工程集成，不减少断言"
+    },
+    {
+      "name": "JobsOCTimerMgr",
+      "test_sources": [
+        "Tests/ComponentStability/JobsOCTimerMgr/JobsTimerMgrStabilityTests/JobsTimerMgrStabilityTests.m"
+      ],
+      "support_sources": [
+
+      ],
+      "test_classes": [
+        "JobsTimerMgrStabilityTests"
+      ],
+      "expected_test_count": 2,
+      "harness": null,
+      "production_sources": [
+        "Libs/OCBaseConfig/JobsMixFunc/JobsOCTimerMgr/JobsOCTimerMgr.h"
+      ],
+      "resources": [
+
+      ],
+      "source_test_methods": [
+        "testForceFinishDeliversOnceAfterRemovalAndDoesNotRemoveReplacement",
+        "testStartedManagerCanReleaseAndStopsRetainedTimer"
+      ],
+      "source_ownership": "Jobs自有测试；module import适配主工程集成，不减少断言"
+    },
+    {
+      "name": "JobsOCTools",
+      "test_sources": [
+        "Tests/ComponentStability/JobsOCTools/JobsCrashLogImportStabilityTests/JobsCrashLogImportStabilityTests.m",
+        "Tests/ComponentStability/JobsOCTools/JobsImageCodeViewStabilityTests/JobsImageCodeViewStabilityTests.m"
+      ],
+      "support_sources": [
+
+      ],
+      "test_classes": [
+        "JobsCrashLogImportStabilityTests",
+        "JobsImageCodeViewStabilityTests"
+      ],
+      "expected_test_count": 4,
+      "harness": "Tests/ComponentStability/JobsOCTools/run_regression.rb",
+      "production_sources": [
+        "Libs/OCBaseConfig/JobsMixFunc/JobsOCCrashLog/JobsCrashSignalRecorder/JobsCrashSignalRecorder.c",
+        "Libs/OCBaseConfig/JobsMixFunc/JobsOCCrashLog/JobsCrashSignalRecorder/JobsCrashSignalRecorder.h",
+        "Libs/OCBaseConfig/JobsMixFunc/JobsOCCrashLog/JobsOCCrashLogCenter/JobsOCCrashLogCenter.h",
+        "Libs/OCBaseConfig/JobsMixFunc/JobsOCCrashLog/JobsOCCrashLogCenter/JobsOCCrashLogCenter.m",
+        "Libs/OCBaseConfig/JobsMixFunc/JobsOCTools.h"
+      ],
+      "resources": [
+
+      ],
+      "source_test_methods": [
+        "testFailedLogOpenPreservesSignalJournalThenSuccessfulImportClearsIt",
+        "testMalformedJournalPreservesEveryByteAndDoesNotImportValidPrefix",
+        "testImportFromOwnIOQueueDoesNotDeadlock",
+        "testInitializationAndBackgroundDSLTerminate"
+      ],
+      "source_ownership": "Jobs自有测试；module import适配主工程集成，不减少断言"
+    },
+    {
+      "name": "JobsOCUILabelScrolling",
+      "test_sources": [
+        "Tests/ComponentStability/JobsOCUILabelScrolling/JobsOCUILabelScrollingStabilityTests/JobsOCUILabelScrollingStabilityTests.m"
+      ],
+      "support_sources": [
+
+      ],
+      "test_classes": [
+        "JobsOCUILabelScrollingStabilityTests"
+      ],
+      "expected_test_count": 2,
+      "harness": null,
+      "production_sources": [
+        "Libs/JobsOCBaseCustomizeUIKitCore/UILabel/UILabel+Category/UILabel+Scrolling/JobsOCUILabelScrolling.h"
+      ],
+      "resources": [
+
+      ],
+      "source_test_methods": [
+        "testNonfiniteScrollConfigurationNormalizes",
+        "testVeryLargeFiniteSpeedDoesNotBlockMainRunLoop"
+      ],
+      "source_ownership": "Jobs自有测试；module import适配主工程集成，不减少断言"
+    },
+    {
+      "name": "JobsOCVideoRecorder",
+      "test_sources": [
+        "Tests/ComponentStability/JobsOCVideoRecorder/JobsOCVideoRecorderStabilityTests/JobsOCVideoRecorderStabilityTests.m"
+      ],
+      "support_sources": [
+
+      ],
+      "test_classes": [
+        "JobsOCVideoRecorderStabilityTests"
+      ],
+      "expected_test_count": 1,
+      "harness": null,
+      "production_sources": [
+        "Libs/OCBaseConfig/JobsMixFunc/JobsOCVideoRecorder/JobsOCVideoRecorder.h",
+        "Libs/OCBaseConfig/JobsMixFunc/JobsOCVideoRecorder/JobsOCVideoRecorderVC/JobsOCVideoRecorderVC.h",
+        "Libs/OCBaseConfig/JobsMixFunc/JobsOCVideoRecorder/JobsOCVideoRecorderVC/JobsOCVideoRecorderVC.m"
+      ],
+      "resources": [
+
+      ],
+      "source_test_methods": [
+        "testFinishingRejectsNewSessionAndFormatDescriptionsCanBeClearedConcurrently"
+      ],
+      "source_ownership": "Jobs自有测试；module import适配主工程集成，不减少断言"
+    },
+    {
+      "name": "JobsOCWebSocket",
+      "test_sources": [
+        "Tests/ComponentStability/JobsOCWebSocket/JobsOCWebSocketStabilityTests/JobsOCWebSocketStabilityTests.m"
+      ],
+      "support_sources": [
+        "Tests/ComponentStability/JobsOCWebSocket/JobsWebSocketTransportFixture/JobsWebSocketTransportFixture.m"
+      ],
+      "test_classes": [
+        "JobsOCWebSocketStabilityTests"
+      ],
+      "expected_test_count": 3,
+      "harness": null,
+      "production_sources": [
+        "Libs/OCBaseConfig/JobsMixFunc/JobsOCWebSocket/JobsOCWebSocketClient/JobsOCWebSocketClient.h",
+        "Libs/OCBaseConfig/JobsMixFunc/JobsOCWebSocket/JobsOCWebSocketClient/JobsOCWebSocketClient.m"
+      ],
+      "resources": [
+
+      ],
+      "source_test_methods": [
+        "testOnlyCurrentSocketAndMatchingPongClearProbe",
+        "testUnansweredProbeTerminatesConnectionWithoutNetwork",
+        "testNeverConnectedClientCanDisconnectAndRelease"
+      ],
+      "source_ownership": "Jobs自有测试；module import适配主工程集成，不减少断言"
+    },
+    {
+      "name": "JobsProgressBar",
+      "test_sources": [
+        "Tests/ComponentStability/JobsProgressBar/JobsProgressBarStabilityTests/JobsProgressBarStabilityTests.m"
+      ],
+      "support_sources": [
+
+      ],
+      "test_classes": [
+        "JobsProgressBarStabilityTests"
+      ],
+      "expected_test_count": 2,
+      "harness": null,
+      "production_sources": [
+        "Libs/JobsOCBaseCustomizeUIKitCore/UIProgressView/JobsProgressBar/JobsProgressBar/JobsProgressBar.h",
+        "Libs/JobsOCBaseCustomizeUIKitCore/UIProgressView/JobsProgressBar/JobsProgressBar/JobsProgressBar.m"
+      ],
+      "resources": [
+
+      ],
+      "source_test_methods": [
+        "testRunningProgressDoesNotRetainViewAndNormalizesNonfiniteInput",
+        "testUnstartedViewReleasesWithoutWeakRegistrationInDealloc"
+      ],
+      "source_ownership": "Jobs自有测试；module import适配主工程集成，不减少断言"
+    },
+    {
+      "name": "JobsRandomUtils",
+      "test_sources": [
+        "Tests/ComponentStability/JobsRandomUtils/JobsRandomUtilsStabilityTests/JobsRandomUtilsStabilityTests.m"
+      ],
+      "support_sources": [
+
+      ],
+      "test_classes": [
+        "JobsRandomUtilsStabilityTests"
+      ],
+      "expected_test_count": 2,
+      "harness": null,
+      "production_sources": [
+        "Libs/OCBaseConfig/JobsMixFunc/JobsRandomUtils/JobsRandomUtilsHeader.h"
+      ],
+      "resources": [
+
+      ],
+      "source_test_methods": [
+        "testSingleValuesAndReversedBounds",
+        "testEntireSignedIntRangeAndAliases"
+      ],
+      "source_ownership": "Jobs自有测试；module import适配主工程集成，不减少断言"
+    },
+    {
+      "name": "JobsRichTextUtils",
+      "test_sources": [
+        "Tests/ComponentStability/JobsRichTextUtils/JobsRichTextUtilsStabilityTests/JobsRichTextUtilsStabilityTests.m"
+      ],
+      "support_sources": [
+
+      ],
+      "test_classes": [
+        "JobsRichTextUtilsStabilityTests"
+      ],
+      "expected_test_count": 1,
+      "harness": null,
+      "production_sources": [
+        "Libs/OCBaseConfig/JobsMixFunc/JobsRichTextUtils/JobsRichTextUtils.h"
+      ],
+      "resources": [
+
+      ],
+      "source_test_methods": [
+        "testUnderlineColorAndOverflowRangeAreHandled"
+      ],
+      "source_ownership": "Jobs自有测试；module import适配主工程集成，不减少断言"
+    },
+    {
+      "name": "JobsStringUtils",
+      "test_sources": [
+        "Tests/ComponentStability/JobsStringUtils/JobsStringUtilsStabilityTests/JobsStringUtilsStabilityTests.m"
+      ],
+      "support_sources": [
+
+      ],
+      "test_classes": [
+        "JobsStringUtilsStabilityTests"
+      ],
+      "expected_test_count": 1,
+      "harness": null,
+      "production_sources": [
+        "Libs/OCBaseConfig/JobsMixFunc/JobsStringUtils/JobsStringUtilsHeader.h"
+      ],
+      "resources": [
+
+      ],
+      "source_test_methods": [
+        "testInvalidUTF8AndNumericShortContract"
+      ],
+      "source_ownership": "Jobs自有测试；module import适配主工程集成，不减少断言"
+    },
+    {
+      "name": "JobsSuspend",
+      "test_sources": [
+        "Tests/ComponentStability/JobsSuspend/JobsSuspendStabilityTests/JobsSuspendStabilityTests.m"
+      ],
+      "support_sources": [
+
+      ],
+      "test_classes": [
+        "JobsSuspendStabilityTests"
+      ],
+      "expected_test_count": 1,
+      "harness": null,
+      "production_sources": [
+        "Libs/OCBaseConfig/JobsMixFunc/JobsSuspend/JobsSuspend.h"
+      ],
+      "resources": [
+
+      ],
+      "source_test_methods": [
+        "testSuspendControllerReferenceZeros"
+      ],
+      "source_ownership": "Jobs自有测试；module import适配主工程集成，不减少断言"
+    },
+    {
+      "name": "JobsTimeUtils",
+      "test_sources": [
+        "Tests/ComponentStability/JobsTimeUtils/JobsTimeUtilsStabilityTests/JobsTimeUtilsStabilityTests.m"
+      ],
+      "support_sources": [
+
+      ],
+      "test_classes": [
+        "JobsTimeUtilsStabilityTests"
+      ],
+      "expected_test_count": 2,
+      "harness": null,
+      "production_sources": [
+        "Libs/OCBaseConfig/JobsMixFunc/JobsTimeUtils/JobsTimeUtils.h"
+      ],
+      "resources": [
+
+      ],
+      "source_test_methods": [
+        "testExplicitFormatAndZeroVersusInvalidInterval",
+        "testTimestampUnitsAndInvalidFailClosed"
+      ],
+      "source_ownership": "Jobs自有测试；module import适配主工程集成，不减少断言"
+    },
+    {
+      "name": "JobsUploadingProgressView",
+      "test_sources": [
+        "Tests/ComponentStability/JobsUploadingProgressView/JobsUploadingProgressViewStabilityTests/JobsUploadingProgressViewStabilityTests.m"
+      ],
+      "support_sources": [
+
+      ],
+      "test_classes": [
+        "JobsUploadingProgressViewStabilityTests"
+      ],
+      "expected_test_count": 2,
+      "harness": null,
+      "production_sources": [
+        "Libs/OCBaseConfig/JobsBlock/Core/确定参数的Block/ReturnByCertainParametersBlock.h",
+        "Libs/OCBaseConfig/JobsBlock/JobsBlockHeader.h",
+        "Libs/OCBaseConfig/JobsMixFunc/JobsUploadingProgressView/JobsUploadingProgressView/JobsUploadingProgressView.h",
+        "Libs/OCBaseConfig/JobsMixFunc/JobsUploadingProgressView/JobsUploadingProgressView/JobsUploadingProgressView.m"
+      ],
+      "resources": [
+
+      ],
+      "source_test_methods": [
+        "testDismissThenShowRestartsAnimationInExplicitHost",
+        "testExplicitHostReferenceDoesNotKeepContainerAlive"
+      ],
+      "source_ownership": "Jobs自有测试；module import适配主工程集成，不减少断言"
+    },
+    {
+      "name": "MJRefreshExtra",
+      "test_sources": [
+        "Tests/ComponentStability/MJRefreshExtra/MJRefreshExtraStabilityTests/MJRefreshExtraStabilityTests.m"
+      ],
+      "support_sources": [
+
+      ],
+      "test_classes": [
+        "MJRefreshExtraStabilityTests"
+      ],
+      "expected_test_count": 6,
+      "harness": null,
+      "production_sources": [
+        "Libs/JobsOCBaseCustomize3rdCore/MJRefresh/MJRefreshExtra.h",
+        "Libs/JobsOCBaseCustomizeUIKitCore/UIButton/UIButton+Category/UIButtonMake/UIButton+TextView/UIButton+TextView.h",
+        "Libs/JobsOCBaseCustomizeUIKitCore/UIButton/UIButton+Category/UIButtonMake/UIButton+TextView/UIButton+TextView.m",
+        "Libs/JobsOCBaseCustomizeUIKitCore/UITextView/BaseTextView/BaseTextView.h",
+        "Libs/JobsOCBaseCustomizeUIKitCore/UITextView/BaseTextView/BaseTextView.m",
+        "Libs/JobsOCBaseCustomizeUIKitCore/UIViewController/UIViewController+Category/UIViewController+3rd/UIViewController+MJRefresh/LOTAnimationMJRefreshHeader/LOTAnimationMJRefreshHeader.h",
+        "Libs/JobsOCBaseCustomizeUIKitCore/UIViewController/UIViewController+Category/UIViewController+3rd/UIViewController+MJRefresh/LOTAnimationMJRefreshHeader/LOTAnimationMJRefreshHeader.m",
+        "Libs/JobsOCBaseCustomizeUIKitCore/UIViewController/UIViewController+Category/UIViewController+3rd/UIViewController+MJRefresh/LOTAnimationMJRefreshFooter/LOTAnimationMJRefreshFooter.h",
+        "Libs/JobsOCBaseCustomizeUIKitCore/UIViewController/UIViewController+Category/UIViewController+3rd/UIViewController+MJRefresh/LOTAnimationMJRefreshFooter/LOTAnimationMJRefreshFooter.m"
+      ],
+      "resources": [
+
+      ],
+      "source_test_methods": [
+        "testDefaultTextViewResolverUsesOnlyAvailableRuntimeProvider",
+        "testMissingAndInvalidTextViewProvidersReturnNilAndCanRecover",
+        "testProvidedTextViewsKeepConfigurationAndCachedIdentity",
+        "testNilTextViewInitializationDoesNotCacheOrConfigureAView",
+        "testSavedRefreshCompletionAfterFooterReleaseIsSafe",
+        "testHeaderInitializationAndSavedCompletionKeepIndependentPodContract"
+      ],
+      "source_ownership": "Jobs自有测试；module import适配主工程集成，不减少断言"
+    },
+    {
+      "name": "UIBaseTextFieldDSL",
+      "test_sources": [
+        "Tests/ComponentStability/UIBaseTextFieldDSL/UIBaseTextFieldDSLStabilityTests/UIBaseTextFieldDSLStabilityTests.m"
+      ],
+      "support_sources": [
+
+      ],
+      "test_classes": [
+        "UIBaseTextFieldDSLStabilityTests"
+      ],
+      "expected_test_count": 1,
+      "harness": null,
+      "production_sources": [
+        "Libs/JobsOCBaseCustomizeUIKitCore/UITextField/UIBaseTextFieldDSL.h",
+        "Libs/JobsOCBaseCustomizeUIKitCore/JobsBaseCustomizeUIKitCoreHeader.h",
+        "Libs/JobsOCBaseCustomizeUIKitCore/UITextField/UIBaseTextFieldDSL/UIBaseTextField+DSL/UIBaseTextField+DSL.h",
+        "Libs/JobsOCBaseCustomizeUIKitCore/UITextField/UIBaseTextFieldDSL/UIBaseTextField+DSL/UIBaseTextField+DSL.m",
+        "Libs/JobsOCBaseCustomizeUIKitCore/UITextField/BaseTextField/CJTextField（iOS监听键盘删除事件）/CJTextField/CJTextField.h",
+        "Libs/JobsOCBaseCustomizeUIKitCore/UITextField/BaseTextField/CJTextField（iOS监听键盘删除事件）/CJTextField/CJTextField.m",
+        "Libs/JobsOCBaseCustomizeUIKitCore/UITextField/BaseTextField/HQTextField（警示框动画）/HQTextField/HQTextField.h",
+        "Libs/JobsOCBaseCustomizeUIKitCore/UITextField/BaseTextField/HQTextField（警示框动画）/HQTextField/HQTextField.m"
+      ],
+      "resources": [
+
+      ],
+      "source_test_methods": [
+        "testSavedWarningBlockReturnsNilAfterFieldReleases"
+      ],
+      "source_ownership": "Jobs自有测试；module import适配主工程集成，不减少断言"
+    }
+  ],
+  "host": {
+    "test_sources": [
+      "Tests/ComponentStability/Host/JobsOCDeviceGuardLaunchTests/JobsOCDeviceGuardLaunchTests.m"
+    ],
+    "test_classes": [
+      "JobsOCDeviceGuardLaunchTests"
+    ],
+    "expected_test_count": 5,
+    "production_sources": [
+      "JobsOCBaseConfigDemo/业务逻辑/功能模块/Demo@JobsDeviceGuardLaunch/JobsOCDeviceGuardBlockedVC/JobsOCDeviceGuardBlockedVC.h",
+      "JobsOCBaseConfigDemo/业务逻辑/功能模块/Demo@JobsDeviceGuardLaunch/JobsOCDeviceGuardBlockedVC/JobsOCDeviceGuardBlockedVC.m",
+      "JobsOCBaseConfigDemo/业务逻辑/功能模块/Demo@JobsDeviceGuardLaunch/JobsOCDeviceGuardLaunchGate/JobsOCDeviceGuardLaunchGate.m",
+      "JobsOCBaseConfigDemo/业务逻辑/功能模块/Demo@JobsDeviceGuardLaunch/JobsOCDeviceGuardLaunchGate/JobsOCDeviceGuardLaunchGate.h",
+      "JobsOCBaseConfigDemo/业务逻辑/功能模块/Demo@JobsDeviceGuardLaunch/JobsOCDeviceGuardLaunchDecision/JobsOCDeviceGuardLaunchDecision.m",
+      "JobsOCBaseConfigDemo/业务逻辑/功能模块/Demo@JobsDeviceGuardLaunch/JobsOCDeviceGuardLaunchDecision/JobsOCDeviceGuardLaunchDecision.h"
+    ]
+  },
+  "source_project": "oc-new",
+  "integration": "main-project",
+  "header_search_paths": [
+    "$(PROJECT_DIR)/Tests/ComponentStability/**",
+    "$(PROJECT_DIR)/Libs/JobsOCDSL/UIKit/UIView+DSLs/UIView+Gesture/UIView+Gesture",
+    "$(PROJECT_DIR)/Libs/**",
+    "$(PROJECT_DIR)/JobsOCBaseConfigDemo/**"
+  ],
+  "validation": {
+    "source_test_methods_unchanged": 149,
+    "macos_harness_passed": 10,
+    "ios_xctest_executed": false,
+    "ribbon_final_location_harness_passed": true,
+    "uploading_block_owner_visibility": {
+      "passed": true,
+      "sdk": "iOS 27.2 arm64 Simulator",
+      "scope": "实际JobsBlock所有者头与两个Block调用签名；不替代生产实现编译、链接或XCTest"
+    }
+  },
+  "production_membership_exceptions": {
+    "Libs/OCBaseConfig/JobsMixFunc/JobsAppDoor/登录注册模块公共件/View/输入框样式/DoorInputView/JobsAppDoorInputViewBaseStyle/JobsAppDoorInputViewBaseStyle.m": {
+      "target": "excluded",
+      "reason": "本轮前的主工程同步组已明确未启用；同名JobsAppDoorInputViewTFModel与JobsAppDoorInputViewBaseStyle由Libs/JobsOCBaseCustomizeUIKitCore/NSObject/BaseObject/JobsModel/输入框样式基类/JobsAppDoorInputViewBaseStyle/JobsAppDoorInputViewBaseStyle.m承接。组件测试不引用此重复旧实现，不能同时编入产生重复类。"
+    },
+    "Libs/OCBaseConfig/JobsMixFunc/JobsLocker/Example/ExampleUsage/ExampleUsage.m": {
+      "target": "excluded",
+      "reason": "JobsLocker独立Example里的DemoObject示例；本轮前的主工程同步组已未启用，当前组件与宿主测试没有引用DemoObject或此示例。保留示例源码，不把演示main能力混入生产target。"
+    },
+    "Libs/OCBaseConfig/JobsMixFunc/JobsOCStabilitySupport/Core/JobsPodsStabilitySceneDelegate/JobsPodsStabilitySceneDelegate.m": {
+      "target": "unit-test",
+      "reason": "文件自述明确为原生单元测试宿主提供空白UIKit Scene；本轮前后均不属于业务App，当前实际仅挂JobsOCBaseConfigDemoTests。须继续校验该源存在于UnitTest而不在App。"
+    }
+  },
+  "application_test_metadata": {
+    "class": "JobsOCBaseConfigDemoTests",
+    "expected_test_count": 12,
+    "test_sources": [
+      "JobsOCBaseConfigDemoTests/JobsOCBaseConfigDemoTests.m"
+    ],
+    "test_methods": [
+      "testAppBundleCanBeLoaded",
+      "testInfoPlistBundleIdentifierReadable",
+      "testTimerResumesOnlyAfterAutomaticPause",
+      "testTimerManagerKeepsManualPauseState",
+      "testTimerManagerExpectedTimerCannotRemoveReplacement",
+      "testTimerManagerScopePreservesManualPause",
+      "testSplashOverlayDoesNotInstallNavigationUIAndCanSkipWhileRunning",
+      "testSettingGestureDemoLoadsWithJobsBaseControllerContract",
+      "testDropDownListSelectionClosesWithoutNilBlockCrash",
+      "testBluetoothFeaturePagesLoadAndExecute",
+      "testBluetoothCellFollowsThemeWithoutReload",
+      "testPerformanceExample"
+    ],
+    "preserved_original_methods": [
+      "testTimerResumesOnlyAfterAutomaticPause",
+      "testTimerManagerKeepsManualPauseState",
+      "testTimerManagerExpectedTimerCannotRemoveReplacement",
+      "testTimerManagerScopePreservesManualPause",
+      "testSettingGestureDemoLoadsWithJobsBaseControllerContract"
+    ],
+    "added_test_methods": [
+      "testAppBundleCanBeLoaded",
+      "testInfoPlistBundleIdentifierReadable",
+      "testSplashOverlayDoesNotInstallNavigationUIAndCanSkipWhileRunning",
+      "testDropDownListSelectionClosesWithoutNilBlockCrash",
+      "testBluetoothFeaturePagesLoadAndExecute",
+      "testBluetoothCellFollowsThemeWithoutReload",
+      "testPerformanceExample"
+    ],
+    "original_helpers_unchanged": [
+      "jobsTestSettingGestureDemoLoadsWithJobsBaseControllerContract"
+    ],
+    "source_files": [
+      {
+        "source": "JobsOCBaseConfigDemoTests/JobsOCBaseConfigDemoTests.h",
+        "destination": "JobsOCBaseConfigDemoTests/JobsOCBaseConfigDemoTests.h",
+        "source_sha256": "75363e70b7370aff6f7bae3581a8ebf54f591e0394c03bf2c2e1a0072a4faf83",
+        "destination_sha256": "fcb587328dd76b58231d2bbf5bc936e52beadada8d79bfbdb5651bcd093c48ed"
+      },
+      {
+        "source": "JobsOCBaseConfigDemoTests/JobsOCBaseConfigDemoTests.m",
+        "destination": "JobsOCBaseConfigDemoTests/JobsOCBaseConfigDemoTests.m",
+        "source_sha256": "db8f03843cc9c7eb826f6f61e9c5b1616944dfdd886955eadb0f46c309337ae6",
+        "destination_sha256": "b46aee5825df9a539208783e5c3419c79a579b822ea8cec22cbad0ccc6df6973"
+      }
+    ],
+    "adaptations": [
+      "旧5项覆盖与全部断言语义保留；4个timer helper仅由旧消息形式适配两侧真实Block/DSL调用",
+      "计时器直接主工程头fallback且明确参与编译，不把形态差异误判为测试不可用",
+      "objc/message与UIKit系统依赖上提同名头",
+      "JobsTimer start/pause必须执行返回的Block；JobsTimerMgr shared及单参数控制/查询使用真实DSL；双参expectedTimer消息式保持",
+      "UIView.byFrame直接依赖JobsOCDSL，显式在同名测试头导入；objc/message系统依赖归同名头",
+      "Splash动态工厂ABI使用真实localImage:bundle:，空name+NSBundle.mainBundle与生产localImage(@\"\")完全同参，不改倒计时/skip配置或断言"
+    ],
+    "timer_dsl_adaptation": {
+      "test_count_unchanged": 12,
+      "timer_test_count_unchanged": 4,
+      "assertions_unchanged_after_api_normalization": {
+        "old": {
+          "assertion_count": 67,
+          "normalized_assertion_sha256": "72face502e69b28f239e16745169f7fd2fd19533b44fdf7cfe55eb7a6c7b9386",
+          "before_sha256": "0dc73c357417ad63f3642340b3f3a9f1e687b9b6f6b4166930b9ce034d678fbe",
+          "after_sha256": "66fc429d2e8a3ff6dcc4796c8227d64db4beb91166326b966b693b937bbadbe1"
+        },
+        "new": {
+          "assertion_count": 67,
+          "normalized_assertion_sha256": "72face502e69b28f239e16745169f7fd2fd19533b44fdf7cfe55eb7a6c7b9386",
+          "before_sha256": "55e2969b3d439a795950c468edabe9ebce3f6d5262dd47d6fb68a4d034459829",
+          "after_sha256": "d40f701bc04351f0cef4f80343f26d6583c638992eb34f9dbf3f4664119db1c6"
+        }
+      },
+      "production_api_changed": false,
+      "new_timer_macro_preprocessed_as_1": true
+    },
+    "splash_factory_abi_adaptation": {
+      "selector": "localImage:bundle:",
+      "argument_name": "",
+      "argument_bundle": "NSBundle.mainBundle",
+      "assertion_count_unchanged": 67,
+      "same_as_production_local_image_block": true
+    }
+  }
+}

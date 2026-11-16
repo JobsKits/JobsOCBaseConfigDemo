@@ -37,7 +37,7 @@
 #import "JobsGraphicCaptchaHeader.h"
 #endif
 
-#import "../../../../OCBaseConfig/JobsMixFunc/JobsOCNumberStepper/JobsOCNumberStepper.h"
+#import "JobsOCNumberStepper.h"
 
 #if __has_include(<JobsOCDSL/JobsOCDSL.h>)
 #import "JobsOCDSL.h"

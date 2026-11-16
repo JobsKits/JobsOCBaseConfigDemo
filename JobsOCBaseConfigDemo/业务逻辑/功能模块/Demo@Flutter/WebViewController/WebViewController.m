@@ -37,10 +37,10 @@ Prop_strong()WKWebView *webView;
         if (!self) return;
         [super viewDidLoad];
         self.byTitle(self.titleStr);
-        _webView = [[WKWebView alloc] initWithFrame:self.view.bounds];
-        _webView.addOn(self.view);
+        self->_webView = [[WKWebView alloc] initWithFrame:self.view.bounds];
+        self->_webView.addOn(self.view);
         NSURLRequest *request = [NSURLRequest requestWithURL:[NSURL URLWithString:self.url]];
-        [_webView loadRequest:request];
+        [self->_webView loadRequest:request];
         UIBarButtonItem *closeItem = jobsMakeBarButtonItemByTitle(@"关闭",
                                                                   UIBarButtonItemStylePlain,
                                                                   self,

@@ -209,9 +209,9 @@ Prop_assign()CGFloat totalSeconds;
     return ^(BOOL animated){
         @jobs_strongify(self)
         if (!self) return;
-        if (_countdownTimer) {
-            _countdownTimer.jobsStop();
-            _countdownTimer = nil;
+        if (self->_countdownTimer) {
+            self->_countdownTimer.jobsStop();
+            self->_countdownTimer = nil;
         }
         self.demoButtonContainer.byFuseOuterRingStop(animated);
         [self.demoButtonContainer byFusePressScaleStop:animated duration:0.18 damping:0.72 velocity:0.4];
@@ -225,8 +225,8 @@ Prop_assign()CGFloat totalSeconds;
     return ^{
         @jobs_strongify(self)
         if (!self) return;
-        if (_countdownTimer) _countdownTimer.jobsStop();
-        _countdownTimer = nil;
+        if (self->_countdownTimer) self->_countdownTimer.jobsStop();
+        self->_countdownTimer = nil;
         self.demoButtonContainer.byFuseOuterRingStop(YES);
         [self.demoButtonContainer byFusePressScaleStop:YES duration:0.18 damping:0.72 velocity:0.4];
         self.demoButtonContainer.byFuseTapScale();

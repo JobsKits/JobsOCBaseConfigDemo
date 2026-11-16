@@ -6,15 +6,71 @@
 //
 
 #import "JobsOCBaseConfigDemoTests.h"
-#import "JobsTimer.h"
-#import "JobsTimerMgr.h"
 
-// 用途：验证计时器自动/手动暂停、替换保护和作用域管理，以及手势设置页能否正常加载。
-// 运行：选用包含 JobsOCBaseConfigDemoTests 的测试 Scheme 执行 XCTest；当前共享 Scheme 尚未登记测试。
-// 边界：仅在单元测试 Target 中执行，正常启动主 App 不会运行这些断言。
+// 用途：实现自动化测试；验证宿主 Bundle、计时器前后台与手动暂停、开屏、手势页、下拉选择及蓝牙页面的基础回归。
+// 运行：在 Xcode 的 JobsOCBaseConfigDemoTests 测试 Target 执行，或由现有 CI 调用；不编入主 App。
 
 @implementation JobsOCBaseConfigDemoTests
 
+-(void)setUp {
+    jobsByVoidBlock action = ((jobsByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(JobsOCBaseConfigDemoTests.class, @selector(jobsSetUp)))(self, @selector(jobsSetUp));
+    if (action) action();
+}
+
+-(jobsByVoidBlock _Nonnull)jobsSetUp{
+    @jobs_weakify(self)
+    return ^{
+        @jobs_strongify(self)
+        if (!self) return;
+        [super setUp];
+    };
+}
+
+-(void)tearDown {
+    jobsByVoidBlock action = ((jobsByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(JobsOCBaseConfigDemoTests.class, @selector(jobsTearDown)))(self, @selector(jobsTearDown));
+    if (action) action();
+}
+
+-(jobsByVoidBlock _Nonnull)jobsTearDown{
+    @jobs_weakify(self)
+    return ^{
+        @jobs_strongify(self)
+        if (!self) return;
+        [super tearDown];
+    };
+}
+
+-(void)testAppBundleCanBeLoaded {
+    jobsByVoidBlock action = ((jobsByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(JobsOCBaseConfigDemoTests.class, @selector(jobsTestAppBundleCanBeLoaded)))(self, @selector(jobsTestAppBundleCanBeLoaded));
+    if (action) action();
+}
+
+-(jobsByVoidBlock _Nonnull)jobsTestAppBundleCanBeLoaded{
+    @jobs_weakify(self)
+    return ^{
+        @jobs_strongify(self)
+        if (!self) return;
+        NSBundle *bundle = NSBundle.mainBundle;
+        XCTAssertNotNil(bundle, @"测试进程必须能读取 App Bundle。");
+    };
+}
+
+-(void)testInfoPlistBundleIdentifierReadable {
+    jobsByVoidBlock action = ((jobsByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(JobsOCBaseConfigDemoTests.class, @selector(jobsTestInfoPlistBundleIdentifierReadable)))(self, @selector(jobsTestInfoPlistBundleIdentifierReadable));
+    if (action) action();
+}
+
+-(jobsByVoidBlock _Nonnull)jobsTestInfoPlistBundleIdentifierReadable{
+    @jobs_weakify(self)
+    return ^{
+        @jobs_strongify(self)
+        if (!self) return;
+        NSString *bundleIdentifier = NSBundle.mainBundle.bundleIdentifier;
+        XCTAssertTrue(bundleIdentifier.length > 0, @"Info.plist 里必须能读到 Bundle Identifier。");
+    };
+}
+
+#if JOBS_TIMER_TESTS_AVAILABLE
 -(void)testTimerResumesOnlyAfterAutomaticPause {
     jobsByVoidBlock action = ((jobsByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(JobsOCBaseConfigDemoTests.class, @selector(jobsTestTimerResumesOnlyAfterAutomaticPause)))(self, @selector(jobsTestTimerResumesOnlyAfterAutomaticPause));
     if (action) action();
@@ -32,7 +88,7 @@
                 .byPauseInBackground(YES)
                 .byAutoManageAppState(YES);
         });
-        [timer start];
+        timer.start();
         XCTAssertTrue(timer.isRunning);
 
         [NSNotificationCenter.defaultCenter postNotificationName:UIApplicationWillResignActiveNotification object:nil];
@@ -41,10 +97,10 @@
         [NSNotificationCenter.defaultCenter postNotificationName:UIApplicationDidBecomeActiveNotification object:nil];
         XCTAssertTrue(timer.isRunning);
 
-        [timer pause];
+        timer.pause();
         [NSNotificationCenter.defaultCenter postNotificationName:UIApplicationDidBecomeActiveNotification object:nil];
         XCTAssertFalse(timer.isRunning);
-        [timer stop];
+        timer.jobsStop();
     };
 }
 
@@ -59,7 +115,7 @@
         @jobs_strongify(self)
         if (!self) return;
         NSString *identifier = [NSString stringWithFormat:@"tests.timer.%@", NSUUID.UUID.UUIDString];
-        JobsTimerMgr *manager = JobsTimerMgr.shared;
+        JobsTimerMgr *manager = JobsTimerMgr.shared();
         XCTAssertTrue([manager upsertTimerWithIdentifier:identifier
                                               timerType:JobsTimerTypeGCD
                                                  policy:JobsTimerBackgroundPolicyPauseAndResume
@@ -68,17 +124,17 @@
             timer.byTimeInterval(60)
                 .byQueue(dispatch_get_main_queue());
         } handler:nil]);
-        XCTAssertTrue([manager isRunning:identifier]);
+        XCTAssertTrue(manager.isRunning(identifier));
 
         [NSNotificationCenter.defaultCenter postNotificationName:UIApplicationWillResignActiveNotification object:nil];
-        XCTAssertFalse([manager isRunning:identifier]);
+        XCTAssertFalse(manager.isRunning(identifier));
         [NSNotificationCenter.defaultCenter postNotificationName:UIApplicationDidBecomeActiveNotification object:nil];
-        XCTAssertTrue([manager isRunning:identifier]);
+        XCTAssertTrue(manager.isRunning(identifier));
 
-        XCTAssertTrue([manager pause:identifier]);
+        XCTAssertTrue(manager.pause(identifier));
         [NSNotificationCenter.defaultCenter postNotificationName:UIApplicationDidBecomeActiveNotification object:nil];
-        XCTAssertFalse([manager isRunning:identifier]);
-        XCTAssertTrue([manager stopAndRemove:identifier]);
+        XCTAssertFalse(manager.isRunning(identifier));
+        XCTAssertTrue(manager.stopAndRemove(identifier));
     };
 }
 
@@ -100,7 +156,7 @@
                                        startImmediately:NO
                                                   build:nil
                                                 handler:nil]);
-        JobsTimer *oldTimer = [manager timerForIdentifier:identifier];
+        JobsTimer *oldTimer = manager.timerForIdentifier(identifier);
         XCTAssertTrue([manager upsertTimerWithIdentifier:identifier
                                               timerType:JobsTimerTypeGCD
                                                  policy:JobsTimerBackgroundPolicyIgnore
@@ -109,13 +165,13 @@
             timer.byTimeInterval(60)
                 .byQueue(dispatch_get_main_queue());
         } handler:nil]);
-        JobsTimer *currentTimer = [manager timerForIdentifier:identifier];
+        JobsTimer *currentTimer = manager.timerForIdentifier(identifier);
 
         XCTAssertFalse([manager stopAndRemove:identifier expectedTimer:oldTimer]);
-        XCTAssertEqual([manager timerForIdentifier:identifier],currentTimer);
+        XCTAssertEqual(manager.timerForIdentifier(identifier),currentTimer);
         XCTAssertTrue(currentTimer.isRunning);
         XCTAssertTrue([manager stopAndRemove:identifier expectedTimer:currentTimer]);
-        XCTAssertFalse([manager exists:identifier]);
+        XCTAssertFalse(manager.exists(identifier));
     };
 }
 
@@ -144,17 +200,69 @@
                     .byQueue(dispatch_get_main_queue());
             } handler:nil]);
         }
-        XCTAssertTrue([manager pause:manualTimerIdentifier]);
+        XCTAssertTrue(manager.pause(manualTimerIdentifier));
 
-        XCTAssertEqual([manager pauseScope:scopeIdentifier],2);
-        XCTAssertFalse([manager isRunning:scopeTimerIdentifier]);
-        XCTAssertFalse([manager isRunning:manualTimerIdentifier]);
-        XCTAssertEqual([manager resumeScope:scopeIdentifier],2);
-        XCTAssertTrue([manager isRunning:scopeTimerIdentifier]);
-        XCTAssertFalse([manager isRunning:manualTimerIdentifier]);
-        XCTAssertEqual([manager stopAndRemoveScope:scopeIdentifier],2);
-        XCTAssertFalse([manager exists:scopeTimerIdentifier]);
-        XCTAssertFalse([manager exists:manualTimerIdentifier]);
+        XCTAssertEqual(manager.pauseScope(scopeIdentifier),2);
+        XCTAssertFalse(manager.isRunning(scopeTimerIdentifier));
+        XCTAssertFalse(manager.isRunning(manualTimerIdentifier));
+        XCTAssertEqual(manager.resumeScope(scopeIdentifier),2);
+        XCTAssertTrue(manager.isRunning(scopeTimerIdentifier));
+        XCTAssertFalse(manager.isRunning(manualTimerIdentifier));
+        XCTAssertEqual(manager.stopAndRemoveScope(scopeIdentifier),2);
+        XCTAssertFalse(manager.exists(scopeTimerIdentifier));
+        XCTAssertFalse(manager.exists(manualTimerIdentifier));
+    };
+}
+#endif
+
+-(void)testSplashOverlayDoesNotInstallNavigationUIAndCanSkipWhileRunning {
+    jobsByVoidBlock action = ((jobsByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(JobsOCBaseConfigDemoTests.class, @selector(jobsTestSplashOverlayDoesNotInstallNavigationUIAndCanSkipWhileRunning)))(self, @selector(jobsTestSplashOverlayDoesNotInstallNavigationUIAndCanSkipWhileRunning));
+    if (action) action();
+}
+
+-(jobsByVoidBlock _Nonnull)jobsTestSplashOverlayDoesNotInstallNavigationUIAndCanSkipWhileRunning{
+    @jobs_weakify(self)
+    return ^{
+        @jobs_strongify(self)
+        if (!self) return;
+        UIViewController *rootViewController = UIViewController.new;
+        UINavigationController *navigationController = [[UINavigationController alloc] initWithRootViewController:rootViewController];
+        navigationController.view.byFrame(CGRectMake(0, 0, 402, 874));
+        typedef id(*JobsSplashConfigurationIMP)(id, SEL, NSString *, NSBundle *);
+        JobsSplashConfigurationIMP makeConfiguration = (JobsSplashConfigurationIMP)objc_msgSend;
+        id configuration = makeConfiguration(NSClassFromString(@"JobsOCSplashConfiguration"),
+                                             NSSelectorFromString(@"localImage:bundle:"),
+                                             @"",
+                                             NSBundle.mainBundle);
+        [configuration setValue:@8 forKey:@"countdownSeconds"];
+        [configuration setValue:@YES forKey:@"skipButtonVisible"];
+        typedef UIViewController *(*JobsShowSplashIMP)(id, SEL, UIViewController *, id);
+        JobsShowSplashIMP showSplash = (JobsShowSplashIMP)objc_msgSend;
+        UIViewController *splashViewController = showSplash(NSClassFromString(@"JobsOCSplashPresenter"),
+                                                            NSSelectorFromString(@"showOver:configuration:"),
+                                                            navigationController,
+                                                            configuration);
+        UIButton *skipButton = [splashViewController valueForKey:@"countdownBtn"];
+        if (@available(iOS 16.0, *)) {
+            XCTAssertEqualWithAccuracy(skipButton.configuration.background.cornerRadius, 18, 0.001);
+        } else {
+            XCTAssertEqualWithAccuracy(skipButton.layer.cornerRadius, 18, 0.001);
+        }
+        [splashViewController beginAppearanceTransition:YES animated:NO];
+        [splashViewController endAppearanceTransition];
+        [splashViewController.view layoutIfNeeded];
+
+        XCTAssertEqual(splashViewController.parentViewController, rootViewController);
+        XCTAssertEqualObjects(navigationController.viewControllers, (@[rootViewController]));
+        for (UIView *subview in splashViewController.view.subviews) {
+            XCTAssertFalse([NSStringFromClass(subview.class) isEqualToString:@"GKCustomNavigationBar"]);
+        }
+        XCTAssertTrue(skipButton.enabled);
+        XCTAssertEqual([splashViewController.view hitTest:skipButton.center withEvent:nil], skipButton);
+
+        [skipButton sendActionsForControlEvents:UIControlEventTouchUpInside];
+        XCTAssertNil(splashViewController.parentViewController);
+        XCTAssertNil(splashViewController.view.superview);
     };
 }
 
@@ -181,6 +289,120 @@
         XCTAssertEqual(modeControl.numberOfSegments, 2);
         UIView *lockView = [controller valueForKey:@"demoLockView"];
         XCTAssertEqual([[lockView valueForKey:@"nodeButtons"] count], 9);
+    };
+}
+
+-(void)testDropDownListSelectionClosesWithoutNilBlockCrash {
+    jobsByVoidBlock action = ((jobsByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(JobsOCBaseConfigDemoTests.class, @selector(jobsTestDropDownListSelectionClosesWithoutNilBlockCrash)))(self, @selector(jobsTestDropDownListSelectionClosesWithoutNilBlockCrash));
+    if (action) action();
+}
+
+-(jobsByVoidBlock _Nonnull)jobsTestDropDownListSelectionClosesWithoutNilBlockCrash{
+    @jobs_weakify(self)
+    return ^{
+        @jobs_strongify(self)
+        if (!self) return;
+        UIViewController *controller = [NSClassFromString(@"JobsDropDownListVC") new];
+        XCTAssertNotNil(controller);
+        XCTAssertNoThrow([controller loadViewIfNeeded]);
+
+        UIButton *button = [controller valueForKey:@"btn"];
+        XCTAssertNotNil(button);
+        [button sendActionsForControlEvents:UIControlEventTouchUpInside];
+
+        UIView *dropDownListView = [controller valueForKey:@"dropDownListView"];
+        XCTAssertNotNil(dropDownListView);
+        UITableView *tableView = [dropDownListView valueForKey:@"tableView"];
+        XCTAssertEqual([tableView numberOfRowsInSection:0], 3);
+
+        typedef void(*JobsDropDownDidSelectIMP)(id, SEL, UITableView *, NSIndexPath *);
+        JobsDropDownDidSelectIMP didSelect = (JobsDropDownDidSelectIMP)objc_msgSend;
+        NSIndexPath *indexPath = [NSIndexPath indexPathForRow:0
+                                                   inSection:0];
+        XCTAssertNoThrow(didSelect(dropDownListView,
+                                   NSSelectorFromString(@"tableView:didSelectRowAtIndexPath:"),
+                                   tableView,
+                                   indexPath));
+        XCTAssertNil([controller valueForKey:@"dropDownListView"]);
+        XCTAssertFalse(button.selected);
+        XCTAssertEqualObjects([[controller valueForKey:@"selectedTitleLab"] text], @"点选：基础配置");
+    };
+}
+
+-(void)testBluetoothFeaturePagesLoadAndExecute {
+    jobsByVoidBlock action = ((jobsByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(JobsOCBaseConfigDemoTests.class, @selector(jobsTestBluetoothFeaturePagesLoadAndExecute)))(self, @selector(jobsTestBluetoothFeaturePagesLoadAndExecute));
+    if (action) action();
+}
+
+-(jobsByVoidBlock _Nonnull)jobsTestBluetoothFeaturePagesLoadAndExecute{
+    @jobs_weakify(self)
+    return ^{
+        @jobs_strongify(self)
+        if (!self) return;
+        XCTAssertFalse([NSObject instancesRespondToSelector:NSSelectorFromString(@"defaultParagraphStyle")]);
+        Class controllerClass = NSClassFromString(@"JobsBluetoothFeatureDemoVC");
+        XCTAssertNotNil(controllerClass);
+        typedef id (*JobsBluetoothInitIMP)(id, SEL, NSInteger, NSString *);
+        for (NSInteger index = 0; index < 28; index++) {
+            UIViewController *controller = ((JobsBluetoothInitIMP)objc_msgSend)([controllerClass alloc],
+                NSSelectorFromString(@"initWithFeatureIndex:featureTitle:"), index, @"蓝牙回归");
+            UINavigationController *navigation = [[UINavigationController alloc] initWithRootViewController:controller];
+            XCTAssertNoThrow([navigation loadViewIfNeeded]);
+            XCTAssertNoThrow([controller loadViewIfNeeded], @"入口 %ld", (long)index + 1);
+            UIButton *button = [controller valueForKey:@"executeButton"];
+            XCTAssertNotNil(button);
+            XCTAssertNoThrow([button sendActionsForControlEvents:UIControlEventTouchUpInside]);
+            UITextView *logView = [controller valueForKey:@"logTextView"];
+            XCTAssertTrue(logView.text.length > 0);
+        }
+    };
+}
+
+-(void)testBluetoothCellFollowsThemeWithoutReload {
+    jobsByVoidBlock action = ((jobsByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(JobsOCBaseConfigDemoTests.class, @selector(jobsTestBluetoothCellFollowsThemeWithoutReload)))(self, @selector(jobsTestBluetoothCellFollowsThemeWithoutReload));
+    if (action) action();
+}
+
+-(jobsByVoidBlock _Nonnull)jobsTestBluetoothCellFollowsThemeWithoutReload{
+    @jobs_weakify(self)
+    return ^{
+        @jobs_strongify(self)
+        if (!self) return;
+        UIViewController *controller = [NSClassFromString(@"JobsBluetoothDemoVC") new];
+        UINavigationController *navigation = [[UINavigationController alloc] initWithRootViewController:controller];
+        [navigation loadViewIfNeeded];
+        [controller loadViewIfNeeded];
+        UITableView *table = [controller valueForKey:@"tableView"];
+        UITableViewCell *cell = [table.dataSource tableView:table cellForRowAtIndexPath:
+            [NSIndexPath indexPathForRow:0 inSection:0]];
+        JobsThemeCenter *center = JobsThemeCenter.shared;
+        JobsThemeStyle originalStyle = center.currentStyle;
+        @try {
+            for (JobsThemeStyle style in @[JobsThemeStyleLight, JobsThemeStyleDark, JobsThemeStyleLight]) {
+                center.setStyle(style);
+                XCTAssertEqualObjects(cell.backgroundColor, center.resolvedColorForKey(JobsThemeColorKeyBackgroundGroupedSecondary));
+                XCTAssertEqualObjects(cell.textLabel.textColor, center.resolvedColorForKey(JobsThemeColorKeyTextPrimary));
+                XCTAssertEqualObjects(cell.detailTextLabel.textColor, center.resolvedColorForKey(JobsThemeColorKeyTextSecondary));
+            }
+        } @finally {
+            center.setStyle(originalStyle);
+        }
+    };
+}
+
+-(void)testPerformanceExample {
+    jobsByVoidBlock action = ((jobsByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(JobsOCBaseConfigDemoTests.class, @selector(jobsTestPerformanceExample)))(self, @selector(jobsTestPerformanceExample));
+    if (action) action();
+}
+
+-(jobsByVoidBlock _Nonnull)jobsTestPerformanceExample{
+    @jobs_weakify(self)
+    return ^{
+        @jobs_strongify(self)
+        if (!self) return;
+        [self measureBlock:^{
+            (void)NSBundle.mainBundle.infoDictionary;
+        }];
     };
 }
 

@@ -129,7 +129,7 @@ end
 # 视频相关
 def videoFunc
 # 打开ZFPlayer则无法用模拟器
-  pod 'ZFPlayer'                 # https://github.com/renzifeng/ZFPlayer
+  pod 'ZFPlayer' unless %w[1 true yes y on].include?(ENV.fetch('JOBS_SIMULATOR_ONLY', '').strip.downcase) # 真机保留默认IJK；模拟器只用以下公开子规格
   pod 'ZFPlayer/ControlView'
   pod 'ZFPlayer/AVPlayer'
 #  pod 'ZFPlayer/ijkplayer'

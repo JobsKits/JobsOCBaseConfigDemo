@@ -1,0 +1,18 @@
+Jobs Rust OCR
+Copyright 2026 Jobs
+
+The inspiration, algorithmic reference and model pipeline originate from:
+Indra OCR by Datalab and its contributors
+https://github.com/datalab-to/indra
+
+Detection postprocessing, recognition preprocessing, CTC/language-model decoding
+and layout algorithms have been adapted and reimplemented in Rust from the
+Apache-2.0 Indra source. This is an independent port, not an official Datalab release.
+
+Indra model weights and language-model data are separate assets under the
+modified OpenRAIL-M license in Resources/Models/LICENSE (or the packaged bundle).
+Reimplementation does not change that license.
+
+ONNX Runtime 1.24.2 is copyright Microsoft Corporation, distributed under MIT.
+The sample Korean page is from FinePDFs via OmniParseBench, under ODC-BY 1.0;
+the detailed sample attribution is included in the resource bundle.
