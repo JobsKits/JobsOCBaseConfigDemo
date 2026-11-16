@@ -2,19 +2,11 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
-	<key>BuiltAt</key>
-	<string>2026.11.16 18-41-14</string>
-	<key>BuiltTargets</key>
-	<string>aarch64-apple-darwin,aarch64-apple-ios,aarch64-apple-ios-sim,x86_64-apple-darwin,x86_64-apple-ios</string>
-	<key>CArchiveBasename</key>
-	<string>libJobsOCRCore.a</string>
-	<key>ModelManifestSHA256</key>
-	<string>627e48f035fee54a7e0c4bc9bb42a1f12cb34efdfd3391f24eeec0c47f42e589</string>
-	<key>ONNXRuntimeVersion</key>
-	<string>1.24.2</string>
-	<key>ONNXRuntimeZIP_SHA256</key>
-	<string>f7100a992d2a8135168c8afd831e6a58b465349101982aa58b3e11d36e600b54</string>
-	<key>SDKLayout</key>
-	<string>Core/Support/Resource</string>
+	<key>BuildEntry</key>
+	<string>Scripts/BuildRustOCR.command</string>
+	<key>CoreSource</key>
+	<string>Source/JobsOCR</string>
+	<key>DeliveryMode</key>
+	<string>source</string>
 </dict>
 </plist>

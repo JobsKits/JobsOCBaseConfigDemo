@@ -1,8 +1,22 @@
 # JobsRustOCR Apple 桥接层
 
+本 SDK 自建核心按源码交付：[Rust源码与测试](./Source/JobsOCR/README.md)、[本地编译入口与依赖](./Scripts/README.md)。首次使用和每次修改源码后，先执行 `/bin/zsh ./Scripts/BuildRustOCR.command --yes`，再安装 Pod／构建宿主；自建 `.a` 和生成缓存不入仓。`PackageManifest.plist` 标明源码交付，生成摘要由构建器单独记录。下方旧预编译验收只对应其当时构建，不替代本批源码构建结果。
+
 ![Jobs出品，必属精品](https://picsum.photos/1500/400)
 
-[toc]
+<!-- jobs-toc:start -->
+<!-- jobs-toc:source {"v":2,"token":"[toc]"} -->
+<details>
+<summary>📚 目录（点击展开 / 收起）</summary>
+
+- [🔥 前言](#%E5%89%8D%E8%A8%80)
+- [一、公开接口](#api)
+- [二、构建与资源](#packaging)
+- [三、线程、取消与像素边界](#lifecycle)
+- [四、当前验证](#validation)
+
+</details>
+<!-- jobs-toc:end -->
 
 ---
 

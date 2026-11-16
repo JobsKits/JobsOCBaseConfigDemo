@@ -5,7 +5,7 @@
     "ScriptsByPods/自动化测试相关脚本/【MacOS】🧪iOS自动巡检.command/README.md",
     ".jobs-markdown-toc/README.md",
     "Libs/JobsOCBaseCustomizeUIKitCore/BaseProtocol/README.md",
-    "Libs/JobsOCBaseCustomizeUIKitCore/NSObject/BaseObject/JobsTimer/README.md",
+    "Libs/JobsOCBaseCustomizeUIKitCore/NSObject/BaseObject/JobsTImer/README.md",
     "Libs/JobsOCBaseCustomizeUIKitCore/NSObject/BaseObject/JobsTimerManager/README.md",
     "Libs/JobsOCBaseCustomizeUIKitCore/NSObject/NSObject+Category/NSObject+Time/时间格式化.md/README.md",
     "Libs/OCBaseConfig/JobsBlock/README.md",
@@ -97,6 +97,10 @@
     "Tests/ComponentStability/README.md",
     ".github/tests/CoverageCatalog/README.md",
     "项目相关报告/App骨架功能盘点.md",
-    "Tests/CoreData/README.md"
+    "Tests/CoreData/README.md",
+    "项目相关报告/RustOCR集成/README.md",
+    "JobsOCBaseConfigDemo/业务逻辑/功能模块/Demo@RustOCR/SDK/JobsRustOCR/README.md",
+    "JobsOCBaseConfigDemo/业务逻辑/功能模块/Demo@RustOCR/SDK/JobsRustOCR/Scripts/README.md",
+    "JobsOCBaseConfigDemo/业务逻辑/功能模块/Demo@RustOCR/SDK/JobsRustOCR/Source/JobsOCR/README.md"
   ]
 }

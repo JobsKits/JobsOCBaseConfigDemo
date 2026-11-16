@@ -1791,3 +1791,13 @@
 "OCR：结果已复制" = "OCR: result copied";
 
 "OCR：SDK 尚未就绪" = "OCR: SDK is not ready";
+
+/* OCR whole-page reading and camera input */
+"OCR：样本" = "Sample";
+"OCR：相册" = "Photos";
+"OCR：拍照" = "Camera";
+"OCR：识别结果" = "Recognition result";
+"OCR：复制" = "Copy";
+"OCR：设备无法使用摄像头" = "The camera is unavailable on this device.";
+"OCR：请在设置中允许访问相机" = "Allow camera access in system Settings.";
+"OCR：相机照片读取失败" = "Could not load the captured photo. Try again.";

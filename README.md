@@ -1,8 +1,10 @@
 # **iOS@OC**<font color=red>靶场项目</font>蓝皮书📘
 
+OCR 自建核心按源码交付，入口为 [Source/JobsOCR](<./JobsOCBaseConfigDemo/业务逻辑/功能模块/Demo@RustOCR/SDK/JobsRustOCR/Source/JobsOCR/README.md>)；首次使用及修改源码后运行 [本地构建器](<./JobsOCBaseConfigDemo/业务逻辑/功能模块/Demo@RustOCR/SDK/JobsRustOCR/Scripts/README.md>)，再执行原有依赖安装和 App 构建。自建 `libJobsOCRCore.a` 只在本机生成，不提交到仓库；第三方运行时及模型来源、参数和验证见[源码交付盘点](<./项目相关报告/RustOCR集成/README.md#source-delivery>)。
+
 App骨架资产（启动、导航、菜单、搜索、侧栏、分组、悬浮控件与设置）见[App骨架功能盘点](./项目相关报告/App骨架功能盘点.md)；项目报告统一归入 `项目相关报告/`，根 `README.md` 保留为仓库入口。
 
-首页“数据、网络与文本 → Rust 离线 OCR”提供独立图片识别 Demo，调用共享 Rust 核心，含内置样本、照片选择、开始／取消、文字／JSON 和复制。新 OC 通过 `JobsByPods/JobsRustOCR@Pods` 集成，旧 OC 在同一主 xcodeproj 内以原生静态库 target `JobsRustOCRLegacy` 单独编译桥接（隔离旧 C-only 前缀头），不新增 Pod；核心灵感及模型来源为 [**Indra OCR**](https://github.com/datalab-to/indra)，详细依赖、能力和当前验证边界见 [Rust OCR 集成资产盘点](./项目相关报告/RustOCR集成/README.md)。
+首页“数据、网络与文本 → Rust 离线 OCR”提供独立图片识别 Demo，调用共享 Rust 核心，含内置样本、相册与拍照输入、紧凑开始／取消、整页滚动的文字／JSON结果和快捷复制。新 OC 通过 `JobsByPods/JobsRustOCR@Pods` 集成，旧 OC 在同一主 xcodeproj 内以原生静态库 target `JobsRustOCRLegacy` 单独编译桥接（隔离旧 C-only 前缀头），不新增 Pod；核心灵感及模型来源为 [**Indra OCR**](https://github.com/datalab-to/indra)，详细依赖、能力和当前验证边界见 [Rust OCR 集成资产盘点](./项目相关报告/RustOCR集成/README.md)。
 
 首页统一“功能实验室”，保留项目来源副标题。深蓝#1565C0／白字悬浮时间（对比5.75:1）按本地化内容和字体缩放自适应，长按拖动并吸附四边，短按进入[世界时钟](<./JobsOCBaseConfigDemo/业务逻辑/控制器/ViewController@1/JobsOCWorldClockVC/README.md>)；设备时区置顶，全球按实时UTC偏移各列代表城市，保留日期／星期／秒值／UTC偏移／IANA与系统夏令时。原生“12小时制”开关默认关并独立记忆，明确AM／PM，只影响世界页，首页仍为24小时；页面活跃时每秒刷新，离开／后台停止。本轮两工程arm64构建、中文浅色物理手势／格式切换／滚动保持／重启恢复已验证，主链实测对应新final5／旧final3；末尾返回文案补线新final6／旧final4已构建，用户清理设备后已在新共享设备完成旧端中文返回文案与实际返回短回归。末尾纯颜色增量新final7／旧final5已构建，实际截图两端均为#1565C0。分项证据与待验范围见资产表SKEL-14／SKEL-28。当前时区使用顶部独立圆角强调卡片，大号时间随系统字号，城市／IANA／UTC偏移与日期星期完整保留；制式开关左标题随当前值显示“24小时制”或“12小时制”，默认24小时，开启明确AM／PM。
 
@@ -23,7 +25,7 @@ App骨架资产（启动、导航、菜单、搜索、侧栏、分组、悬浮�
 <p align="left">
   <a><img src="https://img.shields.io/badge/pod-1.17.0_snapshot-brightgreen" alt="CocoaPods"/></a>
   <a><img src="https://img.shields.io/badge/OC-orange" alt="Objective-C"/></a>
-  <a><img src="https://img.shields.io/badge/Xcode-26_CI-blue" alt="Xcode"/></a>
+  <a><img src="https://img.shields.io/badge/Xcode-27_CI-blue" alt="Xcode"/></a>
   <a><img src="https://img.shields.io/badge/iOS-16.6+-critical" alt="iOS"/></a>
   <a href="https://github.com/JobsKits/JobsOCBaseConfigDemo/actions/workflows/build_simulator_app.yml?query=branch%3Amain"><img src="https://img.shields.io/github/actions/workflow/status/JobsKits/JobsOCBaseConfigDemo/build_simulator_app.yml?branch=main&amp;label=build%20main" alt="Build main"/></a>
   <a href="https://github.com/JobsKits/JobsOCBaseConfigDemo/actions/workflows/build_simulator_app.yml?query=branch%3AbyPods"><img src="https://img.shields.io/github/actions/workflow/status/JobsKits/JobsOCBaseConfigDemo/build_simulator_app.yml?branch=byPods&amp;label=build%20byPods" alt="Build byPods"/></a>
@@ -711,7 +713,7 @@ OC 两侧的真实脚本包统一位于 `ScriptsByPods/Cocoapods相关脚本/`�
 
 ### <span id="jobs-toc-heading-12" data-jobs-toc="v2">2.9、GitHub Actions 模拟器构建 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a></span><!-- jobs-toc:heading-end -->
 
-[构建工作流](./.github/workflows/build_simulator_app.yml)在推送、拉取请求或手动触发时运行；自动触发范围为 `main`、`byPods`。两侧采用相同的 Xcode 26 选择逻辑：优先读取已存在的 `XCODE_26_DEVELOPER_DIR`，否则在 `/Applications/Xcode_26*.app` 中按数字版本选取，再核验实际版本属于 Xcode 26。旧侧保留 `xcode-27` runner、新侧保留 `macos-15` runner，但不据 runner 名称推断预装版本；没有符合条件的工具链、SDK 或同主版本 arm64 iPhone runtime 即明确失败，不自动切换其它 Xcode 主版本或下载运行时。实际开发者目录、Xcode 与 Simulator SDK 版本保留在日志，旧侧同时写入 `BuildDiagnostics/`。模拟器 App 仅供对应架构运行，不代表真机验收。
+[构建工作流](./.github/workflows/build_simulator_app.yml)在推送、拉取请求或手动触发时运行；自动触发范围为 `main`、`byPods`。两侧使用 `xcode-27` runner 与 Xcode 27 选择逻辑：优先读取已存在的 `XCODE_27_DEVELOPER_DIR`，否则在 `/Applications/Xcode_27*.app` 中按数字版本选取，再核验实际版本属于 Xcode 27。没有符合条件的工具链、SDK 或同主版本 arm64 iPhone runtime 即明确失败，不自动切换其它 Xcode 主版本或下载运行时。CocoaPods 安装前显式准备 Rust 1.95.0，并仅在 OCR 构建进程设置 `RUSTUP_TOOLCHAIN=1.95.0` 从随仓源码构建 SDK，缺少源码或构建失败会停止后续测试／打包，不依赖本机已存在的 `.a`；入口及本地验证命令见[CI配置回归](./.github/tests/WorkflowConfiguration/README.md)。协议图按各自真实源码目录触发并生成；旧工程使用 `Libs/JobsOCBaseCustomizeUIKitCore/BaseProtocol`。本次失败原因与验证边界见[Actions修复记录](./项目相关报告/GitHubActions修复/README.md)。实际开发者目录、Xcode 与 Simulator SDK 版本保留在日志，旧侧同时写入 `BuildDiagnostics/`。模拟器 App 仅供对应架构运行，不代表真机验收。
 
 [Podfile](./Podfile) 在生成 Pods 工程时，两种形态均为 [**ReactiveObjC**](https://github.com/ReactiveCocoa/ReactiveObjC) 的 Debug / Release 目标显式保留 `ReactiveObjC/extobjc` 头文件搜索目录并继承原有路径。`byPods` 额外仅为该目标关闭 [**USE_HEADERMAP**](https://developer.apple.com/documentation/xcode/build-settings-reference)，避免批量构建时裸宏头名先被映射为框架前缀路径；`main` 当前未设置这一 Header Map 覆盖。`RACmetamacros.h` 使用上游既有文件，不复制宏头、不改写供应商源码，也不依赖前次编译产生的头映射；原 public Headers phase、模块定义和消费者配置保留，CI 关闭旧供应商补丁时仍执行各自配置适配。缺头仍会阻断构建，不降低检查等级。
 

@@ -7,6 +7,8 @@
 
 #import <UIKit/UIKit.h>
 #import <PhotosUI/PhotosUI.h>
+#import <AVFoundation/AVFoundation.h>
+#import <math.h>
 
 #if __has_include(<XYColorOC/XYColorOC.h>)
 #import <XYColorOC/XYColorOC.h>
@@ -62,7 +64,9 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface JobsRustOCRDemoVC : BaseViewController <PHPickerViewControllerDelegate>
+@interface JobsRustOCRDemoVC : BaseViewController <PHPickerViewControllerDelegate,
+                                                 UIImagePickerControllerDelegate,
+                                                 UINavigationControllerDelegate>
 
 @end
 

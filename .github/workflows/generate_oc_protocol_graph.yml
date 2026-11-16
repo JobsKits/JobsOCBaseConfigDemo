@@ -6,7 +6,8 @@ on:
       - main
       - byPods
     paths:
-      - JobsLibs/JobsOCBaseCustomizeUIKitCore/BaseProtocol/**/*.h
+      - Libs/JobsOCBaseCustomizeUIKitCore/BaseProtocol/**/*.h
+      - .github/tests/WorkflowConfiguration/**
       - .github/scripts/generate_objc_protocol_graph.rb
       - .github/workflows/generate_oc_protocol_graph.yml
   pull_request:
@@ -14,7 +15,8 @@ on:
       - main
       - byPods
     paths:
-      - JobsLibs/JobsOCBaseCustomizeUIKitCore/BaseProtocol/**/*.h
+      - Libs/JobsOCBaseCustomizeUIKitCore/BaseProtocol/**/*.h
+      - .github/tests/WorkflowConfiguration/**
       - .github/scripts/generate_objc_protocol_graph.rb
       - .github/workflows/generate_oc_protocol_graph.yml
   workflow_dispatch:
@@ -32,14 +34,18 @@ jobs:
     timeout-minutes: 20
 
     env:
-      PROTOCOL_SOURCE_DIR: JobsLibs/JobsOCBaseCustomizeUIKitCore/BaseProtocol
+      PROTOCOL_SOURCE_DIR: Libs/JobsOCBaseCustomizeUIKitCore/BaseProtocol
       GRAPH_MMD_PATH: /tmp/BaseProtocol-ProtocolGraph.mmd
-      GRAPH_PNG_PATH: JobsLibs/JobsOCBaseCustomizeUIKitCore/BaseProtocol/BaseProtocol-ProtocolGraph.png
+      GRAPH_PNG_PATH: Libs/JobsOCBaseCustomizeUIKitCore/BaseProtocol/BaseProtocol-ProtocolGraph.png
       GRAPH_ARTIFACT_NAME: BaseProtocol-ProtocolGraph
 
     steps:
       - name: Checkout repository
         uses: actions/checkout@v7
+
+      - name: Verify workflow configuration
+        timeout-minutes: 2
+        run: ruby .github/tests/WorkflowConfiguration/regression.rb --graph-only
 
       - name: Setup Node.js
         uses: actions/setup-node@v6

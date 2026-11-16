@@ -1,0 +1,5 @@
+/.build-rust-ocr/
+/Source/JobsOCR/target/
+/Frameworks/JobsOCRCore.xcframework/*/libJobsOCRCore.a
+/Frameworks/.JobsOCRCore-build.sha256
+!/Source/JobsOCR/Cargo.lock

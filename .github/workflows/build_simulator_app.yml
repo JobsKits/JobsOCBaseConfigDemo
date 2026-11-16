@@ -39,20 +39,24 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v7
 
+      - name: Verify workflow configuration
+        timeout-minutes: 2
+        run: ruby .github/tests/WorkflowConfiguration/regression.rb
+
       - name: Verify explicit source membership
         timeout-minutes: 2
         run: |
           ruby .github/tests/ProjectMembership/regression.rb/regression.rb
           ruby .github/tests/ProjectMembership/validate_membership.rb/validate_membership.rb
 
-      - name: Select Xcode 26 SDK
+      - name: Select Xcode 27 SDK
         run: |
           selected_developer_dir=""
 
-          if [[ -n "${XCODE_26_DEVELOPER_DIR:-}" && -d "${XCODE_26_DEVELOPER_DIR}" ]]; then
-            selected_developer_dir="${XCODE_26_DEVELOPER_DIR}"
+          if [[ -n "${XCODE_27_DEVELOPER_DIR:-}" && -d "${XCODE_27_DEVELOPER_DIR}" ]]; then
+            selected_developer_dir="${XCODE_27_DEVELOPER_DIR}"
           else
-            latest_xcode="$(ruby -e 'puts Dir.glob("/Applications/Xcode_26*.app").max_by { |path| Gem::Version.new(File.basename(path)[/\d+(?:\.\d+)*/, 0]) }')"
+            latest_xcode="$(ruby -e 'puts Dir.glob("/Applications/Xcode_27*.app").max_by { |path| Gem::Version.new(File.basename(path)[/\d+(?:\.\d+)*/, 0]) }')"
             if [[ -n "${latest_xcode}" ]]; then
               selected_developer_dir="${latest_xcode}/Contents/Developer"
             fi
@@ -62,14 +66,14 @@ jobs:
             export DEVELOPER_DIR="${selected_developer_dir}"
             echo "DEVELOPER_DIR=${DEVELOPER_DIR}" >> "${GITHUB_ENV}"
           else
-            echo "::error::Xcode 26 is required by this project but is not installed on the runner."
+            echo "::error::Xcode 27 is required by this project but is not installed on the runner."
             exit 1
           fi
 
           xcode_version="$(xcodebuild -version)"
           echo "${xcode_version}"
-          grep -Eq '^Xcode 26([.]|$)' <<< "${xcode_version}" || {
-            echo "::error::Selected developer directory does not provide Xcode 26: ${DEVELOPER_DIR}"
+          grep -Eq '^Xcode 27([.]|$)' <<< "${xcode_version}" || {
+            echo "::error::Selected developer directory does not provide Xcode 27: ${DEVELOPER_DIR}"
             exit 1
           }
           echo "DEVELOPER_DIR=${DEVELOPER_DIR}"
@@ -100,6 +104,16 @@ jobs:
           simulator_id="$(sed -n 's/^SIMULATOR_ID=//p' "${RUNNER_TEMP}/simulator-selection.env")"
           echo "JOBS_STABILITY_SIMULATOR=${simulator_id}" >> "${GITHUB_ENV}"
           xcrun simctl bootstatus "${simulator_id}" -b
+
+      - name: Prepare Rust toolchain
+        timeout-minutes: 10
+        run: rustup toolchain install 1.95.0 --profile minimal
+
+      - name: Build Rust OCR from source
+        timeout-minutes: 30
+        env:
+          RUSTUP_TOOLCHAIN: '1.95.0'
+        run: /bin/zsh "JobsOCBaseConfigDemo/业务逻辑/功能模块/Demo@RustOCR/SDK/JobsRustOCR/Scripts/BuildRustOCR.command" --non-interactive
 
       - name: Install CocoaPods dependencies
         timeout-minutes: 20

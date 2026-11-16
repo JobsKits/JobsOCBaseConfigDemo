@@ -3081,7 +3081,7 @@
 				INFOPLIST_KEY_NSBluetoothAlwaysUsageDescription = "用于扫描、连接并与附近的 BLE 设备交换数据。";
 				INFOPLIST_KEY_NSBluetoothPeripheralUsageDescription = "用于兼容旧系统访问附近的 BLE 设备。";
 				INFOPLIST_KEY_NSCalendarsUsageDescription = "";
-				INFOPLIST_KEY_NSCameraUsageDescription = "需要访问相机以体验 ARKit 增强现实、检测平面和录制视频。";
+				INFOPLIST_KEY_NSCameraUsageDescription = "需要访问相机以拍照识别文字、体验 ARKit 增强现实、检测平面和录制视频。";
 				INFOPLIST_KEY_NSContactsUsageDescription = "";
 				INFOPLIST_KEY_NSFaceIDUsageDescription = "";
 				INFOPLIST_KEY_NSHealthShareUsageDescription = "";
@@ -3200,7 +3200,7 @@
 				INFOPLIST_KEY_NSBluetoothAlwaysUsageDescription = "用于扫描、连接并与附近的 BLE 设备交换数据。";
 				INFOPLIST_KEY_NSBluetoothPeripheralUsageDescription = "用于兼容旧系统访问附近的 BLE 设备。";
 				INFOPLIST_KEY_NSCalendarsUsageDescription = "";
-				INFOPLIST_KEY_NSCameraUsageDescription = "需要访问相机以体验 ARKit 增强现实、检测平面和录制视频。";
+				INFOPLIST_KEY_NSCameraUsageDescription = "需要访问相机以拍照识别文字、体验 ARKit 增强现实、检测平面和录制视频。";
 				INFOPLIST_KEY_NSContactsUsageDescription = "";
 				INFOPLIST_KEY_NSFaceIDUsageDescription = "";
 				INFOPLIST_KEY_NSHealthShareUsageDescription = "";
