@@ -1,0 +1,118 @@
+//
+//  JobsOCRNativeUITests.m
+//  JobsOCRThemeUIValidation
+//
+//  Created by Jobs on 2026年11月17日，星期二.
+//
+
+#import <XCTest/XCTest.h>
+
+@interface JobsOCRNativeUITests : XCTestCase
+@end
+
+@implementation JobsOCRNativeUITests
+
+-(void)setUp {
+    [super setUp];
+    self.continueAfterFailure = NO;
+}
+
+-(void)testOldThreeThemeUI {
+    [self verifyBundle:@"com.JobsOCBaseConfigDemo" name:@"old-oc"];
+}
+
+-(void)testNewThreeThemeUI {
+    [self verifyBundle:@"com.JobsOCBaseConfigDemo.byPods" name:@"new-oc"];
+}
+
+-(void)openOCR:(XCUIApplication *)app {
+    [app launch];
+    XCUIElement *menu = app.buttons[@"jobs.coverage.open.functionMenu"];
+    XCTAssertTrue([menu waitForExistenceWithTimeout:20], @"%@", app.debugDescription);
+    [menu tap];
+    XCUIElement *search = app.cells[@"jobs.coverage.open.function.0"];
+    XCTAssertTrue([search waitForExistenceWithTimeout:5]);
+    [search tap];
+    XCUIElement *input = app.textFields.firstMatch;
+    XCTAssertTrue([input waitForExistenceWithTimeout:5]);
+    [input tap];
+    [input typeText:@"Rust"];
+    XCUIElement *result = app.staticTexts[@"Rust 离线 OCR"].firstMatch;
+    XCTAssertTrue([result waitForExistenceWithTimeout:5]);
+    [result tap];
+    XCTAssertTrue([app.buttons[@"jobs.ocr.recognize"] waitForExistenceWithTimeout:5]);
+}
+
+-(void)openThemeMenu:(XCUIApplication *)app {
+    [app.buttons[@"JobsOCDemoActionMenuTrigger"] tap];
+    XCTAssertTrue([app.buttons[@"JobsOCDemoThemeSystemChoice"] waitForExistenceWithTimeout:3]);
+    XCTAssertTrue(app.buttons[@"JobsOCDemoThemeLightChoice"].exists);
+    XCTAssertTrue(app.buttons[@"JobsOCDemoThemeDarkChoice"].exists);
+}
+
+-(void)capture:(XCUIApplication *)app name:(NSString *)name {
+    XCTAttachment *attachment = [XCTAttachment attachmentWithScreenshot:app.screenshot];
+    attachment.name = name;
+    attachment.lifetime = XCTAttachmentLifetimeKeepAlways;
+    [self addAttachment:attachment];
+}
+
+-(void)assertAppearance:(XCUIApplication *)app following:(BOOL)following dark:(BOOL)dark {
+    XCUIElement *button = app.buttons[@"JobsOCDemoActionMenuTrigger"];
+    NSString *effective = dark ? @"黑夜" : @"白天";
+    NSPredicate *predicate = [NSPredicate predicateWithBlock:^BOOL(XCUIElement *object, NSDictionary *bindings) {
+        NSString *value = [object.value description];
+        return [value containsString:effective] && ([value containsString:@"跟随系统"] == following);
+    }];
+    [self expectationForPredicate:predicate evaluatedWithObject:button handler:nil];
+    [self waitForExpectationsWithTimeout:5 handler:nil];
+    NSLog(@"JOBS_THEME_UI_PROOF following=%d dark=%d actual=%@", following, dark, button.value);
+}
+
+-(void)verifyBundle:(NSString *)identifier name:(NSString *)name {
+    XCUIApplication *app = [[XCUIApplication alloc] initWithBundleIdentifier:identifier];
+    app.launchArguments = @[@"-AppleLanguages", @"(zh-Hans)", @"-AppleLocale", @"zh_CN",
+                            @"-com.BSports.JobsOCSplashEnabledUserDefaultsKey", @"NO",
+                            @"-com.BSports.JobsOCDemoListUsesTabBarEntryUserDefaultsKey", @"NO"];
+    @try {
+        [self openOCR:app];
+        [self openThemeMenu:app];
+        [self capture:app name:[name stringByAppendingString:@"-three-theme-menu"]];
+        [[app coordinateWithNormalizedOffset:CGVectorMake(0.02, 0.5)] tap];
+        XCTAssertFalse(app.buttons[@"JobsOCDemoThemeSystemChoice"].exists);
+        XCTAssertEqual(app.state, XCUIApplicationStateRunningForeground);
+        [self openThemeMenu:app];
+        [app.buttons[@"JobsOCDemoThemeSystemChoice"] tap];
+        [self assertAppearance:app following:YES dark:NO];
+        [self capture:app name:[name stringByAppendingString:@"-system-light"]];
+        NSLog(@"JOBS_THEME_APPEARANCE_DARK_%@", name);
+        [NSThread sleepForTimeInterval:3];
+        [self assertAppearance:app following:YES dark:YES];
+        [self capture:app name:[name stringByAppendingString:@"-system-dark"]];
+        [self openThemeMenu:app];
+        XCTAssertTrue(app.buttons[@"JobsOCDemoThemeSystemChoice"].selected);
+        [self capture:app name:[name stringByAppendingString:@"-system-selected-after-device-change"]];
+        [app.buttons[@"JobsOCDemoThemeDarkChoice"] tap];
+        NSLog(@"JOBS_THEME_APPEARANCE_LIGHT_%@", name);
+        [NSThread sleepForTimeInterval:3];
+        [self assertAppearance:app following:NO dark:YES];
+        [self capture:app name:[name stringByAppendingString:@"-manual-dark-device-light"]];
+        [self openThemeMenu:app];
+        XCTAssertTrue(app.buttons[@"JobsOCDemoThemeDarkChoice"].selected);
+        [app.buttons[@"JobsOCDemoThemeLightChoice"] tap];
+        [self assertAppearance:app following:NO dark:NO];
+        [self capture:app name:[name stringByAppendingString:@"-manual-light"]];
+        [self openThemeMenu:app];
+        [app.buttons[@"JobsOCDemoThemeSystemChoice"] tap];
+        [app terminate];
+        [self openOCR:app];
+        [self assertAppearance:app following:YES dark:NO];
+        [self openThemeMenu:app];
+        XCTAssertTrue(app.buttons[@"JobsOCDemoThemeSystemChoice"].selected);
+        [self capture:app name:[name stringByAppendingString:@"-system-cold-launch-light"]];
+    } @finally {
+        [app terminate];
+    }
+}
+
+@end

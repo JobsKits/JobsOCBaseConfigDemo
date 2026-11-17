@@ -1,0 +1,83 @@
+{
+  "repository": "/Users/jobs/Documents/GitHub/JobsBaseConfig/JobsBaseConfig@JobsOCBaseConfigDemo",
+  "base_commit": "8465824fd23282bdb619add55138a27fb85c4870",
+  "state": "theme-source-frozen-after-current-fourcase-and-ui-pass",
+  "generated_at": "2026-11-17T02:10:16Z",
+  "source_files": {
+    "Libs/OCBaseConfig/JobsOCDefs/Core/JobsTheme/JobsTheme.h": "7a4adfe4b0eee5c5c2e7458aea4e22f660da3d0874ddc586a18e51a6e7d3b3e5",
+    "Libs/OCBaseConfig/JobsOCDefs/Core/JobsTheme/JobsTheme.m": "d258f0a32b85a85361a0f250d6b139646486e88265e839b2688360004daa1cb6",
+    "Libs/JobsOCBaseCustomizeUIKitCore/UIViewController/UIViewController+Category/UIViewController+3rd/UIViewController+BaseNavigationBar/UIViewController+BaseNavigationBar.h": "5eadffdf69c19d67dfed10542dc15daeb581eb076ddb498b4b9d5c72eeaf78c9",
+    "Libs/JobsOCBaseCustomizeUIKitCore/UIViewController/UIViewController+Category/UIViewController+3rd/UIViewController+BaseNavigationBar/UIViewController+BaseNavigationBar.m": "8fdd2167f0a6792f202ad7d0b48f12bbd5399b13584ba58f8718cc5df06d4936",
+    "JobsOCBaseConfigDemo/入口/SceneDelegate/SceneDelegate+UISceneDelegate/SceneDelegate+UISceneDelegate.m": "1dd08756bec3e4fe87525bbfdc03ccac7a7e6c01912fdff2e89d81ab1c656fdf",
+    "JobsOCBaseConfigDemo/业务逻辑/控制器/ViewController@1/JobsOCDemoListSettingsVC/JobsOCDemoListSettingsVC.m": "9633f8a21bf4318efb4ae4166b1ff6a2feba2a006cf8c07c063eb11f05f1ac3e",
+    "JobsOCBaseConfigDemoTests/JobsOCBaseConfigDemoTests.m": "67e59756bb32a1c8cf402cb18988ba4e82c827b4d55c2b2b5d9c597a416e4dfe",
+    "README.md": "b5e0dd3c0581931b92b664b72e4545c29c444f240a73c129603a565d15d361f2",
+    "项目相关报告/App骨架功能盘点.md": "044445fef796697b8eade53318fbb16b2ccddd4d8761f765ac8b7bcf2112aa69",
+    "项目相关报告/RustOCR集成/README.md": "0ef868a935142756f01596cc085350396919c999e2604b21b736d9aaafdf2ddf",
+    "JobsOCBaseConfigDemo/其他/libs/语言包/bo.lproj/Localizable.strings": "03af25a6c0eebd390a0f2de7eacf6bf5d1a543eecef0766a0bbfa3a1fb12d2ea",
+    "JobsOCBaseConfigDemo/其他/libs/语言包/de.lproj/Localizable.strings": "8f47c88253de78669d48031bd26222c331a7f954cbff5f55b784482d10c163fa",
+    "JobsOCBaseConfigDemo/其他/libs/语言包/en.lproj/Localizable.strings": "2681c621004b5b0d216258bc13c5dc2bcc2fa4b67e267e43587fa26a14058d39",
+    "JobsOCBaseConfigDemo/其他/libs/语言包/es.lproj/Localizable.strings": "cc523ccd83e149ec86be300129d5adb3cfee9d33dc04a2f9aed8c408c27048f9",
+    "JobsOCBaseConfigDemo/其他/libs/语言包/fil-PH.lproj/Localizable.strings": "b984e6fa4eff61cf6952b04939df540ef3ea0fced32504ca4dcc1089b38ffaa0",
+    "JobsOCBaseConfigDemo/其他/libs/语言包/fil.lproj/Localizable.strings": "b984e6fa4eff61cf6952b04939df540ef3ea0fced32504ca4dcc1089b38ffaa0",
+    "JobsOCBaseConfigDemo/其他/libs/语言包/fr.lproj/Localizable.strings": "ee439ec1a8eeea8eb37788a15bc70188d3f7febcb8d20cd0f048d9c928e1cbb3",
+    "JobsOCBaseConfigDemo/其他/libs/语言包/ja.lproj/Localizable.strings": "529a2ddda46c4b42dd726438f31ce5e67bbb5ef140d01c7c9838b8cd77fe59e5",
+    "JobsOCBaseConfigDemo/其他/libs/语言包/ko.lproj/Localizable.strings": "505295fe282911b22e73e33871664293d0226ff8be928451ec26b51d740a59ba",
+    "JobsOCBaseConfigDemo/其他/libs/语言包/ru.lproj/Localizable.strings": "ea1d1d3f204387d4f8c43b6547b7e277887417345c1ef0dc828b51e34e5df139",
+    "JobsOCBaseConfigDemo/其他/libs/语言包/zh-Hans.lproj/Localizable.strings": "ee8be68b665017beaebbbd60ee14608e271fd2ab2a77c22ff4952227fcda9fe6",
+    "JobsOCBaseConfigDemo/其他/libs/语言包/zh-Hant.lproj/Localizable.strings": "5761abf93d9c424c6e7c06925666b3c64a96396479759099e8079f05d6b12c89",
+    "Tests/ComponentStability/manifest.json": "75a0ceddbdaaf964d46123539a0690f1c512a734b9860d6be9720def42f0c456",
+    "JobsOCBaseConfigDemo.xcodeproj/project.pbxproj": "850f5e4fe5ecd2b9d3b43f0a521eb6410f6033d44aebdc1a7aa4e3756ed5d3fa"
+  },
+  "app_products": {
+    "JobsOCBaseConfigDemo": "dc2d1c2eadc17d685422a0b75874169b665caa527f502b2206c26dd4fa29eda9",
+    "JobsOCBaseConfigDemo.debug.dylib": "0b7b8b68ffca5dcda689538b2872207253a0a52e6836af5b0a03ea466ff76a7b"
+  },
+  "app_source_association": {
+    "theme_compiled_before": "oc-old-kind-compatibility-app-build.log succeeded before 09:52 final navigation relink",
+    "navigation_source_mtime": "2026-11-17T09:39:22+08:00",
+    "final_navigation_compile_and_relink": "oc-old-kind-final-relink.log at 09:52; current binary SHA equals UI installed binary SHA",
+    "info_plist_has_no_forced_style": true
+  },
+  "results": {
+    "unit": {
+      "bundle": "OCOldKindFourCases.xcresult",
+      "passed": 4,
+      "failed": 0
+    },
+    "ui": {
+      "bundle": "OCOldKindSystemFinal.xcresult",
+      "passed": 1,
+      "failed": 0,
+      "duration_seconds": 50.248
+    },
+    "visual_review": "system-dark and system-light PNG opened and inspected; actual backgrounds black and white",
+    "simulator": "F5B1D814-C644-471D-A995-75B26433F1D9 / iOS27.2",
+    "restored_appearance": "light"
+  },
+  "evidence_files": {
+    "JobsOCRNativeUITests.m.txt": "a2be2db6d8de6edf4ec00c65b1f40b39def38427a931a93803db15a3c717a909",
+    "device-appearance.jsonl": "d74915f5616846c8ba0224e77427aab3f6ed280fc9238472af18b82dfd65375e",
+    "old-oc-manual-dark-device-light.png": "c4fb2c35c2045e4c0c92ef0b77b3eeac685bc799711264076f1e6c9c335f9611",
+    "old-oc-manual-light.png": "e076b1b621aa177cf7bf222f0e48196d3e9f1de8c271edb6eeea28c404ff7e11",
+    "old-oc-system-cold-launch-light.png": "8fddaae0a16eb46ebc1178d5112815587056b768907e7299bde8588fc7f02ef0",
+    "old-oc-system-dark.png": "956def357be8ead4a9347eb6d68a2f2b19c6fef3d7450ce3659abb0eca9fe70f",
+    "old-oc-system-light.png": "9b8e49525dbf90450f9f836ca9a89afc8f7566d18c58755f5819acfd7cade9bd",
+    "old-oc-system-selected-after-device-change.png": "f3172352e93ec6f73e2ac53e911274a1fef109ffd88fff87ea92798619630420",
+    "old-oc-three-theme-menu.png": "3c8f2f30e28380d517d01567ae44af788e3a4d73d83366ed747386617b77009e",
+    "test-proof.log": "d76ad6149723bde261439d941f2ba286e57964aeb0e0dd1a36f2b673af2290b4"
+  },
+  "limitations": [
+    "iOS hardware, iOS13–16 runtime, full language and large text matrix unverified",
+    "new Rust mixed-script source snapshot not rebuilt by this theme-only app verification"
+  ],
+  "publication_documentation": {
+    "scope": "Markdown source_files hashes describe capture-time working text; managed TOC clean and the shared report theme-only partition produce the indexed publication document hashes below.",
+    "raw_index_sha256": {
+      "README.md": "a1c1f7dcd6e6d82eb2804e4e7906710c01282450227db234e07add680eda1e13",
+      "项目相关报告/App骨架功能盘点.md": "ce4e364d78059823d3723d78369f060b703790c24c902b010b9bcfb2fd2600a8",
+      "项目相关报告/RustOCR集成/README.md": "6a8abf437e705557fa9d3a9737a31fa03ca6a500780abe4038d164f058fa5913"
+    },
+    "excluded_shared_section": "mixed-script-source-20261117 (separate unfinished Rust work remains in working tree)"
+  }
+}

@@ -1,0 +1,23 @@
+2026-11-17 09:57:47.590066+0800 JobsOCRNativeUITests-Runner[67814:4190212] JOBS_THEME_UI_PROOF following=1 dark=0 actual=主题切换：跟随系统, 主题切换：白天
+2026-11-17 09:57:47.663565+0800 JobsOCRNativeUITests-Runner[67814:4190212] JOBS_THEME_APPEARANCE_DARK_old-oc
+2026-11-17 09:57:51.817311+0800 JobsOCRNativeUITests-Runner[67814:4190212] JOBS_THEME_UI_PROOF following=1 dark=1 actual=主题切换：跟随系统, 主题切换：黑夜
+2026-11-17 09:57:53.867094+0800 JobsOCRNativeUITests-Runner[67814:4190212] JOBS_THEME_APPEARANCE_LIGHT_old-oc
+2026-11-17 09:57:58.009377+0800 JobsOCRNativeUITests-Runner[67814:4190212] JOBS_THEME_UI_PROOF following=0 dark=1 actual=主题切换：黑夜
+2026-11-17 09:58:01.263858+0800 JobsOCRNativeUITests-Runner[67814:4190212] JOBS_THEME_UI_PROOF following=0 dark=0 actual=主题切换：白天
+2026-11-17 09:58:17.124745+0800 JobsOCRNativeUITests-Runner[67814:4190212] JOBS_THEME_UI_PROOF following=1 dark=0 actual=主题切换：跟随系统, 主题切换：白天
+Test Case '-[JobsOCRNativeUITests testOldThreeThemeUI]' passed (50.248 seconds).
+	 Executed 1 test, with 0 failures (0 unexpected) in 50.248 (50.252) seconds
+	 Executed 1 test, with 0 failures (0 unexpected) in 50.248 (50.253) seconds
+	 Executed 1 test, with 0 failures (0 unexpected) in 50.248 (50.254) seconds
+** TEST EXECUTE SUCCEEDED **
+Test Case '-[JobsThemeKindTests testBluetoothCellFollowsThemeWithoutReload]' passed (0.043 seconds).
+Test Case '-[JobsThemeKindTests testLegacyThemeRawNamesRemainAvailable]' passed (0.076 seconds).
+2026-11-17 09:57:02.667693+0800 JobsOCBaseConfigDemo[67663:4188566] JOBS_THEME_PROOF following=1 raw=light scene=2 window=1 effective=dark
+2026-11-17 09:57:03.686117+0800 JobsOCBaseConfigDemo[67663:4188566] JOBS_THEME_PROOF following=1 raw=light scene=1 window=1 effective=light
+2026-11-17 09:57:04.701158+0800 JobsOCBaseConfigDemo[67663:4188566] JOBS_THEME_PROOF following=1 raw=light scene=2 window=1 effective=dark
+Test Case '-[JobsThemeKindTests testSystemThemeFollowsSceneAboveWindowOverride]' passed (3.079 seconds).
+Test Case '-[JobsThemeKindTests testThemeSelectionPersistsWithoutLosingSystemMode]' passed (0.042 seconds).
+	 Executed 4 tests, with 0 failures (0 unexpected) in 3.240 (3.245) seconds
+	 Executed 4 tests, with 0 failures (0 unexpected) in 3.240 (3.246) seconds
+	 Executed 4 tests, with 0 failures (0 unexpected) in 3.240 (3.246) seconds
+** TEST EXECUTE SUCCEEDED **

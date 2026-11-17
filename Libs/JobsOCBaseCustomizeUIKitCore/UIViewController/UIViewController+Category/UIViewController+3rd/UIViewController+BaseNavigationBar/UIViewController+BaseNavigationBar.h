@@ -55,6 +55,8 @@ Prop_strong()UIFont *fontAttributeName;
 -(JobsRetVCByIDBlock _Nonnull)goBack;
 /// Demo 子页面右侧只保留主题入口；其它业务动作合并到同入口下拉列表。
 -(jobsByVoidBlock _Nonnull)jobs_ensureDemoThemeButton;
+/// 设置页与 Demo 导航共用白天、黑夜、跟随系统选择。
+-(instancetype)jobs_presentThemeSelection;
 
 @end
 

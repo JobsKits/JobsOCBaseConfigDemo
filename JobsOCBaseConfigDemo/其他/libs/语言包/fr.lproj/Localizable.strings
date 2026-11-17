@@ -1801,3 +1801,5 @@
 "OCR：设备无法使用摄像头" = "L’appareil photo est indisponible sur cet appareil.";
 "OCR：请在设置中允许访问相机" = "Autorisez l’accès à l’appareil photo dans les réglages système.";
 "OCR：相机照片读取失败" = "Impossible de charger la photo prise. Réessayez.";
+
+"主题切换：跟随系统" = "Thème : suivre le système";

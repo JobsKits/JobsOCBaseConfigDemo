@@ -377,6 +377,12 @@
             [NSIndexPath indexPathForRow:0 inSection:0]];
         JobsThemeCenter *center = JobsThemeCenter.shared;
         JobsThemeStyle originalStyle = center.currentStyle;
+        BOOL originalFollowingSystem = center.followingSystem;
+        NSUserDefaults *defaults = NSUserDefaults.standardUserDefaults;
+        NSDictionary *originalDefaults = @{
+            @"JobsTheme.currentStyle": [defaults objectForKey:@"JobsTheme.currentStyle"] ?: NSNull.null,
+            @"JobsTheme.followingSystem": [defaults objectForKey:@"JobsTheme.followingSystem"] ?: NSNull.null
+        };
         @try {
             for (JobsThemeStyle style in @[JobsThemeStyleLight, JobsThemeStyleDark, JobsThemeStyleLight]) {
                 center.setStyle(style);
@@ -386,6 +392,267 @@
             }
         } @finally {
             center.setStyle(originalStyle);
+            if (originalFollowingSystem) {
+                [center followSystem];
+            }
+            for (NSString *key in originalDefaults) {
+                if (originalDefaults[key] == NSNull.null) {
+                    [defaults removeObjectForKey:key];
+                } else {
+                    [defaults setObject:originalDefaults[key] forKey:key];
+                }
+            }
+        }
+    };
+}
+
+-(void)testThemeSelectionPersistsWithoutLosingSystemMode {
+    jobsByVoidBlock action = ((jobsByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(JobsOCBaseConfigDemoTests.class, @selector(jobsTestThemeSelectionPersistsWithoutLosingSystemMode)))(self, @selector(jobsTestThemeSelectionPersistsWithoutLosingSystemMode));
+    if (action) action();
+}
+
+-(jobsByVoidBlock _Nonnull)jobsTestThemeSelectionPersistsWithoutLosingSystemMode{
+    return ^{
+        NSUserDefaults *defaults = NSUserDefaults.standardUserDefaults;
+        NSString *rawKey = @"JobsTheme.currentStyle";
+        NSString *kindKey = @"JobsTheme.followingSystem";
+        NSDictionary *original = @{rawKey: [defaults objectForKey:rawKey] ?: NSNull.null,
+                                   kindKey: [defaults objectForKey:kindKey] ?: NSNull.null};
+        @try {
+            for (JobsThemeStyle raw in @[JobsThemeStyleLight, JobsThemeStyleDark]) {
+                [defaults setObject:raw forKey:rawKey];
+                [defaults removeObjectForKey:kindKey];
+                JobsThemeCenter *center = JobsThemeCenter.new;
+                XCTAssertTrue([center configureWithResource:@"JobsThemeResources" fileExtension:@"json"
+                                                     bundle:NSBundle.mainBundle error:nil]);
+                XCTAssertFalse(center.followingSystem);
+                XCTAssertEqualObjects(center.currentStyle, raw);
+                XCTAssertEqualObjects(center.effectiveStyle, raw);
+                XCTAssertNil([defaults objectForKey:kindKey]);
+                [center followSystem];
+                XCTAssertTrue(center.followingSystem);
+                XCTAssertEqualObjects(center.currentStyle, raw);
+                XCTAssertEqualObjects([defaults objectForKey:rawKey], raw);
+                XCTAssertTrue([defaults boolForKey:kindKey]);
+                JobsThemeCenter *cold = JobsThemeCenter.new;
+                XCTAssertTrue([cold configureWithResource:@"JobsThemeResources" fileExtension:@"json"
+                                                   bundle:NSBundle.mainBundle error:nil]);
+                XCTAssertTrue(cold.followingSystem);
+                XCTAssertEqualObjects(cold.currentStyle, raw);
+                XCTAssertTrue(([@[JobsThemeStyleLight, JobsThemeStyleDark] containsObject:cold.effectiveStyle]));
+                cold.setStyle(@"unknown-theme");
+                XCTAssertTrue(cold.followingSystem);
+                XCTAssertEqualObjects(cold.currentStyle, raw);
+                cold.setStyle(raw);
+                XCTAssertFalse(cold.followingSystem);
+                XCTAssertEqualObjects(cold.effectiveStyle, raw);
+                [cold followSystem];
+                JobsThemeStyle effective = cold.effectiveStyle;
+                cold.toggle();
+                XCTAssertFalse(cold.followingSystem);
+                XCTAssertEqualObjects(cold.currentStyle,
+                    [effective isEqualToString:JobsThemeStyleDark] ? JobsThemeStyleLight : JobsThemeStyleDark);
+            }
+            [defaults setObject:@"unknown-theme" forKey:rawKey];
+            [defaults removeObjectForKey:kindKey];
+            JobsThemeCenter *center = JobsThemeCenter.new;
+            XCTAssertTrue([center configureWithResource:@"JobsThemeResources" fileExtension:@"json"
+                                                 bundle:NSBundle.mainBundle error:nil]);
+            XCTAssertEqualObjects(center.currentStyle, JobsThemeStyleLight);
+            [center followSystem];
+            XCTAssertEqualObjects([defaults objectForKey:rawKey], @"unknown-theme");
+        } @finally {
+            for (NSString *key in original) {
+                if (original[key] == NSNull.null) {
+                    [defaults removeObjectForKey:key];
+                } else {
+                    [defaults setObject:original[key] forKey:key];
+                }
+            }
+        }
+    };
+}
+
+-(void)testLegacyThemeRawNamesRemainAvailable {
+    jobsByVoidBlock action = ((jobsByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(JobsOCBaseConfigDemoTests.class, @selector(jobsTestLegacyThemeRawNamesRemainAvailable)))(self, @selector(jobsTestLegacyThemeRawNamesRemainAvailable));
+    if (action) action();
+}
+
+-(jobsByVoidBlock _Nonnull)jobsTestLegacyThemeRawNamesRemainAvailable{
+    return ^{
+        NSUserDefaults *defaults = NSUserDefaults.standardUserDefaults;
+        NSString *rawKey = @"JobsTheme.currentStyle";
+        NSString *kindKey = @"JobsTheme.followingSystem";
+        NSDictionary *original = @{rawKey: [defaults objectForKey:rawKey] ?: NSNull.null,
+                                   kindKey: [defaults objectForKey:kindKey] ?: NSNull.null};
+        NSString *folder = [NSTemporaryDirectory() stringByAppendingPathComponent:
+            [NSUUID.UUID.UUIDString stringByAppendingPathExtension:@"bundle"]];
+        @try {
+            NSError *error = nil;
+            XCTAssertTrue([NSFileManager.defaultManager createDirectoryAtPath:folder
+                                                 withIntermediateDirectories:YES attributes:nil error:&error]);
+            XCTAssertNil(error);
+            NSDictionary *info = @{ @"CFBundleIdentifier": @"com.jobs.theme.compatibility",
+                                    @"CFBundlePackageType": @"BNDL" };
+            XCTAssertTrue([info writeToFile:[folder stringByAppendingPathComponent:@"Info.plist"] atomically:YES]);
+            NSArray<NSString *> *rawNames = @[@"system", @"system:custom", @"__jobs_theme_mode:system",
+                                              @"__jobs_follow_system__/custom"];
+            NSMutableDictionary *themes = [@{JobsThemeStyleLight: @{ @"colors": @{ @"background.primary": @"#FFFFFF" } },
+                                             JobsThemeStyleDark: @{ @"colors": @{ @"background.primary": @"#000000" } }} mutableCopy];
+            for (NSString *raw in rawNames) {
+                themes[raw] = @{ @"colors": @{ @"background.primary": @"#123456" } };
+            }
+            NSData *packet = [NSJSONSerialization dataWithJSONObject:@{ @"defaultTheme": JobsThemeStyleLight,
+                                                                       @"themes": themes } options:0 error:&error];
+            XCTAssertNil(error);
+            XCTAssertTrue([packet writeToFile:[folder stringByAppendingPathComponent:@"Compatibility.json"] atomically:YES]);
+            NSBundle *bundle = [NSBundle bundleWithPath:folder];
+            XCTAssertNotNil(bundle);
+            for (NSString *raw in rawNames) {
+                [defaults setObject:raw forKey:rawKey];
+                [defaults removeObjectForKey:kindKey];
+                JobsThemeCenter *center = JobsThemeCenter.new;
+                XCTAssertTrue([center configureWithResource:@"Compatibility" fileExtension:@"json" bundle:bundle error:nil]);
+                XCTAssertFalse(center.followingSystem);
+                XCTAssertEqualObjects(center.currentStyle, raw);
+                XCTAssertEqualObjects(center.effectiveStyle, raw);
+                center.setStyle(JobsThemeStyleLight);
+                center.setStyle(raw);
+                XCTAssertFalse(center.followingSystem);
+                XCTAssertEqualObjects([defaults objectForKey:rawKey], raw);
+                CGFloat red = 0, green = 0, blue = 0, alpha = 0;
+                XCTAssertTrue([center.resolvedColorForKey(JobsThemeColorKeyBackgroundPrimary)
+                    getRed:&red green:&green blue:&blue alpha:&alpha]);
+                XCTAssertEqualWithAccuracy(red, 18 / 255.0, 0.001);
+                XCTAssertEqualWithAccuracy(green, 52 / 255.0, 0.001);
+                XCTAssertEqualWithAccuracy(blue, 86 / 255.0, 0.001);
+                [center followSystem];
+                XCTAssertTrue(center.followingSystem);
+                XCTAssertEqualObjects(center.currentStyle, raw);
+                XCTAssertEqualObjects([defaults objectForKey:rawKey], raw);
+                JobsThemeCenter *cold = JobsThemeCenter.new;
+                XCTAssertTrue([cold configureWithResource:@"Compatibility" fileExtension:@"json" bundle:bundle error:nil]);
+                XCTAssertTrue(cold.followingSystem);
+                XCTAssertEqualObjects(cold.currentStyle, raw);
+                cold.setStyle(raw);
+                XCTAssertFalse(cold.followingSystem);
+                XCTAssertEqualObjects(cold.effectiveStyle, raw);
+            }
+        } @finally {
+            for (NSString *key in original) {
+                if (original[key] == NSNull.null) {
+                    [defaults removeObjectForKey:key];
+                } else {
+                    [defaults setObject:original[key] forKey:key];
+                }
+            }
+            [NSFileManager.defaultManager removeItemAtPath:folder error:nil];
+        }
+    };
+}
+
+-(void)testSystemThemeFollowsSceneAboveWindowOverride {
+    jobsByVoidBlock action = ((jobsByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(JobsOCBaseConfigDemoTests.class, @selector(jobsTestSystemThemeFollowsSceneAboveWindowOverride)))(self, @selector(jobsTestSystemThemeFollowsSceneAboveWindowOverride));
+    if (action) action();
+}
+
+-(jobsByVoidBlock _Nonnull)jobsTestSystemThemeFollowsSceneAboveWindowOverride{
+    @jobs_weakify(self)
+    return ^{
+        @jobs_strongify(self)
+        if (@available(iOS 17.0, *)) {
+            UIWindowScene *scene = nil;
+            for (UIScene *candidate in UIApplication.sharedApplication.connectedScenes) {
+                if ([candidate isKindOfClass:UIWindowScene.class] &&
+                    candidate.activationState == UISceneActivationStateForegroundActive) {
+                    scene = (UIWindowScene *)candidate;
+                    break;
+                }
+            }
+            XCTAssertNotNil(scene);
+            if (!scene) {
+                return;
+            }
+            NSUserDefaults *defaults = NSUserDefaults.standardUserDefaults;
+            NSString *rawKey = @"JobsTheme.currentStyle";
+            NSString *kindKey = @"JobsTheme.followingSystem";
+            NSDictionary *original = @{rawKey: [defaults objectForKey:rawKey] ?: NSNull.null,
+                                       kindKey: [defaults objectForKey:kindKey] ?: NSNull.null};
+            BOOL hadOverride = [scene.traitOverrides containsTrait:UITraitUserInterfaceStyle.class];
+            UIUserInterfaceStyle originalSceneStyle = hadOverride
+                ? scene.traitOverrides.userInterfaceStyle
+                : UIUserInterfaceStyleUnspecified;
+            UIWindow *window = scene.keyWindow;
+            UIUserInterfaceStyle originalWindowStyle = window.overrideUserInterfaceStyle;
+            JobsThemeCenter *center = JobsThemeCenter.new;
+            UILabel *label = UILabel.new;
+            @try {
+                XCTAssertNil(NSBundle.mainBundle.infoDictionary[@"UIUserInterfaceStyle"],
+                             @"App不可用固定Info.plist外观覆盖系统选择。");
+                XCTAssertTrue([center configureWithResource:@"JobsThemeResources" fileExtension:@"json"
+                                                     bundle:NSBundle.mainBundle error:nil]);
+                JobsThemeStyle originalRaw = center.currentStyle;
+                id savedRaw = [defaults objectForKey:rawKey];
+                [center followSystem];
+                [center bindObject:label slot:@"theme-mode-regression"
+                             apply:^(__kindof UILabel *object, JobsThemeCenter *theme) {
+                    object.backgroundColor = theme.resolvedColorForKey(JobsThemeColorKeyBackgroundPrimary);
+                }];
+                window.overrideUserInterfaceStyle = UIUserInterfaceStyleLight;
+                for (NSNumber *appearance in @[@(UIUserInterfaceStyleDark),
+                                               @(UIUserInterfaceStyleLight),
+                                               @(UIUserInterfaceStyleDark)]) {
+                    scene.traitOverrides.userInterfaceStyle = appearance.integerValue;
+                    JobsThemeStyle expected = appearance.integerValue == UIUserInterfaceStyleDark
+                        ? JobsThemeStyleDark
+                        : JobsThemeStyleLight;
+                    [self expectationForPredicate:[NSPredicate predicateWithBlock:^BOOL(JobsThemeCenter *object,
+                                                                                       NSDictionary *bindings) {
+                        return [object.effectiveStyle isEqualToString:expected];
+                    }] evaluatedWithObject:center handler:nil];
+                    [self waitForExpectationsWithTimeout:3 handler:nil];
+                    NSLog(@"JOBS_THEME_PROOF following=%d raw=%@ scene=%ld window=%ld effective=%@",
+                          center.followingSystem, center.currentStyle,
+                          (long)scene.traitCollection.userInterfaceStyle,
+                          (long)window.overrideUserInterfaceStyle, center.effectiveStyle);
+                    XCTAssertTrue(center.followingSystem);
+                    XCTAssertEqualObjects(center.currentStyle, originalRaw);
+                    XCTAssertEqualObjects([defaults objectForKey:rawKey], savedRaw);
+                    XCTAssertEqualObjects(label.backgroundColor, center.resolvedColorForKey(JobsThemeColorKeyBackgroundPrimary));
+                }
+                center.setStyle(JobsThemeStyleLight);
+                scene.traitOverrides.userInterfaceStyle = UIUserInterfaceStyleLight;
+                [center refreshSystemAppearance];
+                scene.traitOverrides.userInterfaceStyle = UIUserInterfaceStyleDark;
+                [center refreshSystemAppearance];
+                XCTAssertFalse(center.followingSystem);
+                XCTAssertEqualObjects(center.effectiveStyle, JobsThemeStyleLight);
+                [center followSystem];
+                XCTAssertEqualObjects(center.currentStyle, JobsThemeStyleLight);
+                XCTAssertEqualObjects(center.effectiveStyle, JobsThemeStyleDark);
+                JobsThemeCenter *cold = JobsThemeCenter.new;
+                XCTAssertTrue([cold configureWithResource:@"JobsThemeResources" fileExtension:@"json"
+                                                   bundle:NSBundle.mainBundle error:nil]);
+                XCTAssertTrue(cold.followingSystem);
+                XCTAssertEqualObjects(cold.currentStyle, JobsThemeStyleLight);
+                XCTAssertEqualObjects(cold.effectiveStyle, JobsThemeStyleDark);
+            } @finally {
+                [center unbindObject:label slot:@"theme-mode-regression"];
+                window.overrideUserInterfaceStyle = originalWindowStyle;
+                if (hadOverride) {
+                    scene.traitOverrides.userInterfaceStyle = originalSceneStyle;
+                } else {
+                    [scene.traitOverrides removeTrait:UITraitUserInterfaceStyle.class];
+                }
+                [JobsThemeCenter.shared refreshSystemAppearance];
+                for (NSString *key in original) {
+                    if (original[key] == NSNull.null) {
+                        [defaults removeObjectForKey:key];
+                    } else {
+                        [defaults setObject:original[key] forKey:key];
+                    }
+                }
+            }
         }
     };
 }

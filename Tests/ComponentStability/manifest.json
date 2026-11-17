@@ -2152,7 +2152,7 @@
   },
   "application_test_metadata": {
     "class": "JobsOCBaseConfigDemoTests",
-    "expected_test_count": 12,
+    "expected_test_count": 15,
     "test_sources": [
       "JobsOCBaseConfigDemoTests/JobsOCBaseConfigDemoTests.m"
     ],
@@ -2168,6 +2168,9 @@
       "testDropDownListSelectionClosesWithoutNilBlockCrash",
       "testBluetoothFeaturePagesLoadAndExecute",
       "testBluetoothCellFollowsThemeWithoutReload",
+      "testThemeSelectionPersistsWithoutLosingSystemMode",
+      "testSystemThemeFollowsSceneAboveWindowOverride",
+      "testLegacyThemeRawNamesRemainAvailable",
       "testPerformanceExample"
     ],
     "preserved_original_methods": [
@@ -2184,6 +2187,9 @@
       "testDropDownListSelectionClosesWithoutNilBlockCrash",
       "testBluetoothFeaturePagesLoadAndExecute",
       "testBluetoothCellFollowsThemeWithoutReload",
+      "testThemeSelectionPersistsWithoutLosingSystemMode",
+      "testSystemThemeFollowsSceneAboveWindowOverride",
+      "testLegacyThemeRawNamesRemainAvailable",
       "testPerformanceExample"
     ],
     "original_helpers_unchanged": [

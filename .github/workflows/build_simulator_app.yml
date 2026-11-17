@@ -117,6 +117,8 @@ jobs:
 
       - name: Install CocoaPods dependencies
         timeout-minutes: 20
+        env:
+          JOBS_SPECS_SOURCE: cdn
         run: |
           set -o pipefail
           mkdir -p "${RUNNER_TEMP}/BuildDiagnostics"

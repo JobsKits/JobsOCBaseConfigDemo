@@ -15,6 +15,7 @@
 - [五、报告目录](#reports)
 - [当前时区卡片与制式标题合同（2026-11-16）](#jobs-toc-heading-7)
 - [首页返回、侧栏与开屏浮控增量](#home-return-sidebar-20261116)
+- [六、中英混排核心与源码状态](#mixed-script-source-20261117)
 
 </details>
 <!-- jobs-toc:end -->
@@ -53,7 +54,7 @@ Rust OCR 独立 Demo 的输入、结果、SDK 装配、生命周期与验证状�
 | SKEL-18 | Bug调试入口 | Debug悬浮Bug图可拖，长按0.8秒隐藏，摇动恢复；点击调试面板；搜索临时抑制入口 | Debug默认隐藏，第一次摇动显示；隐藏不销毁拖动位置 | `隐藏态内存；环境使用com.jobs.debugPanel.environmentIdentifier` | 已核查组件源码；实体摇动待验 | [JobsDebugPanelManager.m](<../../../JobsOCBaseConfigDemo@ByPods/JobsByPods/JobsDebugPanel@Pods/Core/JobsDebugPanelManager/JobsDebugPanelManager.m>) 第 369 行（`hideForCurrentLaunch`） | [JobsDebugPanelManager.m](<../Libs/OCBaseConfig/JobsMixFunc/JobsDebugPanel/Core/JobsDebugPanelManager/JobsDebugPanelManager.m>) 第 369 行（`hideForCurrentLaunch`） |
 | SKEL-19 | 调试环境 | App注册本地Mock／httpbin／postman环境，切换回写网络基址；面板有环境和动作 | Debug默认local，恢复先前有效选择；Release不启动面板 | `com.jobs.debugPanel.environmentIdentifier` | 已实现；外部服务可用性未测试 | [AppDelegate+Func.m](<../../../JobsOCBaseConfigDemo@ByPods/JobsOCBaseConfigDemo/入口/AppDelegate/AppDelegate+Func/AppDelegate+Func.m>) 第 134 行（`byEnvironments`） | [AppDelegate+Func.m](<../JobsOCBaseConfigDemo/入口/AppDelegate/AppDelegate+Func/AppDelegate+Func.m>) 第 171 行（`byEnvironments`） |
 | SKEL-20 | 设置基础项 | 开屏开关、返回行为、时间显隐、主题、侧栏固定／跟随、启动入口、销毁提示；分区可收缩 | 按已有偏好恢复；开屏与入口变更按其下次启动／返回时机生效 | `各项key见对应资产；销毁提示key未在本次追到底层` | 已实现 | [JobsOCDemoListSettingsVC.m](<../../../JobsOCBaseConfigDemo@ByPods/JobsOCBaseConfigDemo/业务逻辑/控制器/ViewController@1/JobsOCDemoListSettingsVC/JobsOCDemoListSettingsVC.m>) 第 640 行（`generalSettingTitleArr`） | [JobsOCDemoListSettingsVC.m](<../JobsOCBaseConfigDemo/业务逻辑/控制器/ViewController@1/JobsOCDemoListSettingsVC/JobsOCDemoListSettingsVC.m>) 第 640 行（`generalSettingTitleArr`） |
-| SKEL-21 | 语言与主题 | 语言支持系统＋简繁藏英日法西德俄韩Filipino；首页／导航／菜单同步主题；设置主题行直接切白天／黑夜 | 语言按LanMgr有效语言；首页主题设置没有独立三态选择器 | `LanMgr / JobsThemeCenter（底层key本次未逐项核定）` | 语言入口已实现；跟随系统主题入口需另核 | [JobsOCDemoListSettingsVC.m](<../../../JobsOCBaseConfigDemo@ByPods/JobsOCBaseConfigDemo/业务逻辑/控制器/ViewController@1/JobsOCDemoListSettingsVC/JobsOCDemoListSettingsVC.m>) 第 657 行（`languageTitleArr`） | [JobsOCDemoListSettingsVC.m](<../JobsOCBaseConfigDemo/业务逻辑/控制器/ViewController@1/JobsOCDemoListSettingsVC/JobsOCDemoListSettingsVC.m>) 第 657 行（`languageTitleArr`） |
+| SKEL-21 | 语言与主题 | 语言支持系统＋简繁藏英日法西德俄韩Filipino；导航与设置主题共用白天／黑夜／跟随系统三选一菜单，勾选当前选择 | 未保存时沿主题包默认白天；currentStyle保留任意legacy raw，followingSystem独立保存kind；effectiveStyle按真实Scene解析；手动模式固定，前台重校准 | `LanMgr / JobsTheme.currentStyle / JobsTheme.followingSystem`（不保留任何raw名称或前缀） | 旧OC当前独立kind四项XCTest与强化生产UI通过；System实际深浅PNG已目视，手动固定／冷热恢复与菜单内外点击通过；证据见RustOCR集成/主题验收；新OC当前修订另验，完整十语／旧系统／大字号矩阵另验 | [JobsOCDemoListSettingsVC.m](<../../../JobsOCBaseConfigDemo@ByPods/JobsOCBaseConfigDemo/业务逻辑/控制器/ViewController@1/JobsOCDemoListSettingsVC/JobsOCDemoListSettingsVC.m>)（themeSwitchTitle／共用三态菜单入口） | [JobsOCDemoListSettingsVC.m](<../JobsOCBaseConfigDemo/业务逻辑/控制器/ViewController@1/JobsOCDemoListSettingsVC/JobsOCDemoListSettingsVC.m>)（themeSwitchTitle／共用三态菜单入口） |
 | SKEL-22 | 列表文字策略 | 一般／省略号／缩小字体／连续跑马灯／左右往返；设置回写并刷新目录 | 默认continuous策略；不同主题配对前景背景 | `com.jobs.demoList.cellTextDisplayStrategy` | 已核查枚举与设置；默认以Preferences源码为准 | [JobsOCDemoListSettingsVC.m](<../../../JobsOCBaseConfigDemo@ByPods/JobsOCBaseConfigDemo/业务逻辑/控制器/ViewController@1/JobsOCDemoListSettingsVC/JobsOCDemoListSettingsVC.m>) 第 670 行（`cellTextDisplayStrategyTitleArr`） | [JobsOCDemoListSettingsVC.m](<../JobsOCBaseConfigDemo/业务逻辑/控制器/ViewController@1/JobsOCDemoListSettingsVC/JobsOCDemoListSettingsVC.m>) 第 670 行（`cellTextDisplayStrategyTitleArr`） |
 | SKEL-23 | 刷新、空态与手势 | 首页下拉反馈／尾部刷新接线；列表空态按钮；滚动收菜单；搜索隔离侧缘手势；子页不得抢开侧栏 | 本地目录，不是服务端分页；空态保留恢复动作 | `刷新状态内存` | 已核查接线；取消竞态与完整无障碍待验 | [ViewController@1.m](<../../../JobsOCBaseConfigDemo@ByPods/JobsOCBaseConfigDemo/业务逻辑/控制器/ViewController@1/ViewController@1.m>) 第 3885 行（`demoListEmptyDataButtonModel`） | [ViewController@1.m](<../JobsOCBaseConfigDemo/业务逻辑/控制器/ViewController@1/ViewController@1.m>) 第 3918 行（`demoListEmptyDataButtonModel`） |
 | SKEL-24 | 前后台与离屏Timer | 时间与旋转两Timer均配置JobsTimerBackgroundPolicyPauseAndResume；Scene记录前后台，Root销毁移除Timer，离开首页收侧栏 | 配置为后台暂停／前台恢复；首页viewWillDisappear未显式暂停两项浮控Timer，实际回调与离屏行为待验 | `Timer注册ID；无新偏好` | 后台策略已核查配置；运行与离屏效果待验 | [ViewController@1.m](<../../../JobsOCBaseConfigDemo@ByPods/JobsOCBaseConfigDemo/业务逻辑/控制器/ViewController@1/ViewController@1.m>) 第 804 行（`JobsTimerBackgroundPolicyPauseAndResume`） | [ViewController@1.m](<../JobsOCBaseConfigDemo/业务逻辑/控制器/ViewController@1/ViewController@1.m>) 第 837 行（`JobsTimerBackgroundPolicyPauseAndResume`） |
@@ -155,6 +156,12 @@ OC首页折叠卡片视觉对齐盘点：现有14圆角、水平10／垂直8留�
 本工程bundle为`com.JobsOCBaseConfigDemo`，新增键`com.BSports.JobsOCDemoListCollapseOnDemoReturn`。首页完整链38.813秒／1test／0失败；开屏8.485秒／1test／0失败；最终3普通arm64构建通过。
 
 失败历史保留：外部Runner首轮误选离屏侧栏同名“设置”，改已有稳定菜单panel／cellID后真实补轮通过；早期Swift开屏夹具查询不存在控件的isHittable会自动等待，恰好跨过5秒开屏结束，已改为skip存在同帧检查clock.exists。末轮五用例批次共5项／0失败（105.043秒）。最后SUI颜色新增短case首Runner编译错误导致一次0tests，明确排除；修正坐标类型、确认非零后11.001秒通过。生产未因夹具修改而放宽门禁或修改开屏时长。
+
+## 六、<span id="mixed-script-source-20261117">中英混排核心与源码状态</span> <a href="#前言">🔼</a> <a href="#🔚">🔽</a>
+
+当前[随仓源码](<../JobsOCBaseConfigDemo/业务逻辑/功能模块/Demo@RustOCR/SDK/JobsRustOCR/Source/JobsOCR>)已同步本机验收通过的中英混排路由，包含 `pipeline.rs`、`runtime.rs`、`lib.rs`、`routing.rs`、独立 E2E 测试和 `MixedScript` 夹具。核心常规测试 30 项、显式 E2E 1 项覆盖 8 张真实夹具（其中 4 张精确逐行控制）通过；范围与证据见[共享核心回归记录](<../../../OCR/项目相关报告/混排回归/README.md>)。
+
+本状态确认核心本机回归及随仓源码一致；本宿主尚未使用此次新核心重编、运行，原有 35 行样本／界面／Workflow 记录仍限原批次。使用新核心前先运行[SDK 本地构建入口](<../JobsOCBaseConfigDemo/业务逻辑/功能模块/Demo@RustOCR/SDK/JobsRustOCR/Scripts/BuildRustOCR.command>)，源码输入哈希变化会使旧库缓存失效；保留本地构建方式，不分发自建 `.a`。显式 E2E 需指定本机 ORT 与随 SDK 的模型目录。
 
 <a id="🔚" href="#前言">返回首页</a>
 

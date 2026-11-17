@@ -1801,3 +1801,5 @@
 "OCR：设备无法使用摄像头" = "Hindi magagamit ang kamera sa device na ito.";
 "OCR：请在设置中允许访问相机" = "Payagan ang pag-access sa kamera sa mga setting ng system.";
 "OCR：相机照片读取失败" = "Hindi mabasa ang kinunang larawan. Subukan muli.";
+
+"主题切换：跟随系统" = "Tema: Sundin ang system";
