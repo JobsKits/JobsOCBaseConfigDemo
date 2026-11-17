@@ -139,6 +139,7 @@ jobs:
           ruby ScriptsByPods/自动化测试相关脚本/jobs_pods_stability_verify.rb/Tests/command_timeout_regression.rb/command_timeout_regression.rb
           ruby ScriptsByPods/自动化测试相关脚本/jobs_pods_stability_verify.rb/Tests/host_entitlements_regression.rb/host_entitlements_regression.rb
           ruby ScriptsByPods/自动化测试相关脚本/jobs_pods_stability_verify.rb/Tests/pod_batch_regression.rb/pod_batch_regression.rb
+          ruby JobsByPods/ZFPlayerExtra@Pods/Tests/public_ipv6_compat_regression.rb
 
       - name: Record ReactiveObjC build configuration
         timeout-minutes: 5

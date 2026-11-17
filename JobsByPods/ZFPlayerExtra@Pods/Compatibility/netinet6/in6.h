@@ -7,5 +7,9 @@
 
 #pragma once
 
-// Darwin 要求通过公开入口获得 IPv6 声明；仅 ZFPlayer target 使用此兼容目录。
+// SDK 构建 Darwin 时须保留其内部声明链；外部调用仍通过公开入口。
+#if __building_module(Darwin)
+#include_next <netinet6/in6.h>
+#else
 #include <netinet/in.h>
+#endif
