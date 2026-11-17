@@ -61,6 +61,7 @@ def verify_xcode(root, workflow, directory)
   check(steps.fetch(build).fetch('run').include?('--non-interactive'), 'CI must use the explicit unattended OCR mode')
   dependency_env = job.fetch('env', {}).merge(steps.fetch(pods).fetch('env', {}))
   check(dependency_env['JOBS_SPECS_SOURCE'] == 'cdn', 'CI must pin the public Specs CDN instead of timing a full Git repository by a small-file probe')
+  verify_integrated_budget(workflow)
   command = Shellwords.split(steps.fetch(build).fetch('run'))
   script = File.expand_path(command.fetch(1), root)
   sdk = File.dirname(File.dirname(script))
@@ -91,13 +92,43 @@ def verify_xcode(root, workflow, directory)
   check(result.exitstatus == 73, 'xcodebuild failure must propagate unchanged')
 end
 
+def verify_integrated_budget(workflow)
+  steps = workflow.fetch('jobs').fetch('build-simulator-app').fetch('steps')
+  stability = steps.find { |step| step['name'] == 'Run integrated component XCTest and production harnesses' }
+  check(stability, 'Integrated cold build step missing')
+  arguments = Shellwords.split(stability.fetch('run'))
+  positions = arguments.each_index.select { |index| arguments[index] == '--build-timeout' }
+  check(positions.size == 1 && arguments[positions.first + 1] == '3600', 'Integrated cold builds require the explicit finite CI budget')
+end
+
+def verify_budget_rejections(workflow, directory)
+  %w[missing oversized].each do |kind|
+    candidate = Marshal.load(Marshal.dump(workflow))
+    step = candidate.fetch('jobs').fetch('build-simulator-app').fetch('steps').find { |item| item['name'] == 'Run integrated component XCTest and production harnesses' }
+    step['run'] = step.fetch('run').sub('--build-timeout 3600', kind == 'missing' ? '' : '--build-timeout 36000')
+    path = File.join(directory, "budget-#{kind}.yml")
+    File.write(path, YAML.dump(candidate))
+    rejected = false
+    begin
+      verify_integrated_budget(YAML.load_file(path))
+    rescue RuntimeError => error
+      rejected = error.message == 'Integrated cold builds require the explicit finite CI budget'
+    end
+    check(rejected, "Invalid #{kind} budget fixture was accepted")
+  end
+end
+
 def main
   graph_only = ARGV.delete('--graph-only')
   check(ARGV.empty?, 'Usage: ruby .github/tests/WorkflowConfiguration/regression.rb [--graph-only]')
   root = File.expand_path('../../..', __dir__)
   Dir.mktmpdir('jobs-workflow-configuration-') do |directory|
     verify_graph(root, load_workflow(root, 'generate_oc_protocol_graph.yml'), directory)
-    verify_xcode(root, load_workflow(root, 'build_simulator_app.yml'), directory) unless graph_only
+    unless graph_only
+      build = load_workflow(root, 'build_simulator_app.yml')
+      verify_xcode(root, build, directory)
+      verify_budget_rejections(build, directory)
+    end
   end
   puts "PASS: workflow configuration (#{graph_only ? 'protocol source and trigger paths' : 'protocol paths, Xcode selection and failure propagation'})"
 end

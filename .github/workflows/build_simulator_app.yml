@@ -140,12 +140,14 @@ jobs:
         timeout-minutes: 10
         run: |
           ruby ScriptsByPods/自动化测试相关脚本/jobs_pods_stability_verify.rb/Tests/integrated_mode_regression.rb/integrated_mode_regression.rb
+          ruby ScriptsByPods/自动化测试相关脚本/jobs_pods_stability_verify.rb/Tests/command_timeout_regression.rb/command_timeout_regression.rb
 
       - name: Run integrated component XCTest and production harnesses
         timeout-minutes: 120
         run: |
           ruby ScriptsByPods/自动化测试相关脚本/jobs_pods_stability_verify.rb/jobs_pods_stability_verify.rb \
             --phase tests --architecture "${SIMULATOR_ARCH}" \
+            --build-timeout 3600 \
             --simulator "${JOBS_STABILITY_SIMULATOR}" \
             --output "${RUNNER_TEMP}/JobsComponentsStability"
 

@@ -459,7 +459,8 @@ module JobsStabilityIntegrated
       result = File.open(log, 'w') do |output|
         output.puts(JSON.generate(command: command, source_fingerprint: revision))
         output.flush
-        JobsStabilityCommand.run(command, chdir: root, output: output, timeout_seconds: kind == 'test' ? options[:test_timeout] : options[:build_timeout])
+        progress = kind == 'test_build' ? { progress_interval: 60 } : {}
+        JobsStabilityCommand.run(command, chdir: root, output: output, timeout_seconds: kind == 'test' ? options[:test_timeout] : options[:build_timeout], **progress)
       end
       status = result[:status]
       consistent = JobsStabilitySources.fingerprint(root, xcode, architecture: options[:architecture]) == revision
@@ -497,7 +498,8 @@ module JobsStabilityIntegrated
     if %w[all pods tests].include?(options[:phase])
       options[:configurations].each do |configuration|
         destination = options[:simulator] ? "platform=iOS Simulator,id=#{options[:simulator]}" : 'generic/platform=iOS Simulator'
-        row = execute.call('test_build', 'Libs', configuration, base.call(configuration, destination) + ['build-for-testing'], nil, { 'execution_mode' => 'integrated-shared-build', 'members' => rows.map { |component| component['name'] } })
+        args = base.call(configuration, destination).reject { |argument| argument == '-quiet' }
+        row = execute.call('test_build', 'Libs', configuration, args + ['-showBuildTimingSummary', 'build-for-testing'], nil, { 'execution_mode' => 'integrated-shared-build', 'members' => rows.map { |component| component['name'] } })
         prepared[configuration] = row
       end
     end

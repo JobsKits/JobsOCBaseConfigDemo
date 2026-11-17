@@ -103,6 +103,8 @@ ruby ScriptsByPods/自动化测试相关脚本/jobs_pods_stability_verify.rb/Tes
 
 [命令超时回归](./Tests/command_timeout_regression.rb/command_timeout_regression.rb) 保留原 7 个真实进程场景：正常成功、非零退出、忽略 TERM 的父子组、组长先退但子进程继续运行、无关组隔离、124 / 75 优先级与部分结果包拒领。另加 1 个延迟 1 秒的真实启动场景和 4 个明确注入 EPERM 的边界场景，仍使用真实进程验证直接 child fallback、无法领取状态时有界返回、ensure 不遮盖原异常，以及 runner 的 124 / 75 与部分结果包拒领。EPERM 是测试注入，不代表系统真实出现权限故障。共 12 个场景，测试夹具具有 5 秒有界启动预算，并核对真实单调时钟就绪证据；失败时保留夹具日志。测试不执行 Xcode 构建或依赖安装；组权限被拒绝的 fixture 还确认后代可能仍活，不把发送 KILL 等同于完整清理或领取所有后代状态。
 
+旧OC主工程集成形态保留全部52组件、Debug／Release共享准备及原测试／harness。CI现有调用显式使用`--build-timeout 3600`，每次准备最多60分钟、整个测试步骤仍受120分钟总期限约束；本地默认仍为1800秒。`build-for-testing`保留完整阶段输出与`-showBuildTimingSummary`，每60秒向同一日志追加有界自有进程快照；实际测试继续使用`-quiet`和原期限。该诊断用于区分持续构建、链接与停滞，预算调整本身不证明构建已通过。可选采样的默认关闭、父子／旁观隔离、超时／退出保持与采样故障另有4项真实进程回归，总计16项；详情见[命令执行器](./jobs_stability_command.rb/README.md)。
+
 同一输出目录保留 `results.json`、完整命令、退出状态、耗时、源码指纹和 XCTest `.xcresult`；只有相同源码指纹且成功的记录会复用。指纹包括生产 / 测试源码、原始资源、`JobsAppIconRibbon.config`、生成后的 Pods 工程及门禁实现。验证期间检查新增、删除和内容变化，发生变化时停止并列出文件；冻结修改后重跑。仅更新时间而内容相同的文件不使结果失效，结束时再核对完整内容指纹。构建串行使用独立 DerivedData、Products 和 Intermediates，避免其它任务争用数据库。
 
 批量模式每配置保存一条 `kind=pod_batch` 的真实进程记录，只有这条记录持有批次耗时、命令和进程状态；`kind=pod` 的成员引用明确标记 `execution_mode=batch-member`、`seconds=null`，并关联同一 `batch_id`、target UUID、成员清单指纹和共享日志，不把整批耗时当成每个 Pod 的独立耗时。成员、Scheme、workspace、manifest 与成功进程证据共同校验后才能复用缓存或领取 README 结果；失败、超时、证据缺失、后来失败或成员变化均不能被旧成功掩盖。批量成员不会作为逐 Pod 独立构建的缓存。

@@ -315,10 +315,10 @@ def assert_reaped(pid)
 end
 
 # 将真实Ruby进程输出写入fixture日志，便于失败诊断。
-def run_ruby(folder, source, timeout: FIXTURE_STARTUP_BUDGET + 2, grace: 0.15, arguments: [])
+def run_ruby(folder, source, timeout: FIXTURE_STARTUP_BUDGET + 2, grace: 0.15, arguments: [], progress_interval: nil)
   File.open(File.join(folder, 'command.log'), 'w') do |output|
     JobsStabilityCommand.run([RbConfig.ruby, '-e', source] + arguments,
-      chdir: folder, output: output, timeout_seconds: timeout, grace_seconds: grace)
+      chdir: folder, output: output, timeout_seconds: timeout, grace_seconds: grace, progress_interval: progress_interval)
   end
 end
 
@@ -608,6 +608,7 @@ cases = {
     result = run_ruby(folder, 'puts "normal success"')
     assert(result[:status].success? && !result[:timed_out] && !result[:kill_sent], 'normal success was changed')
     assert(File.read(File.join(folder, 'command.log')).include?('normal success'), 'stdout lost')
+    assert(!File.read(File.join(folder, 'command.log')).include?('Progress '), 'default-off command emitted progress')
     assert_reaped(result[:pid])
   end,
   'nonzero exit is preserved' => proc do |folder|
@@ -615,6 +616,78 @@ cases = {
     assert(result[:status].exitstatus == 37 && !result[:timed_out], 'nonzero exit was changed')
     assert(File.read(File.join(folder, 'command.log')).include?('actual failure'), 'stderr lost')
     assert_reaped(result[:pid])
+  end,
+  'optional progress samples only owned processes without args or observers' => proc do |folder|
+    observer = Process.spawn(RbConfig.ruby, '-e', 'sleep 10', 'observer-secret-argument', pgroup: true, out: File::NULL, err: File::NULL)
+    original_spawn = Process.method(:spawn)
+    begin
+      Process.define_singleton_method(:spawn) do |*arguments, **options|
+        if arguments.first == '/bin/ps'
+          source = <<~'RUBY'
+            STDOUT.binmode
+            STDOUT.write("999999999 0 999999999 0 S 0.0 0:00.00 1 invalid" + [255].pack('C') + "name\n")
+            STDOUT.flush
+            exec(*ARGV)
+          RUBY
+          arguments = [RbConfig.ruby, '-e', source] + arguments
+        end
+        original_spawn.call(*arguments, **options)
+      end
+      source = 'require "json"; child=fork { sleep 0.8 }; File.write(ARGV[0], JSON.generate(parent:Process.pid,child:child)); Process.wait(child)'
+      metadata = File.join(folder, 'progress-pids.json')
+      result = run_ruby(folder, source, arguments: [metadata, 'owned-secret-argument'], progress_interval: 0.1)
+      pids = JSON.parse(File.read(metadata)).values
+      log = File.read(File.join(folder, 'command.log'))
+      snapshots = log.lines.grep(/^Progress snapshot: /).map { |line| JSON.parse(line.delete_prefix('Progress snapshot: ')) }
+      assert(result[:status].success? && !result[:timed_out], 'progress changed successful status')
+      assert(!snapshots.empty?, 'enabled progress produced no samples')
+      rows = snapshots.flat_map { |sample| sample.fetch('processes') }
+      assert((pids - rows.map { |row| row['pid'] }).empty?, 'progress missed owned parent/child')
+      assert(rows.all? { |row| pids.include?(row['pid']) && row['uid'] == Process.uid }, 'progress exposed an observer process')
+      assert(!log.include?('secret-argument') && !rows.any? { |row| row['pid'] == observer }, 'progress exposed args or observer')
+      assert(!log.include?('Progress diagnostic: '), 'invalid-byte observer line invalidated the owned snapshot')
+      assert(running?(observer), 'progress touched observer process')
+      assert_reaped(result[:pid])
+    ensure
+      Process.define_singleton_method(:spawn, original_spawn)
+      cleanup_group(observer)
+    end
+  end,
+  'optional progress preserves timeout and actual TERM exit status' => proc do |folder|
+    result = run_ruby(folder, 'trap("TERM") { exit(0) }; loop { sleep 1 }', timeout: FIXTURE_STARTUP_BUDGET + 0.3, progress_interval: 0.1)
+    assert(result[:timed_out] && result[:status].exitstatus == 0, 'progress changed timeout or actual TERM status')
+    assert(File.read(File.join(folder, 'command.log')).include?('Progress snapshot: '), 'timeout lost progress evidence')
+    assert_timeout_window(result, cleanup_seconds: 2.2)
+    assert_reaped(result[:pid])
+  end,
+  'progress sampling failure cannot replace nonzero command result' => proc do |folder|
+    original = JobsStabilityCommand.method(:progress_processes)
+    begin
+      JobsStabilityCommand.define_singleton_method(:progress_processes) { |_pid, _chdir| raise IOError, 'injected sample failure' }
+      result = run_ruby(folder, 'sleep 0.4; exit(37)', progress_interval: 0.05)
+      assert(result[:status].exitstatus == 37 && !result[:timed_out], 'sample failure replaced primary exit')
+      assert(File.read(File.join(folder, 'command.log')).include?('Progress diagnostic: IOError: injected sample failure'), 'sample failure was silent')
+      assert_reaped(result[:pid])
+    ensure
+      JobsStabilityCommand.define_singleton_method(:progress_processes, original)
+      JobsStabilityCommand.private_class_method(:progress_processes)
+    end
+  end,
+  'slow ps sample has its own short deadline and cannot mask command success' => proc do |folder|
+    original = Process.method(:spawn)
+    begin
+      Process.define_singleton_method(:spawn) do |*arguments, **options|
+        arguments = [RbConfig.ruby, '-e', 'sleep 10'] if arguments.first == '/bin/ps'
+        original.call(*arguments, **options)
+      end
+      result = run_ruby(folder, 'sleep 0.3; exit(0)', timeout: 1, progress_interval: 0.05)
+      assert(result[:status].success? && !result[:timed_out], 'slow diagnostic changed completed command status')
+      assert(result[:seconds] < 3.5, 'ps diagnostic escaped its separate short budget')
+      assert(File.read(File.join(folder, 'command.log')).include?('ps sample failed or timed out'), 'slow ps failure was not recorded')
+      assert_reaped(result[:pid])
+    ensure
+      Process.define_singleton_method(:spawn, original)
+    end
   end,
   'TERM-ignoring parent and child are killed without touching unrelated group' => proc do |folder|
     test_nested_timeout(folder, parent_exits: false)
@@ -656,6 +729,12 @@ cases = {
       rescue ArgumentError
         assert(!File.exist?(marker), 'invalid timeout started command')
       end
+      begin
+        run_ruby(folder, 'File.write(ARGV[0], "started")', progress_interval: timeout, arguments: [marker])
+        raise 'invalid progress interval accepted'
+      rescue ArgumentError
+        assert(!File.exist?(marker), 'invalid progress interval started command')
+      end
     end
   end
 }
@@ -671,4 +750,4 @@ cases.each do |name, test|
   end
   puts "PASS #{name}"
 end
-puts "#{cases.size} scenarios passed (7 original actual-process + 1 delayed-start fixture + 4 explicitly injected EPERM boundaries with actual processes); no Xcode build/install executed."
+puts "#{cases.size} scenarios passed (12 existing process/EPERM boundaries plus 4 progress isolation/budget scenarios); no Xcode build/install executed."

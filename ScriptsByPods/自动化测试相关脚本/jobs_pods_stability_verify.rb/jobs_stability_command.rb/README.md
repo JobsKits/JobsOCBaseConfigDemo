@@ -25,6 +25,7 @@ Jobs 自建 Pods 验收命令的独立进程组与有界等待。
 - 运行时：[**Ruby**](https://www.ruby-lang.org/)；不因在 macOS 执行而使用 `【MacOS】` 前缀。
 - 由上一级 `jobs_pods_stability_verify.rb` 加载 `JobsStabilityCommand`，负责独立进程组、超时与退出状态；没有独立业务命令行入口。
 - Ruby 标准库；真实命令由验收 runner 传入。
+- `progress_interval` 默认关闭；仅主工程集成形态的 `test_build` 显式设为60秒。日志记录UTC时间及本次同UID子树／进程组的PID、父PID、状态、CPU时间、CPU占用、RSS与`comm`，不记录进程参数或环境。每次`ps`复用本执行器的无心跳2秒预算和0.1秒收尾，读取最多1MiB、输出最多64行、名称最多256字符；采样失败只记诊断，保留主命令退出／超时／回收结果。
 
 ## <span id="jobs-toc-heading-3" data-jobs-toc="v2">二、运行与验证 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a></span><!-- jobs-toc:heading-end -->
 
