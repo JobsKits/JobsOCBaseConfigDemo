@@ -284,7 +284,7 @@
         XCTAssertTrue([controller isKindOfClass:baseControllerClass]);
         XCTAssertNoThrow([controller loadViewIfNeeded]);
         XCTAssertNotNil(controller.view);
-        XCTAssertEqualObjects([controller valueForKeyPath:@"viewModel.textModel.text"], @"手势解锁");
+        XCTAssertEqualObjects([controller valueForKeyPath:@"viewModel.textModel.text"], @"手势解锁".jobsTr());
         UISegmentedControl *modeControl = [controller valueForKey:@"modeControl"];
         XCTAssertEqual(modeControl.numberOfSegments, 2);
         UIView *lockView = [controller valueForKey:@"demoLockView"];
@@ -325,7 +325,8 @@
                                    indexPath));
         XCTAssertNil([controller valueForKey:@"dropDownListView"]);
         XCTAssertFalse(button.selected);
-        XCTAssertEqualObjects([[controller valueForKey:@"selectedTitleLab"] text], @"点选：基础配置");
+        NSString *expectedTitle = [NSString stringWithFormat:@"%@%@", @"点选：".jobsTr(), @"基础配置".jobsTr()];
+        XCTAssertEqualObjects([[controller valueForKey:@"selectedTitleLab"] text], expectedTitle);
     };
 }
 
