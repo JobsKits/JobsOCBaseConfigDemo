@@ -857,5 +857,9 @@
       "key": "JobsByPods/YTKNetworkExtra@Pods/Core/NSObject+YTKNetwork/NSObject+YTKNetwork.h|JobsByPods/YTKNetworkExtra@Pods/Support/UIKit/NSObject/NSObject+Extra/NSObject+Extra.h",
       "reason": "已确认现有公开Core头引用本Pod私有Support头，保留集成工程既有编译兼容；该精确引用对仍是后续公开API边界治理债务，不宣称独立外部consumer的模块可见性已解决。新增引用对继续失败。"
     }
+  },
+  "ci_helpers": {
+    "ScriptsByPods/自动化测试相关脚本/jobs_pods_stability_verify.rb/jobs_stability_ci_disk.rb/jobs_stability_ci_disk.rb": "4aa8623fe67333da124de848da8328bc5050514fde8d3a50bab50091249529eb",
+    "ScriptsByPods/自动化测试相关脚本/jobs_pods_stability_verify.rb/Tests/ci_disk_regression.rb/ci_disk_regression.rb": "a6cb500daf503c0beb480191fb39854ef43652463a4e5d32af88b295061c946a"
   }
 }

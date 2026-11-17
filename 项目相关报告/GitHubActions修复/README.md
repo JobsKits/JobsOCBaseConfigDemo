@@ -21,3 +21,7 @@
 规则蒸馏已收进现行 `jobs-github-actions`：目录迁移须对账事件过滤、生产输入和输出；忽略的必需库须有源码准备步骤；Xcode 主版本切换须同时验证镜像、选择路径、版本断言和失败传递。
 
 [返回仓库说明](../../README.md)
+
+2026-11-18 新 OC 空间故障取证：最终机器人提交 `350d2a2a99004b13099911d711f2def0fe1beb1d` 的 [run 44113447822／attempt 1](https://github.com/JobsKits/JobsOCBaseConfigDemo/actions/runs/44113447822) 官方前 18 步成功，包含双配置 Pods、全部回归、Keychain 审计及主 App 构建；主 App 步骤在 18:21:34 UTC 结束，随后 Package 开始。check 在 18:21:47 UTC 失败，官方 annotation 明确为 Runner Worker 写 `_diag` 日志时 `System.IO.IOException: No space left on device`。Package 仍残留 in_progress、后续上传 pending；两次只读查询均无 artifact，run 日志仅空 ZIP、job 日志为 BlobNotFound。没有原始 results／52 份 xcresult／产品，不能将步骤成功外推为这些原件已独立复核，也不能断言具体大目录占用或 ditto 子命令退出。
+
+源码现有[CI专属空间生命周期](../../ScriptsByPods/自动化测试相关脚本/jobs_pods_stability_verify.rb/jobs_stability_ci_disk.rb/README.md)：SDK 导出后回收专属 Rust cache、完整测试与审计后回收 AppTests 中间目录、主 App 完成后保留小型诊断原件再回收根中间产物；测试和正式结果提前使用不同 artifact 身份归档。每阶段记录实际 df／专有 du、严格归属及前后回执，打包下限根据实际 App 字节计算；没有删除 Products、缩减矩阵或增加构建／测试预算。本地隔离正负夹具与目标 runner 完整复验分开登记；下一精确提交的 Actions、原始结果和最终产品仍待验，旧失败不改写为成功。

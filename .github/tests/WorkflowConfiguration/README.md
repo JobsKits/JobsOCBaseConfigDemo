@@ -15,4 +15,6 @@ ruby .github/tests/WorkflowConfiguration/regression.rb --graph-only
 
 Xcode 选择的成功／失败分支使用隔离命令夹具，不代表托管 runner 或 App 构建通过。协议 Mermaid 从本仓实际头文件生成到系统临时目录，不改已有 PNG；Chrome 渲染及云端完整流水线另验。CI 的 OCR 构建脚本是必需准备步骤，失败时保留日志并阻止后续测试、打包。
 
+完整模式还执行[CI空间回收真实临时夹具](../../../ScriptsByPods/自动化测试相关脚本/jobs_pods_stability_verify.rb/Tests/ci_disk_regression.rb/README.md)，并从 YAML 解析真实步骤、按 Shellwords 精确核准四个阶段的生产 helper 调用。它验证 run／attempt 专属 Rust cache、SDK 导出后回收、完整测试及 Keychain 审计后的独立 AppTests 中间目录回收、主 App 双配置成功后的回收，以及打包前已保全原始验证记录；测试检查点、正式验证和磁盘回执使用不同 artifact 名称且不覆盖。负向变异拒绝错序、缺少归属、改清 Products、在失败后清理、共享 cache 和同名上传。生产 helper 与其回归本体均以 baseline 的 `ci_helpers` 冻结 SHA，并实际纳入源码指纹；本地夹具不保证目标 runner 容量足够。
+
 [返回仓库说明](../../../README.md)

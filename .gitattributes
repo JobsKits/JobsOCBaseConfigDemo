@@ -197,6 +197,8 @@
 "/JobsByPods/JobsRustOCR@Pods/README.md" filter=jobs-markdown-toc
 "/JobsByPods/JobsRustOCR@Pods/Scripts/README.md" filter=jobs-markdown-toc
 "/JobsByPods/JobsRustOCR@Pods/Source/JobsOCR/README.md" filter=jobs-markdown-toc
+"/ScriptsByPods/自动化测试相关脚本/jobs_pods_stability_verify.rb/jobs_stability_ci_disk.rb/README.md" filter=jobs-markdown-toc
+"/ScriptsByPods/自动化测试相关脚本/jobs_pods_stability_verify.rb/Tests/ci_disk_regression.rb/README.md" filter=jobs-markdown-toc
 # jobs-markdown-toc:end
 "/JobsOCBaseConfigDemo/业务逻辑/功能模块/Demo@ARKit/README.md" filter=jobs-markdown-toc
 

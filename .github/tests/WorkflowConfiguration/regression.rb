@@ -222,6 +222,88 @@ def verify_artifact_regressions(workflow)
   end
 end
 
+# 对真实步骤分词核验生命周期；不接受把任意rm命令伪装成已审helper。
+def verify_disk_lifecycle(workflow)
+  steps = workflow.fetch('jobs').fetch('build-simulator-app').fetch('steps')
+  helper = JobsStabilityCIDisk::HELPER
+  names = [
+    'Prepare CI disk ownership', 'Build Rust OCR from source', 'Reclaim exported OCR source cache',
+    'Install CocoaPods dependencies', 'Run each Pod regression suite', 'Audit built Keychain test host',
+    'Checkpoint completed test records', 'Reclaim completed ApplicationTests intermediates',
+    'Build Simulator app', 'Upload Pod validation records', 'Reclaim completed main App intermediates',
+    'Package Simulator app', 'Upload Simulator app', 'Upload CI disk records'
+  ]
+  positions = names.map do |name|
+    check(steps.count { |s| s['name'] == name } == 1, "CI lifecycle stage missing/duplicated: #{name}")
+    steps.index { |s| s['name'] == name }
+  end
+  check(positions == positions.sort, 'Disk cleanup/checkpoints must follow completed consumers and precede large producers')
+  {
+    'Prepare CI disk ownership' => 'prepare', 'Reclaim exported OCR source cache' => 'rust',
+    'Reclaim completed ApplicationTests intermediates' => 'tests', 'Reclaim completed main App intermediates' => 'app'
+  }.each do |name, phase|
+    step = steps.find { |s| s['name'] == name }
+    check(Shellwords.split(step.fetch('run')) == ['ruby', helper, '--ci', phase], "Unreviewed disk cleanup command: #{name}")
+    check(step['if'].nil? && step.fetch('timeout-minutes') == 5, "Disk cleanup must run only after success within budget: #{name}")
+  end
+  cache = steps.find { |s| s['name'] == 'Build Rust OCR from source' }.fetch('env').fetch('JOBS_OCR_CACHE_DIR')
+  check(cache == '${{ runner.temp }}/JobsOCRSourceCache-${{ github.run_id }}-${{ github.run_attempt }}', 'Rust cache must be private to this run/attempt')
+  checkpoint = steps.find { |s| s['name'] == 'Checkpoint completed test records' }
+  final = steps.find { |s| s['name'] == 'Upload Pod validation records' }
+  check(checkpoint['if'].nil?, 'Test checkpoint must finish successfully before the main App')
+  check(checkpoint.fetch('uses') == final.fetch('uses') && checkpoint.fetch('with').fetch('path') == final.fetch('with').fetch('path'), 'Checkpoint must retain the same original evidence inventory')
+  check(checkpoint.fetch('with').fetch('name') == 'JobsPods-tests-${{ github.run_id }}-attempt-${{ github.run_attempt }}', 'Checkpoint artifact needs a distinct immutable identity')
+  check(final.fetch('with').fetch('name') == 'JobsPods-validation-${{ github.run_id }}', 'Retain the final validation artifact identity')
+  disk = steps.find { |s| s['name'] == 'Upload CI disk records' }
+  check(disk.fetch('if') == 'always()', 'Disk failure receipts must upload after success/failure')
+  check(disk.fetch('with').fetch('path') == '${{ runner.temp }}/JobsCIDisk-${{ github.run_id }}-${{ github.run_attempt }}/*.json', 'Collect only the owned disk receipts')
+  uploads = steps.select { |s| s['uses'].to_s.start_with?('actions/upload-artifact@') }
+  artifact_names = uploads.map { |s| s.fetch('with').fetch('name') }
+  check(artifact_names.uniq.size == artifact_names.size && uploads.none? { |s| s.fetch('with')['overwrite'] }, 'Never overwrite or create the same v7 artifact twice')
+end
+
+# 正向运行真实清理器的隔离夹具；负向变异验证时序/范围/上传合同的拒绝路径。
+def verify_disk_regressions(root, workflow)
+  require File.join(root, 'ScriptsByPods/自动化测试相关脚本/jobs_pods_stability_verify.rb/jobs_stability_ci_disk.rb/jobs_stability_ci_disk')
+  JobsStabilityCIDisk.verify_trust!(root)
+  verify_disk_lifecycle(workflow)
+  script = File.join(root, JobsStabilityCIDisk::TEST)
+  output, status = Open3.capture2e(RbConfig.ruby, script)
+  check(status.success?, "CI disk real filesystem regression failed: #{output}")
+  puts output.lines.grep(/^PASS/)
+  mutations = {
+    'missing ownership' => lambda { |s| s.reject! { |v| v['name'] == 'Prepare CI disk ownership' } },
+    'shared Rust cache' => lambda { |s| s.find { |v| v['name'] == 'Build Rust OCR from source' }['env']['JOBS_OCR_CACHE_DIR'] = '/tmp/shared' },
+    'cleanup Products' => lambda { |s| s.find { |v| v['name'] == 'Reclaim completed main App intermediates' }['run'] = 'rm -rf "$RUNNER_TEMP/JobsOCStability/Products"' },
+    'cleanup on failure' => lambda { |s| s.find { |v| v['name'] == 'Reclaim completed main App intermediates' }['if'] = 'always()' },
+    'checkpoint alias' => lambda { |s| s.find { |v| v['name'] == 'Checkpoint completed test records' }['with']['name'] = 'JobsPods-validation-${{ github.run_id }}' },
+    'missing disk records' => lambda { |s| s.reject! { |v| v['name'] == 'Upload CI disk records' } }
+  }
+  [
+    ['Reclaim completed ApplicationTests intermediates', 'Audit built Keychain test host'],
+    ['Reclaim completed main App intermediates', 'Build Simulator app'],
+    ['Checkpoint completed test records', 'Build Simulator app'],
+    ['Upload Pod validation records', 'Package Simulator app']
+  ].each do |left, right|
+    mutations["reordered #{left}"] = lambda do |s|
+      a = s.index { |v| v['name'] == left }; b = s.index { |v| v['name'] == right }
+      s[a], s[b] = s[b], s[a]
+    end
+  end
+  mutations.each do |name, mutation|
+    altered = Marshal.load(Marshal.dump(workflow))
+    mutation.call(altered.fetch('jobs').fetch('build-simulator-app').fetch('steps'))
+    rejected = false
+    begin
+      verify_disk_lifecycle(altered)
+    rescue RuntimeError, KeyError
+      rejected = true
+    end
+    check(rejected, "Invalid disk lifecycle accepted: #{name}")
+    puts "PASS CI disk lifecycle rejection: #{name}"
+  end
+end
+
 def main
   graph_only = ARGV.delete('--graph-only')
   check(ARGV.empty?, 'Usage: ruby .github/tests/WorkflowConfiguration/regression.rb [--graph-only]')
@@ -233,6 +315,7 @@ def main
       verify_xcode(root, workflow, directory)
       verify_budget_regressions(workflow)
       verify_artifact_regressions(workflow)
+      verify_disk_regressions(root, workflow)
     end
   end
   puts "PASS: workflow configuration (#{graph_only ? 'protocol source and trigger paths' : 'protocol paths, Xcode selection, failure propagation, serial budgets and validation artifacts'})"

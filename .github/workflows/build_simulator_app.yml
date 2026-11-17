@@ -95,11 +95,20 @@ jobs:
         timeout-minutes: 10
         run: rustup toolchain install 1.95.0 --profile minimal
 
+      - name: Prepare CI disk ownership
+        timeout-minutes: 5
+        run: ruby ScriptsByPods/自动化测试相关脚本/jobs_pods_stability_verify.rb/jobs_stability_ci_disk.rb/jobs_stability_ci_disk.rb --ci prepare
+
       - name: Build Rust OCR from source
         timeout-minutes: 30
         env:
           RUSTUP_TOOLCHAIN: '1.95.0'
+          JOBS_OCR_CACHE_DIR: ${{ runner.temp }}/JobsOCRSourceCache-${{ github.run_id }}-${{ github.run_attempt }}
         run: /bin/zsh "JobsByPods/JobsRustOCR@Pods/Scripts/BuildRustOCR.command" --non-interactive
+
+      - name: Reclaim exported OCR source cache
+        timeout-minutes: 5
+        run: ruby ScriptsByPods/自动化测试相关脚本/jobs_pods_stability_verify.rb/jobs_stability_ci_disk.rb/jobs_stability_ci_disk.rb --ci rust
 
       - name: Install CocoaPods dependencies
         timeout-minutes: 30
@@ -179,12 +188,69 @@ jobs:
           ruby ScriptsByPods/自动化测试相关脚本/jobs_pods_stability_verify.rb/Tests/host_entitlements_regression.rb/host_entitlements_regression.rb \
             "${RUNNER_TEMP}/JobsOCStability/Products/Debug-iphonesimulator/AppHost-JobsBaseUI-Unit-Tests.app/AppHost-JobsBaseUI-Unit-Tests"
 
+      - name: Checkpoint completed test records
+        uses: actions/upload-artifact@v7.0.1
+        with:
+          name: JobsPods-tests-${{ github.run_id }}-attempt-${{ github.run_attempt }}
+          path: |
+            ${{ runner.temp }}/JobsOCStability/results.json
+            ${{ runner.temp }}/JobsOCStability/configuration-audit.json
+            ${{ runner.temp }}/JobsOCStability/*.log
+            ${{ runner.temp }}/JobsOCStability/*.xcresult
+            ${{ runner.temp }}/JobsOCStability/ApplicationTests/*.xcresult
+            ${{ runner.temp }}/JobsOCStability/OwnedPodsBatch
+            ${{ runner.temp }}/ReactiveObjCDiagnostics
+            ${{ runner.temp }}/ReactiveObjCDiagnosticsAfterBuild
+            ${{ runner.temp }}/JobsOCStability/Intermediates/Pods.build/*/ReactiveObjC.build/Objects-normal/arm64/*.resp
+            ${{ runner.temp }}/JobsOCStability/Intermediates/Pods.build/*/ReactiveObjC.build/*.hmap
+            ${{ runner.temp }}/JobsOCStability/Intermediates/Pods.build/*/*VFS*/*.yaml
+            ${{ runner.temp }}/simulator-sdk-version.txt
+            ${{ runner.temp }}/simulator-runtimes.json
+            ${{ runner.temp }}/simulator-devices.json
+            ${{ runner.temp }}/simulator-selection.env
+            ${{ runner.temp }}/JobsCIDisk-${{ github.run_id }}-${{ github.run_attempt }}/*.json
+          if-no-files-found: warn
+          retention-days: 14
+
+      - name: Reclaim completed ApplicationTests intermediates
+        timeout-minutes: 5
+        run: ruby ScriptsByPods/自动化测试相关脚本/jobs_pods_stability_verify.rb/jobs_stability_ci_disk.rb/jobs_stability_ci_disk.rb --ci tests
+
       - name: Build Simulator app
         timeout-minutes: 125
         run: |
           ruby ScriptsByPods/自动化测试相关脚本/jobs_pods_stability_verify.rb/jobs_pods_stability_verify.rb \
             --phase app --build-timeout 3600 \
             --architecture arm64 --output "${RUNNER_TEMP}/JobsOCStability"
+
+      - name: Upload Pod validation records
+        if: always()
+        uses: actions/upload-artifact@v7.0.1
+        with:
+          name: JobsPods-validation-${{ github.run_id }}
+          path: |
+            ${{ runner.temp }}/JobsOCStability/results.json
+            ${{ runner.temp }}/JobsOCStability/configuration-audit.json
+            ${{ runner.temp }}/JobsOCStability/*.log
+            ${{ runner.temp }}/JobsOCStability/*.xcresult
+            ${{ runner.temp }}/JobsOCStability/ApplicationTests/*.xcresult
+            ${{ runner.temp }}/JobsOCStability/OwnedPodsBatch
+            ${{ runner.temp }}/ReactiveObjCDiagnostics
+            ${{ runner.temp }}/ReactiveObjCDiagnosticsAfterBuild
+            ${{ runner.temp }}/JobsOCStability/Intermediates/Pods.build/*/ReactiveObjC.build/Objects-normal/arm64/*.resp
+            ${{ runner.temp }}/JobsOCStability/Intermediates/Pods.build/*/ReactiveObjC.build/*.hmap
+            ${{ runner.temp }}/JobsOCStability/Intermediates/Pods.build/*/*VFS*/*.yaml
+            ${{ runner.temp }}/simulator-sdk-version.txt
+            ${{ runner.temp }}/simulator-runtimes.json
+            ${{ runner.temp }}/simulator-devices.json
+            ${{ runner.temp }}/simulator-selection.env
+            ${{ runner.temp }}/JobsCIDisk-${{ github.run_id }}-${{ github.run_attempt }}/*.json
+          if-no-files-found: warn
+          retention-days: 14
+
+      - name: Reclaim completed main App intermediates
+        timeout-minutes: 5
+        run: ruby ScriptsByPods/自动化测试相关脚本/jobs_pods_stability_verify.rb/jobs_stability_ci_disk.rb/jobs_stability_ci_disk.rb --ci app
 
       - name: Package Simulator app
         id: package
@@ -240,26 +306,11 @@ jobs:
           if-no-files-found: error
           retention-days: 14
 
-      - name: Upload Pod validation records
+      - name: Upload CI disk records
         if: always()
         uses: actions/upload-artifact@v7.0.1
         with:
-          name: JobsPods-validation-${{ github.run_id }}
-          path: |
-            ${{ runner.temp }}/JobsOCStability/results.json
-            ${{ runner.temp }}/JobsOCStability/configuration-audit.json
-            ${{ runner.temp }}/JobsOCStability/*.log
-            ${{ runner.temp }}/JobsOCStability/*.xcresult
-            ${{ runner.temp }}/JobsOCStability/ApplicationTests/*.xcresult
-            ${{ runner.temp }}/JobsOCStability/OwnedPodsBatch
-            ${{ runner.temp }}/ReactiveObjCDiagnostics
-            ${{ runner.temp }}/ReactiveObjCDiagnosticsAfterBuild
-            ${{ runner.temp }}/JobsOCStability/Intermediates/Pods.build/*/ReactiveObjC.build/Objects-normal/arm64/*.resp
-            ${{ runner.temp }}/JobsOCStability/Intermediates/Pods.build/*/ReactiveObjC.build/*.hmap
-            ${{ runner.temp }}/JobsOCStability/Intermediates/Pods.build/*/*VFS*/*.yaml
-            ${{ runner.temp }}/simulator-sdk-version.txt
-            ${{ runner.temp }}/simulator-runtimes.json
-            ${{ runner.temp }}/simulator-devices.json
-            ${{ runner.temp }}/simulator-selection.env
+          name: JobsCI-disk-${{ github.run_id }}-attempt-${{ github.run_attempt }}
+          path: ${{ runner.temp }}/JobsCIDisk-${{ github.run_id }}-${{ github.run_attempt }}/*.json
           if-no-files-found: warn
           retention-days: 14
