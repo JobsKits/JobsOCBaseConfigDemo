@@ -18,7 +18,7 @@ concurrency:
 jobs:
   build-simulator-app:
     runs-on: xcode-27
-    timeout-minutes: 320
+    timeout-minutes: 360
     permissions:
       actions: write
       contents: read
@@ -86,6 +86,8 @@ jobs:
           xcodebuild -version | tee "${diagnostics_path}/xcode-version.txt"
           xcrun --sdk iphonesimulator --show-sdk-version | tee "${diagnostics_path}/simulator-sdk-version.txt"
           xcode-select -p
+          command -v ruby
+          ruby --version
           pod --version
 
       - name: Prepare test Simulator
@@ -135,6 +137,24 @@ jobs:
           xcodebuild -project Pods/Pods.xcodeproj -target ReactiveObjC \
             -configuration Debug -sdk iphonesimulator -showBuildSettings \
             > "${diagnostics_dir}/Debug-build-settings.log" 2>&1
+          installed_configs="${RUNNER_TEMP}/BuildDiagnostics/InstalledPodsConfigurations"
+          if mkdir -p "${installed_configs}"; then
+            for target in JobsOCBaseConfigDemo JobsOCBaseConfigDemoTests; do
+              for configuration in debug release; do
+                name="Pods-${target}.${configuration}.xcconfig"
+                source="${GITHUB_WORKSPACE}/Pods/Target Support Files/Pods-${target}/${name}"
+                if [[ -f "${source}" ]]; then
+                  if ! cp "${source}" "${installed_configs}/${name}"; then
+                    printf '[Diagnostics] Could not copy installed Pods configuration: %s\n' "${source}"
+                  fi
+                else
+                  printf '[Diagnostics] Missing installed Pods configuration: %s\n' "${source}"
+                fi
+              done
+            done
+          else
+            printf '[Diagnostics] Could not create installed Pods configuration directory.\n'
+          fi
 
       - name: Verify integrated component configuration
         timeout-minutes: 10
@@ -143,11 +163,11 @@ jobs:
           ruby ScriptsByPods/自动化测试相关脚本/jobs_pods_stability_verify.rb/Tests/command_timeout_regression.rb/command_timeout_regression.rb
 
       - name: Run integrated component XCTest and production harnesses
-        timeout-minutes: 120
+        timeout-minutes: 200
         run: |
           ruby ScriptsByPods/自动化测试相关脚本/jobs_pods_stability_verify.rb/jobs_pods_stability_verify.rb \
             --phase tests --architecture "${SIMULATOR_ARCH}" \
-            --build-timeout 3600 \
+            --build-timeout 4800 \
             --simulator "${JOBS_STABILITY_SIMULATOR}" \
             --output "${RUNNER_TEMP}/JobsComponentsStability"
 
@@ -185,6 +205,12 @@ jobs:
             ${{ runner.temp }}/BuildDiagnostics
             ${{ runner.temp }}/JobsComponentsStability/results.json
             ${{ runner.temp }}/JobsComponentsStability/configuration-audit.json
+            ${{ runner.temp }}/JobsComponentsStability/installed-test-configuration.json
+            ${{ runner.temp }}/JobsComponentsStability/Intermediates/JobsOCBaseConfigDemo.build/*-iphonesimulator/JobsOCBaseConfigDemo.build/Objects-normal/*/*-common-args.resp
+            ${{ runner.temp }}/JobsComponentsStability/Intermediates/JobsOCBaseConfigDemo.build/*-iphonesimulator/JobsOCBaseConfigDemoTests.build/Objects-normal/*/*-common-args.resp
+            ${{ runner.temp }}/JobsComponentsStability/Intermediates/JobsOCBaseConfigDemo.build/*-iphonesimulator/JobsOCBaseConfigDemo.build/*.hmap
+            ${{ runner.temp }}/JobsComponentsStability/Intermediates/JobsOCBaseConfigDemo.build/*-iphonesimulator/JobsOCBaseConfigDemoTests.build/*.hmap
+            ${{ runner.temp }}/JobsComponentsStability/Intermediates/JobsOCBaseConfigDemo.build/*-iphonesimulator/JobsOCBaseConfigDemo-*-VFS-iphonesimulator/*.yaml
             ${{ runner.temp }}/JobsComponentsStability/*.log
             ${{ runner.temp }}/JobsComponentsStability/*.xcresult
           if-no-files-found: warn

@@ -103,7 +103,7 @@ ruby ScriptsByPods/自动化测试相关脚本/jobs_pods_stability_verify.rb/Tes
 
 [命令超时回归](./Tests/command_timeout_regression.rb/command_timeout_regression.rb) 保留原 7 个真实进程场景：正常成功、非零退出、忽略 TERM 的父子组、组长先退但子进程继续运行、无关组隔离、124 / 75 优先级与部分结果包拒领。另加 1 个延迟 1 秒的真实启动场景和 4 个明确注入 EPERM 的边界场景，仍使用真实进程验证直接 child fallback、无法领取状态时有界返回、ensure 不遮盖原异常，以及 runner 的 124 / 75 与部分结果包拒领。EPERM 是测试注入，不代表系统真实出现权限故障。共 12 个场景，测试夹具具有 5 秒有界启动预算，并核对真实单调时钟就绪证据；失败时保留夹具日志。测试不执行 Xcode 构建或依赖安装；组权限被拒绝的 fixture 还确认后代可能仍活，不把发送 KILL 等同于完整清理或领取所有后代状态。
 
-旧OC主工程集成形态保留全部52组件、Debug／Release共享准备及原测试／harness。CI现有调用显式使用`--build-timeout 3600`，每次准备最多60分钟、整个测试步骤仍受120分钟总期限约束；本地默认仍为1800秒。`build-for-testing`保留完整阶段输出与`-showBuildTimingSummary`，每60秒向同一日志追加有界自有进程快照；实际测试继续使用`-quiet`和原期限。该诊断用于区分持续构建、链接与停滞，预算调整本身不证明构建已通过。可选采样的默认关闭、父子／旁观隔离、超时／退出保持与采样故障另有4项真实进程回归，总计16项；详情见[命令执行器](./jobs_stability_command.rb/README.md)。
+旧OC主工程集成形态保留全部52组件、Debug／Release共享准备及原测试／harness。CI现有调用显式使用`--build-timeout 4800`覆盖默认值，每次共享准备及每组harness最多80分钟，完整集成测试步骤共用200分钟期限、job上限360分钟；本地未传参默认仍为1800秒，XCTest每次默认600秒、最终原GUI App构建步骤120分钟均不变。`build-for-testing`保留完整阶段输出与`-showBuildTimingSummary`，每60秒向同一日志追加有界自有进程快照；实际测试继续使用`-quiet`和原期限。该诊断用于区分持续构建、链接与停滞，预算调整本身不证明构建已通过。可选采样的默认关闭、父子／旁观隔离、超时／退出保持与采样故障另有4项真实进程回归，总计16项；详情见[命令执行器](./jobs_stability_command.rb/README.md)。
 
 实际集成测试准备还核对`Podfile.deps`声明的Tests继承上下文：`pod install`须生成对应Tests base xcconfig，且含有效Pods根、构建目录、头和framework搜索路径。`Podfile`收尾复用集成适配器，仅将App同名配置的显式`HEADER_SEARCH_PATHS`／`FRAMEWORK_SEARCH_PATHS`／`LIBRARY_SEARCH_PATHS`合并到真实Tests，保留已有值、继承变量、含空格路径和顺序，重复执行幂等；不复制链接、签名或产品设置。门禁同时拒绝丢失App搜索上下文，不满足时在冷构建前失败并提示安装依赖。通过后记录`installed-test-configuration.json`的路径／SHA。该检查不进入`--audit-only`，不改变组件、配置、PCH和实际用例集合。
 

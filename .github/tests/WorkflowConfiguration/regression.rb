@@ -62,6 +62,8 @@ def verify_xcode(root, workflow, directory)
   dependency_env = job.fetch('env', {}).merge(steps.fetch(pods).fetch('env', {}))
   check(dependency_env['JOBS_SPECS_SOURCE'] == 'cdn', 'CI must pin the public Specs CDN instead of timing a full Git repository by a small-file probe')
   verify_integrated_budget(workflow)
+  verify_installed_receipt_collection(workflow)
+  verify_installed_configuration_copy(workflow, directory)
   command = Shellwords.split(steps.fetch(build).fetch('run'))
   script = File.expand_path(command.fetch(1), root)
   sdk = File.dirname(File.dirname(script))
@@ -93,19 +95,31 @@ def verify_xcode(root, workflow, directory)
 end
 
 def verify_integrated_budget(workflow)
-  steps = workflow.fetch('jobs').fetch('build-simulator-app').fetch('steps')
+  job = workflow.fetch('jobs').fetch('build-simulator-app')
+  steps = job.fetch('steps')
   stability = steps.find { |step| step['name'] == 'Run integrated component XCTest and production harnesses' }
   check(stability, 'Integrated cold build step missing')
   arguments = Shellwords.split(stability.fetch('run'))
   positions = arguments.each_index.select { |index| arguments[index] == '--build-timeout' }
-  check(positions.size == 1 && arguments[positions.first + 1] == '3600', 'Integrated cold builds require the explicit finite CI budget')
+  app = steps.find { |step| step['name'] == 'Build Simulator app' }
+  check(positions.size == 1 && arguments[positions.first + 1] == '4800' && stability['timeout-minutes'] == 200 && job['timeout-minutes'] == 360 && app && app['timeout-minutes'] == 120, 'Integrated cold builds require the explicit finite CI budget')
 end
 
 def verify_budget_rejections(workflow, directory)
-  %w[missing oversized].each do |kind|
+  %w[missing oversized integrated-step job app].each do |kind|
     candidate = Marshal.load(Marshal.dump(workflow))
-    step = candidate.fetch('jobs').fetch('build-simulator-app').fetch('steps').find { |item| item['name'] == 'Run integrated component XCTest and production harnesses' }
-    step['run'] = step.fetch('run').sub('--build-timeout 3600', kind == 'missing' ? '' : '--build-timeout 36000')
+    job = candidate.fetch('jobs').fetch('build-simulator-app')
+    step = job.fetch('steps').find { |item| item['name'] == 'Run integrated component XCTest and production harnesses' }
+    case kind
+    when 'missing', 'oversized'
+      step['run'] = step.fetch('run').sub('--build-timeout 4800', kind == 'missing' ? '' : '--build-timeout 48000')
+    when 'integrated-step'
+      step['timeout-minutes'] = 199
+    when 'job'
+      job['timeout-minutes'] = 359
+    when 'app'
+      job.fetch('steps').find { |item| item['name'] == 'Build Simulator app' }['timeout-minutes'] = 119
+    end
     path = File.join(directory, "budget-#{kind}.yml")
     File.write(path, YAML.dump(candidate))
     rejected = false
@@ -115,6 +129,98 @@ def verify_budget_rejections(workflow, directory)
       rejected = error.message == 'Integrated cold builds require the explicit finite CI budget'
     end
     check(rejected, "Invalid #{kind} budget fixture was accepted")
+  end
+end
+
+def verify_installed_receipt_collection(workflow)
+  steps = workflow.fetch('jobs').fetch('build-simulator-app').fetch('steps')
+  upload = steps.find { |step| step['name'] == 'Upload build diagnostics' }
+  paths = upload&.fetch('with')&.fetch('path')&.lines&.map(&:strip) || []
+  check(upload && upload['if'] == 'always()' && integrated_diagnostic_paths.all? { |path| paths.include?(path) }, 'Integrated Test compiler inputs must be retained in diagnostics')
+  check(paths.all? { |path| path.start_with?('${{ runner.temp }}/') }, 'Diagnostics artifact paths must preserve temporary-root layout')
+  collected = paths.select { |path| path.include?('/Intermediates') || path.include?('/DerivedData') || path.include?('/Pods') }
+  expected = integrated_diagnostic_paths.select { |path| path.include?('/Intermediates/') || path.include?('/Pods/') }
+  check(collected.sort == expected.sort, 'Compiler diagnostics must stay within the two native targets and their installed Pods configurations')
+  environment = steps.find { |step| step['name'] == 'Show build environment' }
+  commands = environment&.fetch('run')&.lines&.map(&:strip) || []
+  check(commands.include?('command -v ruby') && commands.include?('ruby --version'), 'Record the actual Ruby executable and version')
+end
+
+def integrated_diagnostic_paths
+  base = '${{ runner.temp }}/JobsComponentsStability'
+  build = base + '/Intermediates/JobsOCBaseConfigDemo.build/*-iphonesimulator/'
+  targets = %w[JobsOCBaseConfigDemo JobsOCBaseConfigDemoTests]
+  ['${{ runner.temp }}/BuildDiagnostics', base + '/installed-test-configuration.json'] + targets.flat_map do |target|
+    [build + target + '.build/Objects-normal/*/*-common-args.resp', build + target + '.build/*.hmap']
+  end + [build + 'JobsOCBaseConfigDemo-*-VFS-iphonesimulator/*.yaml']
+end
+
+def verify_installed_configuration_copy(workflow, directory)
+  step = workflow.fetch('jobs').fetch('build-simulator-app').fetch('steps').find { |item| item['name'] == 'Record ReactiveObjC build configuration' }
+  Dir.mktmpdir('installed-pods-configurations-', directory) do |fixture|
+    workspace = File.join(fixture, 'workspace with spaces')
+    temporary = File.join(fixture, 'runner temp')
+    bin = File.join(fixture, 'bin')
+    FileUtils.mkdir_p([workspace, bin, File.join(temporary, 'BuildDiagnostics/ReactiveObjC')])
+    %w[ruby xcodebuild].each do |name|
+      path = File.join(bin, name)
+      File.write(path, "#!/bin/sh\nexit 0\n")
+      FileUtils.chmod(0o700, path)
+    end
+    files = %w[JobsOCBaseConfigDemo JobsOCBaseConfigDemoTests].flat_map do |target|
+      %w[debug release].map do |configuration|
+        name = "Pods-#{target}.#{configuration}.xcconfig"
+        source = File.join(workspace, 'Pods/Target Support Files', 'Pods-' + target, name)
+        FileUtils.mkdir_p(File.dirname(source))
+        File.write(source, "HEADER_SEARCH_PATHS = fixture-#{name}\n")
+        [source, File.join(temporary, 'BuildDiagnostics/InstalledPodsConfigurations', name)]
+      end
+    end
+    env = { 'PATH' => bin + File::PATH_SEPARATOR + ENV.fetch('PATH'), 'GITHUB_WORKSPACE' => workspace, 'RUNNER_TEMP' => temporary }
+    stdout, stderr, status = Open3.capture3(env, '/bin/bash', '-e', '-o', 'pipefail', '-c', step.fetch('run'), chdir: workspace)
+    check(status.success?, "Installed Pods configuration copy failed: #{stdout}#{stderr}")
+    files.each { |source, destination| check(File.file?(destination) && File.binread(destination) == File.binread(source), 'Installed Pods configuration was not copied byte-for-byte') }
+    missing, destination = files.last
+    File.delete(missing)
+    File.delete(destination)
+    stdout, stderr, status = Open3.capture3(env, '/bin/bash', '-e', '-o', 'pipefail', '-c', step.fetch('run'), chdir: workspace)
+    check(status.success? && !File.exist?(destination) && (stdout + stderr).include?('Missing installed Pods configuration: ' + missing), 'Missing configuration must remain a diagnostic for the later production gate')
+  end
+end
+
+def verify_installed_receipt_rejection(workflow, directory)
+  omissions = integrated_diagnostic_paths + ['command -v ruby', 'ruby --version']
+  omissions.each_with_index do |omission, index|
+    candidate = Marshal.load(Marshal.dump(workflow))
+    steps = candidate.fetch('jobs').fetch('build-simulator-app').fetch('steps')
+    step = steps.find { |item| item['name'] == (omission.include?('ruby') ? 'Show build environment' : 'Upload build diagnostics') }
+    container = omission.include?('ruby') ? step : step.fetch('with')
+    key = omission.include?('ruby') ? 'run' : 'path'
+    container[key] = container.fetch(key).lines.reject { |line| line.strip == omission }.join
+    path = File.join(directory, "missing-compiler-diagnostic-#{index}.yml")
+    File.write(path, YAML.dump(candidate))
+    rejected = false
+    begin
+      verify_installed_receipt_collection(YAML.load_file(path))
+    rescue RuntimeError => error
+      rejected = ['Integrated Test compiler inputs must be retained in diagnostics', 'Record the actual Ruby executable and version'].include?(error.message)
+    end
+    check(rejected, "Missing compiler diagnostic fixture was accepted: #{omission}")
+  end
+  [
+    ['${{ runner.temp }}/JobsComponentsStability/Intermediates/**', 'Compiler diagnostics must stay within the two native targets and their installed Pods configurations'],
+    ['${{ github.workspace }}/Pods/Target Support Files/Pods-App/Pods-App.debug.xcconfig', 'Diagnostics artifact paths must preserve temporary-root layout']
+  ].each do |extra, message|
+    candidate = Marshal.load(Marshal.dump(workflow))
+    upload = candidate.fetch('jobs').fetch('build-simulator-app').fetch('steps').find { |step| step['name'] == 'Upload build diagnostics' }
+    upload['with']['path'] += extra + "\n"
+    rejected = false
+    begin
+      verify_installed_receipt_collection(candidate)
+    rescue RuntimeError => error
+      rejected = error.message == message
+    end
+    check(rejected, "Invalid compiler diagnostic collection fixture was accepted: #{extra}")
   end
 end
 
@@ -128,6 +234,7 @@ def main
       build = load_workflow(root, 'build_simulator_app.yml')
       verify_xcode(root, build, directory)
       verify_budget_rejections(build, directory)
+      verify_installed_receipt_rejection(build, directory)
     end
   end
   puts "PASS: workflow configuration (#{graph_only ? 'protocol source and trigger paths' : 'protocol paths, Xcode selection and failure propagation'})"
