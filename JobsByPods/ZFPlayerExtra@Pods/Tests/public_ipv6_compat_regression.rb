@@ -2,8 +2,11 @@
 require 'digest'
 require 'fileutils'
 require 'open3'
+require 'rbconfig'
 require 'shellwords'
 require 'tmpdir'
+
+puts "Ruby: #{RUBY_DESCRIPTION}; executable: #{RbConfig.ruby}"
 
 root = File.expand_path('../../..', __dir__)
 podfile = File.join(root, 'Podfile')
@@ -19,15 +22,15 @@ end
 config = Struct.new(:build_settings)
 target = Struct.new(:name, :build_configurations)
 compatibility = '$(PODS_ROOT)/../JobsByPods/ZFPlayerExtra@Pods/Compatibility'
-debug = config.new('CLANG_ENABLE_MODULES' => 'YES', 'OTHER_CFLAGS' => '$(inherited) -Werror')
-release = config.new('HEADER_SEARCH_PATHS' => '$(inherited) "a path with spaces"')
+debug = config.new({ 'CLANG_ENABLE_MODULES' => 'YES', 'OTHER_CFLAGS' => '$(inherited) -Werror' })
+release = config.new({ 'HEADER_SEARCH_PATHS' => '$(inherited) "a path with spaces"' })
 selected = target.new('ZFPlayer', [debug, release])
 2.times { configure_zfplayer_public_ipv6_header(selected) }
 check.call(debug.build_settings['HEADER_SEARCH_PATHS'] == [compatibility, '$(inherited)'], 'Default paths or idempotence changed')
 check.call(release.build_settings['HEADER_SEARCH_PATHS'] == [compatibility, '$(inherited)', 'a path with spaces'], 'Existing quoted paths were lost')
 check.call(debug.build_settings['CLANG_ENABLE_MODULES'] == 'YES', 'Modules must stay enabled')
 check.call(debug.build_settings['OTHER_CFLAGS'] == '$(inherited) -Werror', 'Diagnostics must remain unchanged')
-other = target.new('OtherPod', [config.new('HEADER_SEARCH_PATHS' => ['original'])])
+other = target.new('OtherPod', [config.new({ 'HEADER_SEARCH_PATHS' => ['original'] })])
 before = Marshal.dump(other.build_configurations.map(&:build_settings))
 configure_zfplayer_public_ipv6_header(other)
 check.call(Marshal.dump(other.build_configurations.map(&:build_settings)) == before, 'Another target was modified')
