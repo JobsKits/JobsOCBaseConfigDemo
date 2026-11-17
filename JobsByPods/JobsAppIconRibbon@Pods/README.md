@@ -77,6 +77,8 @@
 
 不需要添加任何业务层调用代码。
 
+本宿主将 `$(BUILD_DIR)/JobsAppIconRibbonAssets/$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)/Assets.xcassets` 显式加入主 App 的 Resources。原同步目录中的 `Assets.xcassets` 保留导航与生成输入，从主 App 自动 Resources 成员中切出，防止同时编译两个同名资源目录。迁移到其它宿主时须同步此真实资源输入，单独挂载生成脚本不会自动修改 App 工程。
+
 ## <span id="jobs-toc-heading-3" data-jobs-toc="v2">二、配置项 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a></span><!-- jobs-toc:heading-end -->
 
 | 配置项 | 默认值 | 说明 |
@@ -112,7 +114,8 @@ JobsAppIconRibbon-UAT
 流程图见[架构脉络与关键设计](#jobs-architecture-diagram-1)。
 
 - 原始 AppIcon 始终只读。
-- 派生目录与原始 `.appiconset` 位于同一个 `.xcassets`。
+- Xcode 构建时完整复制源 `.xcassets`，在上述按配置／平台隔离的 `BUILD_DIR` 目录渲染，原目录所有资源保持只读；App 资源阶段实际消费这个派生 catalog。
+- 独立手动生成仍默认在原始 `.appiconset` 同级输出；Swift 入口可显式传入 `--output-catalog <输出.xcassets>` 使用完整派生副本。
 - 输出名称为 `<OUTPUT_NAME_PREFIX>-<CONFIGURATION>.appiconset`。
 - 建议在 `.gitignore` 中加入：
 
@@ -215,7 +218,11 @@ flowchart LR
 
 输入与输出解析符号链接后的路径不得相同，输出符号链接及非目录目标均拒绝；`Contents.json` 内图片文件名不能越出源 `.appiconset`。每张图片解码、绘制及编码都先在同级临时 staging 目录完成，全部成功后才用 macOS 原子目录交换替换既有输出；首次生成使用目录重命名。任一验证、渲染或交换失败都保留原始输入和上次成功的输出，临时 staging 随作用域退出清理。
 
+派生 catalog 模式先在输出同级 staging 完整复制源 catalog，再生成绶带，全部成功后原子发布整个目录；原始资源、其它图片／颜色和备用图标均保留。输出 catalog 不得与源 catalog 相同、互相包含或通过符号链接指回源。构建阶段声明真实输出，并保持 `always_out_of_date=1`，每次都按当前配置与源资源生成；失败阻断构建，不以旧资源冒充成功。日志仍位于 `${TMPDIR}/JobsAppIconRibbon.log`。
+
 可重复 Mac 回归入口为 [Tests/run_regression.rb](<./Tests/run_regression.rb>)，通过真实生成器及故障输入校验配置拒绝、路径别名、输出符号链接、破损图片与失败时旧输出保留。命令见本轮单元验证；验证结果见本 README 统一验收记录。
+
+回归同时覆盖完整派生 catalog、其它资源保留、源目录字节指纹不变、重复生成、失败时整目录保留、源／符号链接别名拒绝，以及真实 zsh 构建入口使用配置／平台输出目录。隔离 Xcode App 已验证动态派生资源引用可由 actool 编入 `Assets.car`；本宿主最终整包仍以本轮实际构建和远端 CI 为准。
 
 ## <span id="jobs-toc-heading-16" data-jobs-toc="v2">十一、目录计数与安装边界 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a></span><!-- jobs-toc:heading-end -->
 
@@ -232,7 +239,7 @@ flowchart LR
 
 ## <span id="jobs-toc-heading-17" data-jobs-toc="v2">十二、本轮单元验证 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a></span><!-- jobs-toc:heading-end -->
 
-当前结果：**Debug / Release 单 Pod 编译、macOS 生产实现回归已完成；本 Pod 无独立 Stability 回归；整体验收记录见根 [JobsByPods升级实施与编译验证.md](<../../项目相关报告/JobsByPods升级实施与编译验证.md>)**。生产源码、测试源码、资源与工程配置的指纹一致且命令真实退出成功，才可复用对应验证记录。
+历史批次的 Debug / Release 单 Pod 编译与 macOS 回归证据保留；本批生产生成器／构建入口回归及隔离 Xcode Debug／Release 派生资源编译已通过，完整宿主构建以本批提交对应的远端回执为准。本 Pod 无独立 Stability 回归；整体历史记录见根 [JobsByPods升级实施与编译验证.md](<../../项目相关报告/JobsByPods升级实施与编译验证.md>)。生产源码、测试源码、资源与工程配置的指纹一致且命令真实退出成功，才可复用对应验证记录。
 
 生产行为与边界按上述核心契约验收；逐 Pod 编译与独立行为回归分别记录结果。
 

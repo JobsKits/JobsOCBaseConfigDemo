@@ -52,6 +52,9 @@ typedef void (^JobsThemeBindingBlock)(__kindof NSObject *object,
 
 @property(class, nonatomic, readonly) JobsThemeCenter *shared;
 @property(nonatomic, copy, readonly) JobsThemeStyle currentStyle;
+/// 旧 raw 名称不保留任何特殊值；跟随系统由独立选择状态表示。
+@property(nonatomic, copy, readonly) JobsThemeStyle effectiveStyle;
+@property(nonatomic, assign, readonly, getter=isFollowingSystem) BOOL followingSystem;
 @property(nonatomic, assign, readonly, getter=isDarkMode) BOOL darkMode;
 
 -(BOOL)configureWithResource:(NSString *)name
@@ -60,6 +63,8 @@ typedef void (^JobsThemeBindingBlock)(__kindof NSObject *object,
                        error:(NSError * _Nullable * _Nullable)error;
 -(JobsRetStrByStrBlock _Nonnull)setStyle;
 -(JobsRetStrByVoidBlock _Nonnull)toggle;
+-(instancetype)followSystem;
+-(instancetype)refreshSystemAppearance;
 -(JobsRetCorByStrBlock _Nonnull)colorForKey;
 -(JobsRetCorByStrBlock _Nonnull)resolvedColorForKey;
 -(JobsRetImageByStrBlock _Nonnull)imageForKey;

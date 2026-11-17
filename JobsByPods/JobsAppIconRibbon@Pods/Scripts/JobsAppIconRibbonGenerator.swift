@@ -50,16 +50,17 @@ private struct RibbonGeneratorOptions {
     let projectRoot: URL
     let configurationFile: URL
     let buildConfiguration: String
+    let outputCatalog: URL?
 
     init(arguments: [String]) throws {
-        guard arguments.count == 7 else {
+        guard arguments.count == 7 || arguments.count == 9 else {
             throw RibbonGeneratorError.invalidArguments
         }
         var values: [String: String] = [:]
         var index = 1
         while index + 1 < arguments.count {
             let key = arguments[index]
-            guard ["--project-root", "--config", "--configuration"].contains(key), values[key] == nil else {
+            guard ["--project-root", "--config", "--configuration", "--output-catalog"].contains(key), values[key] == nil else {
                 throw RibbonGeneratorError.invalidArguments
             }
             values[key] = arguments[index + 1]
@@ -73,12 +74,21 @@ private struct RibbonGeneratorOptions {
         self.projectRoot = URL(fileURLWithPath: projectRoot).standardizedFileURL
         self.configurationFile = URL(fileURLWithPath: configurationFile).standardizedFileURL
         self.buildConfiguration = buildConfiguration
+        if let output = values["--output-catalog"] {
+            guard !output.isEmpty else {
+                throw RibbonGeneratorError.invalidArguments
+            }
+            outputCatalog = URL(fileURLWithPath: output).standardizedFileURL
+        } else {
+            outputCatalog = nil
+        }
     }
 }
 
 private struct RibbonConfiguration {
     let sourceAppIconSet: URL
     let outputAppIconSet: URL
+    let outputCatalog: URL?
     let text: String
     let backgroundColor: NSColor
     let textColor: NSColor
@@ -104,7 +114,24 @@ private struct RibbonConfiguration {
         }
         let safeConfiguration = options.buildConfiguration
             .replacingOccurrences(of: "[^A-Za-z0-9_-]", with: "-", options: .regularExpression)
-        outputAppIconSet = sourceAppIconSet.deletingLastPathComponent()
+        outputCatalog = options.outputCatalog
+        let sourceCatalog = sourceAppIconSet.deletingLastPathComponent()
+        if let catalog = outputCatalog {
+            let source = sourceCatalog.resolvingSymlinksInPath().path
+            let destination = catalog.resolvingSymlinksInPath().path
+            guard sourceCatalog.pathExtension == "xcassets", catalog.pathExtension == "xcassets",
+                  source != destination,
+                  !destination.hasPrefix(source + "/"), !source.hasPrefix(destination + "/") else {
+                throw RibbonGeneratorError.unsafePath(catalog.path)
+            }
+            if FileManager.default.fileExists(atPath: catalog.path) {
+                let attributes = try catalog.resourceValues(forKeys: [.isSymbolicLinkKey, .isDirectoryKey])
+                guard attributes.isSymbolicLink != true, attributes.isDirectory == true else {
+                    throw RibbonGeneratorError.unsafePath(catalog.path)
+                }
+            }
+        }
+        outputAppIconSet = (outputCatalog ?? sourceCatalog)
             .appendingPathComponent("\(outputPrefix)-\(safeConfiguration).appiconset")
             .standardizedFileURL
         guard sourceAppIconSet.resolvingSymlinksInPath() != outputAppIconSet.resolvingSymlinksInPath(),
@@ -181,6 +208,26 @@ private final class JobsAppIconRibbonGenerator {
     }
 
     func run() throws {
+        if let catalog = configuration.outputCatalog {
+            try fileManager.createDirectory(at: catalog.deletingLastPathComponent(), withIntermediateDirectories: true)
+            let staging = catalog.deletingLastPathComponent()
+                .appendingPathComponent(".JobsAppIconRibbonCatalog-\(UUID().uuidString).xcassets")
+            defer {
+                try? fileManager.removeItem(at: staging)
+            }
+            // 完整资源副本与绶带一起发布，actool 继续取得其余图片、颜色和备用图标。
+            try fileManager.copyItem(at: configuration.sourceAppIconSet.deletingLastPathComponent(), to: staging)
+            try renderIcon(to: staging.appendingPathComponent(configuration.outputAppIconSet.lastPathComponent))
+            try replaceDirectory(staging: staging, output: catalog)
+            print("✔ 构建资源目录：\(catalog.path)")
+        } else {
+            try renderIcon(to: configuration.outputAppIconSet)
+        }
+        print("✔ AppIcon 绶带已生成：\(configuration.outputAppIconSet.path)")
+        print("  文案：\(configuration.text)｜背景：\(configuration.backgroundColor)｜字体：\(configuration.fontName)")
+    }
+
+    private func renderIcon(to output: URL) throws {
         let contentsURL = configuration.sourceAppIconSet.appendingPathComponent("Contents.json")
         let data = try Data(contentsOf: contentsURL)
         guard let json = try JSONSerialization.jsonObject(with: data) as? [String: Any],
@@ -188,7 +235,6 @@ private final class JobsAppIconRibbonGenerator {
             throw RibbonGeneratorError.missingSource(contentsURL.path)
         }
 
-        let output = configuration.outputAppIconSet
         let staging = output.deletingLastPathComponent()
             .appendingPathComponent(".JobsAppIconRibbon-\(UUID().uuidString).appiconset")
         try fileManager.createDirectory(at: staging, withIntermediateDirectories: false)
@@ -211,7 +257,11 @@ private final class JobsAppIconRibbonGenerator {
         guard !renderedFiles.isEmpty else {
             throw RibbonGeneratorError.missingSource(contentsURL.path)
         }
-        // macOS 原子交换两个目录；交换后 staging 持有旧输出，由 defer 清理。
+        try replaceDirectory(staging: staging, output: output)
+    }
+
+    private func replaceDirectory(staging: URL, output: URL) throws {
+        // macOS 原子交换两个目录；交换后 staging 持有旧输出，由调用方 defer 清理。
         let result: Int32
         if fileManager.fileExists(atPath: output.path) {
             result = renameatx_np(AT_FDCWD, staging.path, AT_FDCWD, output.path, UInt32(RENAME_SWAP))
@@ -221,8 +271,6 @@ private final class JobsAppIconRibbonGenerator {
         guard result == 0 else {
             throw RibbonGeneratorError.replacementFailed(errno)
         }
-        print("✔ AppIcon 绶带已生成：\(configuration.outputAppIconSet.path)")
-        print("  文案：\(configuration.text)｜背景：\(configuration.backgroundColor)｜字体：\(configuration.fontName)")
     }
 
     private func render(filename: String, outputDirectory: URL) throws {

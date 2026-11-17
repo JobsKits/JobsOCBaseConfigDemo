@@ -486,11 +486,11 @@ execute = lambda do |kind, name, configuration, args, evidence = {}|
   record['results'] << row
   record['updated_at'] = Time.now.iso8601
   save.call
-  assert_current_source.call
   puts "#{row['exit_status'].zero? ? 'PASS' : 'FAIL'} #{kind} #{name} #{configuration} (#{row['seconds']}s) #{log}"
   unless row['exit_status'].zero?
     File.readlines(log).select { |line| line.match?(/ld:|Undefined symbols|symbol\(s\) not found|error:|failed|fatal error|BUILD FAILED|TEST FAILED/) }.last(16).each { |line| puts line.strip }
   end
+  assert_current_source.call
   row['exit_status'].zero?
 end
 

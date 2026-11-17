@@ -78,6 +78,8 @@ ZFPlayerExtra@Pods/
 ├── README.md  # 当前自述
 ├── ZFPlayerExtra.h  # 根入口头文件
 ├── Core/  # 公开入口与核心实现，11 个文件
+├── Compatibility/  # 仅 ZFPlayer target 使用的公开 IPv6 转发头
+├── Tests/  # 隔离配置与源码指纹回归
 └── LICENSE  # 许可证文件
 ```
 
@@ -227,7 +229,8 @@ pod install --no-repo-update
 | `Core/` | 11 | 10 | 公共入口与核心实现；公开 / 私有头由 podspec 指定 |
 | `Support/`（无目录） | 0 | 0 | 仅供当前 Pod 内部实现，按实际 subspec / private header 映射 |
 | `Resource/`（无目录） | 0 | 0 | 非代码资源；按 resources / resource_bundles 和排除规则安装 |
-| `Tests/`（无目录） | 0 | 0 | 只由独立测试目标或回归 harness 使用，不进入生产 source_files |
+| `Compatibility/` | 1 | 1 | preserve_paths 保留；只由宿主 ZFPlayer 的头搜索路径消费，不作为本 Pod 公开头 |
+| `Tests/` | 1 | 0 | 只由独立测试目标或回归 harness 使用，不进入生产 source_files |
 
 `Core` 的物理目录不等于所有头文件均公开；`Support` 和测试 fixture 不作为 App 或其它 Pod 的稳定消费入口。根聚合头与 `public_header_files` 是外部引用依据。
 
@@ -235,7 +238,7 @@ pod install --no-repo-update
 
 ## <span id="jobs-toc-heading-23" data-jobs-toc="v2">十二、本轮单元验证 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a></span><!-- jobs-toc:heading-end -->
 
-当前结果：**Debug / Release 单 Pod 编译已完成；本 Pod 无独立 Stability 回归；整体验收记录见根 [JobsByPods升级实施与编译验证.md](<../../项目相关报告/JobsByPods升级实施与编译验证.md>)**。生产源码、测试源码、资源与工程配置的指纹一致且命令真实退出成功，才可复用对应验证记录。
+历史批次的 Debug / Release 单 Pod 编译证据保留；本批公开 IPv6 兼容已通过7项配置／指纹回归和锁版官方源码的真实 Clang 复验，完整宿主构建以本批提交对应的远端回执为准。本 Pod 无独立 Stability 回归；整体历史记录见根 [JobsByPods升级实施与编译验证.md](<../../项目相关报告/JobsByPods升级实施与编译验证.md>)。生产源码、测试源码、资源与工程配置的指纹一致且命令真实退出成功，才可复用对应验证记录。
 
 该 Pod 维持既有内核，纳入统一逐 Pod 和主工程编译；没有以新增代码数量作为升级验收依据。
 
@@ -250,5 +253,11 @@ ruby ScriptsByPods/自动化测试相关脚本/jobs_pods_stability_verify.rb/job
 当前没有 `Stability` test_spec；单独 Pod 的编译覆盖不能等同于行为测试通过，集成场景由宿主验收。
 
 运行前应已安装工程依赖；runner 的 `--phase pods` 默认分别编译 Debug / Release，`--phase tests` 默认运行 Debug（JobsOCSnowflake 默认 Debug / Release），并将命令、源码指纹、日志和退出码保存到工程 `work/JobsPodsStability/`。如需固定输出目录，使用 runner 的 `--output`。
+
+**Xcode 27 的公开 IPv6 入口兼容**
+
+锁定的 [ZFPlayer 4.1.4](https://github.com/renzifeng/ZFPlayer/blob/4.1.4/ZFPlayer/Classes/Core/ZFReachabilityManager.m)仍直接导入 `netinet6/in6.h`；当前 Darwin SDK 要求从公开 `netinet/in.h` 取得 IPv6 声明。宿主 [Podfile](../../Podfile) 的 `configure_zfplayer_public_ipv6_header` 只向 `ZFPlayer` target 的 Debug／Release 头搜索路径前置本模块 [Compatibility](./Compatibility/netinet6/in6.h)，该自有头仅转发到公开入口。保留既有路径、modules 与诊断配置，不改第三方源码；`preserve_paths` 随包保留此头，它也参与宿主源码指纹。
+
+从工程根目录执行 `ruby JobsByPods/ZFPlayerExtra@Pods/Tests/public_ipv6_compat_regression.rb` 可检查精确 target 范围、幂等、原路径保留、诊断不变及头文件修改使指纹失效。锁版官方完整 `.m/.h` 在当前 Simulator SDK 的原样失败与该真实自有头通过另有 Clang 实编译证据；旧 OC 的 ZF target 当前关闭 modules，编译合同不同，本轮未跨改其它宿主。
 
 <a id="🔚" href="#前言" style="font-size:17px; color:green; font-weight:bold;">我是有底线的➤点我回到首页</a>

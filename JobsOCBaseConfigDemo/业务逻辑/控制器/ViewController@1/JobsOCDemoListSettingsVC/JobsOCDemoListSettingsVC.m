@@ -318,9 +318,7 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
         self.setShowsSuspendTimeButton(!self.showsSuspendTimeButton());
         (self.showsSuspendTimeButton() ? @"悬浮时间按钮已显示".jobsTr() : @"悬浮时间按钮已隐藏".jobsTr()).toast();
     }else if (item == JobsOCDemoListSettingItemTheme){
-        BOOL dark = !self.demoListDarkModeEnabled();
-        self.setDemoListDarkModeEnabled(dark);
-        (dark ? @"主题已切换：黑夜".jobsTr() : @"主题已切换：白天".jobsTr()).toast();
+        [self jobs_presentThemeSelection];
     }else if (item == JobsOCDemoListSettingItemSideDrawerMode){
         BOOL fixed = ![NSUserDefaults.standardUserDefaults boolForKey:@"JobsOCDemoSideDrawerFixed"];
         [NSUserDefaults.standardUserDefaults setBool:fixed forKey:@"JobsOCDemoSideDrawerFixed"];
@@ -641,6 +639,9 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     return ^NSString *{
         @jobs_strongify(self)
         if (!self) return nil;
+        if (JobsThemeCenter.shared.followingSystem) {
+            return @"主题切换：跟随系统".jobsTr();
+        }
         return self.demoListDarkModeEnabled() ? @"主题切换：黑夜".jobsTr() : @"主题切换：白天".jobsTr();
     };
 }

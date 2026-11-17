@@ -1,0 +1,23 @@
+2026-11-17 10:11:14.794775+0800 JobsOCRNativeUITests-Runner[78483:4227173] JOBS_THEME_UI_PROOF following=1 dark=0 actual=主题切换：跟随系统, 主题切换：白天
+2026-11-17 10:11:14.864122+0800 JobsOCRNativeUITests-Runner[78483:4227173] JOBS_THEME_APPEARANCE_DARK_new-oc
+2026-11-17 10:11:18.996368+0800 JobsOCRNativeUITests-Runner[78483:4227173] JOBS_THEME_UI_PROOF following=1 dark=1 actual=主题切换：跟随系统, 主题切换：黑夜
+2026-11-17 10:11:20.965691+0800 JobsOCRNativeUITests-Runner[78483:4227173] JOBS_THEME_APPEARANCE_LIGHT_new-oc
+2026-11-17 10:11:25.096879+0800 JobsOCRNativeUITests-Runner[78483:4227173] JOBS_THEME_UI_PROOF following=0 dark=1 actual=主题切换：黑夜
+2026-11-17 10:11:28.169160+0800 JobsOCRNativeUITests-Runner[78483:4227173] JOBS_THEME_UI_PROOF following=0 dark=0 actual=主题切换：白天
+2026-11-17 10:11:43.946335+0800 JobsOCRNativeUITests-Runner[78483:4227173] JOBS_THEME_UI_PROOF following=1 dark=0 actual=主题切换：跟随系统, 主题切换：白天
+Test Case '-[JobsOCRNativeUITests testNewThreeThemeUI]' passed (49.362 seconds).
+	 Executed 1 test, with 0 failures (0 unexpected) in 49.362 (49.367) seconds
+	 Executed 1 test, with 0 failures (0 unexpected) in 49.362 (49.367) seconds
+	 Executed 1 test, with 0 failures (0 unexpected) in 49.362 (49.368) seconds
+** TEST EXECUTE SUCCEEDED **
+Test Case '-[JobsOCBaseConfigDemoTests testBluetoothCellFollowsThemeWithoutReload]' passed (0.034 seconds).
+Test Case '-[JobsOCBaseConfigDemoTests testLegacyThemeRawNamesRemainAvailable]' passed (0.075 seconds).
+2026-11-17 10:09:22.056352+0800 JobsOCBaseConfigDemo[75212:4218638] JOBS_THEME_PROOF following=1 raw=light scene=2 window=1 effective=dark
+2026-11-17 10:09:23.073232+0800 JobsOCBaseConfigDemo[75212:4218638] JOBS_THEME_PROOF following=1 raw=light scene=1 window=1 effective=light
+2026-11-17 10:09:24.090573+0800 JobsOCBaseConfigDemo[75212:4218638] JOBS_THEME_PROOF following=1 raw=light scene=2 window=1 effective=dark
+Test Case '-[JobsOCBaseConfigDemoTests testSystemThemeFollowsSceneAboveWindowOverride]' passed (3.081 seconds).
+Test Case '-[JobsOCBaseConfigDemoTests testThemeSelectionPersistsWithoutLosingSystemMode]' passed (0.042 seconds).
+	 Executed 4 tests, with 0 failures (0 unexpected) in 3.232 (3.236) seconds
+	 Executed 4 tests, with 0 failures (0 unexpected) in 3.232 (3.237) seconds
+	 Executed 4 tests, with 0 failures (0 unexpected) in 3.232 (3.237) seconds
+** TEST EXECUTE SUCCEEDED **

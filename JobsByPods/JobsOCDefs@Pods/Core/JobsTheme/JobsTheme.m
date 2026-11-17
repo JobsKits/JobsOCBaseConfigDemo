@@ -26,6 +26,7 @@ JobsThemeImageKey const JobsThemeImageKeyThemeToggle = @"theme.toggle";
 NSNotificationName const JobsThemeDidChangeNotification = @"JobsThemeDidChangeNotification";
 
 static NSString *const JobsThemeDefaultsKey = @"JobsTheme.currentStyle";
+static NSString *const JobsThemeFollowingSystemDefaultsKey = @"JobsTheme.followingSystem";
 static NSString *const JobsThemeErrorDomain = @"JobsThemeErrorDomain";
 static const void *JobsThemeColorKeyAssociatedKey = &JobsThemeColorKeyAssociatedKey;
 static const void *JobsThemeImageKeyAssociatedKey = &JobsThemeImageKeyAssociatedKey;
@@ -40,9 +41,12 @@ static void JobsThemeSwizzle(Class cls, SEL originalSelector, SEL swizzledSelect
 @interface JobsThemeCenter ()
 
 @property(nonatomic, copy, readwrite) JobsThemeStyle currentStyle;
+@property(nonatomic, assign, readwrite, getter=isFollowingSystem) BOOL followingSystem;
 @property(nonatomic, strong) NSDictionary<NSString *, NSDictionary *> *themes;
 @property(nonatomic, strong) NSBundle *resourceBundle;
 @property(nonatomic, strong) NSMapTable<NSObject *, NSMutableDictionary<NSString *, JobsThemeBindingBlock> *> *bindings;
+@property(nonatomic, strong) NSHashTable<UIWindowScene *> *observedScenes API_AVAILABLE(ios(13.0));
+@property(nonatomic, assign) UIUserInterfaceStyle systemInterfaceStyle;
 
 @end
 
@@ -102,11 +106,106 @@ static void JobsThemeSwizzle(Class cls, SEL originalSelector, SEL swizzledSelect
         _currentStyle = JobsThemeStyleLight;
         _resourceBundle = NSBundle.mainBundle;
         _bindings = [NSMapTable weakToStrongObjectsMapTable];
+        _systemInterfaceStyle = UIUserInterfaceStyleLight;
+        if (@available(iOS 13.0, *)) {
+            _observedScenes = NSHashTable.weakObjectsHashTable;
+            [NSNotificationCenter.defaultCenter addObserver:self
+                                                   selector:@selector(systemAppearanceDidChange:)
+                                                       name:UISceneDidActivateNotification
+                                                     object:nil];
+        }
+        [NSNotificationCenter.defaultCenter addObserver:self
+                                               selector:@selector(systemAppearanceDidChange:)
+                                                   name:UIApplicationDidBecomeActiveNotification
+                                                 object:nil];
     };return self;
 }
 
 -(BOOL)isDarkMode {
-    return [self.currentStyle isEqualToString:JobsThemeStyleDark];
+    return [self.effectiveStyle isEqualToString:JobsThemeStyleDark];
+}
+
+-(void)dealloc {
+    [NSNotificationCenter.defaultCenter removeObserver:self];
+}
+
+-(JobsThemeStyle)effectiveStyle {
+    if (self.followingSystem) {
+        return self.systemInterfaceStyle == UIUserInterfaceStyleDark
+            ? JobsThemeStyleDark
+            : JobsThemeStyleLight;
+    }
+    return self.currentStyle;
+}
+
+-(void)systemAppearanceDidChange:(NSNotification *)notification {
+    [self refreshSystemAppearance];
+}
+
+-(instancetype)refreshSystemAppearance {
+    if (!NSThread.isMainThread) {
+        @jobs_weakify(self)
+        dispatch_async(dispatch_get_main_queue(), ^{
+            @jobs_strongify(self)
+            [self refreshSystemAppearance];
+        });
+        return self;
+    }
+    JobsThemeStyle previousEffectiveStyle = self.effectiveStyle;
+    if (@available(iOS 13.0, *)) {
+        UIWindowScene *preferredScene = nil;
+        for (UIScene *scene in UIApplication.sharedApplication.connectedScenes) {
+            if (![scene isKindOfClass:UIWindowScene.class]) {
+                continue;
+            }
+            UIWindowScene *windowScene = (UIWindowScene *)scene;
+            if (@available(iOS 17.0, *)) {
+                if (![self.observedScenes containsObject:windowScene]) {
+                    [self.observedScenes addObject:windowScene];
+                    @jobs_weakify(self)
+                    [windowScene registerForTraitChanges:@[UITraitUserInterfaceStyle.class]
+                                            withHandler:^(id<UITraitEnvironment> environment,
+                                                          UITraitCollection *previousTraits) {
+                        @jobs_strongify(self)
+                        [self refreshSystemAppearance];
+                    }];
+                }
+            }
+            if (scene.activationState != UISceneActivationStateForegroundActive &&
+                scene.activationState != UISceneActivationStateForegroundInactive) {
+                continue;
+            }
+            if (!preferredScene || scene.activationState == UISceneActivationStateForegroundActive) {
+                preferredScene = windowScene;
+            }
+            if (scene.activationState == UISceneActivationStateForegroundActive &&
+                [windowScene.windows indexOfObjectPassingTest:^BOOL(UIWindow *window,
+                                                                    NSUInteger index,
+                                                                    BOOL *stop) {
+                    return window.isKeyWindow;
+                }] != NSNotFound) {
+                preferredScene = windowScene;
+                break;
+            }
+        }
+        // Scene 位于 window 样式覆盖之上，避免把手动外观误当作系统外观。
+        if (preferredScene.traitCollection.userInterfaceStyle != UIUserInterfaceStyleUnspecified) {
+            self.systemInterfaceStyle = preferredScene.traitCollection.userInterfaceStyle;
+        }
+    }
+    if (![previousEffectiveStyle isEqualToString:self.effectiveStyle]) {
+        self.applyBindings();
+        [self postAppearanceChange];
+    }
+    return self;
+}
+
+-(void)postAppearanceChange {
+    [NSNotificationCenter.defaultCenter postNotificationName:JobsThemeDidChangeNotification
+                                                      object:self
+                                                    userInfo:@{@"style": self.currentStyle,
+                                                               @"effectiveStyle": self.effectiveStyle,
+                                                               @"followingSystem": @(self.followingSystem)}];
 }
 
 -(BOOL)configureWithResource:(NSString *)name
@@ -145,7 +244,9 @@ static void JobsThemeSwizzle(Class cls, SEL originalSelector, SEL swizzledSelect
     self.byThemes(themes);
     self.byResourceBundle(bundle);
     NSString *savedStyle = [NSUserDefaults.standardUserDefaults stringForKey:JobsThemeDefaultsKey];
+    [self refreshSystemAppearance];
     self.byCurrentStyle(themes[savedStyle] ? savedStyle : defaultTheme);
+    self.followingSystem = [NSUserDefaults.standardUserDefaults boolForKey:JobsThemeFollowingSystemDefaultsKey];
     self.applyBindings();
     return YES;
 }
@@ -163,17 +264,39 @@ static void JobsThemeSwizzle(Class cls, SEL originalSelector, SEL swizzledSelect
                 self.setStyle(style);
             });return self.currentStyle;
         }
-        if (!self.themes[style] || [self.currentStyle isEqualToString:style]) {
+        [self refreshSystemAppearance];
+        if (!self.themes[style] ||
+            ([self.currentStyle isEqualToString:style] && !self.followingSystem)) {
             return self.currentStyle;
         }
         self.currentStyle = style;
+        self.followingSystem = NO;
         [NSUserDefaults.standardUserDefaults setObject:style forKey:JobsThemeDefaultsKey];
+        [NSUserDefaults.standardUserDefaults setBool:NO forKey:JobsThemeFollowingSystemDefaultsKey];
         self.applyBindings();
-        [NSNotificationCenter.defaultCenter postNotificationName:JobsThemeDidChangeNotification
-                                                          object:self
-                                                        userInfo:@{@"style": style}];
+        [self postAppearanceChange];
         return self.currentStyle;
     };
+}
+
+-(instancetype)followSystem {
+    if (!NSThread.isMainThread) {
+        @jobs_weakify(self)
+        dispatch_async(dispatch_get_main_queue(), ^{
+            @jobs_strongify(self)
+            [self followSystem];
+        });
+        return self;
+    }
+    [self refreshSystemAppearance];
+    BOOL changed = !self.followingSystem;
+    self.followingSystem = YES;
+    [NSUserDefaults.standardUserDefaults setBool:YES forKey:JobsThemeFollowingSystemDefaultsKey];
+    if (changed) {
+        self.applyBindings();
+        [self postAppearanceChange];
+    }
+    return self;
 }
 
 -(JobsRetStrByVoidBlock _Nonnull)toggle{
@@ -204,7 +327,7 @@ static void JobsThemeSwizzle(Class cls, SEL originalSelector, SEL swizzledSelect
     return ^UIColor *_Nullable(NSString *_Nonnull key) {
         @jobs_strongify(self)
         if (!self) return nil;
-        NSDictionary *payload = self.themes[self.currentStyle];
+        NSDictionary *payload = self.themes[self.effectiveStyle];
         NSDictionary *colors = [payload[@"colors"] isKindOfClass:NSDictionary.class]
             ? payload[@"colors"]
             : nil;
@@ -233,7 +356,7 @@ static void JobsThemeSwizzle(Class cls, SEL originalSelector, SEL swizzledSelect
     return ^UIImage *_Nullable(__kindof NSString *_Nullable key) {
         @jobs_strongify(self)
         if (!self) return nil;
-        NSDictionary *payload = self.themes[self.currentStyle];
+        NSDictionary *payload = self.themes[self.effectiveStyle];
         NSDictionary *images = [payload[@"images"] isKindOfClass:NSDictionary.class]
             ? payload[@"images"]
             : nil;

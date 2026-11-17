@@ -286,4 +286,54 @@ Dir.mktmpdir('jobs-ribbon-regression-') do |root|
   abort 'Alias deleted input' unless File.exist?(File.join(generated, 'Contents.json'))
   abort 'Staging directories leaked' unless Dir.glob(File.join(root, '.JobsAppIconRibbon-*')).empty?
   puts 'PASS: first render, atomic replacement, missing image, traversal, unsafe prefix, alias, staging cleanup'
+
+  catalog = File.join(root, 'SourceAssets.xcassets')
+  FileUtils.mkdir_p(catalog)
+  File.write(File.join(input, 'Contents.json'), JSON.generate(contents))
+  FileUtils.cp_r(input, File.join(catalog, 'AppIcon.appiconset'))
+  File.write(File.join(catalog, 'Contents.json'), JSON.generate(info: { version: 1, author: 'Jobs' }))
+  FileUtils.mkdir_p(File.join(catalog, 'Other.imageset'))
+  FileUtils.cp(fixture_image, File.join(catalog, 'Other.imageset', 'image.png'))
+  snapshot = lambda do |directory|
+    Dir.glob(File.join(directory, '**', '*')).select { |path| File.file?(path) }.sort.to_h do |path|
+      [path.delete_prefix(directory + '/'), Digest::SHA256.file(path).hexdigest]
+    end
+  end
+  source_before = snapshot.call(catalog)
+  write_config.call('SourceAssets.xcassets/AppIcon.appiconset', 'JobsAppIconRibbon')
+  derived = File.join(root, 'Derived Build Output', 'Assets.xcassets')
+  2.times do
+    output, status = Open3.capture2e(executable, '--project-root', root, '--config', config, '--configuration', 'Debug', '--output-catalog', derived)
+    abort output unless status.success?
+    abort 'Build generation changed source assets' unless snapshot.call(catalog) == source_before
+    abort 'Other source assets were omitted' unless File.binread(File.join(derived, 'Other.imageset', 'image.png')) == File.binread(fixture_image)
+    abort 'Derived ribbon was not rendered' if Digest::SHA256.file(File.join(derived, 'JobsAppIconRibbon-Debug.appiconset', 'icon.png')).hexdigest == Digest::SHA256.file(fixture_image).hexdigest
+  end
+  accepted = snapshot.call(derived)
+  File.write(File.join(catalog, 'AppIcon.appiconset', 'Contents.json'), JSON.generate(contents.merge(images: [{ filename: 'missing.png' }])))
+  _, status = Open3.capture2e(executable, '--project-root', root, '--config', config, '--configuration', 'Debug', '--output-catalog', derived)
+  abort 'Invalid build input must fail' if status.success?
+  abort 'Failed catalog render replaced accepted output' unless snapshot.call(derived) == accepted
+  File.write(File.join(catalog, 'AppIcon.appiconset', 'Contents.json'), JSON.generate(contents))
+  _, status = Open3.capture2e(executable, '--project-root', root, '--config', config, '--configuration', 'Debug', '--output-catalog', catalog)
+  abort 'Source catalog alias must fail' if status.success?
+  abort 'Source catalog alias changed source' unless snapshot.call(catalog) == source_before
+  link = File.join(root, 'SourceAlias.xcassets')
+  File.symlink(catalog, link)
+  _, status = Open3.capture2e(executable, '--project-root', root, '--config', config, '--configuration', 'Debug', '--output-catalog', link)
+  abort 'Source symlink alias must fail' if status.success?
+  abort 'Source symlink alias changed source' unless snapshot.call(catalog) == source_before
+  script = File.join(pod_root, 'Scripts', 'JobsAppIconRibbon.sh')
+  output, status = Open3.capture2e(
+    { 'JOBS_APP_ICON_RIBBON_NONINTERACTIVE' => '1', 'JOBS_APP_ICON_RIBBON_PROJECT_DIR' => root,
+      'JOBS_APP_ICON_RIBBON_CONFIG_PATH' => config, 'BUILD_DIR' => File.join(root, 'Products'),
+      'CONFIGURATION' => 'Release', 'EFFECTIVE_PLATFORM_NAME' => '-iphonesimulator' },
+    '/bin/zsh', script
+  )
+  abort output unless status.success?
+  built = File.join(root, 'Products', 'JobsAppIconRibbonAssets', 'Release-iphonesimulator', 'Assets.xcassets')
+  abort 'Build wrapper did not use derived configuration/platform assets' unless File.file?(File.join(built, 'JobsAppIconRibbon-Release.appiconset', 'icon.png'))
+  abort 'Build wrapper changed source assets' unless snapshot.call(catalog) == source_before
+  abort 'Catalog staging directories leaked' unless Dir.glob(File.join(root, '**', '.JobsAppIconRibbonCatalog-*')).empty?
+  puts 'PASS: complete derived catalogs, source freeze, repeat build, atomic failure preservation, alias guards and actual build wrapper'
 end

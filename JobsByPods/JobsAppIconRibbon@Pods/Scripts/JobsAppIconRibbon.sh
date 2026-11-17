@@ -577,11 +577,17 @@ check_environment() {
 }
 # 调用 Swift 生成器创建当前环境的派生 AppIcon。
 generate_app_icon_ribbon() {
+  local -a output_arguments=()
+  if is_xcode_build_runtime && [[ -n "${BUILD_DIR:-}" ]]; then
+    local catalog="${BUILD_DIR}/JobsAppIconRibbonAssets/${BUILD_CONFIGURATION}${EFFECTIVE_PLATFORM_NAME:-}/Assets.xcassets"
+    output_arguments=(--output-catalog "$catalog")
+    log "构建产物目录：$catalog；源资源目录保持不变。"
+  fi
   env -u SDKROOT -u SDK_NAME -u PLATFORM_NAME -u EFFECTIVE_PLATFORM_NAME \
     xcrun --sdk macosx swift "$GENERATOR_PATH" \
     --project-root "$PROJECT_ROOT" \
     --config "$CONFIG_PATH" \
-    --configuration "$BUILD_CONFIGURATION" 2>&1 | tee -a "$LOG_FILE"
+    --configuration "$BUILD_CONFIGURATION" "${output_arguments[@]}" 2>&1 | tee -a "$LOG_FILE"
   local result=${pipestatus[1]}
   [[ $result -eq 0 ]] || { log "✖ AppIcon 绶带生成失败。"; return $result; }
   log "✔ AppIcon 绶带生成完成。"

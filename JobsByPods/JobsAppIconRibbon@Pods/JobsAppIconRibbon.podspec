@@ -17,7 +17,9 @@ environment ribbons while preserving the original icon assets.
   spec.script_phase = {
     :name => 'Generate AppIcon Environment Ribbon',
     :script => 'JOBS_APP_ICON_RIBBON_NONINTERACTIVE=1 /bin/zsh "${PODS_TARGET_SRCROOT}/Scripts/JobsAppIconRibbon.sh"',
-    :execution_position => :before_compile
+    :execution_position => :before_compile,
+    :output_files => ['$(BUILD_DIR)/JobsAppIconRibbonAssets/$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)/Assets.xcassets'],
+    :always_out_of_date => '1'
   }
 
   JobsPodspecKitForJobsAppIconRibbon.apply_standard_exclude_files(spec)

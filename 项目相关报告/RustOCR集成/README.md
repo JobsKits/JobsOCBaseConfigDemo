@@ -13,6 +13,7 @@
 - [三、验证边界](#validation)
 - [四、源码交付与本地编译](#source-delivery)
 - [五、整页阅读与相机输入](#ocr-ui-camera)
+- [六、三主题选择与验证](#jobs-toc-heading-7)
 
 </details>
 <!-- jobs-toc:end -->
@@ -93,5 +94,20 @@
 复制点击及toast与剪贴板内容分开验收：本任务专用模拟器实际 `pbpaste` 文字与识别text逐字相同（1326字符）；JSON复制结果可解析且与真实识别结果逐字段相同（35行）。本批未以toast代替剪贴板校验。iOS27的相机TCC弹窗有内外同ID按钮，测试夹具已用firstMatch正确处理并保留旧失败证据，没有关闭权限门禁或改App绕过系统授权。
 
 本机证据位于共享OCR工程 `work/Validation/OCRSourceUI`：`Apps/OCOld`／`Apps/OCNew`为冻结App；`AppSourceManifest.json`记录同源.h/.m和App顶层Mach-O／debug.dylib SHA；旧OC通过case在 `OCThemeCameraScrollFinal.xcresult`，新OC最终通过在 `OCNewFinalReview.xcresult`；`Screenshots`保留两端浅／深截图，`text-clipboard.txt`及`json-clipboard.json`为实际专用设备剪贴板证据。两个宿主源码.h/.m逐字一致。本批模拟器系统相机实际可打开，不能写成“相机不可用分支已实测”；真实拍摄照片、拒绝权限／硬件不可用、相册选择及完整十语／三主题／大字号矩阵仍待分别验收，旧证据不外推。
+
+## <span id="jobs-toc-heading-7" data-jobs-toc="v2">六、三主题选择与验证</span><!-- jobs-toc:heading-end -->
+
+| 资产 | 当前实现与默认 | 持久化／生命周期／验证 |
+| --- | --- | --- |
+| 唯一主题入口 | 导航主题与页面操作菜单明确提供白天、黑夜、跟随系统；设置页共用此选择器，当前选项有勾选标记 | 沿用全局主题；未保存偏好仍采用主题包默认白天；两端中文三选一、当前项勾选及冷启动保留已实测 |
+| 选择与有效外观 | `followingSystem`保存独立选择kind，`currentStyle`保留任意legacy raw（包括system及任意前缀）；`effectiveStyle`解析实际外观，颜色、图片和`isDarkMode`读有效外观 | 沿用`JobsTheme.currentStyle`原raw，新增`JobsTheme.followingSystem`布尔kind；setStyle始终选具体主题，followSystem显式选系统；系统变色不回写raw；新旧OC当前4项真实测试均已通过同名system／四种前缀冷恢复 |
+| 系统响应 | iOS17+订阅真实UIWindowScene的UserInterfaceStyle；较早系统复用SceneDelegate的trait回调，回前台重校准 | 从Scene取外观，避免window强制样式反馈；手动模式保持固定；两端生产XCTest与iOS27.2模拟器设备外观翻转通过；iOS13–16实际设备仍待验 |
+| 文案与回归 | 新增1键覆盖12份原词库，保留十种要求语言及原fil／fil-PH；两个宿主各补选择持久化和Scene高于window覆盖的真实XCTest | 12份词库语法与键唯一性通过；当前两端各4项真实XCTest通过，完整十语／大字号矩阵另验 |
+
+前批实际证据集中在共享OCR工程 `work/Validation/OCRSourceUI/ThemeModes`：旧OC `OCOldThemeModesFixed.xcresult`、新OC `OCNewThemeModesActual.xcresult` 各3项真实单位测试通过，涵盖选择持久化／未知值、Scene高于window样式覆盖、系统冷热切换、手动固定及既有蓝牙主题回归。新OC生产OCR三态UI用例43.896秒通过（`OCThemeSystemDevice.xcresult`内对应成功case）；旧OC发现原overlay动态selector的接收对象不匹配，已仅将该调用换成旧仓现有`addTapGR`安全DSL，真实重新链接App后完整UI用例45.350秒通过（`OCOldThemeSystemFinal.xcresult`），包含菜单内外点击与进程存活断言。原崩溃`.ips`和失败用例保留，不能用其代表最终结果。
+
+`device-appearance-actions.jsonl`与`device-appearance-final.jsonl`记录真实模拟器appearance命令及UTC时间；截图实看确认System随设备变暗、手动Dark在设备Light下保持，System冷重启仍勾选。`FinalThemeManifest.json`记录本批源码、测试源码、真实App MachO及证据身份。新OC原AppTests未继承Pods配置，本批只在任务副本为测试target挂现用Pods xcconfig，单独强链接已编译的生产App debug.dylib；没有修改分发工程的测试挂载。测试后专用设备恢复Light，未保留本批Scene override。真机、旧系统及完整十语／极大字号矩阵仍待分别验收。
+
+兼容收口复核：首轮将raw system当模式会占用既有自定义主题名称，已改为独立kind与显式followSystem；旧OC虽通过菜单AX选中断言，截图仍是白天，已实证并移除Debug／Release的固定UIUserInterfaceStyle=Light。旧45.350秒用例仅证明该批菜单与AX链路，不代表真实系统明暗通过。当前新OC修订的4项真实XCTest全部通过，覆盖App Info.plist无强制外观、四种legacy raw真实bundle冷恢复、同raw退出系统模式、旧保存值与蓝牙回归；当前生产App强化UI用例49.362秒通过，实际系统Light→Dark、手动Dark在系统Light保持、手动Light及System冷启动均有模式／有效外观断言。已实看当前System深浅两张PNG，背景分别为黑色与白色；菜单内选择、外点关闭及进程存活同时通过。旧OC当前对应4项测试和50.248秒UI亦已通过。本段优先于前批结果。随仓[主题证据与源码／产品哈希](./主题验收/manifest.json)及[实际黑夜截图](./主题验收/new-oc-system-dark.png)、[实际白天截图](./主题验收/new-oc-system-light.png)关联当前源码、真实App与测试源码；完整xcresult留在本任务稳定验收目录的`OCThemeModes-20261117`。新OC复用已编译Pods，只实际重编Jobs自有Defs／BaseUI变更、主App和独立测试target；没有修改第三方源码或分发测试挂载。测试已恢复设备Light，无本批Scene override。
 
 <a id="🔚" href="#前言">我是有底线的➤点我回到首页</a>

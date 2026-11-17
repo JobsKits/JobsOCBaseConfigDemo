@@ -312,6 +312,7 @@ fixture = lambda do |root|
     File.write(ENV['JOBS_BATCH_MUTATE'], 'changed input') if ENV['JOBS_BATCH_MUTATE']
     sleep ENV.fetch('JOBS_BATCH_SLEEP', '0').to_f
     puts '** BUILD SUCCEEDED **' unless ENV['JOBS_BATCH_EXIT']
+    puts 'error: synthetic batch compiler failure' unless ENV.fetch('JOBS_BATCH_EXIT', '0').to_i.zero?
     exit ENV.fetch('JOBS_BATCH_EXIT', '0').to_i
   RUBY
   mock.sub!('RUBY_EXECUTABLE', RbConfig.ruby)
@@ -370,7 +371,7 @@ Dir.mktmpdir('jobs batch（中文）-') do |folder|
   assert.call(status.success? && calls.size == 14, 'default individual mode did not run each Pod')
   assert.call(individual['results'].last(6).all? { |row| !row.key?('execution_mode') && row['seconds'].is_a?(Numeric) }, 'default individual receipt changed')
 
-  %w[failed timeout startup-timeout source-change].each do |scenario|
+  %w[failed timeout startup-timeout source-change failed-source-change].each do |scenario|
     test = fixture.call(File.join(folder, scenario))
     env = {}
     args = ['--batch-pods']
@@ -383,6 +384,9 @@ Dir.mktmpdir('jobs batch（中文）-') do |folder|
       args += ['--build-timeout', '0.1']
     when 'source-change'
       env['JOBS_BATCH_MUTATE'] = File.join(test[:root], 'JobsByPods', 'NativeOwned@Pods', 'NativeOwned.podspec')
+    when 'failed-source-change'
+      env['JOBS_BATCH_MUTATE'] = File.join(test[:root], 'JobsByPods', 'NativeOwned@Pods', 'NativeOwned.podspec')
+      env['JOBS_BATCH_EXIT'] = '65'
     end
     status, record, calls, message = run.call(test, args, env)
     timed_out = %w[timeout startup-timeout].include?(scenario)
@@ -401,11 +405,15 @@ Dir.mktmpdir('jobs batch（中文）-') do |folder|
     debug_command = command.is_a?(Array) && command.include?('-configuration') && command[command.index('-configuration') + 1] == 'Debug'
     assert.call(batches.size == 1 && rows.all? { |row| row['configuration'] == 'Debug' } && debug_command,
                 "#{scenario} runner attempted Release or lost the Debug command: #{details}")
-    expected = { 'failed' => 65, 'timeout' => 124, 'startup-timeout' => 124, 'source-change' => 75 }.fetch(scenario)
+    expected = { 'failed' => 65, 'timeout' => 124, 'startup-timeout' => 124, 'source-change' => 75, 'failed-source-change' => 75 }.fetch(scenario)
     assert.call(batch['exit_status'] == expected && batch['process_status_collected'], "#{scenario} exit status lost: #{details}")
     assert.call(batch['timed_out'] == true, "#{scenario} timeout evidence lost: #{details}") if timed_out
     assert.call(calls.empty?, "startup-timeout reached the mock command log: #{details}") if scenario == 'startup-timeout'
     assert.call(rows.none? { |row| row['kind'] == 'pod' && row['exit_status'] == 0 }, "#{scenario} fabricated a successful member: #{details}")
+    if scenario == 'failed-source-change'
+      assert.call(batch['process_exit_status'] == 65 && batch['source_consistent'] == false, 'Compiler and source-freeze failures must both remain recorded')
+      assert.call(message.include?('error: synthetic batch compiler failure') && message.include?('源码或工程配置在验证期间发生变化'), 'Source freeze hid the compiler diagnostic from the console')
+    end
   end
 
   test = fixture.call(File.join(folder, 'evidence'))

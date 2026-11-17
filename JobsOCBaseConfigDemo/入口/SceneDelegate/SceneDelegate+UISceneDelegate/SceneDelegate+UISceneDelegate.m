@@ -238,6 +238,7 @@ restoreInteractionStateWithUserActivity:(NSUserActivity *)stateRestorationActivi
 didUpdateCoordinateSpace:(id<UICoordinateSpace>)previousCoordinateSpace
 interfaceOrientation:(UIInterfaceOrientation)previousInterfaceOrientation
    traitCollection:(UITraitCollection *)previousTraitCollection {
+    [JobsThemeCenter.shared refreshSystemAppearance];
     if (@available(iOS 26.0, *)) {
         return;
     }

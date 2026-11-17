@@ -13,7 +13,6 @@
 #import <JobsBaseUI/UIButton+UIControlState.h>
 #import <JobsOCDSL/UIButton+DSL.h>
 
-static NSString *const JobsOCDemoThemeDirectActionIdentifier = @"JobsOCDemoThemeDirectAction";
 static NSInteger const JobsOCDemoThemeButtonTag = 0x4A54484D;
 
 static BOOL JobsOCIsDemoRootViewController(UIViewController *viewController) {
@@ -284,10 +283,7 @@ JobsKey(_jobs_demoThemeButton)
                     .jobsResetBtnBgCor(JobsClearColor)
                     .onClickBy(^(UIButton *sender) {
                         @jobs_strongify(self)
-                        if (!self.jobs_demoBusinessButtons().count) {
-                            JobsThemeCenter.shared.toggle();
-                            self.jobs_updateDemoTriggerPresentation();
-                        }else self.jobs_showDemoActionMenu(self.jobs_demoActionMenuOverlay() == nil);
+                        self.jobs_showDemoActionMenu(self.jobs_demoActionMenuOverlay() == nil);
                     })
                     .byAccessibilityLabel(@"切换全局主题")
                     .bySelected(JobsThemeCenter.shared.isDarkMode)
@@ -364,37 +360,33 @@ JobsKey(_jobs_demoActionMenuOverlay)
         if (!self) return;
         UIButton *button = Jobs_getAssociatedObject(_jobs_demoThemeButton);
         if (!button) return;
-        BOOL opensMenu = self.jobs_demoBusinessButtons().count > 0;
-        if (opensMenu) {
-            [JobsThemeCenter.shared unbindObject:button
-                                           slot:@"JobsBaseUI.themeButton.presentation"];
-            BOOL expanded = self.jobs_demoActionMenuOverlay() != nil;
-            UIImage *image = [UIImage systemImageNamed:expanded
-                ? @"ellipsis.circle.fill"
-                : @"ellipsis.circle"];
-            button
-                .normalStateImageBy(image)
-                .selectedStateImageBy(image)
-                .bySelected(NO);
-            button.byAccessibilityIdentifier(@"JobsOCDemoActionMenuTrigger");
-            button.accessibilityLabel = expanded
-                ? @"收起主题与页面操作".jobsTr()
-                : @"展开主题与页面操作".jobsTr();
-            return;
-        }
+        BOOL expanded = self.jobs_demoActionMenuOverlay() != nil;
+        UIImage *image = [UIImage systemImageNamed:expanded
+            ? @"ellipsis.circle.fill"
+            : @"ellipsis.circle"];
         button
-            .normalStateImageBy(JobsThemeImage(JobsThemeImageKeyThemeToggle))
-            .selectedStateImageBy(JobsThemeImage(JobsThemeImageKeyThemeToggle));
+            .normalStateImageBy(image)
+            .selectedStateImageBy(image)
+            .bySelected(NO)
+            .byAccessibilityIdentifier(@"JobsOCDemoActionMenuTrigger");
+        button.accessibilityLabel = expanded
+            ? @"收起主题与页面操作".jobsTr()
+            : @"展开主题与页面操作".jobsTr();
         [JobsThemeCenter.shared bindObject:button
                                      slot:@"JobsBaseUI.themeButton.presentation"
-                                    apply:^(__kindof UIButton *object,
-                                            JobsThemeCenter *center) {
-            object
-                .bySelected(center.isDarkMode)
-                .byAccessibilityIdentifier(JobsOCDemoThemeDirectActionIdentifier);
-            object.accessibilityLabel = center.isDarkMode
-                ? @"切换为白天".jobsTr()
-                : @"切换为黑夜".jobsTr();
+                                    apply:^(__kindof UIButton *object, JobsThemeCenter *center) {
+            NSString *effective = center.isDarkMode
+                ? @"主题切换：黑夜".jobsTr()
+                : @"主题切换：白天".jobsTr();
+            if (center.followingSystem) {
+                object.accessibilityValue = [NSString stringWithFormat:@"%@, %@",
+                    @"主题切换：跟随系统".jobsTr(), effective];
+            } else if ([center.currentStyle isEqualToString:JobsThemeStyleLight] ||
+                       [center.currentStyle isEqualToString:JobsThemeStyleDark]) {
+                object.accessibilityValue = effective;
+            } else {
+                object.accessibilityValue = center.currentStyle;
+            }
         }];
     };
 }
@@ -450,6 +442,11 @@ JobsKey(_jobs_demoActionMenuOverlay)
     };
 }
 
+-(instancetype)jobs_presentThemeSelection {
+    self.jobs_showDemoActionMenu(YES);
+    return self;
+}
+
 -(jobsByBOOLBlock _Nonnull)jobs_showDemoActionMenu{
     @jobs_weakify(self)
     return ^(BOOL show){
@@ -458,7 +455,7 @@ JobsKey(_jobs_demoActionMenuOverlay)
         UIView *overlay = self.jobs_demoActionMenuOverlay();
         if (overlay) overlay.byRemove();
         self.jobs_setDemoActionMenuOverlay(nil);
-        if (!show || !self.jobs_demoBusinessButtons().count) return;
+        if (!show) return;
         overlay = jobsMakeBaseView(^(__kindof BaseView * _Nullable view) {
             view
                 .byBgColor(JobsClearColor)
@@ -472,7 +469,7 @@ JobsKey(_jobs_demoActionMenuOverlay)
                     }
                 });
         });
-        NSInteger rowCount = self.jobs_demoBusinessButtons().count + 1;
+        NSInteger rowCount = self.jobs_demoBusinessButtons().count + 3;
         UIView *menuView = jobsMakeBaseView(^(__kindof BaseView * _Nullable view) {
             view
                 .byBgColor(JobsSecondarySystemBackgroundColor)
@@ -482,7 +479,7 @@ JobsKey(_jobs_demoActionMenuOverlay)
                 .byAdd(^(MASConstraintMaker *make) {
                     make.top.equalTo(overlay).offset(6);
                     make.right.equalTo(overlay).offset(-12);
-                    make.width.mas_equalTo(210);
+                    make.width.mas_equalTo(MIN(320, CGRectGetWidth(self.view.bounds) - 24));
                     make.height.mas_equalTo(rowCount * 44);
                 });
         });
@@ -500,17 +497,31 @@ JobsKey(_jobs_demoActionMenuOverlay)
         });
         overlay.tapGR.byCancelsTouchesInView(NO);
         self.jobs_setDemoActionMenuOverlay(overlay);
-        BOOL darkModeEnabled = JobsThemeCenter.shared.isDarkMode;
-        [self jobs_addDemoActionMenuRowToView:menuView
-                                        title:darkModeEnabled ? @"切换为白天".jobsTr() : @"切换为黑夜".jobsTr()
-                                        image:JobsThemeCenter.shared.resolvedImageForKey(
-                                            JobsThemeImageKeyThemeToggle)
-                                        index:0
-                                     rowCount:rowCount
-                                       action:^{
+        NSArray<JobsThemeStyle> *styles = @[JobsThemeStyleLight, JobsThemeStyleDark];
+        NSArray<NSString *> *titles = @[@"主题切换：白天".jobsTr(),
+                                       @"主题切换：黑夜".jobsTr(),
+                                       @"主题切换：跟随系统".jobsTr()];
+        [titles enumerateObjectsUsingBlock:^(NSString *title, NSUInteger index, BOOL *stop) {
             @jobs_strongify(self)
-            self.jobs_showDemoActionMenu(NO);
-            JobsThemeCenter.shared.toggle();
+            JobsThemeStyle style = index < styles.count ? styles[index] : nil;
+            BOOL selected = index == 2
+                ? JobsThemeCenter.shared.followingSystem
+                : (!JobsThemeCenter.shared.followingSystem &&
+                   [JobsThemeCenter.shared.currentStyle isEqualToString:style]);
+            [self jobs_addDemoActionMenuRowToView:menuView
+                                           title:title
+                                           image:[UIImage systemImageNamed:selected ? @"checkmark.circle.fill" : @"circle"]
+                                           index:index
+                                        rowCount:rowCount
+                                          action:^{
+                @jobs_strongify(self)
+                self.jobs_showDemoActionMenu(NO);
+                if (index == 2) {
+                    [JobsThemeCenter.shared followSystem];
+                } else {
+                    JobsThemeCenter.shared.setStyle(style);
+                }
+            }];
         }];
         [self.jobs_demoBusinessButtons() enumerateObjectsUsingBlock:^(UIButton *sourceButton,
                                                                     NSUInteger index,
@@ -520,7 +531,7 @@ JobsKey(_jobs_demoActionMenuOverlay)
                                             title:[self jobs_demoActionTitleForButton:sourceButton
                                                                                index:index]
                                             image:sourceButton.imageByState(sourceButton.jobs_effectiveState)
-                                            index:index + 1
+                                            index:index + 3
                                          rowCount:rowCount
                                            action:^{
                 @jobs_strongify(self)
@@ -571,6 +582,19 @@ JobsKey(_jobs_demoActionMenuOverlay)
                 make.height.mas_equalTo(44);
             });
     });
+    rowButton.titleLabel.numberOfLines = 0;
+    if (index < 3) {
+        rowButton.accessibilityIdentifier = @[@"JobsOCDemoThemeLightChoice",
+                                             @"JobsOCDemoThemeDarkChoice",
+                                             @"JobsOCDemoThemeSystemChoice"][index];
+        BOOL selected = index == 2
+            ? JobsThemeCenter.shared.followingSystem
+            : (!JobsThemeCenter.shared.followingSystem &&
+               [JobsThemeCenter.shared.currentStyle isEqualToString:@[JobsThemeStyleLight, JobsThemeStyleDark][index]]);
+        if (selected) {
+            rowButton.accessibilityTraits |= UIAccessibilityTraitSelected;
+        }
+    }
     if (index < rowCount - 1) {
         jobsMakeBaseView(^(__kindof BaseView * _Nullable view) {
             view

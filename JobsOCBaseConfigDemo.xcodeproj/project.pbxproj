@@ -13,6 +13,7 @@
 		ED67DD17E96F487CDFFD4C46 /* JobsOCBaseConfigDemoUITests.m in Sources */ = {isa = PBXBuildFile; fileRef = 1367FE9E27F6821172EED101 /* JobsOCBaseConfigDemoUITests.m */; };
 		F20000012F22000100C0DE01 /* JobsOCWidgetExtension.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = F20000042F22000100C0DE01 /* JobsOCWidgetExtension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		FD5160958FC5B3F4F6F55BCF /* JobsOCDeviceGuardLaunchTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 5C07B4BF400BC7367305831F /* JobsOCDeviceGuardLaunchTests.m */; };
+		C61E9C376157007E481087E3 /* DerivedAppIconAssets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 9A10B42CCD77F150E93607C9 /* DerivedAppIconAssets.xcassets */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -219,12 +220,14 @@
 		FD88D73D63326DDA5845DB29 /* run_regression.rb */ = {isa = PBXFileReference; lastKnownFileType = text.script.ruby; path = run_regression.rb; sourceTree = "<group>"; };
 		FE8E77987930D17D5B9111D9 /* JobsAPIRequestProtocolFixture.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = JobsAPIRequestProtocolFixture.m; sourceTree = "<group>"; };
 		FEB5A76B145481E5A94BBC3D /* Pods-JobsOCBaseConfigDemo.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-JobsOCBaseConfigDemo.release.xcconfig"; path = "Target Support Files/Pods-JobsOCBaseConfigDemo/Pods-JobsOCBaseConfigDemo.release.xcconfig"; sourceTree = "<group>"; };
+		9A10B42CCD77F150E93607C9 /* DerivedAppIconAssets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = DerivedAppIconAssets.xcassets; path = "$(BUILD_DIR)/JobsAppIconRibbonAssets/$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)/Assets.xcassets"; sourceTree = "<absolute>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
 		C50913CA2F85D89100F261DA /* Exceptions for "JobsOCBaseConfigDemo" folder in "JobsOCBaseConfigDemo" target */ = {
 			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
 			membershipExceptions = (
+				"其他/libs/图片资源文件/xcassets/Assets.xcassets",
 				"其他/配置info.plist/Info.plist.bak",
 				"其他/配置info.plist/README.md",
 				"其他/iOS模拟器/iOS模拟器.md",
@@ -1360,6 +1363,7 @@
 		C50913AA2F85D89000F261DA = {
 			isa = PBXGroup;
 			children = (
+				9A10B42CCD77F150E93607C9 /* DerivedAppIconAssets.xcassets */,
 				F71515152026111500000001 /* 项目相关报告 */,
 				C50913B52F85D89000F261DA /* JobsOCBaseConfigDemo */,
 				F20000082F22000100C0DE01 /* JobsOCWidgetExtension */,
@@ -1863,6 +1867,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C61E9C376157007E481087E3 /* DerivedAppIconAssets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

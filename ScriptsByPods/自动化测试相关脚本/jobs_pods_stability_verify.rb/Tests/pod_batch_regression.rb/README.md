@@ -20,6 +20,8 @@
 
 在隔离工程用替身 xcodebuild 验证批量覆盖、证据、缓存与失败边界；不安装或真实编译。
 
+包含真实成功、仅编译失败、仅源码漂移及两者同时失败的控制流检查；组合失败必须在 Console 同时保留编译错误与冻结提示，JSON 记录原进程65和冻结75，并确认不继续 Release。替身只用于执行器合同，不代替生产 Xcode 编译。
+
 ## <span id="jobs-toc-heading-2" data-jobs-toc="v2">一、用途与依赖 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a></span><!-- jobs-toc:heading-end -->
 
 - 运行时：[**Ruby**](https://www.ruby-lang.org/)；不因在 macOS 执行而使用 `【MacOS】` 前缀。

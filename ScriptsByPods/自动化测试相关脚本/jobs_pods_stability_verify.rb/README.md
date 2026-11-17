@@ -107,6 +107,8 @@ ruby ScriptsByPods/自动化测试相关脚本/jobs_pods_stability_verify.rb/Tes
 
 批量模式每配置保存一条 `kind=pod_batch` 的真实进程记录，只有这条记录持有批次耗时、命令和进程状态；`kind=pod` 的成员引用明确标记 `execution_mode=batch-member`、`seconds=null`，并关联同一 `batch_id`、target UUID、成员清单指纹和共享日志，不把整批耗时当成每个 Pod 的独立耗时。成员、Scheme、workspace、manifest 与成功进程证据共同校验后才能复用缓存或领取 README 结果；失败、超时、证据缺失、后来失败或成员变化均不能被旧成功掩盖。批量成员不会作为逐 Pod 独立构建的缓存。
 
+编译失败与源码漂移同时发生时，先保存两类真实状态并输出原编译错误摘要，再抛出冻结错误；保留 `process_exit_status` 和 `source_consistent=false`，总体仍以75拒绝领取结果，不继续 Release。原始错误不会再被末尾冻结异常遮住。本宿主的 AppIcon 自动构建改为 `BUILD_DIR` 中的完整派生 catalog，原始资源继续参与指纹，不借此放宽源码冻结。
+
 [源码枚举](./jobs_stability_sources.rb/jobs_stability_sources.rb)由 runner 与 README 回填工具共用。只排除 `JobsAppIconRibbon.config` 指定的原始 AppIcon 同目录下、当前输出前缀对应的 Debug / Release 派生 `appiconset`，避免 macOS / SDK 图像渲染差异触发源码漂移误报。原始 AppIcon、配置、生成器以及其它同名资源仍参与指纹；缺少有效配置时不排除任何图标。[指纹回归](./Tests/source_fingerprint_regression.rb/source_fingerprint_regression.rb)覆盖派生产物改写 / 增删与真实输入变更，GitHub Actions 在逐 Pod 构建前执行这些配置回归。
 
 ## <span id="jobs-toc-heading-4" data-jobs-toc="v2">三、验收结果与 README 同步 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a></span><!-- jobs-toc:heading-end -->

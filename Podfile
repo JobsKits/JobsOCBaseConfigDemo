@@ -4,6 +4,7 @@ ENV['COCOAPODS_DISABLE_STATS'] = 'true'
 require 'fileutils'
 require 'pathname'
 require 'securerandom'
+require 'shellwords'
 
 jobs_pod_install_guard_path = File.join(
   __dir__,
@@ -273,6 +274,18 @@ def patch_zfplayer_netinet6_private_header
   end
 
   Pod::UI.puts "[ZFPlayer] removed netinet6/in6.h imports from #{changed_count} files" if defined?(Pod::UI) && changed_count.positive?
+end
+
+# ZFPlayer 4.1.4 的旧 IPv6 include 经自有头转到 SDK 公开入口，不改第三方文件或诊断级别。
+def configure_zfplayer_public_ipv6_header(target)
+  return unless target.name == 'ZFPlayer'
+
+  compatibility = '$(PODS_ROOT)/../JobsByPods/ZFPlayerExtra@Pods/Compatibility'
+  target.build_configurations.each do |config|
+    existing = config.build_settings.fetch('HEADER_SEARCH_PATHS', '$(inherited)')
+    paths = existing.is_a?(Array) ? existing.dup : Shellwords.split(existing.to_s)
+    config.build_settings['HEADER_SEARCH_PATHS'] = ([compatibility] + paths).uniq
+  end
 end
 
 def patch_reactiveobjc_metamacros_header(installer)
@@ -573,6 +586,7 @@ post_install do |installer|
   pods_project = installer.pods_project
   protect_jobs_post_install_uuid_allocator(pods_project)
   pods_project.targets.each do |target|
+    configure_zfplayer_public_ipv6_header(target)
     target.build_configurations.each do |config|
       if target.name == 'JobsDebugPanel' && config.name == 'Debug'
         config.build_settings['GCC_PREPROCESSOR_DEFINITIONS'] = ['$(inherited)', 'DEBUG=1']

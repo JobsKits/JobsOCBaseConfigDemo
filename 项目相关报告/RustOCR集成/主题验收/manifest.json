@@ -1,0 +1,79 @@
+{
+  "repository": "/Users/jobs/Documents/GitHub/JobsOCBaseConfigDemo@ByPods",
+  "base_commit": "69b3fe54c1e283c4f392bc096e09356248e2328c",
+  "state": "theme-source-frozen-after-current-fourcase-and-ui-pass",
+  "generated_at": "2026-11-17T02:14:36Z",
+  "source_files": {
+    "JobsByPods/JobsOCDefs@Pods/Core/JobsTheme/JobsTheme.h": "ec2f18f618c5c06d9a75bbec02f4fdc5c67356a4c14d51c50b703983850d45b6",
+    "JobsByPods/JobsOCDefs@Pods/Core/JobsTheme/JobsTheme.m": "b53614a1ae4ca9ef6f43e656a59b271488ec54c1ff54f79d36380d1d367ccdf9",
+    "JobsByPods/JobsBaseUI@Pods/Support/UIKit/UIViewController/UIViewController+BaseNavigationBar/UIViewController+BaseNavigationBar.h": "40be9f357fc3a279f0482a66dfea7c2819334ce47a2fb2e1638bdb0eadde495e",
+    "JobsByPods/JobsBaseUI@Pods/Support/UIKit/UIViewController/UIViewController+BaseNavigationBar/UIViewController+BaseNavigationBar.m": "b33988158ef7b8eac3a017faa8ee8e363e8e8326b40bb4c30cc76e329c39c5f5",
+    "JobsOCBaseConfigDemo/入口/SceneDelegate/SceneDelegate+UISceneDelegate/SceneDelegate+UISceneDelegate.m": "65265e6f15020d586d127333bd2d518ad492607f30481ab885b759bfd0e7d610",
+    "JobsOCBaseConfigDemo/业务逻辑/控制器/ViewController@1/JobsOCDemoListSettingsVC/JobsOCDemoListSettingsVC.m": "9633f8a21bf4318efb4ae4166b1ff6a2feba2a006cf8c07c063eb11f05f1ac3e",
+    "JobsOCBaseConfigDemoTests/JobsOCBaseConfigDemoTests.m": "bf528d1dd1c2cfaa5e82029219459d7e20abdb8d7c7b4e8470762cb6da6213d7",
+    "README.md": "e7ff41c606d97d4199f4567217d48388ec2876ca7e6f355ec959304dd151cb12",
+    "项目相关报告/App骨架功能盘点.md": "1f14f44a320b643c110ed83226973b755cf6465df6cd92af5bcfbf3ac4014698",
+    "项目相关报告/RustOCR集成/README.md": "043a7b44ddf4ce6c3d2d5f4db3a10a122b8393f378e2236d5a1919be4311ea60",
+    "JobsOCBaseConfigDemo/其他/libs/语言包/de.lproj/Localizable.strings": "a1b185dba92dfaafabe73ccc555347f9209d25c85ad8c93d80cb8bc738dd007b",
+    "JobsOCBaseConfigDemo/其他/libs/语言包/zh-Hans.lproj/Localizable.strings": "29a7306d6cacb82ec3664dfa4e8803d21720385b689a5139316aee4f29c64fbf",
+    "JobsOCBaseConfigDemo/其他/libs/语言包/ja.lproj/Localizable.strings": "f96466559253c6e6577d76d65e86ab46a063aebc7a66f29b9ec9b4e24d91c04c",
+    "JobsOCBaseConfigDemo/其他/libs/语言包/en.lproj/Localizable.strings": "eb63a3560d63c936f1824c1e46ec650fa1242d5946db4ef5e027d177f86e00f7",
+    "JobsOCBaseConfigDemo/其他/libs/语言包/es.lproj/Localizable.strings": "b884b0ae9a13e148f56d4495f4b2ae4e68dcd2444a2086353be762de2ef6d81e",
+    "JobsOCBaseConfigDemo/其他/libs/语言包/ko.lproj/Localizable.strings": "6080d6a48f30554f77f987703c27ce02e727e08a806833408e6ca9c8a7738845",
+    "JobsOCBaseConfigDemo/其他/libs/语言包/fil.lproj/Localizable.strings": "a048bbdab7a870607a923482bfa0659aedb14a6b508aa34691f189952d16a377",
+    "JobsOCBaseConfigDemo/其他/libs/语言包/zh-Hant.lproj/Localizable.strings": "8eed6783938eea1a64b34a12ed7e08db1c9d39f4dd682e292a5414d47ec85959",
+    "JobsOCBaseConfigDemo/其他/libs/语言包/bo.lproj/Localizable.strings": "99c7029ed60d4013e313934bf34db19a8837ba90f0b9c12da8bbafd0610734f1",
+    "JobsOCBaseConfigDemo/其他/libs/语言包/ru.lproj/Localizable.strings": "e9b726c1698c79dd88a83202260ccf757c0dae340da881073d9ad0ccc63e1d6e",
+    "JobsOCBaseConfigDemo/其他/libs/语言包/fil-PH.lproj/Localizable.strings": "a048bbdab7a870607a923482bfa0659aedb14a6b508aa34691f189952d16a377",
+    "JobsOCBaseConfigDemo/其他/libs/语言包/fr.lproj/Localizable.strings": "dfd6ec495adf99b43e5ad5216c5494843e070206bb8144fa00312bf0215c11c4"
+  },
+  "app_products": {
+    "JobsOCBaseConfigDemo": "dc2d1c2eadc17d685422a0b75874169b665caa527f502b2206c26dd4fa29eda9",
+    "JobsOCBaseConfigDemo.debug.dylib": "227307a02228d9b0f05a7ae1b145c66603c39e000961af1e536a279bce412d70"
+  },
+  "test_product": {
+    "path": "/Users/jobs/.codex/visualizations/2026/11/15/native-home-menu/oc-new-dd/Build/Products/Debug-iphonesimulator/JobsOCBaseConfigDemo.app/PlugIns/JobsOCBaseConfigDemoTests.xctest/JobsOCBaseConfigDemoTests",
+    "sha256": "f1be8280b242e3d9332c0bc1079be218bc134016f41df4944df114d9d133f120"
+  },
+  "app_source_association": {
+    "handoff": "OCNewCIFix-20261117/ThemeRelink/app-test-handoff.json",
+    "handoff_sources_and_products": "all recorded SHA256 verified unchanged before execution",
+    "navigation_source_sha256": "b33988158ef7b8eac3a017faa8ee8e363e8e8326b40bb4c30cc76e329c39c5f5",
+    "build_scope": "Jobs-owned Defs and BaseUI/navigation recompiled and relinked; actual main App (373 TU) plus two test TU built; existing third-party Pods reused",
+    "ui_app_identity": "same installed debug dylib SHA as handoff; 227307a02228d9b0f05a7ae1b145c66603c39e000961af1e536a279bce412d70"
+  },
+  "results": {
+    "unit": {
+      "bundle": "OCNewKindFourCases.xcresult",
+      "passed": 4,
+      "failed": 0,
+      "duration_seconds": 3.232
+    },
+    "ui": {
+      "bundle": "OCNewKindSystemFinal.xcresult",
+      "passed": 1,
+      "failed": 0,
+      "duration_seconds": 49.362
+    },
+    "visual_review": "system-dark and system-light PNG opened and inspected; actual backgrounds black and white; System checkmark inspected",
+    "simulator": "F5B1D814-C644-471D-A995-75B26433F1D9 / iOS27.2",
+    "restored_appearance": "light"
+  },
+  "evidence_files": {
+    "JobsOCRNativeUITests.m.txt": "a2be2db6d8de6edf4ec00c65b1f40b39def38427a931a93803db15a3c717a909",
+    "device-appearance.jsonl": "106082d7a0c8fad4ca5dd5dbf23bd713365c1582c14f806e5e5e7b7cdb51b149",
+    "new-oc-manual-dark-device-light.png": "625670d9b74d36d9035954878fdd8de8faeb1e9554175a6a45884e43384877fe",
+    "new-oc-manual-light.png": "fe6e98fb449d02c182eadcd7813bdcb93f1bd7395a4ee0679102ac3421b1099a",
+    "new-oc-system-cold-launch-light.png": "15e607e45cb5cbec3e75105f5a9c2db4f400ffa79f73ad6b5d8d51f476b643a4",
+    "new-oc-system-dark.png": "f635f56b382faa0b4f27998e2535924f6ecb933d75c48ef21035ffdcc969d2db",
+    "new-oc-system-light.png": "fe6e98fb449d02c182eadcd7813bdcb93f1bd7395a4ee0679102ac3421b1099a",
+    "new-oc-system-selected-after-device-change.png": "37b14e920b05352ffee0f2db5d5d526b080c2033e24c8c72aaa271a1b1f1a282",
+    "new-oc-three-theme-menu.png": "6aa69b3b6aeb05a9e797dc83686c6c7e496d9ac834cf8fc04340d5d09b62c7b3",
+    "test-proof.log": "652c75186aca4fdacf41aeb3705b93fe3f631e2ff49e098ec3ee2fa904f89264"
+  },
+  "limitations": [
+    "iOS hardware, iOS13–16 runtime, full language and large text matrix unverified",
+    "new Rust mixed-script source snapshot not rebuilt by this theme-only App verification",
+    "local Simulator evidence does not establish GitHub Actions result"
+  ]
+}

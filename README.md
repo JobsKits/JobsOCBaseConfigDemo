@@ -6,6 +6,8 @@ App骨架资产（启动、导航、菜单、搜索、侧栏、分组、悬浮�
 
 首页“数据、网络与文本 → Rust 离线 OCR”提供独立图片识别 Demo，调用共享 Rust 核心，含内置样本、相册与拍照输入、紧凑开始／取消、整页滚动的文字／JSON结果和快捷复制。新 OC 通过 `JobsByPods/JobsRustOCR@Pods` 集成，旧 OC 在同一主 xcodeproj 内以原生静态库 target `JobsRustOCRLegacy` 单独编译桥接（隔离旧 C-only 前缀头），不新增 Pod；核心灵感及模型来源为 [**Indra OCR**](https://github.com/datalab-to/indra)，详细依赖、能力和当前验证边界见 [Rust OCR 集成资产盘点](./项目相关报告/RustOCR集成/README.md)。
 
+全局主题入口与设置页统一提供白天、黑夜、跟随系统三选一；沿用原偏好保存键，跟随系统按真实 Scene 外观更新，不覆盖用户选择。当前实现与本轮验证边界见[三主题盘点](./项目相关报告/RustOCR集成/README.md)。
+
 首页统一“功能实验室”，保留项目来源副标题。深蓝#1565C0／白字悬浮时间（对比5.75:1）按本地化内容和字体缩放自适应，长按拖动并吸附四边，短按进入[世界时钟](<./JobsOCBaseConfigDemo/业务逻辑/控制器/ViewController@1/JobsOCWorldClockVC/README.md>)；设备时区置顶，全球按实时UTC偏移各列代表城市，保留日期／星期／秒值／UTC偏移／IANA与系统夏令时。原生“12小时制”开关默认关并独立记忆，明确AM／PM，只影响世界页，首页仍为24小时；页面活跃时每秒刷新，离开／后台停止。本轮两工程arm64构建、中文浅色物理手势／格式切换／滚动保持／重启恢复已验证，主链实测对应新final5／旧final3；末尾返回文案补线新final6／旧final4已构建，用户清理设备后已在新共享设备完成旧端中文返回文案与实际返回短回归。末尾纯颜色增量新final7／旧final5已构建，实际截图两端均为#1565C0。分项证据与待验范围见资产表SKEL-14／SKEL-28。当前时区使用顶部独立圆角强调卡片，大号时间随系统字号，城市／IANA／UTC偏移与日期星期完整保留；制式开关左标题随当前值显示“24小时制”或“12小时制”，默认24小时，开启明确AM／PM。
 
 设置中的“返回首页时收缩分组”默认开启并保存在UserDefaults；仅具体Demo返回首页时收缩，关闭后优先保留原展开与滚动位置，不被旧“回顶部并刷新”清空。设置／搜索／世界时钟返回不触发收缩，手动展开收缩仍可用。开屏实际呈现期间浮钟隐藏并停止接收触摸，真实结束且首页可交互后恢复，原全屏拖动范围不变。首页时间Timer按每首页实例唯一标识注册，避免开屏暂停或销毁干扰另一首页；验证阶段与待验矩阵见骨架盘点。
@@ -631,12 +633,14 @@ CodeGraph 完整体检覆盖系统 Shell / curl / Git / CLT、Brew 版本 / 配�
 
 **构建阶段与构建后动作**
 
+新工程 `post_install` 的 `configure_zfplayer_public_ipv6_header` 只为 `ZFPlayer` target 前置 [自有公开 IPv6 兼容头](./JobsByPods/ZFPlayerExtra@Pods/Compatibility/netinet6/in6.h)，保留 modules、诊断与其它 target 配置，不修改第三方源码；该头随仓保留并参与源码冻结，配置及验证见 [ZFPlayerExtra](./JobsByPods/ZFPlayerExtra@Pods/README.md)。重新安装依赖后生效，旧工程现有编译合同未因此改变。
+
 挂载位置可直接查看[主工程 Build Phases](./JobsOCBaseConfigDemo.xcodeproj/project.pbxproj)和[共享 Scheme](./JobsOCBaseConfigDemo.xcodeproj/xcshareddata/xcschemes/JobsOCBaseConfigDemo.xcscheme)。
 
 | 时机 / 阶段 | 脚本 / 配置入口 | 实际行为与产物 |
 | --- | --- | --- |
 | 构建中：`Package Markdown Documents` | 对应工程的 `JobsMarkdownPackager.rb` | 将项目文档与相对资源打入 App 内的 `JobsMarkdownDocuments.bundle`，供 Markdown Demo 离线阅读；图片仅允许主工程 `其他/libs/` 或自建本地 Pod 内资源，第三方排除优先，正文和非图片附件保留；本地 Pod 形态由 Pod 脚本挂载，直接集成形态由主工程 Build Phase 挂载 |
-| 环境绶带生成 | 新工程 `JobsByPods/JobsAppIconRibbon@Pods/JobsAppIconRibbon.config` 与同包脚本；老工程 `Libs/构建工具/JobsAppIconRibbon` | 新工程在 `JobsByPods` 中展示并保留 Pod `script_phase`；老工程在 `Libs/构建工具` 中展示并保留主 App Build Phase；配置与脚本按工具真实位置解析，原 AppIcon 只读 |
+| 环境绶带生成 | 新工程 [JobsAppIconRibbon](./JobsByPods/JobsAppIconRibbon@Pods/README.md)配置与同包脚本；老工程 `Libs/构建工具/JobsAppIconRibbon` | 新工程 Pod `script_phase` 在资源编译前同步生成完整 `$(BUILD_DIR)/JobsAppIconRibbonAssets/$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)/Assets.xcassets`，主 App Resources实际读取该派生目录；源资源只读、按配置／平台隔离、每次生成、失败阻断构建，日志在系统临时目录 `JobsAppIconRibbon.log`。独立手动生成仍保留同级输出合同；老工程原挂载保持。迁移新工程须同步派生资源输入与 Pod 脚本，不依赖本机绝对路径 |
 | 主 App 最后一个 Build Phase：`Save Build IPA` | [save_device_ipa_after_build.command](./ScriptsByPods/自动化测试相关脚本/save_device_ipa_after_build.command/save_device_ipa_after_build.command) / [使用说明](./ScriptsByPods/自动化测试相关脚本/save_device_ipa_after_build.command/README.md) | 真机生成 `./build/真机.ipa`，模拟器生成 `./build/模拟器.ipa`；打包成功后先清空 build 全部内容，只保留本次包 |
 | Scheme Build 开始 / 结束 | `XBT Build Timer Start / End` → 外部 `xbt-build-hook.sh start / end` | 记录开始、结束时间和耗时；写入用户目录下的 `.xcode-build-timer/state/` 状态及历史日志 |
 

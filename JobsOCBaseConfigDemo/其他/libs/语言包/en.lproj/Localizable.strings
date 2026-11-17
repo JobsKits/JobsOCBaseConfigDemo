@@ -1756,3 +1756,5 @@
 "OCR：设备无法使用摄像头" = "The camera is unavailable on this device.";
 "OCR：请在设置中允许访问相机" = "Allow camera access in system Settings.";
 "OCR：相机照片读取失败" = "Could not load the captured photo. Try again.";
+
+"主题切换：跟随系统" = "Theme: Follow system";
