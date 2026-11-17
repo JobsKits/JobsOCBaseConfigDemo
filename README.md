@@ -583,6 +583,8 @@ JobsIconfont 只暴露语义资源，远程地址、字体名称与 Unicode 均�
 
 本工程通过 [**CocoaPods**](https://cocoapods.org/) 钩子、[**Xcode**](https://developer.apple.com/xcode) Build Phases 和共享 Scheme 挂载脚本。安装前置任务、安装收尾、目标构建阶段与整个 Scheme 的构建后动作分别触发，不能统一视为“编译成功后执行”。
 
+`Podfile.deps`在App内显式声明真实单元测试target，并用`inherit! :search_paths`继承既有Pods编译上下文，不新增依赖或版本。`Podfile`安装收尾仅对真实Tests的同名配置合并App显式头／framework／library搜索设置，保留Tests已有值、继承变量与路径顺序。主工程组件验收在实际测试构建前核对安装生成的Tests xcconfig及App自有搜索上下文，缺失时明确要求重新安装依赖；`--audit-only`仍可在未安装Pods时只读盘点，不关闭PCH或跳过测试。
+
 **GitHub / Gitee 提交策略**
 
 若当前工程启用 GitHub / Gitee 双远端快照，则由 `byPods` 保留完整历史，由 `Gitee@snapshot` 从零点快照向 Gitee 推送当前提交；提交 / 推送 hook、Sourcetree 目标分支、标签边界和迁移入口以工程内双远端脚本 README 为准。未启用双远端时不新增该配置。

@@ -182,4 +182,8 @@ target 'JobsOCBaseConfigDemo' do
   database                    # 数据库相关
   byJobs                      #
   flutterPods                 # Flutter框架
+
+  target 'JobsOCBaseConfigDemoTests' do
+    inherit! :search_paths
+  end
 end

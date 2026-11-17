@@ -28,6 +28,7 @@
 - 验证临时工程只替换正常 `main.m`，保留生产实现；原工程、源码和原签名输入逐字节不变，生成的编译输入必须是存在的绝对路径。
 - 验证默认开启且没有例外对象的合法同步组和普通 Sources 入口；多个正常入口或未解析 Bundle ID 必须拒绝生成可执行计划。
 - 检查临时宿主权限配置、Info.plist、共享 Scheme 和 workspace。配置检查不代替实际构建产物的签名与 Mach-O 权限验收。
+- 安装后测试配置门禁覆盖缺失Tests base、缺失文件、空／仅继承的依赖设置及有效配置SHA；逐项拒绝丢失App自有三类搜索上下文，合并后成功。合并回归覆盖唯一真实Tests、同名配置、空值、变量、含空格路径、已有顺序、幂等及其他target／签名／链接设置不变；未安装Pods的`--audit-only`仍只读成功。
 
 ## <span id="jobs-toc-heading-3" data-jobs-toc="v2">二、运行方式 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a></span><!-- jobs-toc:heading-end -->
 

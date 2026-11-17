@@ -105,6 +105,8 @@ ruby ScriptsByPods/自动化测试相关脚本/jobs_pods_stability_verify.rb/Tes
 
 旧OC主工程集成形态保留全部52组件、Debug／Release共享准备及原测试／harness。CI现有调用显式使用`--build-timeout 3600`，每次准备最多60分钟、整个测试步骤仍受120分钟总期限约束；本地默认仍为1800秒。`build-for-testing`保留完整阶段输出与`-showBuildTimingSummary`，每60秒向同一日志追加有界自有进程快照；实际测试继续使用`-quiet`和原期限。该诊断用于区分持续构建、链接与停滞，预算调整本身不证明构建已通过。可选采样的默认关闭、父子／旁观隔离、超时／退出保持与采样故障另有4项真实进程回归，总计16项；详情见[命令执行器](./jobs_stability_command.rb/README.md)。
 
+实际集成测试准备还核对`Podfile.deps`声明的Tests继承上下文：`pod install`须生成对应Tests base xcconfig，且含有效Pods根、构建目录、头和framework搜索路径。`Podfile`收尾复用集成适配器，仅将App同名配置的显式`HEADER_SEARCH_PATHS`／`FRAMEWORK_SEARCH_PATHS`／`LIBRARY_SEARCH_PATHS`合并到真实Tests，保留已有值、继承变量、含空格路径和顺序，重复执行幂等；不复制链接、签名或产品设置。门禁同时拒绝丢失App搜索上下文，不满足时在冷构建前失败并提示安装依赖。通过后记录`installed-test-configuration.json`的路径／SHA。该检查不进入`--audit-only`，不改变组件、配置、PCH和实际用例集合。
+
 同一输出目录保留 `results.json`、完整命令、退出状态、耗时、源码指纹和 XCTest `.xcresult`；只有相同源码指纹且成功的记录会复用。指纹包括生产 / 测试源码、原始资源、`JobsAppIconRibbon.config`、生成后的 Pods 工程及门禁实现。验证期间检查新增、删除和内容变化，发生变化时停止并列出文件；冻结修改后重跑。仅更新时间而内容相同的文件不使结果失效，结束时再核对完整内容指纹。构建串行使用独立 DerivedData、Products 和 Intermediates，避免其它任务争用数据库。
 
 批量模式每配置保存一条 `kind=pod_batch` 的真实进程记录，只有这条记录持有批次耗时、命令和进程状态；`kind=pod` 的成员引用明确标记 `execution_mode=batch-member`、`seconds=null`，并关联同一 `batch_id`、target UUID、成员清单指纹和共享日志，不把整批耗时当成每个 Pod 的独立耗时。成员、Scheme、workspace、manifest 与成功进程证据共同校验后才能复用缓存或领取 README 结果；失败、超时、证据缺失、后来失败或成员变化均不能被旧成功掩盖。批量成员不会作为逐 Pod 独立构建的缓存。

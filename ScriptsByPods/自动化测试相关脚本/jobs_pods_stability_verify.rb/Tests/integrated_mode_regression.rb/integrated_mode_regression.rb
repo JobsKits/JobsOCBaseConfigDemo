@@ -135,6 +135,138 @@ class IntegratedModeRegression < Minitest::Test
     assert_equal Digest::SHA256.file(File.join(@root, JobsStabilityIntegrated::MANIFEST)).hexdigest, report['manifest_sha256']
   end
 
+  def install_test_xcconfig(content = nil)
+    label = "Pods-#{TESTS}"
+    @tests.build_configurations.each do |configuration|
+      relative = "Pods/Target Support Files/#{label}/#{label}.#{configuration.name.downcase}.xcconfig"
+      text = content || "PODS_ROOT = ${SRCROOT}/Pods\nPODS_CONFIGURATION_BUILD_DIR = ${BUILD_DIR}/${CONFIGURATION}${EFFECTIVE_PLATFORM_NAME}\nHEADER_SEARCH_PATHS = $(inherited) ${PODS_CONFIGURATION_BUILD_DIR}/Dependency/Dependency.framework/Headers\nFRAMEWORK_SEARCH_PATHS = $(inherited) ${PODS_CONFIGURATION_BUILD_DIR}/Dependency\n"
+      write(relative, text)
+      configuration.base_configuration_reference = @project.main_group.new_file(relative)
+    end
+    @project.save
+  end
+
+  def test_installed_test_configuration_requires_actual_generated_test_context
+    build_fixture
+    assert_match(/缺少已安装/, assert_raises(RuntimeError) { JobsStabilityIntegrated.installed_test_configuration(@root, %w[Debug Release]) }.message)
+    install_test_xcconfig
+    result = JobsStabilityIntegrated.installed_test_configuration(@root, %w[Debug Release])
+    assert_equal TESTS, result['target']
+    assert_equal %w[Debug Release], result['configurations'].map { |row| row['configuration'] }
+    assert result['configurations'].all? { |row| row['sha256'] == Digest::SHA256.file(row['xcconfig']).hexdigest }
+  end
+
+  def test_installed_test_configuration_rejects_missing_or_empty_dependency_settings
+    build_fixture
+    install_test_xcconfig("PODS_ROOT = ${SRCROOT}/Pods\nHEADER_SEARCH_PATHS = $(inherited)\n")
+    assert_match(/缺少有效/, assert_raises(RuntimeError) { JobsStabilityIntegrated.installed_test_configuration(@root, ['Debug']) }.message)
+    File.unlink(@tests.build_configurations.first.base_configuration_reference.real_path)
+    assert_match(/缺少已安装/, assert_raises(RuntimeError) { JobsStabilityIntegrated.installed_test_configuration(@root, [@tests.build_configurations.first.name]) }.message)
+  end
+
+  def test_search_context_preserves_order_quoted_paths_variables_and_unrelated_settings
+    build_fixture
+    other = @project.new_target(:unit_test_bundle, TESTS + 'Other', :ios, '16.6')
+    @app.build_configurations.each do |configuration|
+      suffix = configuration.name
+      configuration.build_settings['HEADER_SEARCH_PATHS'] = ['$(inherited)', '"$(SRCROOT)/App Headers"', "$(SRCROOT)/#{suffix}"]
+      configuration.build_settings['FRAMEWORK_SEARCH_PATHS'] = '$(inherited) "${SRCROOT}/Frameworks With Spaces" ${CUSTOM_FRAMEWORKS}'
+      configuration.build_settings['LIBRARY_SEARCH_PATHS'] = ['$(inherited)', '$(CUSTOM_LIBRARIES)']
+    end
+    @tests.build_configurations.each do |configuration|
+      configuration.build_settings['HEADER_SEARCH_PATHS'] = ['${inherited}', '"$(SRCROOT)/Test Headers"', '"$(SRCROOT)/App Headers"']
+      configuration.build_settings['FRAMEWORK_SEARCH_PATHS'] = '$(inherited) "$(SRCROOT)/Test Frameworks"'
+      configuration.build_settings['OTHER_LDFLAGS'] = ['$(inherited)', '-test-only']
+    end
+    before_app = Marshal.dump(@app.build_configurations.map(&:build_settings))
+    before_other = Marshal.dump(other.build_configurations.map(&:build_settings))
+    before_test_non_search = @tests.build_configurations.map { |configuration| configuration.build_settings.reject { |key, _| JobsStabilityIntegrated::SEARCH_CONTEXT_KEYS.include?(key) } }
+    assert JobsStabilityIntegrated.inherit_test_search_context(@project)
+    @tests.build_configurations.each do |configuration|
+      assert_equal ['${inherited}', '"$(SRCROOT)/Test Headers"', '"$(SRCROOT)/App Headers"', '$(inherited)', "$(SRCROOT)/#{configuration.name}"], configuration.build_settings['HEADER_SEARCH_PATHS']
+      assert_equal ['$(inherited)', '"$(SRCROOT)/Test Frameworks"', '"${SRCROOT}/Frameworks With Spaces"', '${CUSTOM_FRAMEWORKS}'], configuration.build_settings['FRAMEWORK_SEARCH_PATHS']
+      assert_equal ['$(inherited)', '$(CUSTOM_LIBRARIES)'], configuration.build_settings['LIBRARY_SEARCH_PATHS']
+    end
+    assert_equal before_app, Marshal.dump(@app.build_configurations.map(&:build_settings))
+    assert_equal before_other, Marshal.dump(other.build_configurations.map(&:build_settings))
+    assert_equal before_test_non_search, @tests.build_configurations.map { |configuration| configuration.build_settings.reject { |key, _| JobsStabilityIntegrated::SEARCH_CONTEXT_KEYS.include?(key) } }
+    @project.save
+    reopened = Xcodeproj::Project.open(@project.path)
+    refute JobsStabilityIntegrated.inherit_test_search_context(reopened), '重复安装应幂等'
+  end
+
+  def test_search_context_handles_empty_values_and_requires_exact_targets_and_configuration
+    build_fixture
+    @app.build_configurations.each do |configuration|
+      configuration.build_settings['HEADER_SEARCH_PATHS'] = nil
+      configuration.build_settings['FRAMEWORK_SEARCH_PATHS'] = ''
+      configuration.build_settings['LIBRARY_SEARCH_PATHS'] = []
+    end
+    @tests.build_configurations.each do |configuration|
+      configuration.build_settings['HEADER_SEARCH_PATHS'] = ['$(inherited)', '']
+      configuration.build_settings['FRAMEWORK_SEARCH_PATHS'] = nil
+      configuration.build_settings['LIBRARY_SEARCH_PATHS'] = '   '
+    end
+    assert JobsStabilityIntegrated.inherit_test_search_context(@project)
+    @tests.build_configurations.each do |configuration|
+      JobsStabilityIntegrated::SEARCH_CONTEXT_KEYS.each do |key|
+        assert_equal ['$(inherited)'], configuration.build_settings[key]
+      end
+    end
+    refute JobsStabilityIntegrated.inherit_test_search_context(@project)
+    @tests.name = TESTS + 'Other'
+    refute JobsStabilityIntegrated.inherit_test_search_context(@project)
+    @tests.name = TESTS
+    @tests.build_configurations.first.name = 'Unmatched'
+    assert_match(/App缺少测试对应配置/, assert_raises(RuntimeError) { JobsStabilityIntegrated.inherit_test_search_context(@project) }.message)
+  end
+
+  def test_installed_test_configuration_rejects_lost_app_context_until_merged
+    build_fixture
+    install_test_xcconfig
+    JobsStabilityIntegrated::SEARCH_CONTEXT_KEYS.each do |key|
+      @app.build_configurations.each { |configuration| configuration.build_settings[key] = ['$(inherited)', '"$(SRCROOT)/App Context With Spaces"'] }
+      @project.save
+      assert_match(/缺少App自有#{key}/, assert_raises(RuntimeError) { JobsStabilityIntegrated.installed_test_configuration(@root, %w[Debug Release]) }.message)
+      JobsStabilityIntegrated.inherit_test_search_context(@project)
+      @project.save
+      assert_equal 2, JobsStabilityIntegrated.installed_test_configuration(@root, %w[Debug Release])['configurations'].size
+    end
+    @app.name = APP + 'Other'
+    @project.save
+    assert_match(/App缺少测试对应配置/, assert_raises(RuntimeError) { JobsStabilityIntegrated.installed_test_configuration(@root, ['Debug']) }.message)
+  end
+
+  def test_audit_only_without_installed_pods_remains_read_only
+    build_fixture
+    before = snapshot(@root)
+    output = File.join(@temporary, 'audit-only')
+    assert_equal 0, JobsStabilityIntegrated.run(['--audit-only', '--output', output], @root)
+    assert_equal before, snapshot(@root)
+    refute File.exist?(File.join(output, 'installed-test-configuration.json'))
+  end
+
+  def test_installed_test_configuration_rejects_explicit_search_override_without_inherited
+    build_fixture
+    install_test_xcconfig
+    assert_equal 2, JobsStabilityIntegrated.installed_test_configuration(@root, %w[Debug Release])['configurations'].size
+    @app.build_configurations.each do |configuration|
+      configuration.build_settings['HEADER_SEARCH_PATHS'] = ['$(inherited)', '"$(SRCROOT)/App Headers"']
+      configuration.build_settings['FRAMEWORK_SEARCH_PATHS'] = ['${inherited}', '"$(SRCROOT)/App Frameworks"']
+    end
+    JobsStabilityIntegrated.inherit_test_search_context(@project)
+    %w[HEADER_SEARCH_PATHS FRAMEWORK_SEARCH_PATHS].each do |key|
+      @tests.build_configurations.each do |configuration|
+        configuration.build_settings[key].reject! { |value| %w[$(inherited) ${inherited}].include?(value) }
+      end
+      @project.save
+      assert_match(/#{key}覆盖丢失inherited/, assert_raises(RuntimeError) { JobsStabilityIntegrated.installed_test_configuration(@root, %w[Debug Release]) }.message)
+      JobsStabilityIntegrated.inherit_test_search_context(@project)
+      @project.save
+      assert_equal 2, JobsStabilityIntegrated.installed_test_configuration(@root, %w[Debug Release])['configurations'].size
+    end
+  end
+
   def test_rejects_duplicate_component_names
     build_fixture
     @manifest['components'] << @manifest['components'].first.dup

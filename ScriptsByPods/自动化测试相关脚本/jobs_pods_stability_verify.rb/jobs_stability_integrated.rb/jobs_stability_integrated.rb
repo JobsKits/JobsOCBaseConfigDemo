@@ -6,6 +6,7 @@ require 'json'
 require 'open3'
 require 'optparse'
 require 'pathname'
+require 'shellwords'
 require 'time'
 require 'xcodeproj'
 require_relative '../jobs_stability_command.rb/jobs_stability_command'
@@ -18,6 +19,39 @@ module JobsStabilityIntegrated
   MANIFEST = 'Tests/ComponentStability/manifest.json'.freeze
   APP = 'JobsOCBaseConfigDemo'.freeze
   TESTS = 'JobsOCBaseConfigDemoTests'.freeze
+  SEARCH_CONTEXT_KEYS = %w[HEADER_SEARCH_PATHS FRAMEWORK_SEARCH_PATHS LIBRARY_SEARCH_PATHS].freeze
+
+  def search_context_values(value)
+    if value.is_a?(Array)
+      values = value.map(&:to_s)
+    else
+      source = value.to_s
+      Shellwords.split(source) # 先校验引号，再保留Xcode路径所需的引号与转义。
+      values = source.scan(/(?:[^\s"'\\]|\\.|"(?:[^"\\]|\\.)*"|'[^']*')+/)
+    end
+    values.reject { |item| item.strip.empty? }
+  end
+
+  # 只合并App显式搜索设置；Pods仍由测试专属xcconfig提供。
+  def inherit_test_search_context(project)
+    app = project.targets.find { |target| target.name == APP }
+    tests = project.targets.find { |target| target.name == TESTS }
+    return false unless app && tests
+    changed = false
+    tests.build_configurations.each do |configuration|
+      source = app.build_configurations.find { |item| item.name == configuration.name }
+      raise "App缺少测试对应配置：#{configuration.name}" unless source
+      SEARCH_CONTEXT_KEYS.each do |key|
+        values = search_context_values(configuration.build_settings[key])
+        values.unshift('$(inherited)') unless values.any? { |item| %w[$(inherited) ${inherited}].include?(item) }
+        values = (values + search_context_values(source.build_settings[key])).uniq
+        next if configuration.build_settings[key] == values
+        configuration.build_settings[key] = values
+        changed = true
+      end
+    end
+    changed
+  end
 
   def active?(root)
     File.directory?(File.join(root, 'Libs')) && File.file?(File.join(root, MANIFEST))
@@ -194,6 +228,41 @@ module JobsStabilityIntegrated
 
   def escaped(value)
     CGI.escapeHTML(value.to_s)
+  end
+
+  # CocoaPods会移除未声明测试target的配置；真实构建前拒绝缺失或失效的继承上下文。
+  def installed_test_configuration(root, configurations)
+    project = Xcodeproj::Project.open(File.join(root, APP + '.xcodeproj'))
+    target = project.targets.find { |item| item.name == TESTS }
+    app = project.targets.find { |item| item.name == APP }
+    raise "缺少测试target：#{TESTS}" unless target
+    label = "Pods-#{TESTS}"
+    rows = configurations.map do |name|
+      configuration = target.build_configurations.find { |item| item.name == name }
+      reference = configuration&.base_configuration_reference
+      expected = File.join(root, 'Pods', 'Target Support Files', label, "#{label}.#{name.downcase}.xcconfig")
+      actual = reference&.real_path&.to_s
+      unless actual && File.file?(actual) && File.file?(expected) && File.realpath(actual) == File.realpath(expected)
+        raise "#{TESTS}/#{name}缺少已安装的测试Pods配置；先运行pod install并保留inherit! :search_paths"
+      end
+      values = Xcodeproj::Config.new(actual).to_hash
+      required = %w[PODS_ROOT PODS_CONFIGURATION_BUILD_DIR HEADER_SEARCH_PATHS FRAMEWORK_SEARCH_PATHS]
+      missing = required.select { |key| values[key].to_s.strip.empty? || values[key].to_s.strip == '$(inherited)' }
+      raise "#{TESTS}/#{name}的Pods配置缺少有效#{missing.join('/')}" unless missing.empty?
+      app_configuration = app&.build_configurations&.find { |item| item.name == name }
+      raise "App缺少测试对应配置：#{name}" unless app_configuration
+      SEARCH_CONTEXT_KEYS.each do |key|
+        expected_values = search_context_values(app_configuration.build_settings[key]) - %w[$(inherited) ${inherited}]
+        actual_values = search_context_values(configuration.build_settings[key])
+        if configuration.build_settings.key?(key) && !configuration.build_settings[key].nil? &&
+           actual_values.none? { |item| %w[$(inherited) ${inherited}].include?(item) }
+          raise "#{TESTS}/#{name}的#{key}覆盖丢失inherited，无法继承Pods搜索上下文"
+        end
+        raise "#{TESTS}/#{name}缺少App自有#{key}上下文" unless (expected_values - actual_values).empty?
+      end
+      { 'configuration' => name, 'xcconfig' => actual, 'sha256' => Digest::SHA256.file(actual).hexdigest }
+    end
+    { 'target' => TESTS, 'configurations' => rows }
   end
 
   # 副本仅更换测试宿主入口，原业务源码、工程和签名配置均不落盘修改。
@@ -429,6 +498,10 @@ module JobsStabilityIntegrated
     File.write(File.join(options[:output], 'configuration-audit.json'), JSON.pretty_generate(audit_result) + "\n")
     raise audit_result['issues'].join("\n") unless audit_result['valid']
     return 0 if options[:audit_only]
+    if %w[all pods tests].include?(options[:phase])
+      installed = installed_test_configuration(root, options[:configurations])
+      File.write(File.join(options[:output], 'installed-test-configuration.json'), JSON.pretty_generate(installed) + "\n")
+    end
     manifest = read_manifest(root)
     rows = manifest.fetch('components')
     unknown = options[:names] - rows.map { |row| row['name'] }

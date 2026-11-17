@@ -4,6 +4,7 @@ ENV['COCOAPODS_DISABLE_STATS'] = 'true'
 require 'fileutils'
 require 'pathname'
 require 'securerandom'
+require_relative 'ScriptsByPods/自动化测试相关脚本/jobs_pods_stability_verify.rb/jobs_stability_integrated.rb/jobs_stability_integrated'
 
 jobs_pod_install_guard_path = File.join(
   __dir__,
@@ -426,6 +427,7 @@ post_install do |installer|
 
   installer.aggregate_targets.each do |agg|
     user_project = agg.user_project
+    JobsStabilityIntegrated.inherit_test_search_context(user_project)
     user_project.native_targets.each do |t|
       t.build_configurations.each do |config|
         config.build_settings['ENABLE_USER_SCRIPT_SANDBOXING'] = 'NO'
