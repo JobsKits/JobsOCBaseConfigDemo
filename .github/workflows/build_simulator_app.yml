@@ -250,6 +250,7 @@ jobs:
             ${{ runner.temp }}/JobsOCStability/configuration-audit.json
             ${{ runner.temp }}/JobsOCStability/*.log
             ${{ runner.temp }}/JobsOCStability/*.xcresult
+            ${{ runner.temp }}/JobsOCStability/ApplicationTests/*.xcresult
             ${{ runner.temp }}/JobsOCStability/OwnedPodsBatch
             ${{ runner.temp }}/ReactiveObjCDiagnostics
             ${{ runner.temp }}/ReactiveObjCDiagnosticsAfterBuild

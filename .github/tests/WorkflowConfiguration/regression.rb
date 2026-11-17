@@ -168,6 +168,60 @@ def verify_budget_regressions(workflow)
   end
 end
 
+def verify_validation_artifacts(workflow)
+  steps = workflow.fetch('jobs').fetch('build-simulator-app').fetch('steps')
+  upload = steps.find { |step| step['name'] == 'Upload Pod validation records' }
+  check(upload && upload.fetch('if') == 'always()', 'Validation records must upload after success or failure')
+  paths = upload.fetch('with').fetch('path').lines.map(&:strip).reject(&:empty?)
+  required = [
+    'JobsOCStability/results.json',
+    'JobsOCStability/configuration-audit.json',
+    'JobsOCStability/*.log',
+    'JobsOCStability/*.xcresult',
+    'JobsOCStability/ApplicationTests/*.xcresult',
+    'JobsOCStability/OwnedPodsBatch',
+    'ReactiveObjCDiagnostics',
+    'ReactiveObjCDiagnosticsAfterBuild',
+    'JobsOCStability/Intermediates/Pods.build/*/ReactiveObjC.build/Objects-normal/arm64/*.resp',
+    'JobsOCStability/Intermediates/Pods.build/*/ReactiveObjC.build/*.hmap',
+    'JobsOCStability/Intermediates/Pods.build/*/*VFS*/*.yaml',
+    'simulator-sdk-version.txt',
+    'simulator-runtimes.json',
+    'simulator-devices.json',
+    'simulator-selection.env'
+  ].map { |path| '${{ runner.temp }}/' + path }
+  required.each do |path|
+    check(paths.count(path) == 1, "Validation artifact path missing or repeated: #{path}")
+  end
+  application_paths = paths.select { |path| path.include?('/ApplicationTests') }
+  check(application_paths == ['${{ runner.temp }}/JobsOCStability/ApplicationTests/*.xcresult'],
+        'Collect only ApplicationTests result bundles, not its Products or DerivedData')
+end
+
+def verify_artifact_regressions(workflow)
+  verify_validation_artifacts(workflow)
+  puts 'PASS validation artifacts real workflow positive'
+  mutations = {
+    'missing ApplicationTests bundle' => lambda { |step| step.fetch('with')['path'].sub!(/^.*\/ApplicationTests\/\*\.xcresult\n?/, '') },
+    'missing always condition' => lambda { |step| step['if'] = 'success()' },
+    'broad ApplicationTests directory' => lambda { |step| step.fetch('with')['path'].sub!('ApplicationTests/*.xcresult', 'ApplicationTests') },
+    'missing root Pod bundles' => lambda { |step| step.fetch('with')['path'].sub!(/^.*\/JobsOCStability\/\*\.xcresult\n?/, '') }
+  }
+  mutations.each do |name, mutation|
+    altered = Marshal.load(Marshal.dump(workflow))
+    step = altered.fetch('jobs').fetch('build-simulator-app').fetch('steps').find { |item| item['name'] == 'Upload Pod validation records' }
+    mutation.call(step)
+    rejected = false
+    begin
+      verify_validation_artifacts(altered)
+    rescue RuntimeError, KeyError
+      rejected = true
+    end
+    check(rejected, "Invalid validation artifact collection accepted: #{name}")
+    puts "PASS validation artifact rejection: #{name}"
+  end
+end
+
 def main
   graph_only = ARGV.delete('--graph-only')
   check(ARGV.empty?, 'Usage: ruby .github/tests/WorkflowConfiguration/regression.rb [--graph-only]')
@@ -178,9 +232,10 @@ def main
       workflow = load_workflow(root, 'build_simulator_app.yml')
       verify_xcode(root, workflow, directory)
       verify_budget_regressions(workflow)
+      verify_artifact_regressions(workflow)
     end
   end
-  puts "PASS: workflow configuration (#{graph_only ? 'protocol source and trigger paths' : 'protocol paths, Xcode selection, failure propagation and serial budgets'})"
+  puts "PASS: workflow configuration (#{graph_only ? 'protocol source and trigger paths' : 'protocol paths, Xcode selection, failure propagation, serial budgets and validation artifacts'})"
 end
 
 main

@@ -56,6 +56,8 @@ Stability 测试显式使用 `<Pod>-Unit-Stability` scheme：仅含头文件的 
 
 XCTest 还核验真实 `.xcresult` 摘要，记录执行、通过、失败与跳过数量；命令退出为 0，但没有执行用例、全跳过、存在失败或无法解析结果时，仍判定验证失败。
 
+CI 的验证制品在成功或失败后均保留根级 Pod `.xcresult` 与 `ApplicationTests/*.xcresult` 主工程原始结果，不上传该目录下的 Products 或 DerivedData；面向界面的精确文本期望使用生产 `jobsTr()` 翻译语义 key，保留前缀、标点和条目内容。
+
 JobsBaseUI 的真实 Keychain 测试由独立 Simulator 宿主使用 ad-hoc `-` 签名；[测试 entitlement](../../../Tests/JobsPodsStabilityHost/JobsBaseUIKeychain/JobsBaseUIKeychain.entitlements) 只使用该宿主自己的 bundle identifier，不配置业务 App 的共享组、个人证书或 provisioning profile。runner 仅为这组测试开启签名，并核验实际产物的签名、展开后的 application identifier 和 access group；Keychain 用例必须全部执行通过、零跳过。其余 Pod / App 构建保留原签名策略。签名策略写入结果缓存，entitlement 源文件纳入内容指纹。
 
 Xcode 可将 Simulator 权限放进实际宿主 Mach-O 的 `__TEXT,__entitlements`，同时代码签名内的 entitlement 为空。验收先验证代码签名，再由 [二进制权限审计](./jobs_stability_host_entitlements.rb/jobs_stability_host_entitlements.rb) 读取每个实际架构的已编译段，核对宿主身份和权限，不以源 plist 或 `.xcent` 存在替代产物证明。[回归](./Tests/host_entitlements_regression.rb/host_entitlements_regression.rb) 无参数执行 9 个独立真实 Mach-O 场景，适用于尚未构建测试宿主的干净环境；显式传入当前宿主 executable 后追加第 10 个真实产物检查，指定路径缺失即失败。GitHub Actions 前置执行独立场景，Pod 测试成功后再传入当次 `JobsOCStability/Products/Debug-iphonesimulator` 内的 AppHost；不会读取本地历史 `work/JobsPodsStability/full` 产物。
