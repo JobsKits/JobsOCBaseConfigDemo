@@ -58,6 +58,7 @@ module JobsStabilitySources
       File.join(root, path)
     end
     files += Dir.glob(File.join(root, 'ScriptsByPods', '自动化测试相关脚本', 'jobs_pods_stability_{verify,audit}.rb', '**', '*.rb'))
+    files += Dir.glob(File.join(root, 'ScriptsByPods', 'Compatibility', '**', '*.{h,hpp}'))
     files += Dir.glob(File.join(root, 'Pods', 'Target Support Files', '**', '*.{xcconfig,pch,plist,sh,xcfilelist,modulemap,h,m}'))
     generated = generated_icon_sets(root)
     files.uniq.sort.select do |path|

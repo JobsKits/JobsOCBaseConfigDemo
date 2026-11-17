@@ -12,7 +12,6 @@ Pod::Spec.new do |spec|
   spec.requires_arc     = true
   spec.module_name      = 'ZFPlayerExtra'
   spec.source           = { :path => '.' }
-  spec.preserve_paths   = 'Compatibility/**/*.h'
   spec.frameworks = ['Foundation', 'UIKit']
   spec.dependency 'ZFPlayer'
   spec.dependency 'ZFPlayer/AVPlayer'

@@ -256,31 +256,11 @@ def patch_zfplayer_ijkplayer_for_simulator
   end
 end
 
-def patch_zfplayer_netinet6_private_header
-  zfplayer_root = File.join(__dir__, 'Pods', 'ZFPlayer', 'ZFPlayer')
-  return unless Dir.exist?(zfplayer_root)
+# 仅适配已确认的 ZFPlayer / AFNetworking 旧 IPv6 include；不改第三方文件或诊断。
+def configure_apple_public_ipv6_header(target)
+  return unless %w[ZFPlayer AFNetworking].include?(target.name)
 
-  changed_count = 0
-  Dir.glob(File.join(zfplayer_root, '**', '*.{h,m,mm,c}')).each do |path|
-    next unless File.file?(path)
-
-    text = File.read(path)
-    new_text = text.gsub(/^\s*#\s*import\s+<netinet6\/in6\.h>\s*\n/, '')
-    next if new_text == text
-
-    FileUtils.chmod('u+w', path) rescue nil
-    File.write(path, new_text)
-    changed_count += 1
-  end
-
-  Pod::UI.puts "[ZFPlayer] removed netinet6/in6.h imports from #{changed_count} files" if defined?(Pod::UI) && changed_count.positive?
-end
-
-# ZFPlayer 4.1.4 的旧 IPv6 include 经自有头转到 SDK 公开入口，不改第三方文件或诊断级别。
-def configure_zfplayer_public_ipv6_header(target)
-  return unless target.name == 'ZFPlayer'
-
-  compatibility = '$(PODS_ROOT)/../JobsByPods/ZFPlayerExtra@Pods/Compatibility'
+  compatibility = '$(PODS_ROOT)/../ScriptsByPods/Compatibility/AppleSDK'
   target.build_configurations.each do |config|
     existing = config.build_settings.fetch('HEADER_SEARCH_PATHS', '$(inherited)')
     paths = existing.is_a?(Array) ? existing.dup : Shellwords.split(existing.to_s)
@@ -586,7 +566,7 @@ post_install do |installer|
   pods_project = installer.pods_project
   protect_jobs_post_install_uuid_allocator(pods_project)
   pods_project.targets.each do |target|
-    configure_zfplayer_public_ipv6_header(target)
+    configure_apple_public_ipv6_header(target)
     target.build_configurations.each do |config|
       if target.name == 'JobsDebugPanel' && config.name == 'Debug'
         config.build_settings['GCC_PREPROCESSOR_DEFINITIONS'] = ['$(inherited)', 'DEBUG=1']
@@ -626,7 +606,6 @@ post_install do |installer|
 
   unless ENV['JOBS_POD_INSTALL_SKIP_VENDOR_PATCHES'] == '1'
     patch_zfplayer_ijkplayer_for_simulator if needs_ijk_simulator_arch_workaround
-    patch_zfplayer_netinet6_private_header
     patch_reactiveobjc_metamacros_header(installer)
   end
   configure_reactiveobjc_header_copy_phase(installer)

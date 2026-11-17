@@ -633,7 +633,7 @@ CodeGraph 完整体检覆盖系统 Shell / curl / Git / CLT、Brew 版本 / 配�
 
 **构建阶段与构建后动作**
 
-新工程 `post_install` 的 `configure_zfplayer_public_ipv6_header` 只为 `ZFPlayer` target 前置 [自有公开 IPv6 兼容头](./JobsByPods/ZFPlayerExtra@Pods/Compatibility/netinet6/in6.h)，保留 modules、诊断与其它 target 配置，不修改第三方源码；该头随仓保留并参与源码冻结，配置及验证见 [ZFPlayerExtra](./JobsByPods/ZFPlayerExtra@Pods/README.md)。重新安装依赖后生效，旧工程现有编译合同未因此改变。
+新工程 `post_install` 的 `configure_apple_public_ipv6_header` 仅为锁版 `ZFPlayer`、`AFNetworking` 两个 target 前置 [宿主公开 IPv6 兼容头](./ScriptsByPods/Compatibility/AppleSDK/netinet6/in6.h)，保留 modules、诊断与其它 target 配置；同一原字节头由中性构建支持目录维护，两个扩展 Pod 互不依赖，新增／内容变更均参与源码冻结。此兼容点的旧 ZF 源码改写方法及安装调用已移除，不回滚本机历史 Pods 状态；其它既有 vendor patch 未在本轮执行或扩审。配置及验证边界见 [ZFPlayerExtra](./JobsByPods/ZFPlayerExtra@Pods/README.md) 和 [AFSecurityPolicyExtra](./JobsByPods/AFSecurityPolicyExtra@Pods/README.md)。重新安装依赖后生效，旧工程现有编译合同未因此改变。
 
 挂载位置可直接查看[主工程 Build Phases](./JobsOCBaseConfigDemo.xcodeproj/project.pbxproj)和[共享 Scheme](./JobsOCBaseConfigDemo.xcodeproj/xcshareddata/xcschemes/JobsOCBaseConfigDemo.xcscheme)。
 

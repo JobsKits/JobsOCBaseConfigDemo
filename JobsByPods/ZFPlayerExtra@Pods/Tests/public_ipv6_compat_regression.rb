@@ -10,7 +10,7 @@ puts "Ruby: #{RUBY_DESCRIPTION}; executable: #{RbConfig.ruby}"
 
 root = File.expand_path('../../..', __dir__)
 podfile = File.join(root, 'Podfile')
-production = File.read(podfile)[/^def configure_zfplayer_public_ipv6_header\(target\)\n.*?^end\n/m]
+production = File.read(podfile)[/^def configure_apple_public_ipv6_header\(target\)\n.*?^end\n/m]
 abort 'Missing production ZFPlayer compatibility helper' unless production
 eval(production, TOPLEVEL_BINDING, podfile)
 
@@ -21,28 +21,49 @@ check = lambda do |condition, message|
 end
 config = Struct.new(:build_settings)
 target = Struct.new(:name, :build_configurations)
-compatibility = '$(PODS_ROOT)/../JobsByPods/ZFPlayerExtra@Pods/Compatibility'
+compatibility = '$(PODS_ROOT)/../ScriptsByPods/Compatibility/AppleSDK'
 debug = config.new({ 'CLANG_ENABLE_MODULES' => 'YES', 'OTHER_CFLAGS' => '$(inherited) -Werror' })
 release = config.new({ 'HEADER_SEARCH_PATHS' => '$(inherited) "a path with spaces"' })
 selected = target.new('ZFPlayer', [debug, release])
-2.times { configure_zfplayer_public_ipv6_header(selected) }
+2.times { configure_apple_public_ipv6_header(selected) }
 check.call(debug.build_settings['HEADER_SEARCH_PATHS'] == [compatibility, '$(inherited)'], 'Default paths or idempotence changed')
 check.call(release.build_settings['HEADER_SEARCH_PATHS'] == [compatibility, '$(inherited)', 'a path with spaces'], 'Existing quoted paths were lost')
 check.call(debug.build_settings['CLANG_ENABLE_MODULES'] == 'YES', 'Modules must stay enabled')
 check.call(debug.build_settings['OTHER_CFLAGS'] == '$(inherited) -Werror', 'Diagnostics must remain unchanged')
-other = target.new('OtherPod', [config.new({ 'HEADER_SEARCH_PATHS' => ['original'] })])
-before = Marshal.dump(other.build_configurations.map(&:build_settings))
-configure_zfplayer_public_ipv6_header(other)
-check.call(Marshal.dump(other.build_configurations.map(&:build_settings)) == before, 'Another target was modified')
+af_debug = config.new({ 'HEADER_SEARCH_PATHS' => ['original'], 'CLANG_ENABLE_MODULES' => 'YES', 'OTHER_CFLAGS' => '$(inherited) -Werror' })
+af_release = config.new({ 'HEADER_SEARCH_PATHS' => '$(inherited) "a path with spaces"' })
+af_selected = target.new('AFNetworking', [af_debug, af_release])
+2.times { configure_apple_public_ipv6_header(af_selected) }
+check.call(af_debug.build_settings['HEADER_SEARCH_PATHS'] == [compatibility, 'original'], 'AFNetworking Debug scope or idempotence changed')
+check.call(af_release.build_settings['HEADER_SEARCH_PATHS'] == [compatibility, '$(inherited)', 'a path with spaces'], 'AFNetworking Release paths were lost')
+check.call(af_debug.build_settings['CLANG_ENABLE_MODULES'] == 'YES' && af_debug.build_settings['OTHER_CFLAGS'] == '$(inherited) -Werror', 'AFNetworking modules or diagnostics changed')
+%w[OtherPod AFNetworkingExtra ZFPlayerExtra].each do |name|
+  other = target.new(name, [config.new({ 'HEADER_SEARCH_PATHS' => ['original'] })])
+  before = Marshal.dump(other.build_configurations.map(&:build_settings))
+  configure_apple_public_ipv6_header(other)
+  check.call(Marshal.dump(other.build_configurations.map(&:build_settings)) == before, "Another target was modified: #{name}")
+end
+check.call(!File.read(podfile).include?('patch_zfplayer_netinet6_private_header'), 'Legacy ZFPlayer vendor rewriting entry must remain removed')
+Dir.mktmpdir('jobs-ipv6-source-unchanged-') do |fixture|
+  sources = %w[ZFPlayer/ZFReachabilityManager.m AFNetworking/AFNetworkReachabilityManager.m AFNetworking/AFHTTPSessionManager.m].map { |path| File.join(fixture, 'Pods', path) }
+  sources.each { |path| FileUtils.mkdir_p(File.dirname(path)); File.write(path, "#import <netinet6/in6.h>\n") }
+  before = sources.map { |path| Digest::SHA256.file(path).hexdigest }
+  eval(production, TOPLEVEL_BINDING, File.join(fixture, 'Podfile'))
+  [selected, af_selected].each { |item| configure_apple_public_ipv6_header(item) }
+  check.call(sources.map { |path| Digest::SHA256.file(path).hexdigest } == before, 'Compatibility configuration rewrote vendor sources')
+end
+eval(production, TOPLEVEL_BINDING, podfile)
 
 require File.join(root, 'ScriptsByPods/自动化测试相关脚本/jobs_pods_stability_verify.rb/jobs_stability_sources.rb/jobs_stability_sources.rb')
-relative = 'JobsByPods/ZFPlayerExtra@Pods/Compatibility/netinet6/in6.h'
+relative = 'ScriptsByPods/Compatibility/AppleSDK/netinet6/in6.h'
 check.call(JobsStabilitySources.paths(root).include?(File.join(root, relative)), 'Compatibility header is outside source freeze inputs')
 Dir.mktmpdir('jobs-zf-source-freeze-') do |fixture|
   header = File.join(fixture, relative)
   FileUtils.mkdir_p(File.dirname(header))
+  absent = JobsStabilitySources.fingerprint(fixture, 'Xcode fixture', architecture: 'arm64')
   FileUtils.cp(File.join(root, relative), header)
   fingerprint = JobsStabilitySources.fingerprint(fixture, 'Xcode fixture', architecture: 'arm64')
+  check.call(fingerprint != absent, 'A newly added shared header must invalidate source freeze')
   File.open(header, 'a') { |file| file.write("\n// changed input\n") }
   check.call(JobsStabilitySources.fingerprint(fixture, 'Xcode fixture', architecture: 'arm64') != fingerprint, 'Header changes must invalidate source freeze')
 end
@@ -83,7 +104,7 @@ Dir.mktmpdir('jobs-zf-cold-modules-') do |fixture|
   check.call(!success && output.match?(/private header|do not include netinet6\/in6\.h/), 'Original private-header negative control did not fail as expected')
   success, output, = compile.call('previous', File.dirname(previous), '-O0', true)
   check.call(!success && output.include?("incomplete type 'struct in6_addr'"), 'Public-only shim no longer reproduces the cold Darwin failure')
-  compatibility_path = File.join(root, 'JobsByPods/ZFPlayerExtra@Pods/Compatibility')
+  compatibility_path = File.join(root, 'ScriptsByPods/Compatibility/AppleSDK')
   { 'Debug' => '-O0', 'Release' => '-Os' }.each do |configuration, optimization|
     { 'pch-first' => true, 'public-first' => false }.each do |order, prefix|
       label = "#{configuration}-#{order}"
@@ -94,4 +115,4 @@ Dir.mktmpdir('jobs-zf-cold-modules-') do |fixture|
     end
   end
 end
-puts "PASS: #{checks} ZF-only configuration, source-freeze and actual cold/warm Darwin module checks"
+puts "PASS: #{checks} two-target configuration, unchanged vendor sources, source-freeze and actual cold/warm Darwin module checks"

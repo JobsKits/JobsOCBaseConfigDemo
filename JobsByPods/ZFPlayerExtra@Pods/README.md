@@ -78,7 +78,6 @@ ZFPlayerExtra@Pods/
 ├── README.md  # 当前自述
 ├── ZFPlayerExtra.h  # 根入口头文件
 ├── Core/  # 公开入口与核心实现，11 个文件
-├── Compatibility/  # 仅 ZFPlayer target 使用的公开 IPv6 转发头
 ├── Tests/  # 隔离配置与源码指纹回归
 └── LICENSE  # 许可证文件
 ```
@@ -229,7 +228,6 @@ pod install --no-repo-update
 | `Core/` | 11 | 10 | 公共入口与核心实现；公开 / 私有头由 podspec 指定 |
 | `Support/`（无目录） | 0 | 0 | 仅供当前 Pod 内部实现，按实际 subspec / private header 映射 |
 | `Resource/`（无目录） | 0 | 0 | 非代码资源；按 resources / resource_bundles 和排除规则安装 |
-| `Compatibility/` | 1 | 1 | preserve_paths 保留；只由宿主 ZFPlayer 的头搜索路径消费，不作为本 Pod 公开头 |
 | `Tests/` | 1 | 0 | 只由独立测试目标或回归 harness 使用，不进入生产 source_files |
 
 `Core` 的物理目录不等于所有头文件均公开；`Support` 和测试 fixture 不作为 App 或其它 Pod 的稳定消费入口。根聚合头与 `public_header_files` 是外部引用依据。
@@ -256,8 +254,12 @@ ruby ScriptsByPods/自动化测试相关脚本/jobs_pods_stability_verify.rb/job
 
 **Xcode 27 的公开 IPv6 入口兼容**
 
-锁定的 [ZFPlayer 4.1.4](https://github.com/renzifeng/ZFPlayer/blob/4.1.4/ZFPlayer/Classes/Core/ZFReachabilityManager.m)仍直接导入 `netinet6/in6.h`；当前 Darwin SDK 要求从公开 `netinet/in.h` 取得 IPv6 声明。宿主 [Podfile](../../Podfile) 的 `configure_zfplayer_public_ipv6_header` 只向 `ZFPlayer` target 的 Debug／Release 头搜索路径前置本模块 [Compatibility](./Compatibility/netinet6/in6.h)。冷构建时，SDK 的公开头自身也会包含 `netinet6/in6.h`；一律转回公开头会形成包含循环，导致 `in6_addr` 声明缺失。因此自有头仅在 `__building_module(Darwin)` 时 `include_next` 保留 SDK 内部声明链，外部调用仍走公开入口。保留既有路径、modules 与诊断配置，不改第三方源码；`preserve_paths` 随包保留此头，它也参与宿主源码指纹。
+锁定的 [ZFPlayer 4.1.4](https://github.com/renzifeng/ZFPlayer/blob/4.1.4/ZFPlayer/Classes/Core/ZFReachabilityManager.m) 的 Reachability 实现与 [AFNetworking 4.0.1](https://github.com/AFNetworking/AFNetworking/tree/4.0.1/AFNetworking) 的 Reachability／HTTPSessionManager 实现均直接导入 `netinet6/in6.h`。宿主 [Podfile](../../Podfile) 的 `configure_apple_public_ipv6_header` 仅为 `ZFPlayer`、`AFNetworking` 两个 target 的 Debug／Release 前置 [宿主公开 IPv6 兼容头](../../ScriptsByPods/Compatibility/AppleSDK/netinet6/in6.h)，路径从 `PODS_ROOT` 相对解析，不影响其它 target 的 modules、诊断或原搜索路径。
 
-从工程根目录执行 `ruby JobsByPods/ZFPlayerExtra@Pods/Tests/public_ipv6_compat_regression.rb` 可检查精确 target 范围、幂等、原路径保留、诊断不变及头文件修改使指纹失效，并通过当前 Simulator SDK 真实编译原始私头、旧转发头负对照，以及 Debug／Release 优化下 PCH 先行和公开头先行的冷热模块；每个冷用例使用独立空缓存并检查生成 Darwin PCM，需要可用的 Xcode Simulator SDK。锁版官方完整 `.m/.h` 还以真实 target 参数、PCH 和 CI VFS 路径归一映射验证原样／旧头失败及修正后冷热通过；单 TU 隔离 Xcode target 的 Debug／Release 冷热编译也通过。完整 Pods、稳定性测试和宿主打包仍须等待最终同提交远端 CI；旧 OC 的 ZF target 当前关闭 modules，编译合同不同，本轮未跨改其它宿主。
+兼容头已原字节移至宿主构建支持目录，不再由本 Pod 的 `preserve_paths` 保存；两个扩展 Pod 互不依赖。冷构建 Darwin 时，SDK 的公开头自身会包含 `netinet6/in6.h`；该上下文通过 `include_next` 保留 SDK 内部声明链，外部调用仍走公开 `netinet/in.h`。共用头的新增和内容变更均参与源码指纹。旧的 ZF 私头删除方法及其安装调用已移除，正常安装也不再因这一兼容点改写第三方源；历史忽略的 Pods 状态不由本轮回滚。
+
+从工程根目录执行 `ruby JobsByPods/ZFPlayerExtra@Pods/Tests/public_ipv6_compat_regression.rb` 可检查两 target 精确范围、近名排除、幂等、原路径和诊断保留、供应商源不变、共用头新增／变更使指纹失效，以及真实 SDK 的原始私头／旧转发头失败对照和 Debug／Release 优化下的冷热模块。夹具沿锁版库的公开头→私头顺序，分别验证 PCH 先行与公开头先行，每个冷用例使用独立空缓存并要求生成 Darwin PCM；需要 Xcode Simulator SDK，入口打印实际 Ruby 身份。
+
+三个锁版官方完整实现已用真实 target 参数、PCH 和 CI VFS 路径归一映射验证无兼容头失败、同一原字节头冷／热通过；ZF 单 TU 与 AFNetworking 双 TU 的隔离 Xcode target 均通过 Debug／Release 冷热编译。完整 Pods、稳定性测试和宿主打包仍以最终同提交远端 CI 为准。其它旧 vendor patch 未在本轮执行或扩大审阅，旧 OC 的 modules 配置合同也未跨改。
 
 <a id="🔚" href="#前言" style="font-size:17px; color:green; font-weight:bold;">我是有底线的➤点我回到首页</a>

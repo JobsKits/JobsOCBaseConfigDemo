@@ -211,7 +211,7 @@ pod install --no-repo-update
 
 ## <span id="jobs-toc-heading-22" data-jobs-toc="v2">十二、本轮单元验证 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a></span><!-- jobs-toc:heading-end -->
 
-当前结果：**Debug / Release 单 Pod 编译已完成；本 Pod 无独立 Stability 回归；整体验收记录见根 [JobsByPods升级实施与编译验证.md](<../../项目相关报告/JobsByPods升级实施与编译验证.md>)**。生产源码、测试源码、资源与工程配置的指纹一致且命令真实退出成功，才可复用对应验证记录。
+历史 Debug / Release 单 Pod 编译记录保留；本批 AFNetworking 4.0.1 的两份官方实现已完成独立冷／热编译，完整宿主与逐 Pod 验收仍待最终同提交远端结果。本 Pod 无独立 Stability 回归；历史记录见根 [JobsByPods升级实施与编译验证.md](<../../项目相关报告/JobsByPods升级实施与编译验证.md>)。生产源码、测试源码、资源与工程配置的指纹一致且命令真实退出成功，才可复用对应验证记录。
 
 该 Pod 维持既有内核，纳入统一逐 Pod 和主工程编译；没有以新增代码数量作为升级验收依据。
 
@@ -226,5 +226,11 @@ ruby ScriptsByPods/自动化测试相关脚本/jobs_pods_stability_verify.rb/job
 当前没有 `Stability` test_spec；单独 Pod 的编译覆盖不能等同于行为测试通过，集成场景由宿主验收。
 
 运行前应已安装工程依赖；runner 的 `--phase pods` 默认分别编译 Debug / Release，`--phase tests` 默认运行 Debug（JobsOCSnowflake 默认 Debug / Release），并将命令、源码指纹、日志和退出码保存到工程 `work/JobsPodsStability/`。如需固定输出目录，使用 runner 的 `--output`。
+
+**宿主 Apple SDK IPv6 兼容**
+
+AFNetworking 4.0.1 的 `AFNetworkReachabilityManager.m` 和 `AFHTTPSessionManager.m` 都直接导入 SDK 私有 `netinet6/in6.h`。宿主 [Podfile](../../Podfile) 仅为 `AFNetworking`、`ZFPlayer` 两个已确认 target 前置 [中性的构建支持目录](../../ScriptsByPods/Compatibility/AppleSDK/netinet6/in6.h)，不修改供应商源、modules、诊断、Pod 版本或依赖。本 Pod 不依赖 ZFPlayerExtra；共用头由宿主保存并纳入源码指纹。请保留完整仓库相对层级，重新安装依赖使生成的 target 设置生效。
+
+两份官方完整 `.m/.h` 的原始私头错误、相同共用头的冷／热通过，以及实际 AFNetworking target Debug／Release 冷热编译均有独立证据。配置／源文件保护及冷模块回归统一从工程根目录运行 `ruby JobsByPods/ZFPlayerExtra@Pods/Tests/public_ipv6_compat_regression.rb`。本机忽略的 Pods 两个文件曾删除私头 import，来源未确认且本轮保持原样；本轮验证使用锁版官方原文，完整云端结果仍待最终提交。
 
 <a id="🔚" href="#前言" style="font-size:17px; color:green; font-weight:bold;">我是有底线的➤点我回到首页</a>
