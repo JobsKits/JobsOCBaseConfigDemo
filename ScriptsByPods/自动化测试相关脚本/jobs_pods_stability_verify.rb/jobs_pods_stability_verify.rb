@@ -351,10 +351,12 @@ execute = lambda do |kind, name, configuration, args, evidence = {}|
     previous['test_summary']['totalTestCount'].is_a?(Integer) && previous['test_summary']['totalTestCount'].positive? &&
     previous['test_summary']['passedTests'] == previous['test_summary']['totalTestCount'] &&
     previous['test_summary'].values_at('result', 'failedTests', 'skippedTests') == ['Passed', 0, 0])
+  expected_application_tests = evidence['expected_test_count']
   application_cache_valid = name != 'ApplicationTests' || (previous &&
-    previous['expected_test_count'] == 17 && previous['test_classes'] == evidence['test_classes'] &&
+    previous['expected_test_count'] == expected_application_tests && previous['test_classes'] == evidence['test_classes'] &&
+    previous['test_inventory'] == evidence['test_inventory'] &&
     (kind != 'test' || (previous['test_summary'].is_a?(Hash) &&
-      previous['test_summary'].values_at('result', 'totalTestCount', 'passedTests', 'failedTests', 'skippedTests') == ['Passed', 17, 17, 0, 0] &&
+      previous['test_summary'].values_at('result', 'totalTestCount', 'passedTests', 'failedTests', 'skippedTests') == ['Passed', expected_application_tests, expected_application_tests, 0, 0] &&
       File.directory?(previous['result_bundle'].to_s) && File.directory?(previous['host_app'].to_s) &&
       previous['host_signature'].is_a?(Hash) && previous['host_signature']['valid'] == true)))
   if name == 'ApplicationTests' && kind == 'test' && application_cache_valid
@@ -368,7 +370,7 @@ execute = lambda do |kind, name, configuration, args, evidence = {}|
     end
     application_cache_valid = current_signature['valid'] == true &&
       current_signature.dig('compiled_permissions', 'binary_sha256') == previous.dig('host_signature', 'compiled_permissions', 'binary_sha256') &&
-      cached_status.success? && cached_summary.values_at('result', 'totalTestCount', 'passedTests', 'failedTests', 'skippedTests') == ['Passed', 17, 17, 0, 0]
+      cached_status.success? && cached_summary.values_at('result', 'totalTestCount', 'passedTests', 'failedTests', 'skippedTests') == ['Passed', expected_application_tests, expected_application_tests, 0, 0]
   end
   if previous && mode_matches && batch_cache_valid && preparation_cache_valid && test_cache_valid && strict_test_cache_valid && application_cache_valid && previous['exit_status'] == 0 && !previous['timed_out'] && previous['signing_policy'] == signing_policy && (!%w[test test_build].include?(kind) || previous['simulator'] == options[:simulator])
     puts "PASS (cached) #{kind} #{name} #{configuration}"
@@ -424,8 +426,9 @@ execute = lambda do |kind, name, configuration, args, evidence = {}|
         valid_tests &&= passed_tests == actual_tests && summary.fetch('skippedTests', -1).zero?
       end
       if name == 'ApplicationTests'
-        valid_tests &&= row['expected_test_count'] == 17 &&
-          summary.values_at('totalTestCount', 'passedTests', 'failedTests', 'skippedTests') == [17, 17, 0, 0]
+        valid_tests &&= row['expected_test_count'] == expected_application_tests &&
+          row['test_inventory'] == evidence['test_inventory'] &&
+          summary.values_at('totalTestCount', 'passedTests', 'failedTests', 'skippedTests') == [expected_application_tests, expected_application_tests, 0, 0]
       end
     rescue JSON::ParserError
       valid_tests = false
@@ -499,6 +502,19 @@ build_base = lambda do |configuration, signed_host = false|
   architecture = options[:architecture] ? ["ARCHS=#{options[:architecture]}", 'ONLY_ACTIVE_ARCH=YES'] : ['ONLY_ACTIVE_ARCH=NO']
   [ '-configuration', configuration, '-sdk', 'iphonesimulator', '-derivedDataPath', File.join(options[:output], 'DerivedData'), "SYMROOT=#{File.join(options[:output], 'Products')}", "OBJROOT=#{File.join(options[:output], 'Intermediates')}", "BUILD_DIR=#{File.join(options[:output], 'Products')}" ] + architecture + signing
 end
+# 库存错误须在逐 Pod 构建前失败；后续真实 XCTest 与报告复用同一份精确清单。
+application = nil
+save.call
+if File.directory?(File.join(root, 'JobsOCBaseConfigDemoTests')) || File.directory?(File.join(root, 'JobsOCBaseConfigDemo.xcodeproj'))
+  require_relative 'jobs_stability_integrated.rb/jobs_stability_integrated'
+  application = JobsStabilityIntegrated.pod_application_tests(root)
+  record['application_tests'] = application
+  record['application_test_configuration'] = JobsStabilityIntegrated.installed_pod_application_configuration(
+    root, options[:configurations], require_installed: !options[:audit_only])
+  save.call
+  puts "PASS ApplicationTests inventory: #{application.fetch('expected_test_count')} cases"
+end
+
 # 在构建前核验实际 podspec/资源/selector 所有权，失败不会进入主工程验收。
 audit_script = File.join(root, 'ScriptsByPods', '自动化测试相关脚本', 'jobs_pods_stability_audit.rb', 'jobs_pods_stability_audit.rb')
 if File.file?(audit_script)
@@ -652,12 +668,7 @@ if %w[all tests].include?(options[:phase]) && passed
     passed = false unless status.success?
   end
   # 主工程测试与 Pod 测试共用失败、超时和证据门禁，测试宿主仅在临时工程替换入口。
-  if passed && File.directory?(File.join(root, 'JobsOCBaseConfigDemoTests'))
-    require_relative 'jobs_stability_integrated.rb/jobs_stability_integrated'
-    application = JobsStabilityIntegrated.application_tests(root, { 'components' => [], 'host' => { 'test_classes' => [] } })
-    raise '主工程 ApplicationTests 必须盘点到完整 17 例，不能以空集合跳过。' unless application['expected_test_count'] == 17 && !application.fetch('test_classes').empty?
-    record['application_tests'] = application
-    save.call
+  if passed && application
     application_output = File.join(options[:output], 'ApplicationTests')
     plan = JobsStabilityIntegrated.prepare_plan(root, application_output)
     assert_current_source.call
@@ -673,7 +684,8 @@ if %w[all tests].include?(options[:phase]) && passed
                   architecture + ['CODE_SIGNING_ALLOWED=YES', 'CODE_SIGNING_REQUIRED=YES', 'CODE_SIGN_IDENTITY=-']
     common_args += application.fetch('test_classes').map { |name| "-only-testing:#{JobsStabilityIntegrated::TESTS}/#{name}" }
     application_evidence = {
-      'expected_test_count' => 17, 'test_classes' => application.fetch('test_classes'),
+      'expected_test_count' => application.fetch('expected_test_count'), 'test_classes' => application.fetch('test_classes'),
+      'test_inventory' => application.fetch('test_inventory'),
       'workspace' => plan.fetch('workspace'),
       'host_app' => File.join(products, "#{configuration}-iphonesimulator", JobsStabilityIntegrated::APP + '.app')
     }

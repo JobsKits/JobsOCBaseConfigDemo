@@ -48,7 +48,11 @@ ruby ScriptsByPods/自动化测试相关脚本/jobs_pods_stability_verify.rb/Tes
 
 批量构建保留全部自建 Pod 的 Debug / Release 覆盖，交给 Xcode 在单图中合并共享依赖；每次最多并行 2 个构建任务。CI 为整图显式设置 `--build-timeout 3300`，每配置最多 55 分钟，两配置共用原有的 120 分钟步骤时限；本地默认单次构建仍为 1800 秒。未加 `--batch-pods` 时继续逐 Pod 模式，也可结合 `--pod` 定向排错。批次失败或超时就停止后续配置、测试与主工程流程；源码变更门禁及安装模式、架构身份继续生效。
 
+CI 的 Pod suites 与后续主工程 ApplicationTests 共用 180 分钟步骤时限，整 job 为 360 分钟；已观测的 51 组 Pod 测试约 99 分钟，后续仍需容纳既有测试构建 1800 秒和测试 600 秒的串行预算。双配置 Pods 步骤的 120 分钟、主 App 步骤的 125 分钟及各内部时限保持；外层余量不代表已证明未来冷构建性能上界。
+
 Stability 测试显式使用 `<Pod>-Unit-Stability` scheme：仅含头文件的 Pod 聚合 scheme 可能没有 test action；逐 Pod 编译仍使用原 `<Pod>` scheme。
+
+主工程 ApplicationTests 在逐 Pod 矩阵前按真实 Target 校验 2 份源码、2 个类和 20 个方法；缺失、未知或重复成员均立即失败。清单包含原 17 例及新增 3 例主题测试，后续实际编译、运行与报告复核共享这份精确清单，仍要求全部执行、零失败零跳过。共享源码指纹包含真实 JobsOCBaseConfigDemoTests 目录；方法名不变而实现体或头文件改变，以及新增测试源，同样使缓存失效，并触发运行中的源码冻结门禁。`--audit-only` 同样执行库存门禁。正式测试 Target 通过 Podfile.deps 的 inherit! :search_paths 使用 CocoaPods 生成的独立测试 xcconfig，未新增 Pod；安装后、逐 Pod 编译前校验 Debug／Release 的有效搜索路径。audit-only 只允许配置文件尚未安装，不允许引用错误的配置。
 
 XCTest 还核验真实 `.xcresult` 摘要，记录执行、通过、失败与跳过数量；命令退出为 0，但没有执行用例、全跳过、存在失败或无法解析结果时，仍判定验证失败。
 

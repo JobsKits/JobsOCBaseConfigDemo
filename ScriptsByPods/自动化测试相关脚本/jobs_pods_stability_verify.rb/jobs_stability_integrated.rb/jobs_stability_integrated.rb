@@ -6,6 +6,7 @@ require 'json'
 require 'open3'
 require 'optparse'
 require 'pathname'
+require 'shellwords'
 require 'time'
 require 'xcodeproj'
 require_relative '../jobs_stability_command.rb/jobs_stability_command'
@@ -115,6 +116,106 @@ module JobsStabilityIntegrated
       count += source.scan(/^-\s*\(\s*void\s*\)\s*test\w+\s*(?:\{|$)/).size
     end
     { 'name' => 'ApplicationTests', 'test_classes' => classes.uniq, 'expected_test_count' => count }
+  end
+
+  # 按生产测试 Target 冻结成员；新增/删除用例必须与本清单一起审阅。
+  POD_APPLICATION_TESTS = {
+    'JobsOCBaseConfigDemoTests/JobsOCBaseConfigDemoTests.m' => {
+      'class' => 'JobsOCBaseConfigDemoTests',
+      'methods' => %w[
+        testAppBundleCanBeLoaded
+        testInfoPlistBundleIdentifierReadable
+        testTimerResumesOnlyAfterAutomaticPause
+        testTimerManagerKeepsManualPauseState
+        testTimerManagerExpectedTimerCannotRemoveReplacement
+        testTimerManagerScopePreservesManualPause
+        testSplashOverlayDoesNotInstallNavigationUIAndCanSkipWhileRunning
+        testSettingGestureDemoLoadsWithJobsBaseControllerContract
+        testDropDownListSelectionClosesWithoutNilBlockCrash
+        testBluetoothFeaturePagesLoadAndExecute
+        testBluetoothCellFollowsThemeWithoutReload
+        testThemeSelectionPersistsWithoutLosingSystemMode
+        testLegacyThemeRawNamesRemainAvailable
+        testSystemThemeFollowsSceneAboveWindowOverride
+        testPerformanceExample
+      ].freeze
+    }.freeze,
+    'JobsOCBaseConfigDemoTests/JobsOCDeviceGuardLaunchTests/JobsOCDeviceGuardLaunchTests.m' => {
+      'class' => 'JobsOCDeviceGuardLaunchTests',
+      'methods' => %w[
+        testDefaultPolicyBlocksOnlyJailbroken
+        testDecisionFreezesPolicyResult
+        testProcessDecisionIsStableAndConfigurationFrozen
+        testBlockedControllerHasNoBusinessBaseClass
+        testActualSceneMatchesFrozenDecision
+      ].freeze
+    }.freeze
+  }.freeze
+
+  def pod_application_tests(root)
+    root = File.realpath(root)
+    project = Xcodeproj::Project.open(File.join(root, APP + '.xcodeproj'))
+    target = project.targets.find { |item| item.name == TESTS }
+    raise '主工程 ApplicationTests Target 缺失' unless target
+    entries = target.source_build_phase.files_references.compact.map { |ref| ref.real_path.to_s }
+    raise '主工程 ApplicationTests 源文件重复编入 Target' unless entries.uniq == entries
+    paths = target_sources(project, target).grep(/\.(?:m|mm)\z/).sort
+    relative = paths.map { |path| Pathname.new(path).relative_path_from(Pathname.new(root)).to_s }
+    raise '主工程 ApplicationTests 源文件清单变化，需重新盘点' unless relative.sort == POD_APPLICATION_TESTS.keys.sort
+    inventory = paths.map do |path|
+      source = objc_tokens(File.read(path))
+      header = path.sub(/\.(?:m|mm)\z/, '.h')
+      declarations = source + (File.file?(header) ? objc_tokens(File.read(header)) : '')
+      classes = declarations.scan(/@interface\s+(\w+)\s*:\s*XCTestCase/).flatten
+      expected = POD_APPLICATION_TESTS.fetch(Pathname.new(path).relative_path_from(Pathname.new(root)).to_s)
+      raise "主工程 XCTest 类清单变化：#{path}" unless classes == [expected.fetch('class')]
+      implementations = source.scan(/@implementation\s+(\w+)\b(.*?)@end/m)
+      methods = implementations.select { |name, _| name == expected.fetch('class') }.flat_map do |_, body|
+        body.scan(/^\s*-\s*\(\s*void\s*\)\s*(test\w+)\s*(?:\{|$)/).flatten
+      end
+      all_methods = source.scan(/^\s*-\s*\(\s*void\s*\)\s*(test\w+)\s*(?:\{|$)/).flatten
+      unless methods.uniq.size == methods.size && methods.sort == expected.fetch('methods').sort && all_methods.sort == methods.sort
+        raise "主工程 ApplicationTests 方法清单变化/重复：#{path}；实际 #{methods.sort.join(', ')}"
+      end
+      { 'source' => Pathname.new(path).relative_path_from(Pathname.new(root)).to_s,
+        'class' => expected.fetch('class'), 'methods' => methods.sort }
+    end
+    { 'name' => 'ApplicationTests', 'test_classes' => inventory.map { |row| row.fetch('class') },
+      'expected_test_count' => inventory.sum { |row| row.fetch('methods').size }, 'test_inventory' => inventory }
+  end
+
+  def installed_pod_application_configuration(root, configurations, require_installed: true)
+    project = Xcodeproj::Project.open(File.join(root, APP + '.xcodeproj'))
+    target = project.targets.find { |item| item.name == TESTS }
+    raise "缺少测试 Target：#{TESTS}" unless target
+    label = "Pods-#{TESTS}"
+    rows = configurations.map do |name|
+      configuration = target.build_configurations.find { |item| item.name == name }
+      actual = configuration&.base_configuration_reference&.real_path&.to_s
+      expected = File.join(root, 'Pods', 'Target Support Files', label, "#{label}.#{name.downcase}.xcconfig")
+      unless actual && File.expand_path(actual) == File.expand_path(expected)
+        raise "#{TESTS}/#{name}缺少正式测试 Pods 配置引用；保留 inherit! :search_paths 后运行 pod install"
+      end
+      if !File.file?(actual)
+        raise "#{TESTS}/#{name}测试 Pods 配置尚未安装；先运行 pod install" if require_installed
+        next { 'configuration' => name, 'xcconfig' => actual, 'installed' => false }
+      end
+      values = Xcodeproj::Config.new(actual).to_hash
+      required = %w[PODS_ROOT PODS_CONFIGURATION_BUILD_DIR HEADER_SEARCH_PATHS FRAMEWORK_SEARCH_PATHS]
+      missing = required.select { |key| values[key].to_s.strip.empty? || values[key].to_s.strip == '$(inherited)' }
+      raise "#{TESTS}/#{name}测试 Pods 配置缺少有效 #{missing.join('/')}" unless missing.empty?
+      %w[HEADER_SEARCH_PATHS FRAMEWORK_SEARCH_PATHS LIBRARY_SEARCH_PATHS].each do |key|
+        next unless configuration.build_settings[key]
+        raw = configuration.build_settings[key]
+        tokens = raw.is_a?(Array) ? raw : Shellwords.split(raw.to_s)
+        unless (tokens & %w[$(inherited) ${inherited}]).any?
+          raise "#{TESTS}/#{name} #{key} 覆盖丢失 inherited"
+        end
+      end
+      { 'configuration' => name, 'xcconfig' => actual, 'installed' => true,
+        'sha256' => Digest::SHA256.file(actual).hexdigest }
+    end
+    { 'target' => TESTS, 'configurations' => rows }
   end
 
   def audit(root)

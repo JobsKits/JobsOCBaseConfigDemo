@@ -83,6 +83,7 @@
 		27F667EB859B4DC3250541AF /* JobsAudioSessionFixture.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = JobsAudioSessionFixture.h; sourceTree = "<group>"; };
 		286ECD64DC96CA018A6BA7C5 /* JobsOCDSLAnimatedNumberStabilityTests.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = JobsOCDSLAnimatedNumberStabilityTests.h; sourceTree = "<group>"; };
 		2878F02F869EC256676A8370 /* Pods-JobsOCBaseConfigDemo.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-JobsOCBaseConfigDemo.debug.xcconfig"; path = "Target Support Files/Pods-JobsOCBaseConfigDemo/Pods-JobsOCBaseConfigDemo.debug.xcconfig"; sourceTree = "<group>"; };
+		D3A781313263C15C19640C9C /* Pods-JobsOCBaseConfigDemoTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-JobsOCBaseConfigDemoTests.debug.xcconfig"; path = "Target Support Files/Pods-JobsOCBaseConfigDemoTests/Pods-JobsOCBaseConfigDemoTests.debug.xcconfig"; sourceTree = "<group>"; };
 		29B35FCECA5CB9D93EC9A419 /* JobsUIKitRegistrationTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = JobsUIKitRegistrationTests.m; sourceTree = "<group>"; };
 		29ECB606BF5007B2DD499B66 /* JobsMarqueeViewStabilityTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = JobsMarqueeViewStabilityTests.m; sourceTree = "<group>"; };
 		334CF99DDFCA3454B0232D2C /* JobsSplashCacheFixture.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = JobsSplashCacheFixture.h; sourceTree = "<group>"; };
@@ -220,6 +221,7 @@
 		FD88D73D63326DDA5845DB29 /* run_regression.rb */ = {isa = PBXFileReference; lastKnownFileType = text.script.ruby; path = run_regression.rb; sourceTree = "<group>"; };
 		FE8E77987930D17D5B9111D9 /* JobsAPIRequestProtocolFixture.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = JobsAPIRequestProtocolFixture.m; sourceTree = "<group>"; };
 		FEB5A76B145481E5A94BBC3D /* Pods-JobsOCBaseConfigDemo.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-JobsOCBaseConfigDemo.release.xcconfig"; path = "Target Support Files/Pods-JobsOCBaseConfigDemo/Pods-JobsOCBaseConfigDemo.release.xcconfig"; sourceTree = "<group>"; };
+		568EABBA6DA6838704BA71F4 /* Pods-JobsOCBaseConfigDemoTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-JobsOCBaseConfigDemoTests.release.xcconfig"; path = "Target Support Files/Pods-JobsOCBaseConfigDemoTests/Pods-JobsOCBaseConfigDemoTests.release.xcconfig"; sourceTree = "<group>"; };
 		9A10B42CCD77F150E93607C9 /* DerivedAppIconAssets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = DerivedAppIconAssets.xcassets; path = "$(BUILD_DIR)/JobsAppIconRibbonAssets/$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)/Assets.xcassets"; sourceTree = "<absolute>"; };
 /* End PBXFileReference section */
 
@@ -1603,7 +1605,9 @@
 			isa = PBXGroup;
 			children = (
 				2878F02F869EC256676A8370 /* Pods-JobsOCBaseConfigDemo.debug.xcconfig */,
+				D3A781313263C15C19640C9C /* Pods-JobsOCBaseConfigDemoTests.debug.xcconfig */,
 				FEB5A76B145481E5A94BBC3D /* Pods-JobsOCBaseConfigDemo.release.xcconfig */,
+				568EABBA6DA6838704BA71F4 /* Pods-JobsOCBaseConfigDemoTests.release.xcconfig */,
 			);
 			path = Pods;
 			sourceTree = "<group>";
@@ -2063,6 +2067,7 @@
 		};
 		28CE8C85E509901AEE11E34D /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = D3A781313263C15C19640C9C /* Pods-JobsOCBaseConfigDemoTests.debug.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CLANG_ENABLE_OBJC_ARC = YES;
@@ -2109,6 +2114,7 @@
 		};
 		C2E25CB94CCEF58C361E60F0 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 568EABBA6DA6838704BA71F4 /* Pods-JobsOCBaseConfigDemoTests.release.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CLANG_ENABLE_OBJC_ARC = YES;

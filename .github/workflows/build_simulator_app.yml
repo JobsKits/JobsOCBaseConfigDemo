@@ -18,7 +18,7 @@ concurrency:
 jobs:
   build-simulator-app:
     runs-on: xcode-27
-    timeout-minutes: 320
+    timeout-minutes: 360
     permissions:
       actions: write
       contents: read
@@ -166,7 +166,7 @@ jobs:
             "${GITHUB_WORKSPACE}" "${RUNNER_TEMP}/ReactiveObjCDiagnosticsAfterBuild"
 
       - name: Run each Pod regression suite
-        timeout-minutes: 120
+        timeout-minutes: 180
         run: |
           ruby ScriptsByPods/自动化测试相关脚本/jobs_pods_stability_verify.rb/jobs_pods_stability_verify.rb \
             --phase tests --separate-test-builds \

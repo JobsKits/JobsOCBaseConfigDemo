@@ -342,4 +342,31 @@ Dir.mktmpdir('jobs-stability-sources-') do |root|
     end
   end
 end
+# XCTest 根目录的实现体、头文件和新增源均属于执行/缓存身份；方法名相同也不能领旧结果。
+Dir.mktmpdir('jobs-application-source-fingerprint-') do |root|
+  folder = File.join(root, 'JobsOCBaseConfigDemoTests')
+  FileUtils.mkdir_p(folder)
+  implementation = File.join(folder, 'JobsOCBaseConfigDemoTests.m')
+  header = File.join(folder, 'JobsOCBaseConfigDemoTests.h')
+  original = "@implementation JobsOCBaseConfigDemoTests\n-(void)testBodyIdentity {\n  NSInteger value = 1;\n}\n@end\n"
+  File.write(implementation, original)
+  File.write(header, "@interface JobsOCBaseConfigDemoTests : XCTestCase\n@end\n")
+  assert.call([implementation, header].all? { |path| source_paths(root).include?(path) }, 'actual ApplicationTests root missing from source freeze inputs')
+  before = source_fingerprint(root, 'fixture Xcode')
+  changed = original.sub('value = 1', 'value = 2')
+  selectors = lambda { |source| source.scan(/^\s*-\s*\(\s*void\s*\)\s*(test\w+)\s*(?:\{|$)/).flatten }
+  File.write(implementation, changed)
+  assert.call(selectors.call(changed) == selectors.call(original), 'body-only fixture accidentally changed the test inventory')
+  body_changed = source_fingerprint(root, 'fixture Xcode')
+  assert.call(body_changed != before, 'body-only ApplicationTests change reused an old fingerprint')
+  added = File.join(folder, 'Nested', 'AdditionalTests.mm')
+  FileUtils.mkdir_p(File.dirname(added))
+  File.write(added, '@implementation AdditionalTests @end')
+  assert.call(source_paths(root).include?(added) && source_fingerprint(root, 'fixture Xcode') != body_changed, 'added ApplicationTests source did not invalidate results')
+  File.unlink(added)
+  assert.call(source_fingerprint(root, 'fixture Xcode') == body_changed, 'deleting added ApplicationTests source did not restore the input set')
+  File.write(header, File.read(header) + "\n#define JOBS_TEST_BODY_MARKER 1\n")
+  assert.call(source_fingerprint(root, 'fixture Xcode') != body_changed, 'ApplicationTests header mutation was absent from fingerprint')
+end
+
 puts "PASS: #{checks} source fingerprint checks"

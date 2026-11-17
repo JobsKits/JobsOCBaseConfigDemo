@@ -523,8 +523,11 @@ def require_test(errors, record, fingerprint, root, name, configuration)
     end
   end
   if name == 'ApplicationTests'
-    errors << "主工程必须完整执行 17 例且零跳过 #{label}" unless row['expected_test_count'] == 17 &&
-      [total, passed, failed, skipped] == [17, 17, 0, 0]
+    require_relative '../jobs_stability_integrated.rb/jobs_stability_integrated'
+    component = JobsStabilityIntegrated.pod_application_tests(root)
+    expected = component.fetch('expected_test_count')
+    errors << "主工程必须完整执行 #{expected} 例且零跳过 #{label}" unless row['expected_test_count'] == expected &&
+      row['test_inventory'] == component.fetch('test_inventory') && [total, passed, failed, skipped] == [expected, expected, 0, 0]
     errors << "主工程测试必须关联独立成功构建 #{label}" unless row['execution_mode'] == 'test-without-building'
     errors << "主工程签名策略不匹配 #{label}" unless row['signing_policy'] == 'simulator-adhoc-application-tests-v1'
     unless row['source_consistent'] == true && row['process_status_collected'] == true &&
@@ -570,18 +573,15 @@ end
 # 主工程回归属于完整矩阵，领取报告时重新核对实际 xcresult 和独立宿主二进制。
 def require_application_tests(errors, record, fingerprint, root)
   require_relative '../jobs_stability_integrated.rb/jobs_stability_integrated'
-  component = JobsStabilityIntegrated.application_tests(root, { 'components' => [], 'host' => { 'test_classes' => [] } })
-  unless component['expected_test_count'] == 17 && !component.fetch('test_classes').empty?
-    errors << '主工程当前测试源码未包含完整 17 例。'
-    return nil
-  end
+  component = JobsStabilityIntegrated.pod_application_tests(root)
+  expected = component.fetch('expected_test_count')
   row = require_test(errors, record, fingerprint, root, 'ApplicationTests', 'Debug')
   return nil unless row
   inventory = record['application_tests']
   classes = component.fetch('test_classes').sort
-  unless inventory.is_a?(Hash) && inventory['expected_test_count'] == 17 &&
-      Array(inventory['test_classes']).sort == classes && Array(row['test_classes']).sort == classes
-    errors << '主工程测试记录与当前 17 例类清单不匹配。'
+  unless inventory == component && row['expected_test_count'] == expected &&
+      row['test_inventory'] == component.fetch('test_inventory') && Array(row['test_classes']).sort == classes
+    errors << '主工程测试记录与当前精确方法清单不匹配。'
   end
   preparation = latest_result(record, fingerprint, 'test_build', 'ApplicationTests', 'Debug')
   filters = classes.map { |name| "-only-testing:#{JobsStabilityIntegrated::TESTS}/#{name}" }
@@ -600,9 +600,9 @@ def require_application_tests(errors, record, fingerprint, root)
     text, status = Open3.capture2e('xcrun', 'xcresulttool', 'get', 'test-results', 'summary', '--path', bundle, '--compact')
     summary = JSON.parse(text)
     keys = %w[result totalTestCount passedTests failedTests skippedTests]
-    unless status.success? && summary.values_at(*keys) == ['Passed', 17, 17, 0, 0] &&
+    unless status.success? && summary.values_at(*keys) == ['Passed', expected, expected, 0, 0] &&
         row['test_summary'].is_a?(Hash) && summary.values_at(*keys) == row['test_summary'].values_at(*keys)
-      errors << '主工程真实 xcresult 与当次 17 例成功回执不匹配。'
+      errors << '主工程真实 xcresult 与当次完整方法清单的成功回执不匹配。'
     end
   end
   signature = row['host_signature']
@@ -616,7 +616,7 @@ def require_application_tests(errors, record, fingerprint, root)
     end
   end
   row
-rescue JSON::ParserError, KeyError, SystemCallError => error
+rescue JSON::ParserError, KeyError, SystemCallError, RuntimeError => error
   errors << "主工程实际回执无法读取：#{error.message}"
   nil
 end
@@ -695,7 +695,7 @@ def main
     info = metadata.fetch(name)
     facts << "#{info[:tests].join(' / ')} Stability 回归" unless info[:tests].empty?
     facts << 'macOS 生产实现回归' if info[:harness]
-    facts << '主工程与宿主 17 例回归' if application
+    facts << "主工程与宿主 #{record.fetch('application_tests').fetch('expected_test_count')} 例回归" if application
     state = "当前结果：**#{facts.join('、')}已完成"
     state += '；本 Pod 无独立 Stability 回归' if info[:tests].empty?
     state += "；整体验收记录见根 #{RESULT_LINK}**。"

@@ -491,7 +491,7 @@ Dir.mktmpdir('jobs-split-test-phase-') do |root|
   end
 end
 
-# 真正运行 Pod 模式入口；只把外部 Xcode/签名环境替为临时夹具，验证 17 例主工程阶段及报告合同。
+# 真正运行 Pod 模式入口；只把外部 Xcode/签名环境替为临时夹具，验证 20 例主工程阶段及报告合同。
 require_relative '../../jobs_stability_command.rb/jobs_stability_command'
 Dir.mktmpdir('jobs-application-phase-') do |root|
   scripts = File.join(root, 'ScriptsByPods', '自动化测试相关脚本', 'jobs_pods_stability_verify.rb')
@@ -509,10 +509,18 @@ Dir.mktmpdir('jobs-application-phase-') do |root|
     module JobsStabilityIntegrated
       APP = 'JobsOCBaseConfigDemo'
       TESTS = 'JobsOCBaseConfigDemoTests'
-      def self.application_tests(root, manifest)
-        raise 'unexpected component filter' unless manifest == { 'components' => [], 'host' => { 'test_classes' => [] } }
+      def self.pod_application_tests(root)
+        raise 'fixture inventory mismatch' unless ENV.fetch('JOBS_APP_FIXTURE_INVENTORY', '20') == '20'
         { 'name' => 'ApplicationTests', 'test_classes' => %w[JobsOCBaseConfigDemoTests JobsOCDeviceGuardLaunchTests],
-          'expected_test_count' => ENV.fetch('JOBS_APP_FIXTURE_INVENTORY', '17').to_i }
+          'expected_test_count' => 20,
+          'test_inventory' => [
+            { 'source' => 'FixtureAppTests.m', 'class' => 'JobsOCBaseConfigDemoTests', 'methods' => (1..15).map { |n| "testFixture#{n}" } },
+            { 'source' => 'FixtureGuardTests.m', 'class' => 'JobsOCDeviceGuardLaunchTests', 'methods' => (1..5).map { |n| "testGuard#{n}" } }
+          ] }
+      end
+      def self.installed_pod_application_configuration(root, configurations, require_installed: true)
+        raise 'fixture installed configuration missing' if ENV['JOBS_APP_FIXTURE_CONFIGURATION'] == '0'
+        { 'target' => TESTS, 'configurations' => configurations.map { |name| { 'configuration' => name, 'installed' => true } } }
       end
       def self.prepare_plan(root, output)
         workspace = File.join(output, 'IntegratedHost', 'Integrated.xcworkspace')
@@ -532,6 +540,8 @@ Dir.mktmpdir('jobs-application-phase-') do |root|
   FileUtils.mkdir_p(File.join(pod, 'Tests'))
   File.write(File.join(pod, 'Fixture.podspec'), "spec.test_spec 'Stability'\n")
   File.write(File.join(pod, 'Tests/run_regression.rb'), "puts 'fixture production harness'\n")
+  application_source = File.join(root, 'JobsOCBaseConfigDemoTests', 'BodyFixture.m')
+  File.write(application_source, "@implementation BodyFixture\n-(void)testSameInventory {\n  NSInteger value = 1;\n}\n@end\n")
   File.write(File.join(tools, 'xcodebuild'), <<~RUBY)
     #!#{RbConfig.ruby}
     require 'json'
@@ -542,6 +552,10 @@ Dir.mktmpdir('jobs-application-phase-') do |root|
     end
     File.open(ENV.fetch('JOBS_APP_FIXTURE_TRACE'), 'a') { |file| file.puts(JSON.generate(ARGV)) }
     application = ARGV.include?('-workspace')
+    if application && ENV['JOBS_APP_FIXTURE_BODY_MUTATION'] == '1' && ARGV.last == 'build-for-testing'
+      source = ENV.fetch('JOBS_APP_FIXTURE_SOURCE')
+      File.write(source, File.read(source).sub('value = 1', 'value = 2'))
+    end
     if application && ARGV.last == 'build-for-testing' && ENV['JOBS_APP_FIXTURE_PREP_FAIL'] == '1'
       warn 'error: application test preparation fixture failure'
       exit 65
@@ -562,7 +576,7 @@ Dir.mktmpdir('jobs-application-phase-') do |root|
       exec /usr/bin/xcrun "$@"
     fi
     case "$*" in
-      *ApplicationTests*) fixture_total=${JOBS_APP_FIXTURE_TOTAL:-17}; fixture_skipped=${JOBS_APP_FIXTURE_SKIPPED:-0} ;;
+      *ApplicationTests*) fixture_total=${JOBS_APP_FIXTURE_TOTAL:-20}; fixture_skipped=${JOBS_APP_FIXTURE_SKIPPED:-0} ;;
       *) fixture_total=2; fixture_skipped=0 ;;
     esac
     fixture_passed=$((fixture_total - fixture_skipped))
@@ -570,10 +584,11 @@ Dir.mktmpdir('jobs-application-phase-') do |root|
   SHELL
   %w[xcodebuild xcrun].each { |name| File.chmod(0o755, File.join(tools, name)) }
   baseline = nil
-  [ ['valid', {}], ['missing-case', { 'JOBS_APP_FIXTURE_TOTAL' => '16' }],
+  [ ['valid', {}], ['missing-case', { 'JOBS_APP_FIXTURE_TOTAL' => '19' }],
     ['skipped-case', { 'JOBS_APP_FIXTURE_SKIPPED' => '1' }], ['bad-signature', { 'JOBS_APP_FIXTURE_HOST' => '0' }],
-    ['failed-preparation', { 'JOBS_APP_FIXTURE_PREP_FAIL' => '1' }], ['bad-inventory', { 'JOBS_APP_FIXTURE_INVENTORY' => '16' }] ].each do |label, extra|
+    ['failed-preparation', { 'JOBS_APP_FIXTURE_PREP_FAIL' => '1' }], ['bad-inventory', { 'JOBS_APP_FIXTURE_INVENTORY' => '19' }], ['missing-configuration', { 'JOBS_APP_FIXTURE_CONFIGURATION' => '0' }], ['body-mutated', { 'JOBS_APP_FIXTURE_BODY_MUTATION' => '1', 'JOBS_APP_FIXTURE_SOURCE' => application_source }] ].each do |label, extra|
     output = File.join(root, 'work', label)
+    File.write(application_source, File.read(application_source).sub('value = 2', 'value = 1'))
     trace = File.join(root, label + '.commands')
     env = { 'PATH' => tools + File::PATH_SEPARATOR + ENV.fetch('PATH'), 'JOBS_APP_FIXTURE_TRACE' => trace }.merge(extra)
     fixture_log = File.join(root, label + '.outer.log')
@@ -589,9 +604,9 @@ Dir.mktmpdir('jobs-application-phase-') do |root|
     record = JSON.parse(File.read(File.join(output, 'results.json')))
     rows = record.fetch('results').select { |row| row['name'] == 'ApplicationTests' }
     if label == 'valid'
-      assert.call(status.success?, "valid 17-case stage failed: #{message}")
+      assert.call(status.success?, "valid 20-case stage failed: #{message}")
       assert.call(rows.map { |row| row['kind'] } == %w[test_build test], 'application did not build then run actual test action')
-      assert.call(rows.all? { |row| row['signing_policy'] == 'simulator-adhoc-application-tests-v1' && row['expected_test_count'] == 17 }, 'application stage lost count/signing policy')
+      assert.call(rows.all? { |row| row['signing_policy'] == 'simulator-adhoc-application-tests-v1' && row['expected_test_count'] == 20 }, 'application stage lost count/signing policy')
       assert.call(rows.last['test_build_record']['process_pid'] == rows.first['process_pid'] && rows.last['host_signature']['valid'], 'application receipt lost actual preparation/signature evidence')
       arguments = File.readlines(trace).map { |line| JSON.parse(line) }.select { |args| args.include?('-workspace') }
       assert.call(arguments.map(&:last) == %w[build-for-testing test-without-building], 'application actions are not separate')
@@ -600,9 +615,17 @@ Dir.mktmpdir('jobs-application-phase-') do |root|
       baseline = record
     else
       assert.call(!status.success?, "invalid application stage passed: #{label}")
-      assert.call(rows.none? { |row| row['kind'] == 'test' }, 'application test ran after failed preparation/inventory') if %w[failed-preparation bad-inventory].include?(label)
+      assert.call(rows.none? { |row| row['kind'] == 'test' }, 'application test ran after failed preparation/inventory') if %w[failed-preparation bad-inventory missing-configuration].include?(label)
+      if label == 'body-mutated'
+        failure = record.fetch('results').find { |row| row['source_consistent'] == false }
+        assert.call(failure && failure['exit_status'] == 75, 'running guard missed body-only change under unchanged test inventory')
+      end
+      if %w[bad-inventory missing-configuration].include?(label)
+        assert.call(record.fetch('results').empty? && !File.exist?(trace), 'inventory failure was detected after expensive Pod/test commands')
+      end
     end
   end
+  File.write(application_source, File.read(application_source).sub('value = 2', 'value = 1'))
   previous_path = ENV['PATH']
   begin
     ENV['PATH'] = tools + File::PATH_SEPARATOR + previous_path
@@ -610,8 +633,8 @@ Dir.mktmpdir('jobs-application-phase-') do |root|
     fingerprint = baseline.fetch('source_fingerprint')
     errors = []
     require_application_tests(errors, baseline, fingerprint, root)
-    assert.call(errors.empty?, "valid 17-case real-receipt gate rejected: #{errors}")
-    %w[missing-result wrong-count wrong-policy missing-build missing-signature wrong-classes].each do |case_name|
+    assert.call(errors.empty?, "valid 20-case real-receipt gate rejected: #{errors}")
+    %w[missing-result wrong-count wrong-policy missing-build missing-signature wrong-classes wrong-methods].each do |case_name|
       altered = Marshal.load(Marshal.dump(baseline))
       row = altered.fetch('results').find { |item| item.values_at('kind', 'name') == ['test', 'ApplicationTests'] }
       case case_name
@@ -621,12 +644,13 @@ Dir.mktmpdir('jobs-application-phase-') do |root|
       when 'missing-build' then altered['results'].reject! { |item| item.values_at('kind', 'name') == ['test_build', 'ApplicationTests'] }
       when 'missing-signature' then row.delete('host_signature')
       when 'wrong-classes' then row['test_classes'] = ['OtherTests']
+      when 'wrong-methods' then row.fetch('test_inventory').first.fetch('methods')[0] = 'testUnknown'
       end
       errors = []
       require_application_tests(errors, altered, fingerprint, root)
       assert.call(!errors.empty?, "invalid application report receipt accepted: #{case_name}")
     end
-    ENV['JOBS_APP_FIXTURE_TOTAL'] = '16'
+    ENV['JOBS_APP_FIXTURE_TOTAL'] = '19'
     errors = []
     require_application_tests(errors, baseline, fingerprint, root)
     assert.call(!errors.empty?, 'changed actual xcresult accepted')
@@ -640,6 +664,129 @@ Dir.mktmpdir('jobs-application-phase-') do |root|
     ENV['PATH'] = previous_path
     ENV.delete('JOBS_APP_FIXTURE_TOTAL')
   end
+end
+
+# 使用真实 Xcode 工程成员枚举，变异仅写入临时工程，不编译或更改生产测试。
+Object.send(:remove_const, :JobsStabilityIntegrated) if defined?(JobsStabilityIntegrated)
+require_relative '../../jobs_stability_integrated.rb/jobs_stability_integrated'
+Dir.mktmpdir('jobs-application-inventory-') do |root|
+  project_path = File.join(root, JobsStabilityIntegrated::APP + '.xcodeproj')
+  project = Xcodeproj::Project.new(project_path)
+  target = project.new_target(:unit_test_bundle, JobsStabilityIntegrated::TESTS, :ios, '16.6')
+  originals = {}
+  JobsStabilityIntegrated::POD_APPLICATION_TESTS.each do |relative, entry|
+    path = File.join(root, relative)
+    FileUtils.mkdir_p(File.dirname(path))
+    header = path.delete_suffix('.m') + '.h'
+    File.write(header, "@interface #{entry.fetch('class')} : XCTestCase\n@end\n")
+    body = entry.fetch('methods').map { |method| "-(void)#{method} {\n}\n" }.join
+    originals[path] = "@implementation #{entry.fetch('class')}\n#{body}@end\n"
+    File.write(path, originals.fetch(path))
+    target.source_build_phase.add_file_reference(project.main_group.new_file(path))
+  end
+  project.save
+  inventory = JobsStabilityIntegrated.pod_application_tests(root)
+  assert.call(inventory.fetch('expected_test_count') == 20 && inventory.fetch('test_inventory').size == 2,
+    'real production membership did not yield exact 20-method inventory')
+  assert_rejected = lambda do |label, &operation|
+    rejected = false
+    begin
+      operation.call
+    rescue RuntimeError
+      rejected = true
+    end
+    assert.call(rejected, label)
+  end
+  assert_rejected.call('missing formal test xcconfig reference accepted') do
+    JobsStabilityIntegrated.installed_pod_application_configuration(root, %w[Debug Release], require_installed: false)
+  end
+  configs = target.build_configurations.map do |configuration|
+    name = configuration.name.downcase
+    relative = "Pods/Target Support Files/Pods-JobsOCBaseConfigDemoTests/Pods-JobsOCBaseConfigDemoTests.#{name}.xcconfig"
+    configuration.base_configuration_reference = project.main_group.new_file(File.join(root, relative))
+    File.join(root, relative)
+  end
+  project.save
+  declared = JobsStabilityIntegrated.installed_pod_application_configuration(root, %w[Debug Release], require_installed: false)
+  assert.call(declared.fetch('configurations').all? { |row| row['installed'] == false }, 'uninstalled audit-only declared configuration rejected')
+  assert_rejected.call('uninstalled formal test configuration accepted for a build') do
+    JobsStabilityIntegrated.installed_pod_application_configuration(root, %w[Debug Release])
+  end
+  configs.each do |configuration|
+    FileUtils.mkdir_p(File.dirname(configuration))
+    File.write(configuration, "PODS_ROOT = ${SRCROOT}/Pods\nPODS_CONFIGURATION_BUILD_DIR = ${BUILD_DIR}/$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)\nHEADER_SEARCH_PATHS = $(inherited) ${PODS_ROOT}/Headers/Public/Fixture\nFRAMEWORK_SEARCH_PATHS = $(inherited) ${PODS_CONFIGURATION_BUILD_DIR}/Fixture\n")
+  end
+  installed = JobsStabilityIntegrated.installed_pod_application_configuration(root, %w[Debug Release])
+  assert.call(installed.fetch('configurations').all? { |row| row['installed'] && row['sha256'] }, 'valid installed test configuration rejected')
+  original_config = File.read(configs.first)
+  File.write(configs.first, "PODS_ROOT = ${SRCROOT}/Pods\n")
+  assert_rejected.call('empty generated framework/header search context accepted') do
+    JobsStabilityIntegrated.installed_pod_application_configuration(root, %w[Debug Release])
+  end
+  File.write(configs.first, original_config)
+  configuration = target.build_configurations.first
+  configuration.build_settings['HEADER_SEARCH_PATHS'] = ['owned/override']
+  project.save
+  assert_rejected.call('explicit test search override losing inherited accepted') do
+    JobsStabilityIntegrated.installed_pod_application_configuration(root, %w[Debug Release])
+  end
+  configuration.build_settings['HEADER_SEARCH_PATHS'] = ['$(inherited)', 'owned/override']
+  project.save
+  assert.call(JobsStabilityIntegrated.installed_pod_application_configuration(root, %w[Debug Release]).fetch('configurations').size == 2,
+    'test search override preserving inherited was rejected')
+  # 同一真实20方法库存下，方法体变化仍须使共享源码指纹失效。
+  body_path = originals.keys.first
+  original_body = originals.fetch(body_path)
+  body_before = JobsStabilitySources.fingerprint(root, 'fixture Xcode')
+  File.write(body_path, original_body.sub("-(void)testAppBundleCanBeLoaded {\n}", "-(void)testAppBundleCanBeLoaded {\n  BOOL bodyChanged = YES;\n}"))
+  assert.call(JobsStabilityIntegrated.pod_application_tests(root) == inventory, 'body-only change altered the exact method inventory')
+  assert.call(JobsStabilitySources.fingerprint(root, 'fixture Xcode') != body_before, 'same-inventory test body change reused prior cached results')
+  File.write(body_path, original_body)
+  path = originals.keys.first
+  %w[missing unknown duplicate class].each do |mutation|
+    source = originals.fetch(path)
+    case mutation
+    when 'missing' then source = source.sub("-(void)testAppBundleCanBeLoaded {\n}\n", '')
+    when 'unknown' then source = source.sub('@end', "-(void)testUnknown {\n}\n@end")
+    when 'duplicate' then source = source.sub('@end', "-(void)testAppBundleCanBeLoaded {\n}\n@end")
+    when 'class' then source = source.sub('@implementation JobsOCBaseConfigDemoTests', '@implementation UnknownTests')
+    end
+    File.write(path, source)
+    rejected = false
+    begin
+      JobsStabilityIntegrated.pod_application_tests(root)
+    rescue RuntimeError
+      rejected = true
+    end
+    assert.call(rejected, "changed application method inventory accepted: #{mutation}")
+  end
+  File.write(path, originals.fetch(path) + "// -(void)testUnknown {\n/* -(void)testUnknown { } */\n")
+  assert.call(JobsStabilityIntegrated.pod_application_tests(root) == inventory, 'commented selectors changed actual inventory')
+  File.write(path, originals.fetch(path))
+  project = Xcodeproj::Project.open(project_path)
+  target = project.targets.find { |item| item.name == JobsStabilityIntegrated::TESTS }
+  removed = target.source_build_phase.files.first
+  removed.remove_from_project
+  project.save
+  rejected = false
+  begin
+    JobsStabilityIntegrated.pod_application_tests(root)
+  rescue RuntimeError
+    rejected = true
+  end
+  assert.call(rejected, 'source absent from actual test target accepted')
+  target.source_build_phase.add_file_reference(project.main_group.new_file(path))
+  unknown = File.join(root, 'UnknownTests.m')
+  File.write(unknown, "@interface UnknownTests : XCTestCase\n@end\n@implementation UnknownTests\n-(void)testUnknown {\n}\n@end\n")
+  target.source_build_phase.add_file_reference(project.main_group.new_file(unknown))
+  project.save
+  rejected = false
+  begin
+    JobsStabilityIntegrated.pod_application_tests(root)
+  rescue RuntimeError
+    rejected = true
+  end
+  assert.call(rejected, 'unknown source/class added to actual test target accepted')
 end
 
 puts "PASS: #{checks} test phase checks"
