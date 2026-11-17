@@ -50,7 +50,7 @@ module JobsStabilitySources
     folders = Dir.glob(File.join(root, 'JobsByPods', '*@Pods')).reject do |path|
       File.basename(path).start_with?('ManualBy')
     end
-    folders += %w[JobsOCBaseConfigDemo Libs Tests].map { |path| File.join(root, path) }
+    folders += %w[JobsOCBaseConfigDemo JobsOCBaseConfigDemoTests Libs Tests].map { |path| File.join(root, path) }
     files = folders.flat_map do |folder|
       Dir.glob(File.join(folder, '**', "*.{#{SOURCE_EXTENSIONS}}"))
     end

@@ -161,6 +161,7 @@ jobs:
         run: |
           ruby ScriptsByPods/自动化测试相关脚本/jobs_pods_stability_verify.rb/Tests/integrated_mode_regression.rb/integrated_mode_regression.rb
           ruby ScriptsByPods/自动化测试相关脚本/jobs_pods_stability_verify.rb/Tests/command_timeout_regression.rb/command_timeout_regression.rb
+          ruby ScriptsByPods/自动化测试相关脚本/jobs_pods_stability_verify.rb/Tests/source_fingerprint_regression.rb/source_fingerprint_regression.rb
 
       - name: Run integrated component XCTest and production harnesses
         timeout-minutes: 200

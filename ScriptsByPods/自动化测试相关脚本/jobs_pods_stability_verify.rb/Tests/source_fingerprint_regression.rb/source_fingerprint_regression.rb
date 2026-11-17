@@ -342,4 +342,29 @@ Dir.mktmpdir('jobs-stability-sources-') do |root|
     end
   end
 end
+
+Dir.mktmpdir('jobs-application-test-sources-') do |root|
+  directory = File.join(root, 'JobsOCBaseConfigDemoTests')
+  FileUtils.mkdir_p(directory)
+  header = File.join(directory, 'JobsOCBaseConfigDemoTests.h')
+  implementation = File.join(directory, 'JobsOCBaseConfigDemoTests.m')
+  File.write(header, '@interface JobsOCBaseConfigDemoTests : XCTestCase @end')
+  original = "@implementation JobsOCBaseConfigDemoTests\n- (void)testStable { XCTAssertEqual(1, 1); }\n@end\n"
+  File.write(implementation, original)
+  paths = source_paths(root)
+  assert.call(paths.include?(header) && paths.include?(implementation), 'application test header/implementation missing from fingerprint inputs')
+  before = source_fingerprint(root, 'fixture Xcode')
+  changed = original.sub('XCTAssertEqual(1, 1)', 'XCTAssertEqual(1, 2)')
+  File.write(implementation, changed)
+  selectors = ->(text) { text.scan(/-\s*\(void\)\s*(test\w+)/).flatten }
+  assert.call(selectors.call(original) == ['testStable'] && selectors.call(original) == selectors.call(changed) && source_paths(root) == paths, 'body-only mutation fixture changed test selectors or input paths')
+  body_changed = source_fingerprint(root, 'fixture Xcode')
+  assert.call(body_changed != before, 'application test body-only mutation reused the previous fingerprint')
+  added = File.join(directory, 'NewTests', 'AddedTests.m')
+  FileUtils.mkdir_p(File.dirname(added))
+  File.write(added, "@implementation AddedTests\n- (void)testAdded { XCTAssertTrue(YES); }\n@end\n")
+  assert.call(source_fingerprint(root, 'fixture Xcode') != body_changed, 'new application test source reused the previous fingerprint')
+  File.delete(added)
+  assert.call(source_fingerprint(root, 'fixture Xcode') == body_changed, 'removing the added test source did not restore its prior content identity')
+end
 puts "PASS: #{checks} source fingerprint checks"
