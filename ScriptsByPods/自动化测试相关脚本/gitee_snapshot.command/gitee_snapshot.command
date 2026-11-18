@@ -507,6 +507,7 @@ jobs_prompt_tee() {
 }
 # JOBS_INPUT_CHOICE_STYLE_END
 
+ENTRY_PATH="${0:A}"
 SCRIPT_DIR=''
 PROJECT_ROOT=''
 LOG_FILE=''
@@ -524,8 +525,9 @@ LOCK_DIR=''
 LOCK_OWNED=0
 # 展示固定自述；普通入口等待回车，Git 钩子和只读检查无需交互。
 show_script_intro_and_wait() {
-  SCRIPT_DIR="$(cd "$(dirname "${(%):-%x}")" && pwd)"
-  PROJECT_ROOT="$(cd "$SCRIPT_DIR/../../.." && pwd)"
+  # 不用 prompt 展开读取路径，避免无语言环境时中文被转义。
+  SCRIPT_DIR="${ENTRY_PATH:h}"
+  PROJECT_ROOT="${SCRIPT_DIR:h:h:h}"
   LOG_FILE="${TMPDIR:-/tmp}/gitee_snapshot.log"
   case "${1:-}" in
     --check) MODE='check' ;;
@@ -572,6 +574,9 @@ check_environment() {
   setopt NO_NOMATCH
   command -v git >/dev/null || fail '未找到 Git。'
   [[ "$(repo_git rev-parse --is-inside-work-tree 2>/dev/null)" == true ]] || fail "项目目录不是 Git 工作区：$PROJECT_ROOT"
+  local git_root=''
+  git_root="$(repo_git rev-parse --show-toplevel)" || fail '读取项目根目录失败。'
+  [[ "$PROJECT_ROOT" -ef "$git_root" ]] || fail "脚本布局与 Git 根目录不一致：$PROJECT_ROOT"
   ENABLED="$(repo_git config --local --bool --get jobs.giteeSnapshot.enabled 2>/dev/null || print false)"
   SOURCE_BRANCH="$(repo_git config --local --get jobs.giteeSnapshot.sourceBranch || print byPods)"
   TARGET_REMOTE="$(repo_git config --local --get jobs.giteeSnapshot.remote || print gitee)"

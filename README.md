@@ -16,6 +16,8 @@ App骨架资产（启动、导航、菜单、搜索、侧栏、分组、悬浮�
 
 本工程的[iPhone 真机与 iOS 模拟器自动巡检教程](./ScriptsByPods/自动化测试相关脚本/【MacOS】🧪iOS自动巡检.command/README.md)位于自己的 `ScriptsByPods/自动化测试相关脚本`；只操作本工程已安装的 App，报告保存在该脚本包内。开发辅助入口见[ScriptsByPods/自动化测试相关脚本 说明](./ScriptsByPods/自动化测试相关脚本/README.md)。
 
+[Gitee 独立快照工具](./ScriptsByPods/自动化测试相关脚本/gitee_snapshot.command/README.md)保留 GitHub 的 `byPods` 完整历史，只向 Gitee 发布独立快照；推送 hook 从脚本自身位置解析工程根目录，兼容 Sourcetree 未设置语言环境及中文、空格路径，不需要修改系统语言或重新安装既有 hook。
+
 - 确定性页面与手势清单见脚本包 `Coverage/routes.json`、`Flows.json`，源码映射见 `SourceAudit.json`。App 内 `Common/App工具类/测试支持/JobsOCCoverageGestureProbe` 仅在 Debug 且带巡检启动参数时观察原回调；组件触摸 fixture 单独标记，静态登记不表示设备已通过。根排序使用独立测试偏好域，编辑收键盘用例隔离既有发帖草稿，原 disabled 按钮不会被测试强制启用。
 
 > **项目定位**：面向 iOS 开发者的 Objective-C 工程母版、基础能力库与可运行 Demo 靶场；用于复用工程基座、验证交互和查阅实践。**状态**：持续维护与实验，维护者 **Jobs / JobsKits**；不代表全部示例已完成产品化验收。

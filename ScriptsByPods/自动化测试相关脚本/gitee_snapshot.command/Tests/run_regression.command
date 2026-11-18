@@ -332,6 +332,7 @@ jobs_terminal_style_bootstrap() {
 jobs_terminal_style_bootstrap "$0" "$@"
 # <<< Jobs terminal style protection v1 <<<
 
+ENTRY_PATH="${0:A}"
 SCRIPT_DIR=""
 PROJECT_ROOT=""
 TEST_ROOT=""
@@ -366,7 +367,7 @@ show_script_intro_and_wait() {
 # 创建独立测试环境，并清除外部 Git 路径与签名配置影响。
 initialize_test_environment() {
     setopt NO_NOMATCH ERR_EXIT PIPE_FAIL
-    SCRIPT_DIR="${${(%):-%x}:A:h}"
+    SCRIPT_DIR="${ENTRY_PATH:h}"
     PROJECT_ROOT="${SCRIPT_DIR:h:h:h:h}"
     for tool in git mktemp cp chmod cksum; do
         command -v "$tool" >/dev/null || { print -u2 -- "✖ 缺少命令：$tool"; exit 1; }
@@ -375,7 +376,7 @@ initialize_test_environment() {
     unset GIT_COMMON_DIR GIT_CONFIG_COUNT GIT_CONFIG_PARAMETERS GIT_TEMPLATE_DIR GIT_AUTHOR_NAME GIT_AUTHOR_EMAIL GIT_COMMITTER_NAME GIT_COMMITTER_EMAIL
     export GIT_CONFIG_NOSYSTEM=1 GIT_CONFIG_GLOBAL=/dev/null GIT_TERMINAL_PROMPT=0
     TEST_ROOT="$(mktemp -d "${TMPDIR:-/tmp}/gitee-snapshot-regression.XXXXXX")"
-    FIXTURE="$TEST_ROOT/source"
+    FIXTURE="$TEST_ROOT/中文 仓库"
     ENGINE="$FIXTURE/ScriptsByPods/自动化测试相关脚本/gitee_snapshot.command/gitee_snapshot.command"
     LOG_FILE="$TEST_ROOT/run_regression.log"
     export TMPDIR="$TEST_ROOT/"
@@ -483,6 +484,52 @@ test_snapshot_history() {
     assert_equal "$second $first" "$(fixture_git rev-list --parents -n 1 "$second")" "第二快照只有前快照一个父提交"
     assert_equal "$(fixture_git rev-parse 'byPods^{tree}')" "$(fixture_git rev-parse "$second^{tree}")" "第二快照树与当前源树相同"
     assert_equal 5 "$(fixture_git rev-list --count byPods)" "原分支完整保留五个源提交"
+}
+# 从工程外模拟 Sourcetree 未设置语言环境的原生子进程。
+run_minimal_environment() {
+    local locale_name="$1"
+    shift
+    local -a child_environment=(
+        "HOME=$TEST_ROOT/empty-home" PATH=/usr/bin:/bin:/usr/sbin:/sbin
+        "TMPDIR=$TEST_ROOT/" GIT_CONFIG_NOSYSTEM=1 GIT_CONFIG_GLOBAL=/dev/null
+        GIT_TERMINAL_PROMPT=0 NO_COLOR=1
+    )
+    [[ "$locale_name" == unset ]] || child_environment+=("LC_ALL=$locale_name")
+    (
+        builtin cd -- / || return 1
+        /usr/bin/env -i "${child_environment[@]}" "$@"
+    )
+}
+# 使用实际已安装 hook 做推送预检，日志用于区分门禁拒绝与路径错误。
+simulate_minimal_push() {
+    local locale_name="$1"
+    shift
+    local push_result=0
+    run_minimal_environment "$locale_name" /usr/bin/git -C "$FIXTURE" \
+        -c credential.helper=sourcetree push --dry-run "$@" > "$TEST_ROOT/minimal-push.log" 2>&1 || push_result=$?
+    cat "$TEST_ROOT/minimal-push.log"
+    return "$push_result"
+}
+# 无 locale 和 C 环境也须读对中文路径，并继续拦截 Gitee 原历史。
+test_minimal_environment_paths() {
+    local locale_name="" refs_before="$(fixture_git show-ref)"
+    local index_before="$(cksum < "$FIXTURE/.git/index")"
+    local config_before="$(cksum < "$FIXTURE/.git/config")"
+    for locale_name in unset C en_US.UTF-8; do
+        expect_success "语言环境 $locale_name：工程外只读检查中文空格路径" \
+            run_minimal_environment "$locale_name" /bin/zsh "$ENGINE" --check
+        expect_success "语言环境 $locale_name：实际 hook 放行 GitHub 源历史预检" \
+            simulate_minimal_push "$locale_name" origin refs/heads/byPods:refs/heads/byPods
+        expect_rejected "语言环境 $locale_name：实际 hook 拦截 Gitee 原历史预检" \
+            simulate_minimal_push "$locale_name" gitee refs/heads/byPods:refs/heads/byPods
+        expect_success "语言环境 $locale_name：拒绝原因确为快照门禁" \
+            grep -Fq 'Gitee 普通推送只接受' "$TEST_ROOT/minimal-push.log"
+    done
+    assert_equal "" "$(github_fixture_git for-each-ref --format='%(refname)')" "预检未创建 GitHub 远端引用"
+    assert_equal "" "$(gitee_fixture_git for-each-ref --format='%(refname)')" "预检未创建 Gitee 远端引用"
+    assert_equal "$refs_before" "$(fixture_git show-ref)" "语言环境回归不修改本地引用"
+    assert_equal "$index_before" "$(cksum < "$FIXTURE/.git/index")" "语言环境回归不修改索引"
+    assert_equal "$config_before" "$(cksum < "$FIXTURE/.git/config")" "语言环境回归不修改配置"
 }
 # 验证原生分支改名后重新安装会采用用户新名，并保留原快照提交链。
 test_snapshot_branch_rename() {
@@ -713,6 +760,7 @@ main() {
     initialize_test_environment # 将 Git 环境与日志隔离到临时目录。
     create_fixture # 构造旧历史、本地远端和实际项目 hooks。
     test_snapshot_history # 验证全量当前树与独立快照父链。
+    test_minimal_environment_paths # 验证无语言环境的中文路径与真实推送 hook。
     test_snapshot_branch_rename # 验证用户改名后重新安装保留分支名与快照链。
     test_legacy_snapshot_branch_detection # 验证旧配置失效且缺少分支标记时保留现有快照。
     test_ambiguous_snapshot_branch_markers # 验证多标记拒绝时配置与引用都不改变。

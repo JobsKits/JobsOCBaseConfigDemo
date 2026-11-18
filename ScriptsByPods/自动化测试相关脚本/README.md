@@ -8,6 +8,7 @@
 <summary>📚 目录（点击展开 / 收起）</summary>
 
 - [【MacOS】🧪iOS自动巡检.command](#jobs-toc-heading-1)
+- [gitee\_snapshot.command](#jobs-toc-heading-2)
 
 </details>
 <!-- jobs-toc:end -->
@@ -28,6 +29,13 @@
 - 默认完整清单逐页面、流程、手势和组件执行，每项单独记录；快速／标准／压力为补充探索。先在 Xcode 以 Debug 重新运行当前主程序，确认包含当前测试接入。
 - 核对当前工程名称和 Bundle ID，确认后执行；报告保存在本包 `Reports/`，完整清单先看 `CoverageReport.txt` 与 `总览.txt`，再查各项结果包和截图。
 - [零基础教程](./【MacOS】🧪iOS自动巡检.command/README.md)包含全部参数、停止方法、异常定位和限制；工具按本包 `Target.plist` 识别当前工程，完整运行不依赖父仓或其它工程。
+
+### <span id="jobs-toc-heading-2" data-jobs-toc="v2">[gitee_snapshot.command](./gitee_snapshot.command/README.md)</span><!-- jobs-toc:heading-end -->
+
+> 保留 GitHub 完整开发历史，以独立快照向 Gitee 发布相同文件树，并在推送前检查目标与提交链。
+
+- `--check` 只读检查，`--install` 安装当前仓库 hook；普通运行确认后更新本地快照，不自动推送。具体分支映射与恢复方式见包内说明。
+- 入口从脚本自身位置解析工程路径，兼容 Sourcetree 无语言环境及中文、空格目录；`Tests/run_regression.command --run` 仅操作临时仓库。
 
 目录中的其它已有工具继续保留各自的包内 README，本说明不改变它们的用途或入口。
 
