@@ -20,4 +20,12 @@
 
 规则蒸馏已收进现行 `jobs-github-actions`：目录迁移须对账事件过滤、生产输入和输出；忽略的必需库须有源码准备步骤；Xcode 主版本切换须同时验证镜像、选择路径、版本断言和失败传递。
 
+## 一、<span id="final-ci-20261117">最终提交验收</span>
+
+提交 `72c55121ef1e649e58e9a1a1f58daebde62a6f44` 的[run44111252268](https://github.com/JobsKits/JobsOCBaseConfigDemo/actions/runs/44111252268)已成功。原65条记录为2次共享构建准备、53次XCTest调用共168例次（零失败／跳过）及10个生产harness；App15与DeviceGuard5分别核验。Tests专属Debug／Release配置的实际安装文件SHA与回执一致。
+
+官方Debug App制品 `14356127375`：ZIP为175611122字节，SHA256为 `7f31ba9893873a38e71272f5a3044ae8c773a587b743930ecc2888b11d72b7a2`，官方摘要、Info及主启动壳／真实debug.dylib身份均已核验；原包无重签／重编安装，正常无参数启动后已实看首页，截图后进程存活，安装前后两份Mach-O的SHA一致。共享测试准备Debug／Release与主App Debug成品分开记账，不声明存在本轮Release App制品。
+
+以上CI只覆盖已提交原核心，不包含工作区并行混排新核心；[OCR资产](../RustOCR集成/README.md#source-delivery)与[骨架盘点](../App骨架功能盘点.md)的UI、真机、权限／硬件及完整十语限制保留，本次产品启动不代表全交互重验。
+
 [返回仓库说明](../../README.md)
