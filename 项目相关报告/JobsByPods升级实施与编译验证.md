@@ -177,6 +177,8 @@ ruby ScriptsByPods/自动化测试相关脚本/jobs_pods_stability_verify.rb/upd
 
 [CI 构建流程](../.github/workflows/build_simulator_app.yml) 已接入逐 Pod Debug/Release、配置/证据门禁回归、Pod XCTest 和主工程 Debug/Release；失败仍上传日志与结果包。打包显式选择主 App 的 `.app`，避免新增测试宿主后误取第一个 AppHost。工作流 YAML 已解析通过，未推送或执行远端 CI。
 
+以上“未推送或执行远端CI”为当时集成阶段记录；后续源码4f125200／最终3ba49910的[run44170184730最终验收](./GitHubActions修复/README.md#final-ci-20261117)另计：112Pod双配置、168例次／10个harness与主App Debug／Release构建已核，官方Debug包身份与启动分别记账。原8218指纹、109模块及ALL_REQUIRED_RECEIPTS_VERIFIED仍属原批次，不改标为本轮112Pod矩阵。
+
 新 SDK 的首轮测试宿主缺 Scene 生命周期，未计为通过；修复自有 Scene delegate、manifest 及源码引用后，Snowflake 测试真实通过。失败尝试与最后成功记录分别保留，不用产物存在替代构建退出状态。
 
 <a id="original-requirement-completion"></a>

@@ -13,7 +13,8 @@
 - [三、验证边界](#validation)
 - [四、源码交付与本地编译](#source-delivery)
 - [五、整页阅读与相机输入](#ocr-ui-camera)
-- [六、三主题选择与验证](#jobs-toc-heading-7)
+- [七、中英混排核心与源码状态](#mixed-script-source-20261117)
+- [六、三主题选择与验证](#jobs-toc-heading-8)
 
 </details>
 <!-- jobs-toc:end -->
@@ -64,7 +65,7 @@
 | 本地产物 | `Frameworks/JobsOCRCore.xcframework` 的.a与 `.build-rust-ocr/` 缓存 | Git忽略；当前暂存中的自建.a精确移除并保留本地文件；不擅自重写历史 |
 | 第三方与模型 | 锁定官方ONNX Runtime 1.24.2 ZIP并核对SHA；原模型／许可继续随资源bundle分发 | 自有Rust本地编译与第三方官方依赖下载分别声明；首次构建可能联网，准备完可显式离线 |
 | 运行行为 | 既有入口、手动识别、取消、真实结果、错误重试、十语三主题 | 默认值、偏好和生命周期沿原合同，不新增假识别回退；本批实际构建及运行另记 |
-| GitHub验收 | 五个Demo分别核对本批实际提交与全部必需workflow | 本地检查、远端运行和旧证据分别记账；未完成前不写通过 |
+| GitHub验收 | 五个Demo分别核对本批实际提交与全部必需workflow | 本地检查、远端运行和旧证据分别记账；未完成前不写通过；本宿主[最终CI与制品](../GitHubActions修复/README.md#final-ci-20261117)已按3ba成功run、原记录与同官方Debug包正常启动核验 |
 
 从本项目根目录构建核心：
 
@@ -72,7 +73,7 @@
 /bin/zsh "JobsByPods/JobsRustOCR@Pods/Scripts/BuildRustOCR.command" --yes
 ```
 
-本批源码验证：共享包与Flutter iOS SDK副本均已实际用Rust1.95.0完成五Apple目标编译、组合XCFramework及原库保留；六SDK源码／脚本同源检查、自检、Cargo.lock不会被OC的*.lock误忽略、Git索引无自建.a均通过。21项核心测试与7组失败／迁移检查见共享OCR的源码交付报告；其它宿主本批UI改造后的构建及远端Workflow仍须各自验收，不外推上述构建。
+本批源码验证：共享包与Flutter iOS SDK副本均已实际用Rust1.95.0完成五Apple目标编译、组合XCFramework及原库保留；六SDK源码／脚本同源检查、自检、Cargo.lock不会被OC的*.lock误忽略、Git索引无自建.a均通过。21项核心测试与7组失败／迁移检查见共享OCR的源码交付报告；本宿主3ba最终[CI证据](../GitHubActions修复/README.md#final-ci-20261117)已验；Debug／Release构建与官方Debug包分别记账，其它宿主／UI不外推。
 
 
 ## 五、<span id="ocr-ui-camera">整页阅读与相机输入</span> <a href="#前言">🔼</a> <a href="#🔚">🔽</a>
@@ -95,7 +96,15 @@
 
 本机证据位于共享OCR工程 `work/Validation/OCRSourceUI`：`Apps/OCOld`／`Apps/OCNew`为冻结App；`AppSourceManifest.json`记录同源.h/.m和App顶层Mach-O／debug.dylib SHA；旧OC通过case在 `OCThemeCameraScrollFinal.xcresult`，新OC最终通过在 `OCNewFinalReview.xcresult`；`Screenshots`保留两端浅／深截图，`text-clipboard.txt`及`json-clipboard.json`为实际专用设备剪贴板证据。两个宿主源码.h/.m逐字一致。本批模拟器系统相机实际可打开，不能写成“相机不可用分支已实测”；真实拍摄照片、拒绝权限／硬件不可用、相册选择及完整十语／三主题／大字号矩阵仍待分别验收，旧证据不外推。
 
-## <span id="jobs-toc-heading-7" data-jobs-toc="v2">六、三主题选择与验证</span><!-- jobs-toc:heading-end -->
+## 七、<span id="mixed-script-source-20261117">中英混排核心与源码状态</span> <a href="#前言">🔼</a> <a href="#🔚">🔽</a>
+
+当前[随仓源码](<../../JobsByPods/JobsRustOCR@Pods/Source/JobsOCR>)已同步本机验收通过的中英混排路由，包含 `pipeline.rs`、`runtime.rs`、`lib.rs`、`routing.rs`、独立 E2E 测试和 `MixedScript` 夹具。核心常规测试 30 项、显式 E2E 1 项覆盖 8 张真实夹具（其中 4 张精确逐行控制）通过；范围与证据见[共享核心回归记录](<../../../OCR/项目相关报告/混排回归/README.md>)。
+
+本状态确认核心本机回归及随仓源码一致；本宿主尚未使用此次新核心重编、运行，原有 35 行样本／界面／Workflow 记录仍限原批次。使用新核心前先运行[SDK 本地构建入口](<../../JobsByPods/JobsRustOCR@Pods/Scripts/BuildRustOCR.command>)，源码输入哈希变化会使旧库缓存失效；保留本地构建方式，不分发自建 `.a`。显式 E2E 需指定本机 ORT 与随 SDK 的模型目录。
+
+<a id="🔚" href="#前言">我是有底线的➤点我回到首页</a>
+
+## <span id="jobs-toc-heading-8" data-jobs-toc="v2">六、三主题选择与验证</span><!-- jobs-toc:heading-end -->
 
 | 资产 | 当前实现与默认 | 持久化／生命周期／验证 |
 | --- | --- | --- |
@@ -108,6 +117,6 @@
 
 `device-appearance-actions.jsonl`与`device-appearance-final.jsonl`记录真实模拟器appearance命令及UTC时间；截图实看确认System随设备变暗、手动Dark在设备Light下保持，System冷重启仍勾选。`FinalThemeManifest.json`记录本批源码、测试源码、真实App MachO及证据身份。新OC原AppTests未继承Pods配置，本批只在任务副本为测试target挂现用Pods xcconfig，单独强链接已编译的生产App debug.dylib；没有修改分发工程的测试挂载。测试后专用设备恢复Light，未保留本批Scene override。真机、旧系统及完整十语／极大字号矩阵仍待分别验收。
 
-兼容收口复核：首轮将raw system当模式会占用既有自定义主题名称，已改为独立kind与显式followSystem；旧OC虽通过菜单AX选中断言，截图仍是白天，已实证并移除Debug／Release的固定UIUserInterfaceStyle=Light。旧45.350秒用例仅证明该批菜单与AX链路，不代表真实系统明暗通过。当前新OC修订的4项真实XCTest全部通过，覆盖App Info.plist无强制外观、四种legacy raw真实bundle冷恢复、同raw退出系统模式、旧保存值与蓝牙回归；当前生产App强化UI用例49.362秒通过，实际系统Light→Dark、手动Dark在系统Light保持、手动Light及System冷启动均有模式／有效外观断言。已实看当前System深浅两张PNG，背景分别为黑色与白色；菜单内选择、外点关闭及进程存活同时通过。旧OC当前对应4项测试和50.248秒UI亦已通过。本段优先于前批结果。随仓[主题证据与源码／产品哈希](./主题验收/manifest.json)及[实际黑夜截图](./主题验收/new-oc-system-dark.png)、[实际白天截图](./主题验收/new-oc-system-light.png)关联当前源码、真实App与测试源码；完整xcresult留在本任务稳定验收目录的`OCThemeModes-20261117`。新OC复用已编译Pods，只实际重编Jobs自有Defs／BaseUI变更、主App和独立测试target；没有修改第三方源码或分发测试挂载。测试已恢复设备Light，无本批Scene override。
+后续阶段说明：上段测试挂载描述限当时主题夹具批次；正式分发Tests上下文与测试源冻结守卫后来已接入，两侧按各自[最终CI与制品](../GitHubActions修复/README.md#final-ci-20261117)记账。新侧3ba／run44170184730最终成功，112Pod双配置、168例次与10个harness的原件已核，不改变上段UI／真机／旧系统／十语及字号矩阵的证据边界。
 
-<a id="🔚" href="#前言">我是有底线的➤点我回到首页</a>
+兼容收口复核：首轮将raw system当模式会占用既有自定义主题名称，已改为独立kind与显式followSystem；旧OC虽通过菜单AX选中断言，截图仍是白天，已实证并移除Debug／Release的固定UIUserInterfaceStyle=Light。旧45.350秒用例仅证明该批菜单与AX链路，不代表真实系统明暗通过。当前新OC修订的4项真实XCTest全部通过，覆盖App Info.plist无强制外观、四种legacy raw真实bundle冷恢复、同raw退出系统模式、旧保存值与蓝牙回归；当前生产App强化UI用例49.362秒通过，实际系统Light→Dark、手动Dark在系统Light保持、手动Light及System冷启动均有模式／有效外观断言。已实看当前System深浅两张PNG，背景分别为黑色与白色；菜单内选择、外点关闭及进程存活同时通过。旧OC当前对应4项测试和50.248秒UI亦已通过。本段优先于前批结果。随仓[主题证据与源码／产品哈希](./主题验收/manifest.json)及[实际黑夜截图](./主题验收/new-oc-system-dark.png)、[实际白天截图](./主题验收/new-oc-system-light.png)关联当前源码、真实App与测试源码；完整xcresult留在本任务稳定验收目录的`OCThemeModes-20261117`。新OC复用已编译Pods，只实际重编Jobs自有Defs／BaseUI变更、主App和独立测试target；没有修改第三方源码或分发测试挂载。测试已恢复设备Light，无本批Scene override。

@@ -2,6 +2,7 @@ pub mod layout;
 pub mod lm;
 pub mod pipeline;
 pub mod pixels;
+mod routing;
 pub mod runtime;
 
 use image::ImageDecoder;

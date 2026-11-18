@@ -1,0 +1,357 @@
+{
+  "benchmark": false,
+  "case_count": 8,
+  "cases": [
+    {
+      "ascii_fragments_to_preserve": [
+        "Rust",
+        "iOS",
+        "Android",
+        "HarmonyOS",
+        "Jobs OCR 2026"
+      ],
+      "file": "00-OriginalThreeLines.png",
+      "height": 500,
+      "id": "original-three-lines-exact-copy",
+      "lines": [
+        "离线文字识别 Rust 核心",
+        "跨平台：iOS Android HarmonyOS",
+        "Jobs OCR 2026"
+      ],
+      "ocr_validation": "not run by this fixture generator",
+      "png_sha256": "a3acd85f95ab5ea91479a8e2a05673a3386949b9deb12543dc1672c2f49c0539",
+      "provenance": {
+        "kind": "exact byte copy; not redrawn",
+        "source_generator_repository_relative": "JobsOCR/tests/Fixtures/GenerateTextFixture.swift",
+        "source_repository_relative": "JobsOCR/tests/Fixtures/chinese-english.png",
+        "source_sha256": "a3acd85f95ab5ea91479a8e2a05673a3386949b9deb12543dc1672c2f49c0539"
+      },
+      "required_fragments": [
+        "离线文字识别",
+        "Rust",
+        "核心",
+        "跨平台",
+        "iOS",
+        "Android",
+        "HarmonyOS",
+        "Jobs OCR 2026"
+      ],
+      "role": "Exact reproduction input for the observed Chinese-prefix omission",
+      "width": 1600,
+      "exact_lines": false
+    },
+    {
+      "ascii_fragments_to_preserve": [
+        "iOS",
+        "Android",
+        "HarmonyOS"
+      ],
+      "drawing": {
+        "font_postscript_name": ".AppleSystemUIFont",
+        "font_size": 48,
+        "ink_bounds_inclusive_bitmap_rows": [
+          65,
+          72,
+          751,
+          118
+        ],
+        "line_widths": [
+          689.0774788533835
+        ],
+        "monospaced": false,
+        "padding": 64,
+        "protected_edge_pixels": 32
+      },
+      "file": "01-ChinesePrefix.png",
+      "height": 220,
+      "id": "chinese-prefix",
+      "lines": [
+        "跨平台：iOS Android HarmonyOS"
+      ],
+      "ocr_validation": "not run by this fixture generator",
+      "png_sha256": "17a8e410315ed814a487035e5a49ced9bbe367b72dd6c416e1b80d98c69b5911",
+      "provenance": {
+        "kind": "Jobs-authored text, rendered locally by this source"
+      },
+      "required_fragments": [
+        "跨平台",
+        "iOS",
+        "Android",
+        "HarmonyOS"
+      ],
+      "role": "Chinese prefix before a longer ASCII run",
+      "width": 1600,
+      "exact_lines": false
+    },
+    {
+      "ascii_fragments_to_preserve": [
+        "iOS",
+        "Android",
+        "HarmonyOS"
+      ],
+      "drawing": {
+        "font_postscript_name": ".AppleSystemUIFont",
+        "font_size": 48,
+        "ink_bounds_inclusive_bitmap_rows": [
+          66,
+          72,
+          714,
+          118
+        ],
+        "line_widths": [
+          652.5359492481202
+        ],
+        "monospaced": false,
+        "padding": 64,
+        "protected_edge_pixels": 32
+      },
+      "file": "02-ChineseMiddle.png",
+      "height": 220,
+      "id": "chinese-middle",
+      "lines": [
+        "iOS Android 跨平台 HarmonyOS"
+      ],
+      "ocr_validation": "not run by this fixture generator",
+      "png_sha256": "c3372c2a7c079780ecdc20a7b29c3623663b0e7a815dd21ac70132490ee66d94",
+      "provenance": {
+        "kind": "Jobs-authored text, rendered locally by this source"
+      },
+      "required_fragments": [
+        "跨平台",
+        "iOS",
+        "Android",
+        "HarmonyOS"
+      ],
+      "role": "Chinese segment between ASCII runs",
+      "width": 1600,
+      "exact_lines": false
+    },
+    {
+      "ascii_fragments_to_preserve": [
+        "iOS",
+        "Android",
+        "HarmonyOS"
+      ],
+      "drawing": {
+        "font_postscript_name": ".AppleSystemUIFont",
+        "font_size": 48,
+        "ink_bounds_inclusive_bitmap_rows": [
+          66,
+          72,
+          750,
+          118
+        ],
+        "line_widths": [
+          689.0774788533835
+        ],
+        "monospaced": false,
+        "padding": 64,
+        "protected_edge_pixels": 32
+      },
+      "file": "03-ChineseSuffix.png",
+      "height": 220,
+      "id": "chinese-suffix",
+      "lines": [
+        "iOS Android HarmonyOS：跨平台"
+      ],
+      "ocr_validation": "not run by this fixture generator",
+      "png_sha256": "1cc0f46152d86ff509b0f5fcda7a1410f25244b919bd10428731dbe8cbcdb045",
+      "provenance": {
+        "kind": "Jobs-authored text, rendered locally by this source"
+      },
+      "required_fragments": [
+        "跨平台",
+        "iOS",
+        "Android",
+        "HarmonyOS"
+      ],
+      "role": "Chinese suffix after a longer ASCII run",
+      "width": 1600,
+      "exact_lines": false
+    },
+    {
+      "ascii_fragments_to_preserve": [],
+      "drawing": {
+        "font_postscript_name": ".AppleSystemUIFont",
+        "font_size": 48,
+        "ink_bounds_inclusive_bitmap_rows": [
+          66,
+          72,
+          560,
+          114
+        ],
+        "line_widths": [
+          498.2255639097744
+        ],
+        "monospaced": false,
+        "padding": 64,
+        "protected_edge_pixels": 32
+      },
+      "file": "04-ChineseOnly.png",
+      "height": 220,
+      "id": "chinese-only",
+      "lines": [
+        "离线文字识别跨平台测试"
+      ],
+      "ocr_validation": "not run by this fixture generator",
+      "png_sha256": "0265bc8c5ae823e9ace20f9eda4e73003559630470e0a04e35118a619c1aada2",
+      "provenance": {
+        "kind": "Jobs-authored text, rendered locally by this source"
+      },
+      "required_fragments": [
+        "离线文字识别",
+        "跨平台测试"
+      ],
+      "role": "Chinese-only routing control",
+      "width": 1600,
+      "exact_lines": true
+    },
+    {
+      "ascii_fragments_to_preserve": [
+        "Jobs OCR 2026",
+        "Offline text recognition"
+      ],
+      "drawing": {
+        "font_postscript_name": ".AppleSystemUIFont",
+        "font_size": 48,
+        "ink_bounds_inclusive_bitmap_rows": [
+          64,
+          75,
+          522,
+          210
+        ],
+        "line_widths": [
+          331.8046875,
+          461.1328125
+        ],
+        "monospaced": false,
+        "padding": 64,
+        "protected_edge_pixels": 32
+      },
+      "file": "05-EnglishOnly.png",
+      "height": 276,
+      "id": "english-only",
+      "lines": [
+        "Jobs OCR 2026",
+        "Offline text recognition"
+      ],
+      "ocr_validation": "not run by this fixture generator",
+      "png_sha256": "17750f89c09032f22fe1ee6fbd8266fa40617cd3f21ba82b180156d58634d8fc",
+      "provenance": {
+        "kind": "Jobs-authored text, rendered locally by this source"
+      },
+      "required_fragments": [
+        "Jobs OCR 2026",
+        "Offline text recognition"
+      ],
+      "role": "English baseline control; preserve before/after script-routing changes",
+      "width": 1600,
+      "exact_lines": true
+    },
+    {
+      "ascii_fragments_to_preserve": [
+        "let",
+        "count",
+        "2026",
+        "main",
+        "return"
+      ],
+      "drawing": {
+        "font_postscript_name": ".AppleSystemUIFontMonospaced-Regular",
+        "font_size": 48,
+        "ink_bounds_inclusive_bitmap_rows": [
+          68,
+          74,
+          740,
+          209
+        ],
+        "line_widths": [
+          504.421875,
+          682.453125
+        ],
+        "monospaced": true,
+        "padding": 64,
+        "protected_edge_pixels": 32
+      },
+      "file": "06-ASCIICode.png",
+      "height": 276,
+      "id": "ascii-code",
+      "lines": [
+        "let count = 2026;",
+        "fn main() { return 0; }"
+      ],
+      "ocr_validation": "not run by this fixture generator",
+      "png_sha256": "9ab0cd61dc6d274374a037bee27b35d4dd46740cd3c5f51f1da2e67797398d91",
+      "provenance": {
+        "kind": "Jobs-authored text, rendered locally by this source"
+      },
+      "required_fragments": [
+        "let",
+        "count",
+        "2026",
+        "main",
+        "return"
+      ],
+      "role": "ASCII code control; literal punctuation remains in ground-truth lines",
+      "width": 1600,
+      "exact_lines": true
+    },
+    {
+      "ascii_fragments_to_preserve": [
+        "0123456789",
+        "2026",
+        "12345"
+      ],
+      "drawing": {
+        "font_postscript_name": ".AppleSystemUIFontMonospaced-Regular",
+        "font_size": 48,
+        "ink_bounds_inclusive_bitmap_rows": [
+          67,
+          74,
+          683,
+          202
+        ],
+        "line_widths": [
+          623.109375,
+          563.765625
+        ],
+        "monospaced": true,
+        "padding": 64,
+        "protected_edge_pixels": 32
+      },
+      "file": "07-Digits.png",
+      "height": 276,
+      "id": "digits",
+      "lines": [
+        "0123456789 2026 12345",
+        "2026-11-17 23:59:59"
+      ],
+      "ocr_validation": "not run by this fixture generator",
+      "png_sha256": "2fa590fb0a500dbcd858aa6a2e26e7d9fbd6099e12dd9f76bf098e1d8d2a73a8",
+      "provenance": {
+        "kind": "Jobs-authored text, rendered locally by this source"
+      },
+      "required_fragments": [
+        "0123456789",
+        "2026",
+        "12345"
+      ],
+      "role": "Digits and punctuation control; no script-based rewrite should erase digits",
+      "width": 1600,
+      "exact_lines": true
+    }
+  ],
+  "generated_on_os": "Version 27.2.1 (Build 26B131)",
+  "generator_platform": "MacOS AppKit; local system fonts, no font file redistribution",
+  "generator_source": "GenerateMixedScriptFixtures.swift",
+  "kind": "Jobs-authored synthetic mixed-script regression fixtures; not a benchmark",
+  "matching_contract": {
+    "ascii_fragments_to_preserve": "Before/after baseline controls, especially both English-only lines; no assertion that the current engine has already passed.",
+    "lines": "Literal ground truth, including punctuation and letter case; not observed OCR output.",
+    "regeneration": "Build this standalone Swift source, then pass an explicit empty output directory and explicit original PNG path. No working-directory dependency.",
+    "required_fragments": "Targeted case-sensitive text fragments; the E2E owner may collapse whitespace but must preserve missing-script evidence.",
+    "scope": "No general accuracy, speed, memory, or platform-compatibility claim. Images must never be hardcoded into the engine.",
+    "exact_lines": "For control cases, assert all output lines exactly, including punctuation and case; trim only line edges."
+  },
+  "schema_version": 1
+}

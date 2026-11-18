@@ -104,6 +104,7 @@ impl Model {
             .and_then(|v| v.try_extract_tensor::<i64>().ok())
             .map(|(_, a)| a.to_vec());
         Ok(Recognition {
+            timesteps: ids.len(),
             ids: ids[..length.min(ids.len())].to_vec(),
             confidence: conf[..length.min(conf.len())].to_vec(),
             extra,
@@ -153,6 +154,8 @@ impl Model {
 }
 
 pub struct Recognition {
+    /// Full padded time axis; `ids` only contains valid image steps.
+    pub timesteps: usize,
     pub ids: Vec<i64>,
     pub confidence: Vec<f32>,
     pub extra: HashMap<String, FloatOutput>,

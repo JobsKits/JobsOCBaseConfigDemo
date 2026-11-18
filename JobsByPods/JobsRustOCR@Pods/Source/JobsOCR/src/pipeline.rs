@@ -1,6 +1,7 @@
 use crate::{
     Line, OcrResult, Options,
     pixels::Gray,
+    routing::{self, Emission},
     runtime::{Model, Result},
 };
 use serde_json::Value;
@@ -13,6 +14,21 @@ use std::{
 use unicode_normalization::UnicodeNormalization;
 
 pub static CANCEL_GENERATION: AtomicU64 = AtomicU64::new(0);
+
+struct LineInput<'a> {
+    gray: &'a Gray,
+    bbox: [f32; 4],
+    band: &'a [f32],
+    width: usize,
+    height: usize,
+    window: usize,
+}
+
+struct Candidate {
+    line: Line,
+    emissions: Vec<Emission>,
+    uncertain: Vec<(usize, usize)>,
+}
 
 pub struct Engine {
     detector: Model,
@@ -207,85 +223,118 @@ impl Engine {
                     }
                 }
             }
-            let mut best = Line {
-                text: String::new(),
+            let input = LineInput {
+                gray: &gray,
                 bbox,
-                confidence: 0.0,
-                script: "base".into(),
+                band: &band,
+                width,
+                height,
+                window,
             };
+            let mut recognized = Vec::new();
             for group in candidates {
-                let (rec_width, values) = if group == "base" && window > 1 {
-                    gray.crop_line(bbox, height, window)
-                } else {
-                    (width, band.clone())
-                };
-                let rec_padded = rec_width.max(32).div_ceil(8) * 8;
-                let rec_height = height * if group == "base" { window } else { 1 };
-                let prediction = self
-                    .recognizers
-                    .get_mut(&group)
-                    .ok_or("Missing recognizer")?
-                    .recognize(vec![1, 1, rec_height, rec_padded], values, rec_width as i64)?;
-                let (mut ids, mut confidence) = (Vec::new(), 0.0);
-                let mut previous = -1;
-                for (id, p) in prediction.ids.iter().zip(&prediction.confidence) {
-                    if *id != 0 && *id != previous {
-                        ids.push(*id);
-                        confidence += p;
-                    }
-                    previous = *id;
-                }
-                confidence /= ids.len().max(1) as f32;
-                if options.language_model && confidence >= 0.5 {
-                    if let Some(lm) = self.language_models.get(&group) {
-                        let params = &self.metadata["lm_params"][&group];
-                        let gate = params["gate"].as_f64().unwrap_or(0.9);
-                        if (confidence as f64) < gate {
-                            if let (Some(blank), Some(topv), Some(topi)) = (
-                                prediction.extra.get("blank"),
-                                prediction.extra.get("topv"),
-                                prediction.top_indices.as_ref(),
-                            ) {
-                                let steps = prediction.ids.len();
-                                let k = *topv.shape.last().unwrap_or(&0);
-                                ids = crate::lm::beam_search(
-                                    &blank.values[..steps],
-                                    &topv.values[..steps * k],
-                                    &topi[..steps * k],
-                                    steps,
-                                    k,
-                                    lm,
-                                    params["alpha"].as_f64().unwrap_or(0.5),
-                                    params["beta"].as_f64().unwrap_or(1.5),
-                                    8,
-                                    0.003,
-                                )?
-                                .0;
-                            }
-                        }
-                    }
-                }
-                if confidence >= best.confidence {
-                    let vocab = &self.vocabularies[&group];
-                    let text: String = ids
+                Self::check_cancel(generation)?;
+                recognized.push(self.recognize_candidate(&input, &group, &options)?);
+            }
+            let mut best = recognized
+                .iter()
+                .enumerate()
+                .max_by(|a, b| a.1.line.confidence.total_cmp(&b.1.line.confidence))
+                .map(|(i, _)| i)
+                .ok_or("No recognition candidate")?;
+            if recognized[best].line.script == "base"
+                && self.recognizers.contains_key("cjk")
+                && self.classifier.is_some()
+            {
+                let missing = routing::missing_regions(
+                    &band,
+                    width,
+                    height,
+                    padded,
+                    &recognized[best].emissions,
+                );
+                let mut probes: Vec<_> = missing.into_iter().map(|r| (r, false)).collect();
+                for &region in &recognized[best].uncertain {
+                    if !probes
                         .iter()
-                        .filter_map(|id| id.checked_sub(1).and_then(|i| vocab.get(i as usize)))
-                        .cloned()
-                        .collect();
-                    let text: String = text.nfc().collect();
-                    best = Line {
-                        text: if confidence >= options.min_confidence {
-                            text
-                        } else {
-                            String::new()
-                        },
-                        bbox,
-                        confidence,
-                        script: group,
+                        .any(|&(r, _)| r.0 < region.1 && region.0 < r.1)
+                    {
+                        probes.push((region, true));
+                    }
+                }
+                probes.truncate(3);
+                let mut cjk_regions = Vec::new();
+                for (region, uncertain) in probes {
+                    Self::check_cancel(generation)?;
+                    let (probe_width, probe) =
+                        routing::crop_probe(&band, width, height, padded, region);
+                    if probe_width == 0 {
+                        continue;
+                    }
+                    let probe_padded = probe_width.max(32).div_ceil(8) * 8;
+                    let probabilities = self.classifier.as_mut().unwrap().classify(
+                        vec![1, 1, height, probe_padded],
+                        probe,
+                        probe_width as i64,
+                    )?;
+                    let probability = groups
+                        .iter()
+                        .position(|g| g == "cjk")
+                        .and_then(|i| probabilities.get(i))
+                        .copied()
+                        .unwrap_or(0.0);
+                    if probability >= 0.98 {
+                        cjk_regions.push((region, uncertain, probability));
+                    }
+                }
+                if !cjk_regions.is_empty() {
+                    Self::check_cancel(generation)?;
+                    let alternate = match recognized.iter().position(|c| c.line.script == "cjk") {
+                        Some(i) => i,
+                        None => {
+                            recognized.push(self.recognize_candidate(&input, "cjk", &options)?);
+                            recognized.len() - 1
+                        }
                     };
+                    let base = &recognized[best];
+                    let cjk = &recognized[alternate];
+                    // Average token confidence cannot penalize a silently omitted prefix.
+                    // Require local script evidence plus recovered ink or a stronger uncertain span.
+                    if cjk.line.confidence >= options.min_confidence.max(0.80)
+                        && cjk.line.confidence >= base.line.confidence - 0.10
+                        && cjk.line.text.chars().any(routing::is_cjk)
+                        && cjk_regions.iter().any(|&(region, uncertain, probability)| {
+                            let coverage = routing::coverage(
+                                &band,
+                                width,
+                                height,
+                                padded,
+                                &cjk.emissions,
+                                region,
+                            );
+                            let previous = routing::coverage(
+                                &band,
+                                width,
+                                height,
+                                padded,
+                                &base.emissions,
+                                region,
+                            );
+                            let replaces_uncertain = uncertain
+                                && probability >= 0.995
+                                && cjk.line.confidence >= base.line.confidence;
+                            cjk.emissions
+                                .iter()
+                                .any(|e| e.cjk && e.x >= region.0 as f32 && e.x < region.1 as f32)
+                                && coverage >= 0.70
+                                && (coverage >= previous + 0.25 || replaces_uncertain)
+                        })
+                    {
+                        best = alternate;
+                    }
                 }
             }
-            lines.push(best);
+            lines.push(recognized.swap_remove(best).line);
         }
         Self::check_cancel(generation)?;
         let (mut lines, mut blocks, markdown) =
@@ -331,6 +380,129 @@ impl Engine {
             notes: vec![
                 "Image OCR; PDF text-layer and optional math are not enabled in this build".into(),
             ],
+        })
+    }
+
+    fn recognize_candidate(
+        &mut self,
+        input: &LineInput<'_>,
+        group: &str,
+        options: &Options,
+    ) -> Result<Candidate> {
+        let (rec_width, values) = if group == "base" && input.window > 1 {
+            input.gray.crop_line(input.bbox, input.height, input.window)
+        } else {
+            (input.width, input.band.to_vec())
+        };
+        let rec_padded = rec_width.max(32).div_ceil(8) * 8;
+        let rec_height = input.height * if group == "base" { input.window } else { 1 };
+        let prediction = self
+            .recognizers
+            .get_mut(group)
+            .ok_or("Missing recognizer")?
+            .recognize(vec![1, 1, rec_height, rec_padded], values, rec_width as i64)?;
+        let vocab = &self.vocabularies[group];
+        let (mut ids, mut confidence) = (Vec::new(), 0.0);
+        let mut previous = -1;
+        let mut positions = Vec::new();
+        let mut uncertain = Vec::new();
+        for (step, (id, p)) in prediction
+            .ids
+            .iter()
+            .zip(&prediction.confidence)
+            .enumerate()
+        {
+            if *id != 0 && *id != previous {
+                ids.push(*id);
+                positions.push(step);
+                confidence += p;
+                if let Some(token) = id.checked_sub(1).and_then(|i| vocab.get(i as usize)) {
+                    if !token.trim().is_empty() {
+                        let x = (step as f32 + 0.5) * rec_padded as f32
+                            / prediction.timesteps.max(1) as f32
+                            * input.width as f32
+                            / rec_width as f32;
+                        if *p < 0.80 {
+                            let radius = input.height as f32;
+                            let region = (
+                                (x - radius).max(0.0) as usize,
+                                ((x + radius).ceil() as usize).min(input.width),
+                            );
+                            uncertain.push((*p, region));
+                        }
+                    }
+                }
+            }
+            previous = *id;
+        }
+        confidence /= ids.len().max(1) as f32;
+        if options.language_model && confidence >= 0.5 {
+            if let Some(lm) = self.language_models.get(group) {
+                let params = &self.metadata["lm_params"][group];
+                let gate = params["gate"].as_f64().unwrap_or(0.9);
+                if (confidence as f64) < gate {
+                    if let (Some(blank), Some(topv), Some(topi)) = (
+                        prediction.extra.get("blank"),
+                        prediction.extra.get("topv"),
+                        prediction.top_indices.as_ref(),
+                    ) {
+                        let steps = prediction.ids.len();
+                        let k = *topv.shape.last().unwrap_or(&0);
+                        (ids, positions) = crate::lm::beam_search(
+                            &blank.values[..steps],
+                            &topv.values[..steps * k],
+                            &topi[..steps * k],
+                            steps,
+                            k,
+                            lm,
+                            params["alpha"].as_f64().unwrap_or(0.5),
+                            params["beta"].as_f64().unwrap_or(1.5),
+                            8,
+                            0.003,
+                        )?;
+                    }
+                }
+            }
+        }
+        let text: String = ids
+            .iter()
+            .filter_map(|id| id.checked_sub(1).and_then(|i| vocab.get(i as usize)))
+            .cloned()
+            .collect();
+        // Use the selected decoding's alignment, including LM insertions/substitutions.
+        let scale = rec_padded as f32 / prediction.timesteps.max(1) as f32 * input.width as f32
+            / rec_width as f32;
+        let emissions = ids
+            .iter()
+            .zip(&positions)
+            .filter_map(|(id, step)| {
+                let token = id.checked_sub(1).and_then(|i| vocab.get(i as usize))?;
+                (!token.trim().is_empty()).then_some(Emission {
+                    x: (*step as f32 + 0.5) * scale,
+                    cjk: token.chars().any(routing::is_cjk),
+                })
+            })
+            .collect();
+        Ok(Candidate {
+            line: Line {
+                text: if confidence >= options.min_confidence {
+                    text.nfc().collect()
+                } else {
+                    String::new()
+                },
+                bbox: input.bbox,
+                confidence,
+                script: group.into(),
+            },
+            emissions,
+            uncertain: {
+                uncertain.sort_by(|a, b| a.0.total_cmp(&b.0));
+                uncertain
+                    .into_iter()
+                    .take(3)
+                    .map(|(_, region)| region)
+                    .collect()
+            },
         })
     }
 
